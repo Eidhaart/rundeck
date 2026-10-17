@@ -34,10 +34,19 @@ Import the repo at vercel.com/new. Framework preset: Other. No build command, ou
 
 ## Sound
 
-All sounds are synthesized for RunDeck. Short effects are generated live with the Web Audio API; six clips in `sfx/` are rendered by `tools/gen_sfx.py` in a dark neuro-bass style: a growl hit for task complete, a double wub with a drop for heavy tasks, a metallic ping, a growl riser for detection, an alarm over a pulsing reese, and a wobble-bass ringtone:
+Short UI effects are synthesized live with the Web Audio API. The clips in `sfx/` were made by the project owner with an AI sound generator:
 
-```
-python3 tools/gen_sfx.py sfx
-```
+| File | Plays on |
+|---|---|
+| `complete_1-3.mp3` | Completing a task, rotated so the same one never plays twice in a row |
+| `complete_heavy.mp3` | Completing a HEAVY task, and every 5th hit of a combo |
+| `ping.mp3` | Loot drops and achievements |
+| `detected.mp3` | Pick for me locking a target |
+| `levelup.mp3` | Level up |
+| `heat.mp3` | An event starting |
+| `ring.mp3` | The incoming call after a focus session (looped) |
+| `jackin.mp3` | Starting a focus session |
+| `boot.mp3` | The boot screen |
+| `error.mp3` | Invalid actions |
 
-It needs numpy, scipy and ffmpeg.
+Any missing file falls back to the synthesized version.
