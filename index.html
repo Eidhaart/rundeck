@@ -420,6 +420,17 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 .cprog{flex:1;min-width:120px;height:6px;background:var(--line)}
 .cprog i{display:block;height:100%;width:0;background:var(--ok);box-shadow:0 0 10px var(--ok);transition:width .48s steps(12)}
 @media(max-width:520px){.cpov{place-items:start center;padding-top:calc(10px + env(safe-area-inset-top,0px));padding-inline:10px}}
+
+/* Incoming call */
+.callov{background:color-mix(in srgb,var(--bg) 90%,transparent)}
+.callring{position:relative;display:grid;place-items:center;width:150px;height:150px}
+.callring::before,.callring::after{content:"";position:absolute;inset:0;border:1px solid var(--warn);animation:ringp 1.4s ease-out infinite}
+.callring::after{animation-delay:.7s}
+@keyframes ringp{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.25);opacity:0}}
+.callring .avw{width:84px;height:84px;background:var(--warn)}
+.callname{font-family:var(--fd);font-size:clamp(28px,8vw,40px);letter-spacing:.12em;color:var(--warn)}
+.calltxt{max-width:420px;margin:0;font-family:var(--fu);font-size:15px;line-height:1.6;color:var(--fg)}
+.btn.hk2{background:var(--warn);border-color:var(--warn);color:var(--ink);box-shadow:0 0 calc(16px*var(--glow)) color-mix(in srgb,var(--warn) 40%,transparent)}
 </style>
 </head>
 <body>
@@ -465,6 +476,7 @@ en:{lang:'English',node:'Grid standard',
  flavHyper:'{n} tasks in a row. Impressive. Now refuel the operator.',flavFocus:'Long session logged. The wetware needs a reboot.',flavIdle:'Slow day? Here is the easiest win on the grid.',
  hacks:{water:'Drink a glass of water',water_bed:'Put a glass of water by your bed',breakfast:'Eat some breakfast, even something small',lunch:'Eat lunch. A real one.',snack:'Have a snack with some protein',dinner:'Eat dinner',teeth_am:'Brush your teeth',teeth_pm:'Brush your teeth before bed',shower:'Take a shower',daylight:'Step outside for five minutes of daylight',walk:'Take a ten-minute walk',stretch:'Stand up and stretch for one minute',eyes:'Look at something far away for 20 seconds',breathe:'Take five slow breaths',read:'Read a few pages of a book',text:'Text someone you like, just to say hi',tidy:'Clear one surface for two minutes',clothes:'Lay out tomorrow’s clothes',winddown:'Screens down in 30 minutes. Start winding down',posture:'Unclench your jaw, drop your shoulders'},
  cpOpen:'tap to write a task',runNext:'Run + next',twBoot:['mounting compiler','opening new_task.rd','ready'],compiling:'compiling',closeW:'Close',
+ callIn:'INCOMING CALL',answer:'Answer',decline:'Decline',callMsg:'Session complete. {m} min of focus logged. Payout sent: +{x} XP.',tgtAcq:'TARGET ACQUIRED',
  lvBonus:'BONUS +{n} CRED',cont:'Continue',upC:'CLEARANCE UPGRADED',upS:'REP UP',
  bHand:'HANDSHAKE',bOp:'OPERATOR',bVer:'VERIFIED',bLoad:'LOADING CONTRACTS',bCred:'CREDSTICK',bStreak:'STREAK',bDays:'DAYS',bGo:'Jack in ▸',bSkip:'Skip boot next time',bSkipped:'Boot skipped from now on',
  seed:{t:['Drink a glass of water','Reply to the oldest unread email','Tidy the desk for five minutes'],r:['Morning stretch','Pick tomorrow’s top three'],c:'Clean the kitchen',cs:['Dishes into the machine','Wipe the counters','Take out the trash'],b:'Book the dentist',rw:['One episode of a show','30 minutes of gaming','Fancy coffee run'],cats:['body','work','home','mind','admin']},
@@ -498,6 +510,7 @@ pl:{lang:'Polski',node:'Węzeł Warszawa',
  flavHyper:'{n} zadań pod rząd. Imponujące. Teraz zatankuj operatora.',flavFocus:'Długa sesja zapisana. Wetware potrzebuje restartu.',flavIdle:'Wolny dzień? Oto najłatwiejsza wygrana w sieci.',
  hacks:{water:'Wypij szklankę wody',water_bed:'Postaw szklankę wody przy łóżku',breakfast:'Zjedz coś na śniadanie, choćby małego',lunch:'Zjedz obiad. Prawdziwy.',snack:'Zjedz przekąskę z białkiem',dinner:'Zjedz kolację',teeth_am:'Umyj zęby',teeth_pm:'Umyj zęby przed snem',shower:'Weź prysznic',daylight:'Wyjdź na pięć minut na dzienne światło',walk:'Idź na dziesięciominutowy spacer',stretch:'Wstań i rozciągnij się przez minutę',eyes:'Popatrz na coś daleko przez 20 sekund',breathe:'Weź pięć powolnych oddechów',read:'Przeczytaj kilka stron książki',text:'Napisz do kogoś, kogo lubisz, tak po prostu',tidy:'Uprzątnij jedną powierzchnię przez dwie minuty',clothes:'Przygotuj ubrania na jutro',winddown:'Za 30 minut odłóż ekrany. Zacznij się wyciszać',posture:'Rozluźnij szczękę, opuść ramiona'},
  cpOpen:'dotknij, by napisać zadanie',runNext:'Uruchom + kolejne',twBoot:['montowanie kompilatora','otwieranie new_task.rd','gotowe'],compiling:'kompilacja',closeW:'Zamknij',
+ callIn:'POŁĄCZENIE PRZYCHODZĄCE',answer:'Odbierz',decline:'Odrzuć',callMsg:'Sesja zakończona. Zapisano {m} min skupienia. Wypłata: +{x} XP.',tgtAcq:'CEL NAMIERZONY',
  lvBonus:'BONUS +{n} KRED',cont:'Dalej',upC:'AWANS UPRAWNIEŃ',upS:'RESPEKT W GÓRĘ',
  bHand:'UZGADNIANIE',bOp:'OPERATOR',bVer:'ZWERYFIKOWANO',bLoad:'WCZYTYWANIE KONTRAKTÓW',bCred:'KREDYTKA',bStreak:'SERIA',bDays:'DNI',bGo:'Podłącz się ▸',bSkip:'Pomiń start następnym razem',bSkipped:'Start będzie pomijany',
  seed:{t:['Wypij szklankę wody','Odpowiedz na najstarszego nieprzeczytanego maila','Ogarnij biurko przez pięć minut'],r:['Poranne rozciąganie','Wybierz trzy najważniejsze rzeczy na jutro'],c:'Posprzątaj kuchnię',cs:['Naczynia do zmywarki','Przetrzyj blaty','Wynieś śmieci'],b:'Umów dentystę',rw:['Jeden odcinek serialu','30 minut grania','Wypad na dobrą kawę'],cats:['ciało','praca','dom','głowa','sprawy']},
@@ -531,6 +544,7 @@ sv:{lang:'Svenska',node:'Nod Stockholm',
  flavHyper:'{n} uppgifter i rad. Imponerande. Tanka nu operatören.',flavFocus:'Långt pass loggat. Wetwaren behöver en omstart.',flavIdle:'Seg dag? Här är nätets enklaste vinst.',
  hacks:{water:'Drick ett glas vatten',water_bed:'Ställ ett glas vatten vid sängen',breakfast:'Ät lite frukost, även om det är lite',lunch:'Ät lunch. En riktig.',snack:'Ta ett mellanmål med lite protein',dinner:'Ät middag',teeth_am:'Borsta tänderna',teeth_pm:'Borsta tänderna innan du sover',shower:'Ta en dusch',daylight:'Gå ut i dagsljuset i fem minuter',walk:'Ta en tio minuters promenad',stretch:'Res dig och sträck på dig en minut',eyes:'Titta på något långt bort i 20 sekunder',breathe:'Ta fem långsamma andetag',read:'Läs några sidor i en bok',text:'Skicka ett sms till någon du tycker om, bara för att säga hej',tidy:'Röj en yta i två minuter',clothes:'Lägg fram morgondagens kläder',winddown:'Skärmarna ner om 30 minuter. Börja varva ner',posture:'Släpp käken, sänk axlarna'},
  cpOpen:'tryck för att skriva en uppgift',runNext:'Kör + nästa',twBoot:['monterar kompilatorn','öppnar new_task.rd','klar'],compiling:'kompilerar',closeW:'Stäng',
+ callIn:'INKOMMANDE SAMTAL',answer:'Svara',decline:'Avvisa',callMsg:'Passet är klart. {m} min fokus loggat. Utbetalning: +{x} XP.',tgtAcq:'MÅL LÅST',
  lvBonus:'BONUS +{n} KRED',cont:'Fortsätt',upC:'BEHÖRIGHET UPPGRADERAD',upS:'RYKTET STIGER',
  bHand:'HANDSKAKNING',bOp:'OPERATÖR',bVer:'VERIFIERAD',bLoad:'LÄSER IN KONTRAKT',bCred:'KREDITSTICKA',bStreak:'SVIT',bDays:'DAGAR',bGo:'Koppla in ▸',bSkip:'Hoppa över starten nästa gång',bSkipped:'Starten hoppas över framöver',
  seed:{t:['Drick ett glas vatten','Svara på det äldsta olästa mejlet','Röj skrivbordet i fem minuter'],r:['Morgonstretch','Välj morgondagens tre viktigaste'],c:'Städa köket',cs:['Disken in i maskinen','Torka av bänkarna','Ta ut soporna'],b:'Boka tandläkaren',rw:['Ett avsnitt av en serie','30 minuter gaming','Fikarunda på stan'],cats:['kropp','jobb','hem','huvud','ärenden']},
@@ -735,8 +749,16 @@ function audio(){if(!S().sound)return null;
   const dl=AC.createDelay(1),fb=AC.createGain(),dlp=AC.createBiquadFilter(),wet=AC.createGain();dl.delayTime.value=.19;fb.gain.value=.28;dlp.type='lowpass';dlp.frequency.value=1600;wet.gain.value=.22;
   bus=AC.createGain();bus.connect(drive);drive.connect(lp);lp.connect(master);master.connect(AC.destination);
   lp.connect(dl);dl.connect(dlp);dlp.connect(fb);fb.connect(dl);dlp.connect(wet);wet.connect(master);
- }catch(e){return null}}
+ }catch(e){return null}loadSounds()}
  if(AC.state==='suspended')AC.resume();master.gain.value=S().vol;return AC}
+/* Sample layer: files from window.RUNDECK_SOUNDS (embedded) or ./sounds/. Missing files fall back to synth. */
+const SND={},SND_SRC=Object.assign({notify:'sounds/notify.mp3',detect:'sounds/detect.mp3',heat:'sounds/heat.mp3',call:'sounds/call.mp3'},window.RUNDECK_SOUNDS||{});let sndLoading=false;
+async function loadSounds(){if(sndLoading||!AC)return;sndLoading=true;
+ for(const [k,src] of Object.entries(SND_SRC)){try{let ab;
+  if(src.startsWith('data:')){const b=atob(src.slice(src.indexOf(',')+1)),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);ab=u.buffer}
+  else{const r=await fetch(src);if(!r.ok)continue;ab=await r.arrayBuffer()}
+  SND[k]=await new Promise((res,rej)=>AC.decodeAudioData(ab,res,rej))}catch(e){}}}
+function samp(k,o){o=o||{};const ac=audio();if(!ac||!SND[k])return null;const src=ac.createBufferSource(),g=ac.createGain();src.buffer=SND[k];src.playbackRate.value=o.rate||1;src.loop=!!o.loop;g.gain.value=o.vol==null?.7:o.vol;src.connect(g);g.connect(master);src.start(ac.currentTime+(o.at||0));return{src,g,stop(){try{g.gain.setTargetAtTime(.0001,ac.currentTime,.08);src.stop(ac.currentTime+.4)}catch(e){}}}}
 function filt(ac,type,f,q){const x=ac.createBiquadFilter();x.type=type;x.frequency.value=f;x.Q.value=q||.7;return x}
 /* osc voice: f -> f2 glide, optional low-pass (lp) with sweep to lp2 */
 function tone(f,t0,dur,type,v,f2,o){const ac=audio();if(!ac)return;o=o||{};const tt=ac.currentTime+t0;const os=ac.createOscillator(),g=ac.createGain();os.type=type||'sine';os.frequency.setValueAtTime(f,tt);if(o.det)os.detune.value=o.det;if(f2)os.frequency.exponentialRampToValueAtTime(f2,tt+dur*(o.gl||1));
@@ -753,20 +775,25 @@ const SFX={
  tap(){click(0,.05,4200);tone(140,0,.04,'sine',.05)},
  nav(){click(0,.06,3000);click(.035,.04,5200);sub(0,95,60,.09,.12)},
  add(){noise(0,.09,.06,700,{f2:3200,q:2});sub(0,80,50,.14,.2);click(.08,.06)},
- done(n){const k=Math.pow(2,(Math.min(n||1,6)-1)/12);sub(0,120*k,42,.32,.34);click(0,.09,2500);chord(.01,[110*k,130.81*k,164.81*k],.42,.035,1400,300);noise(0,.18,.035,1800,{q:3,f2:600})},
+ done(n){const c=Math.min(n||1,6),k=Math.pow(2,(c-1)/12);
+  click(0,.14,2600);tone(190,0,.2,'sine',.45,46,{gl:.45});noise(0,.09,.06,7000,{type:'highpass'});
+  [220,329.63,440].forEach((f,i)=>tone(f*k,0,.36,i===2?'square':'sawtooth',i===2?.018:.04,0,{lp:3600,lp2:170,det:i?8:-8,a:.003}));
+  noise(.02,.22,.03,2400,{q:6,f2:500});
+  samp('notify',{rate:1+.035*(c-1),vol:.5,at:.03})},
  sub(){click(0,.06,4000);tone(220,0,.08,'square',.025,0,{lp:900});sub(0,90,60,.07,.08)},
  undo(){tone(180,0,.22,'sawtooth',.05,70,{lp:700});noise(0,.12,.03,500,{type:'lowpass'})},
- level(){sub(0,70,32,1.3,.38);noise(0,.5,.08,900,{type:'lowpass',f2:120});chord(.15,[110,130.81,164.81,246.94],1.6,.03,180,2400);tone(55,.15,1.6,'sawtooth',.04,0,{lp:300})},
- loot(){[0,.07,.14].forEach((t0,i)=>{tone([659.25,622.25,880][i],t0,.5,'sine',.035,0,{});tone([659.25,622.25,880][i]*2.01,t0,.25,'sine',.012)});click(0,.05,6000);sub(0,60,40,.2,.1)},
+ level(){samp('detect',{vol:.6});sub(0,70,32,1.3,.38);noise(0,.5,.08,900,{type:'lowpass',f2:120});chord(.15,[110,130.81,164.81,246.94],1.6,.03,180,2400);tone(55,.15,1.6,'sawtooth',.04,0,{lp:300})},
+ loot(){if(samp('notify',{rate:.8,vol:.45})){sub(0,60,40,.2,.1);return}[0,.07,.14].forEach((t0,i)=>{tone([659.25,622.25,880][i],t0,.5,'sine',.035,0,{});tone([659.25,622.25,880][i]*2.01,t0,.25,'sine',.012)});click(0,.05,6000);sub(0,60,40,.2,.1)},
  buy(){click(0,.08,2800);click(.05,.07,4400);sub(.04,90,45,.22,.22);noise(.06,.14,.05,1200,{q:4,f2:400})},
  err(){tone(55,0,.26,'square',.06,0,{lp:500});tone(58.3,0,.26,'square',.05,0,{lp:500});click(0,.07,1500)},
  tick(){click(0,.035,5000)},
- land(){sub(0,110,45,.3,.28);click(0,.08);tone(1046.5,0,.4,'triangle',.02,0,{lp:2200});tone(987.8,.02,.4,'triangle',.015,0,{lp:2200})},
+ land(){if(samp('detect',{vol:.75})){sub(0,110,45,.3,.24);return}sub(0,110,45,.3,.28);click(0,.08);tone(1046.5,0,.4,'triangle',.02,0,{lp:2200});tone(987.8,.02,.4,'triangle',.015,0,{lp:2200})},
  boot(){tone(40,0,1.1,'sawtooth',.07,85,{lp:90,lp2:1600});noise(0,1,.05,300,{type:'lowpass',f2:3000,a:.8});sub(1,90,30,1.2,.4);chord(1,[73.42,87.31,110,155.56],1.4,.028,1200,250);click(1,.1,2500)},
- ach(){chord(0,[146.83,174.61,220],.7,.035,1600,400);sub(0,100,40,.4,.24);click(0,.08)},
+ ach(){samp('notify',{rate:1.15,vol:.4});chord(0,[146.83,174.61,220],.7,.035,1600,400);sub(0,100,40,.4,.24);click(0,.08)},
  jack(){sub(0,150,30,.8,.36);noise(0,.6,.06,4000,{f2:200,q:2});tone(110,.1,.9,'sawtooth',.035,55,{lp:400});click(0,.1,2000)},
  open(){noise(0,.18,.05,400,{f2:4500,q:3});click(.16,.08,3500);sub(.16,85,55,.12,.16)},
  lang(){for(let i=0;i<8;i++)click(i*.028,.05,1200+Math.random()*4000);sub(.24,90,50,.18,.18);tone(220,.24,.25,'sawtooth',.025,0,{lp:800})},
+ heat(){if(!samp('heat',{vol:.42}))SFX.level()},
  hack(){for(let i=0;i<6;i++)click(i*.03,.06,800+Math.random()*3000);tone(46,.18,.5,'sawtooth',.05,0,{lp:300})}
 };
 function sfx(n,a){try{SFX[n]&&SFX[n](a)}catch(e){}}
@@ -920,7 +947,7 @@ function evLeft(e){const ms=e.end(new Date())-now(),h=Math.floor(ms/36e5),m=Math
 function evTags(e){return(e.xp>1?'XP ×'+e.xp+' ':'')+(e.cr>1?'CRED ×'+e.cr:'')}
 function eventIntro(){const evs=activeEvents().filter(e=>!(state.seenEv||{})[e.k+dk()]);if(!evs.length||$('#ovl').innerHTML)return;
  const e=evs[0];state.seenEv=state.seenEv||{};evs.forEach(x=>state.seenEv[x.k+dk()]=1);save();
- const [n,d]=t('events')[e.k];sfx('level');buzz([30,50,30,50]);burst(innerWidth/2,innerHeight/2,80,[tok('--warn'),tok('--accent'),tok('--accent2')]);
+ const [n,d]=t('events')[e.k];sfx('heat');buzz([30,50,30,50]);burst(innerWidth/2,innerHeight/2,80,[tok('--warn'),tok('--accent'),tok('--accent2')]);
  $('#ovl').innerHTML='<div class="ov" data-act="closeov"><div class="ovbox"><div class="evbar" style="width:100%;max-width:420px;justify-content:center"><b>'+esc(t('evOnline'))+'</b></div><div class="glitch" data-t="'+esc(n)+'" style="color:var(--warn);font-size:clamp(34px,10vw,64px)">'+esc(n)+'</div><p style="margin:0;max-width:420px;font-size:16px">'+esc(d)+'</p><div class="lab" style="color:var(--warn);font-size:13px">'+esc(evTags(e))+' · '+esc(t('evEnds',{t:evLeft(e)}))+'</div><button class="btn pri" data-act="closeov">'+esc(t('evGo'))+' ▸</button></div></div>'}
 
 /* ---------- care hacks: KIN.daemon ----------
@@ -1028,7 +1055,7 @@ function roulette(){if(ui.spinning)return;const c=openTasks();if(!c.length){toas
  ui.spinning=true;const el=$('#tname');const final=pick(c);let i=0,steps=c.length===1?6:16+Math.floor(Math.random()*6),delay=45;
  el.classList.add('spin');
  const step=()=>{const x=i>=steps-1?final:pick(c);el.textContent=x.title;sfx('tick');buzz(4);i++;
-  if(i<steps){delay*=1.13;setTimeout(step,delay)}else{ui.spinning=false;state.target=final.id;save();sfx('land');buzz([20,40]);const r=el.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,26,[tok('--accent2'),tok('--warn')]);render();const n=$('#tname');if(n)n.classList.add('land')}};
+  if(i<steps){delay*=1.13;setTimeout(step,delay)}else{ui.spinning=false;state.target=final.id;save();sfx('land');buzz([20,40]);const r=el.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,26,[tok('--accent2'),tok('--warn')]);render();const n=$('#tname');if(n){n.classList.add('land');const q=n.getBoundingClientRect();floatTxt(q.left+q.width/2,q.top,t('tgtAcq'),tok('--accent'))}}};
  step()}
 
 /* ---------- focus ---------- */
@@ -1036,9 +1063,23 @@ function focusLeft(){const f=state.focus;if(!f)return 0;return f.paused!=null?f.
 function jackIn(){const dur=ui.fDur*60;const id=ui.fTask||state.target||(openTasks()[0]||{}).id||null;state.focus={id,dur,end:now()+dur*1000,paused:null};save();sfx('jack');buzz([30,30,60]);startHum();toast(t('tJack'),t('tJackB',{m:ui.fDur}),'c2');render()}
 function endFocus(full){const f=state.focus;if(!f)return;const mins=Math.round((f.dur-Math.max(0,focusLeft()))/60);state.focus=null;stopHum();
  if(mins>=25)setTimeout(()=>hackTick('focus'),3000);
- if(mins>=1){state.stats.focusMin+=mins;if(full)state.stats.longFocus=Math.max(state.stats.longFocus,Math.round(f.dur/60));const r=award(mins*2,null,{});afterGain(r,[full?t('tSess'):t('tOut'),t('tFocusR',{m:mins,x:r.xp})]);sfx(full?'level':'land')}
+ if(mins>=1){state.stats.focusMin+=mins;if(full)state.stats.longFocus=Math.max(state.stats.longFocus,Math.round(f.dur/60));const r=award(mins*2,null,{});
+  if(full){save();render();incomingCall(mins,r);return}
+  afterGain(r,[t('tOut'),t('tFocusR',{m:mins,x:r.xp})]);sfx('land')}
  else{sfx('undo');toast(t('tOut'),t('tUnder'))}
  save();render()}
+
+/* ---------- incoming call (focus debrief) ---------- */
+let ring=null;
+function incomingCall(mins,r){buzz([400,200,400,200,400]);ring=samp('call',{vol:.55});if(!ring){sfx('jack')}
+ const done=()=>{if(ring){ring.stop();ring=null}};
+ ui.call={mins,r};
+ $('#ovl').innerHTML='<div class="ov callov"><div class="ovbox"><div class="callring">'+avatarHtml('m').replace('avw','avw kin')+'</div><div class="k">'+esc(t('callIn'))+'</div><div class="callname">KIN.daemon</div><div class="lab" style="letter-spacing:.3em">· · ·</div><div class="row" style="justify-content:center"><button class="btn hk2" data-act="callans">'+esc(t('answer'))+'</button><button class="btn" data-act="callrej">'+esc(t('decline'))+'</button></div></div></div>';
+ ui.callTimer=setTimeout(()=>{if(ui.call)callEnd(false)},16000);ui.callDone=done}
+function callEnd(answered){const c=ui.call;if(!c)return;clearTimeout(ui.callTimer);ui.callDone&&ui.callDone();ui.call=null;click(0,.12,2000);
+ if(answered){$('#ovl').innerHTML='<div class="ov" data-act="closeov"><div class="ovbox"><div class="k">KIN.daemon</div><p class="calltxt">'+esc(t('callMsg',{m:c.mins,x:c.r.xp}))+'</p><button class="btn pri" data-act="closeov">'+esc(t('cont'))+' ▸</button></div></div>';sfx('ach')}
+ else $('#ovl').innerHTML='';
+ afterGain(c.r,answered?null:[t('tSess'),t('tFocusR',{m:c.mins,x:c.r.xp})])}
 
 /* ---------- render ---------- */
 const lists=()=>LIST_KEYS.map(k=>({k,n:t('lists')[k][0],empty:t('lists')[k][1],jp:JP[k]}));
@@ -1205,6 +1246,8 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
   case'magic':authDo('magic');break;
   case'signout':if(sb)sb.auth.signOut();break;
   case'offline':state.offline=true;persistLocal();closeGate();sfx('tap');break;
+  case'callans':callEnd(true);break;
+  case'callrej':callEnd(false);break;
   case'closeov':$('#ovl').innerHTML='';sfx('tap');break;
  }});
 document.addEventListener('submit',e=>{const f=e.target.dataset.form;if(!f)return;e.preventDefault();

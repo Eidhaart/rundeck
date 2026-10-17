@@ -31,3 +31,7 @@ The anon key is meant to be public. Access is enforced by the policies in `schem
 ## Deploy
 
 Import the repo at vercel.com/new. Framework preset: Other. No build command, output directory `.`.
+
+## Sound files
+
+The app layers four short clips over its synthesized effects: `notify` (task complete, loot, achievements), `detect` (target lock, level up), `heat` (event start) and `call` (end of a focus session). They are loaded from `sounds/notify.mp3`, `sounds/detect.mp3`, `sounds/heat.mp3` and `sounds/call.mp3`. That folder is git-ignored because the clips are not ours to redistribute; without it the app uses its synthesized sounds.
