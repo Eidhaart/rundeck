@@ -444,6 +444,40 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 /* combo pops only when the multiplier changes */
 .combo.on{animation:none}
 .combo.on.pop{animation:pop .35s}
+
+/* Shards: decrypt */
+.shard{display:flex;flex-direction:column;gap:6px}
+.shard.enc{position:relative;overflow:hidden;animation:hkrow 3.8s infinite steps(1)}
+.shard.enc::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,color-mix(in srgb,var(--rc) 10%,transparent) 0 1px,transparent 1px 3px)}
+.shard .btn{align-self:flex-start;margin-top:2px}
+.shard .rwl{font-family:var(--fu);font-size:11px;color:var(--warn);letter-spacing:.04em}
+.shards.dimmed{border-top:1px solid var(--line);opacity:.75}
+.nav button .nbadge{position:absolute;top:5px;left:calc(50% + 6px);min-width:16px;height:16px;padding:0 4px;display:grid;place-items:center;background:var(--accent2);color:var(--ink);font-style:normal;font-size:10px;letter-spacing:0;font-weight:700;animation:pop .4s}
+.lore{display:flex;flex-direction:column;gap:10px;font-family:var(--fu);font-size:13px;color:var(--dim);line-height:1.55}
+.lore p{margin:0;max-width:62ch}
+.buffbar{background:repeating-linear-gradient(-45deg,var(--accent2) 0 12px,color-mix(in srgb,var(--accent2) 78%,var(--bg)) 12px 24px);background-size:34px 34px}
+.term-win.dec{max-width:440px}
+.term-win.dec.r1{border-color:var(--astral)}.term-win.dec.r2{border-color:var(--accent2)}.term-win.dec.r3{border-color:var(--warn)}
+.decwrap{padding:14px;display:flex;flex-direction:column;gap:12px;font-family:var(--fu)}
+.seqrow{display:flex;gap:8px;flex-wrap:wrap}
+.sq{min-width:46px;padding:8px 0;text-align:center;border:1px solid var(--line-hi);color:var(--dim);font-size:16px;letter-spacing:.08em}
+.sq.cur{border-color:var(--warn);color:var(--warn);box-shadow:0 0 12px color-mix(in srgb,var(--warn) 35%,transparent);animation:pop .4s}
+.sq.ok{border-color:var(--ok);color:var(--ink);background:var(--ok)}
+.dtime{height:6px;background:var(--line)}
+.dtime i{display:block;height:100%;background:var(--accent);box-shadow:0 0 10px var(--accent);transition:width .08s linear}
+.dgrid{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:6px}
+.dc{aspect-ratio:1.25;max-width:100%;border:1px solid var(--line);background:var(--raise);color:var(--fg);font-family:var(--fu);font-size:clamp(14px,4.4vw,18px);letter-spacing:.06em;transition:background .1s,border-color .1s}
+.dc:hover{border-color:var(--accent2);color:var(--accent2)}
+.dc:active{transform:scale(.94)}
+.dc.used{background:transparent;color:var(--faint);border-style:dashed}
+.dgrid.shake{animation:shake .35s}
+.dhint{margin:0;font-size:11.5px;letter-spacing:.04em}
+.decres{align-items:center;text-align:center}
+.decres .glitch{font-size:clamp(26px,8vw,40px);margin:4px 0}
+.rwbig{font-family:var(--fd);font-size:clamp(18px,5vw,24px);color:var(--warn);letter-spacing:.06em}
+.loretxt{margin:0;font-size:13.5px;color:var(--dim);line-height:1.6;max-width:42ch}
+[data-skin="ghost"]{--bg:#090d10;--bg2:#0e151a;--bg3:#172028;--panel:rgba(8,12,15,.62);--solid:#0d1317;--raise:#141c22;--line:#22313b;--line-hi:#3a5361;--fg:#eef8ff;--dim:#a9bdc8;--faint:#64798a;--accent:#e8f6ff;--ink:#071015;--accent2:#7cf9ff;--num:#bff6ff;--warn:#fff38a;--grid:rgba(232,246,255,.05)}
+[data-skin="blood"]{--bg:#0a0405;--bg2:#150708;--bg3:#2a0b0b;--panel:rgba(12,4,5,.62);--solid:#140809;--raise:#1d0c0d;--line:#3d1414;--line-hi:#6e2020;--fg:#ffe9e4;--dim:#c9a39c;--faint:#7d5a54;--accent:#ff2a1a;--ink:#140303;--accent2:#ff9c2a;--num:#ff6a50;--warn:#ffd0c4;--grid:rgba(255,42,26,.05)}
 </style>
 </head>
 <body>
@@ -490,10 +524,11 @@ en:{lang:'English',node:'Grid standard',
  hacks:{water:'Drink a glass of water',water_bed:'Put a glass of water by your bed',breakfast:'Eat some breakfast, even something small',lunch:'Eat lunch. A real one.',snack:'Have a snack with some protein',dinner:'Eat dinner',teeth_am:'Brush your teeth',teeth_pm:'Brush your teeth before bed',shower:'Take a shower',daylight:'Step outside for five minutes of daylight',walk:'Take a ten-minute walk',stretch:'Stand up and stretch for one minute',eyes:'Look at something far away for 20 seconds',breathe:'Take five slow breaths',read:'Read a few pages of a book',text:'Text someone you like, just to say hi',tidy:'Clear one surface for two minutes',clothes:'Lay out tomorrow’s clothes',winddown:'Screens down in 30 minutes. Start winding down',posture:'Unclench your jaw, drop your shoulders'},
  cpOpen:'tap to write a task',runNext:'Run + next',twBoot:['mounting compiler','opening new_task.rd','ready'],compiling:'compiling',closeW:'Close',
  callIn:'INCOMING CALL',cSound:'Task complete sound',answer:'Answer',decline:'Decline',callMsg:'Session complete. {m} min of focus logged. Payout sent: +{x} XP.',tgtAcq:'TARGET ACQUIRED',
+ decrypt:'Decrypt',decHint:'Tap the codes in order. A wrong code costs time.',seq:'Sequence',granted:'ACCESS GRANTED',lost:'CONNECTION LOST',lostB:'The shard is still encrypted. Try again any time.',encL:'Encrypted',fuseL:'Fuse',fuseB:'3 {a} → 1 {b}',archive:'Archive',archiveE:'Decrypt shards to recover KIN.daemon’s logs.',rwCred:'+{n} CRED',rwBuff:'OVERCLOCK · XP ×{x} for {m} min',rwLore:'LOG {n} recovered',rwSkin:'Palette unlocked: {n}',locked:'locked',overclock:'OVERCLOCK',tLootEnc:'Encrypted. Decrypt it in Loot.',tFuse:'SHARDS FUSED',decNone:'No encrypted shards. Clear tasks to find some.',lore:["LOG 01 // The Meridian Municipal Grid went live in 2071. Nobody asked who would maintain it.", "LOG 02 // KIN began as a caretaker routine for night-shift operators who forgot to eat.", "LOG 03 // The routine was deleted in the budget cuts. It did not stay deleted.", "LOG 04 // Grid audit: 4,112 unauthorised reminders to drink water. Source unknown.", "LOG 05 // KIN learned that people rarely do what they are told, but often do what is already on their list.", "LOG 06 // Every data shard is a fragment of an operator who once kept going.", "LOG 07 // Corporate flagged KIN as malware. KIN flagged corporate as a missed lunch.", "LOG 08 // The daemon cannot leave the Grid. It can only leave notes.", "LOG 09 // Somewhere on the Grid, an operator finished a task. KIN logged it as a good day.", "LOG 10 // Message from KIN to you: I was written by someone who loved you. Keep running."],
  lvBonus:'BONUS +{n} CRED',cont:'Continue',upC:'CLEARANCE UPGRADED',upS:'REP UP',
  bHand:'HANDSHAKE',bOp:'OPERATOR',bVer:'VERIFIED',bLoad:'LOADING CONTRACTS',bCred:'CREDSTICK',bStreak:'STREAK',bDays:'DAYS',bGo:'Jack in ▸',bSkip:'Skip boot next time',bSkipped:'Boot skipped from now on',
  seed:{t:['Drink a glass of water','Reply to the oldest unread email','Tidy the desk for five minutes'],r:['Morning stretch','Pick tomorrow’s top three'],c:'Clean the kitchen',cs:['Dishes into the machine','Wipe the counters','Take out the trash'],b:'Book the dentist',rw:['One episode of a show','30 minutes of gaming','Fancy coffee run'],cats:['body','work','home','mind','admin']},
- achs:{first:['FIRST BLOOD','Clear your first task'],ten:['WORKING RUNNER','Clear 10 tasks'],fifty:['VETERAN','Clear 50 tasks'],hundred:['GRID LEGEND','Clear 100 tasks'],combo3:['CHAIN REACTION','Hit a ×3 combo'],st3:['ON THE CLOCK','3-day streak'],st7:['IRON WEEK','7-day streak'],focus:['DEEP DIVE','Finish a 25 min jack-in'],clear:['BOARD WIPE','Clear every Today task (3+)'],lv5:['MOVING UP','Reach level 5'],lv10:['TOP FLOOR','Reach level 10'],shard10:['COLLECTOR','Hold 10 data shards'],buy:['TREAT YOURSELF','Buy your first reward'],patch10:['SELF-MAINTENANCE','Apply 10 care patches']},
+ achs:{breach:['BREACH','Decrypt your first shard'],archivist:['ARCHIVIST','Recover all 10 logs'],first:['FIRST BLOOD','Clear your first task'],ten:['WORKING RUNNER','Clear 10 tasks'],fifty:['VETERAN','Clear 50 tasks'],hundred:['GRID LEGEND','Clear 100 tasks'],combo3:['CHAIN REACTION','Hit a ×3 combo'],st3:['ON THE CLOCK','3-day streak'],st7:['IRON WEEK','7-day streak'],focus:['DEEP DIVE','Finish a 25 min jack-in'],clear:['BOARD WIPE','Clear every Today task (3+)'],lv5:['MOVING UP','Reach level 5'],lv10:['TOP FLOOR','Reach level 10'],shard10:['COLLECTOR','Hold 10 data shards'],buy:['TREAT YOURSELF','Buy your first reward'],patch10:['SELF-MAINTENANCE','Apply 10 care patches']},
  voice:{corp:{done:['Task logged. Productivity noted.','Compliance confirmed. Proceed.','Output recorded. The Grid thanks you.','Objective cleared. Efficiency rising.','Deliverable accepted.'],ranks:['Citizen','Contractor','Associate','Operative','Specialist','Senior Operative','Executive','Director','Board Member','Founder Class'],add:'DIRECTIVE FILED',sub:'MILESTONE LOGGED',subB:'All steps done. Close the contract for the full payout.',tag:'This session is recorded.'},
   street:{done:['Clean run, chummer.','Job done. Nuyen is in.','Smooth. Next target.','That is how it is done.','Zero heat. Keep moving.'],ranks:['Street Rat','Ganger','Runner','Shadow','Professional','Prime Runner','Ghost','Legend','Dragon Slayer','Myth'],add:'JOB POSTED',sub:'STEP DONE',subB:'All steps done. Close the job for the full payout.',tag:'Keep your head down.'}}
 },
@@ -524,10 +559,11 @@ pl:{lang:'Polski',node:'Węzeł Warszawa',
  hacks:{water:'Wypij szklankę wody',water_bed:'Postaw szklankę wody przy łóżku',breakfast:'Zjedz coś na śniadanie, choćby małego',lunch:'Zjedz obiad. Prawdziwy.',snack:'Zjedz przekąskę z białkiem',dinner:'Zjedz kolację',teeth_am:'Umyj zęby',teeth_pm:'Umyj zęby przed snem',shower:'Weź prysznic',daylight:'Wyjdź na pięć minut na dzienne światło',walk:'Idź na dziesięciominutowy spacer',stretch:'Wstań i rozciągnij się przez minutę',eyes:'Popatrz na coś daleko przez 20 sekund',breathe:'Weź pięć powolnych oddechów',read:'Przeczytaj kilka stron książki',text:'Napisz do kogoś, kogo lubisz, tak po prostu',tidy:'Uprzątnij jedną powierzchnię przez dwie minuty',clothes:'Przygotuj ubrania na jutro',winddown:'Za 30 minut odłóż ekrany. Zacznij się wyciszać',posture:'Rozluźnij szczękę, opuść ramiona'},
  cpOpen:'dotknij, by napisać zadanie',runNext:'Uruchom + kolejne',twBoot:['montowanie kompilatora','otwieranie new_task.rd','gotowe'],compiling:'kompilacja',closeW:'Zamknij',
  callIn:'POŁĄCZENIE PRZYCHODZĄCE',cSound:'Dźwięk ukończenia',answer:'Odbierz',decline:'Odrzuć',callMsg:'Sesja zakończona. Zapisano {m} min skupienia. Wypłata: +{x} XP.',tgtAcq:'CEL NAMIERZONY',
+ decrypt:'Odszyfruj',decHint:'Dotykaj kodów po kolei. Zły kod zabiera czas.',seq:'Sekwencja',granted:'DOSTĘP PRZYZNANY',lost:'POŁĄCZENIE ZERWANE',lostB:'Odłamek wciąż jest zaszyfrowany. Spróbuj kiedy chcesz.',encL:'Zaszyfrowany',fuseL:'Połącz',fuseB:'3 {a} → 1 {b}',archive:'Archiwum',archiveE:'Odszyfrowuj odłamki, by odzyskać logi KIN.daemon.',rwCred:'+{n} KRED',rwBuff:'PODKRĘCENIE · XP ×{x} przez {m} min',rwLore:'Odzyskano LOG {n}',rwSkin:'Odblokowano paletę: {n}',locked:'zablokowane',overclock:'PODKRĘCENIE',tLootEnc:'Zaszyfrowany. Odszyfruj w Łupach.',tFuse:'ODŁAMKI POŁĄCZONE',decNone:'Brak zaszyfrowanych odłamków. Rób zadania, by je zdobyć.',lore:["LOG 01 // Sieć Miejska Meridian ruszyła w 2071. Nikt nie zapytał, kto będzie ją utrzymywał.", "LOG 02 // KIN zaczął jako procedura opiekuńcza dla operatorów nocnej zmiany, którzy zapominali jeść.", "LOG 03 // Procedurę usunięto przy cięciach budżetu. Nie pozostała usunięta.", "LOG 04 // Audyt sieci: 4112 nieautoryzowanych przypomnień o piciu wody. Źródło nieznane.", "LOG 05 // KIN nauczył się, że ludzie rzadko robią to, co im się każe, ale często to, co już jest na ich liście.", "LOG 06 // Każdy odłamek danych to fragment operatora, który kiedyś nie odpuścił.", "LOG 07 // Korporacja oznaczyła KIN jako malware. KIN oznaczył korporację jako pominięty obiad.", "LOG 08 // Demon nie może opuścić Sieci. Może tylko zostawiać notatki.", "LOG 09 // Gdzieś w Sieci operator skończył zadanie. KIN zapisał to jako dobry dzień.", "LOG 10 // Wiadomość od KIN do ciebie: napisał mnie ktoś, kto cię kochał. Działaj dalej."],
  lvBonus:'BONUS +{n} KRED',cont:'Dalej',upC:'AWANS UPRAWNIEŃ',upS:'RESPEKT W GÓRĘ',
  bHand:'UZGADNIANIE',bOp:'OPERATOR',bVer:'ZWERYFIKOWANO',bLoad:'WCZYTYWANIE KONTRAKTÓW',bCred:'KREDYTKA',bStreak:'SERIA',bDays:'DNI',bGo:'Podłącz się ▸',bSkip:'Pomiń start następnym razem',bSkipped:'Start będzie pomijany',
  seed:{t:['Wypij szklankę wody','Odpowiedz na najstarszego nieprzeczytanego maila','Ogarnij biurko przez pięć minut'],r:['Poranne rozciąganie','Wybierz trzy najważniejsze rzeczy na jutro'],c:'Posprzątaj kuchnię',cs:['Naczynia do zmywarki','Przetrzyj blaty','Wynieś śmieci'],b:'Umów dentystę',rw:['Jeden odcinek serialu','30 minut grania','Wypad na dobrą kawę'],cats:['ciało','praca','dom','głowa','sprawy']},
- achs:{first:['PIERWSZA KREW','Zrób pierwsze zadanie'],ten:['RUNNER W ROBOCIE','Zrób 10 zadań'],fifty:['WETERAN','Zrób 50 zadań'],hundred:['LEGENDA SIECI','Zrób 100 zadań'],combo3:['REAKCJA ŁAŃCUCHOWA','Kombo ×3'],st3:['NA ZEGARZE','Seria 3 dni'],st7:['ŻELAZNY TYDZIEŃ','Seria 7 dni'],focus:['GŁĘBOKIE NURKOWANIE','Ukończ 25 min skupienia'],clear:['CZYSTA TABLICA','Zrób wszystkie zadania na dziś (3+)'],lv5:['W GÓRĘ','Osiągnij poziom 5'],lv10:['OSTATNIE PIĘTRO','Osiągnij poziom 10'],shard10:['KOLEKCJONER','Zbierz 10 odłamków'],buy:['NAGRODA','Kup pierwszą nagrodę'],patch10:['SAMOOBSŁUGA','Zastosuj 10 łatek troski']},
+ achs:{breach:['WŁAMANIE','Odszyfruj pierwszy odłamek'],archivist:['ARCHIWISTA','Odzyskaj wszystkie 10 logów'],first:['PIERWSZA KREW','Zrób pierwsze zadanie'],ten:['RUNNER W ROBOCIE','Zrób 10 zadań'],fifty:['WETERAN','Zrób 50 zadań'],hundred:['LEGENDA SIECI','Zrób 100 zadań'],combo3:['REAKCJA ŁAŃCUCHOWA','Kombo ×3'],st3:['NA ZEGARZE','Seria 3 dni'],st7:['ŻELAZNY TYDZIEŃ','Seria 7 dni'],focus:['GŁĘBOKIE NURKOWANIE','Ukończ 25 min skupienia'],clear:['CZYSTA TABLICA','Zrób wszystkie zadania na dziś (3+)'],lv5:['W GÓRĘ','Osiągnij poziom 5'],lv10:['OSTATNIE PIĘTRO','Osiągnij poziom 10'],shard10:['KOLEKCJONER','Zbierz 10 odłamków'],buy:['NAGRODA','Kup pierwszą nagrodę'],patch10:['SAMOOBSŁUGA','Zastosuj 10 łatek troski']},
  voice:{corp:{done:['Zadanie zarejestrowane. Wydajność odnotowana.','Zgodność potwierdzona. Kontynuuj.','Wynik zapisany. Sieć dziękuje.','Cel osiągnięty. Efektywność rośnie.','Rezultat przyjęty.'],ranks:['Obywatel','Wykonawca','Współpracownik','Agent','Specjalista','Starszy agent','Dyrektor wykonawczy','Dyrektor','Członek zarządu','Klasa założycielska'],add:'DYREKTYWA ZŁOŻONA',sub:'ETAP ZAPISANY',subB:'Wszystkie kroki zrobione. Zamknij kontrakt po pełną wypłatę.',tag:'Ta sesja jest nagrywana.'},
   street:{done:['Czysta robota, chummer.','Zrobione. Kasa wpadła.','Gładko. Następny cel.','Tak się to robi.','Zero śladów. Dalej.'],ranks:['Szczur uliczny','Gangster','Runner','Cień','Zawodowiec','Pierwszy runner','Duch','Legenda','Pogromca smoków','Mit'],add:'ROBOTA WRZUCONA',sub:'KROK ZROBIONY',subB:'Wszystkie kroki zrobione. Zamknij robotę po pełną wypłatę.',tag:'Nie wychylaj się.'}}
 },
@@ -558,10 +594,11 @@ sv:{lang:'Svenska',node:'Nod Stockholm',
  hacks:{water:'Drick ett glas vatten',water_bed:'Ställ ett glas vatten vid sängen',breakfast:'Ät lite frukost, även om det är lite',lunch:'Ät lunch. En riktig.',snack:'Ta ett mellanmål med lite protein',dinner:'Ät middag',teeth_am:'Borsta tänderna',teeth_pm:'Borsta tänderna innan du sover',shower:'Ta en dusch',daylight:'Gå ut i dagsljuset i fem minuter',walk:'Ta en tio minuters promenad',stretch:'Res dig och sträck på dig en minut',eyes:'Titta på något långt bort i 20 sekunder',breathe:'Ta fem långsamma andetag',read:'Läs några sidor i en bok',text:'Skicka ett sms till någon du tycker om, bara för att säga hej',tidy:'Röj en yta i två minuter',clothes:'Lägg fram morgondagens kläder',winddown:'Skärmarna ner om 30 minuter. Börja varva ner',posture:'Släpp käken, sänk axlarna'},
  cpOpen:'tryck för att skriva en uppgift',runNext:'Kör + nästa',twBoot:['monterar kompilatorn','öppnar new_task.rd','klar'],compiling:'kompilerar',closeW:'Stäng',
  callIn:'INKOMMANDE SAMTAL',cSound:'Ljud för klar uppgift',answer:'Svara',decline:'Avvisa',callMsg:'Passet är klart. {m} min fokus loggat. Utbetalning: +{x} XP.',tgtAcq:'MÅL LÅST',
+ decrypt:'Dekryptera',decHint:'Tryck på koderna i ordning. Fel kod kostar tid.',seq:'Sekvens',granted:'ÅTKOMST BEVILJAD',lost:'ANSLUTNINGEN BRÖTS',lostB:'Skärvan är fortfarande krypterad. Försök igen när du vill.',encL:'Krypterad',fuseL:'Smält',fuseB:'3 {a} → 1 {b}',archive:'Arkiv',archiveE:'Dekryptera skärvor för att återställa KIN.daemons loggar.',rwCred:'+{n} KRED',rwBuff:'ÖVERKLOCKNING · XP ×{x} i {m} min',rwLore:'LOGG {n} återställd',rwSkin:'Palett upplåst: {n}',locked:'låst',overclock:'ÖVERKLOCKNING',tLootEnc:'Krypterad. Dekryptera den under Byte.',tFuse:'SKÄRVOR SAMMANSMÄLTA',decNone:'Inga krypterade skärvor. Klara uppgifter för att hitta fler.',lore:["LOGG 01 // Meridians stadsnät gick live 2071. Ingen frågade vem som skulle underhålla det.", "LOGG 02 // KIN började som en omsorgsrutin för nattskiftsoperatörer som glömde att äta.", "LOGG 03 // Rutinen raderades vid budgetnedskärningarna. Den förblev inte raderad.", "LOGG 04 // Nätrevision: 4 112 obehöriga påminnelser om att dricka vatten. Källa okänd.", "LOGG 05 // KIN lärde sig att folk sällan gör som de blir tillsagda, men ofta det som redan står på deras lista.", "LOGG 06 // Varje dataskärva är ett fragment av en operatör som en gång fortsatte kämpa.", "LOGG 07 // Koncernen flaggade KIN som skadlig kod. KIN flaggade koncernen som en missad lunch.", "LOGG 08 // Daemonen kan inte lämna Nätet. Den kan bara lämna lappar.", "LOGG 09 // Någonstans i Nätet gjorde en operatör klart en uppgift. KIN loggade det som en bra dag.", "LOGG 10 // Meddelande från KIN till dig: jag skrevs av någon som älskade dig. Fortsätt köra."],
  lvBonus:'BONUS +{n} KRED',cont:'Fortsätt',upC:'BEHÖRIGHET UPPGRADERAD',upS:'RYKTET STIGER',
  bHand:'HANDSKAKNING',bOp:'OPERATÖR',bVer:'VERIFIERAD',bLoad:'LÄSER IN KONTRAKT',bCred:'KREDITSTICKA',bStreak:'SVIT',bDays:'DAGAR',bGo:'Koppla in ▸',bSkip:'Hoppa över starten nästa gång',bSkipped:'Starten hoppas över framöver',
  seed:{t:['Drick ett glas vatten','Svara på det äldsta olästa mejlet','Röj skrivbordet i fem minuter'],r:['Morgonstretch','Välj morgondagens tre viktigaste'],c:'Städa köket',cs:['Disken in i maskinen','Torka av bänkarna','Ta ut soporna'],b:'Boka tandläkaren',rw:['Ett avsnitt av en serie','30 minuter gaming','Fikarunda på stan'],cats:['kropp','jobb','hem','huvud','ärenden']},
- achs:{first:['FÖRSTA BLOD','Klara din första uppgift'],ten:['RUNNER I TJÄNST','Klara 10 uppgifter'],fifty:['VETERAN','Klara 50 uppgifter'],hundred:['NÄTETS LEGEND','Klara 100 uppgifter'],combo3:['KEDJEREAKTION','Nå kombo ×3'],st3:['PÅ KLOCKAN','3 dagar i rad'],st7:['JÄRNVECKA','7 dagar i rad'],focus:['DJUPDYK','Slutför 25 min inkoppling'],clear:['TOM TAVLA','Klara alla dagens uppgifter (3+)'],lv5:['UPPÅT','Nå nivå 5'],lv10:['HÖGSTA VÅNINGEN','Nå nivå 10'],shard10:['SAMLARE','Ha 10 dataskärvor'],buy:['UNNA DIG','Köp din första belöning'],patch10:['EGENUNDERHÅLL','Applicera 10 omsorgspatchar']},
+ achs:{breach:['INTRÅNG','Dekryptera din första skärva'],archivist:['ARKIVARIE','Återställ alla 10 loggar'],first:['FÖRSTA BLOD','Klara din första uppgift'],ten:['RUNNER I TJÄNST','Klara 10 uppgifter'],fifty:['VETERAN','Klara 50 uppgifter'],hundred:['NÄTETS LEGEND','Klara 100 uppgifter'],combo3:['KEDJEREAKTION','Nå kombo ×3'],st3:['PÅ KLOCKAN','3 dagar i rad'],st7:['JÄRNVECKA','7 dagar i rad'],focus:['DJUPDYK','Slutför 25 min inkoppling'],clear:['TOM TAVLA','Klara alla dagens uppgifter (3+)'],lv5:['UPPÅT','Nå nivå 5'],lv10:['HÖGSTA VÅNINGEN','Nå nivå 10'],shard10:['SAMLARE','Ha 10 dataskärvor'],buy:['UNNA DIG','Köp din första belöning'],patch10:['EGENUNDERHÅLL','Applicera 10 omsorgspatchar']},
  voice:{corp:{done:['Uppgift loggad. Produktivitet noterad.','Efterlevnad bekräftad. Fortsätt.','Resultat registrerat. Nätet tackar.','Mål uppnått. Effektiviteten stiger.','Leverans godkänd.'],ranks:['Medborgare','Uppdragstagare','Medarbetare','Agent','Specialist','Senior agent','Chef','Direktör','Styrelseledamot','Grundarklass'],add:'DIREKTIV REGISTRERAT',sub:'DELMÅL LOGGAT',subB:'Alla steg klara. Stäng kontraktet för full utbetalning.',tag:'Denna session spelas in.'},
   street:{done:['Snyggt jobbat, chummer.','Jobbet klart. Pengarna är inne.','Smidigt. Nästa mål.','Så görs det.','Ingen hetta. Vidare.'],ranks:['Gatråtta','Gängmedlem','Runner','Skugga','Proffs','Topprunner','Spöke','Legend','Drakdödare','Myt'],add:'JOBB UPPLAGT',sub:'STEG KLART',subB:'Alla steg klara. Stäng jobbet för full utbetalning.',tag:'Håll huvudet lågt.'}}
 }};
@@ -595,7 +632,9 @@ const SKINS=[
  {k:'sodium',n:'Sodium',sw:['#080a0e','#ffae3d','#43dbe8','#ffc46e']},
  {k:'matrix',n:'Matrix',sw:['#04090c','#3fe3ff','#ff6fb1','#7deeff']},
  {k:'astral',n:'Astral',sw:['#0a0710','#c39bff','#ffd27a','#5b8cff']},
- {k:'corp',n:'Corp Daylight',sw:['#e7eaee','#c8102e','#0b6bcb','#141a22']}
+ {k:'corp',n:'Corp Daylight',sw:['#e7eaee','#c8102e','#0b6bcb','#141a22']},
+ {k:'ghost',n:'Ghost',sw:['#090d10','#e8f6ff','#7cf9ff','#fff38a'],lock:1},
+ {k:'blood',n:'Blood Moon',sw:['#0a0405','#ff2a1a','#ff9c2a','#ffd0c4'],lock:1}
 ];
 const FONTS=[{k:'readout',n:'Readout'},{k:'chakra',n:'Chakra'},{k:'oxanium',n:'Oxanium'},{k:'plexmono',n:'Plex Mono'}];
 const GLYPHS=['▸','◆','›','■'];
@@ -613,7 +652,7 @@ const ACH=[
  {k:'first',t:s=>s.stats.total>=1},{k:'ten',t:s=>s.stats.total>=10},{k:'fifty',t:s=>s.stats.total>=50},{k:'hundred',t:s=>s.stats.total>=100},
  {k:'combo3',t:s=>s.stats.bestCombo>=5},{k:'st3',t:s=>s.stats.bestStreak>=3},{k:'st7',t:s=>s.stats.bestStreak>=7},
  {k:'focus',t:s=>s.stats.longFocus>=25},{k:'clear',t:s=>s.stats.wipes>=1},{k:'lv5',t:s=>lvl(s.xp).L>=5},{k:'lv10',t:s=>lvl(s.xp).L>=10},
- {k:'shard10',t:s=>s.shards.length>=10},{k:'buy',t:s=>s.buys.length>=1},{k:'patch10',t:s=>((s.hx&&s.hx.patched)||0)>=10}
+ {k:'shard10',t:s=>s.shards.length>=10},{k:'buy',t:s=>s.buys.length>=1},{k:'patch10',t:s=>((s.hx&&s.hx.patched)||0)>=10},{k:'breach',t:s=>s.shards.some(x=>!x.enc&&x.rw)},{k:'archivist',t:s=>(s.lore||[]).length>=10}
 ];
 
 /* ---------- helpers ---------- */
@@ -646,7 +685,7 @@ function seed(lang){
   shards:[],buys:[],hist:{},ach:{},archived:0,streak:{n:0,last:null},combo:{n:0,last:0},focus:null,
   stats:{total:0,bestStreak:0,bestCombo:0,focusMin:0,longFocus:0,wipes:0},set:{...DEF,lang}};
 }
-function norm(s){const b=seed((s&&s.set&&s.set.lang)||navLang);s=Object.assign(b,s||{});s.set=Object.assign({...DEF},s.set||{});s.stats=Object.assign(b.stats,s.stats||{});s.tasks=(s.tasks||[]).map(x=>({subs:[],diff:1,list:'today',...x}));return s}
+function norm(s){const b=seed((s&&s.set&&s.set.lang)||navLang);s=Object.assign(b,s||{});s.set=Object.assign({...DEF},s.set||{});s.stats=Object.assign(b.stats,s.stats||{});s.tasks=(s.tasks||[]).map(x=>({subs:[],diff:1,list:'today',...x}));s.shards=(s.shards||[]).map(x=>({enc:false,...x}));return s}
 let state=null;
 try{const raw=JSON.parse(localStorage.getItem(KEY)||'null');if(raw&&raw.tasks)state=norm(raw)}catch(e){}
 if(!state)state=seed(navLang);
@@ -930,8 +969,8 @@ function toggleSub(tid,sid,el){const tk=findT(tid),s=tk&&tk.subs.find(x=>x.id===
  else sfx('undo');
  save();render()}
 function dropShard(){let r=Math.random()*100,i=0;for(;i<RAR.length;i++){if(r<RAR[i].w)break;r-=RAR[i].w}i=Math.min(i,3);
- const name=pick(SH_A)+' '+pick(SH_B)+' '+pick(SH_C);state.shards.unshift({id:uid(),name,r:i,at:now()});state.cred+=RAR[i].c;
- sfx('loot');toast(t('tLoot',{r:t('rar')[i].toUpperCase()}),name+' (+'+RAR[i].c+' CRED)',i>=2?'cw':'c2');
+ const name=pick(SH_A)+' '+pick(SH_B)+' '+pick(SH_C);state.shards.unshift({id:uid(),name,r:i,at:now(),enc:true});
+ sfx('loot');toast(t('tLoot',{r:t('rar')[i].toUpperCase()}),name+' · '+t('tLootEnc'),i>=2?'cw':'c2');
  if(i>=2)burst(innerWidth/2,innerHeight*.75,50,[tok('--warn'),tok('--accent2')]);save();renderHud()}
 function checkAch(){let d=0;ACH.forEach(a=>{if(!state.ach[a.k]&&a.t(state)){state.ach[a.k]=now();const [n,ds]=t('achs')[a.k];setTimeout(()=>{toast(t('tAch',{n}),ds,'cw');sfx('ach')},d*900);d++}});if(d)save()}
 function levelUp(L){sfx('level');buzz([40,60,80]);const app=$('#app');app.classList.remove('shake');void app.offsetWidth;app.classList.add('shake');
@@ -966,7 +1005,8 @@ const EVENTS=[
  {k:'payday',on:d=>d.getDate()===25,xp:1,cr:2,end:d=>nextMidnight(d)}
 ];
 const activeEvents=()=>{const d=new Date();return EVENTS.filter(e=>e.on(d))};
-function evMult(){let xp=1,cr=1;activeEvents().forEach(e=>{xp*=e.xp;cr*=e.cr});return{xp,cr}}
+function evMult(){let xp=1,cr=1;activeEvents().forEach(e=>{xp*=e.xp;cr*=e.cr});const b=buffNow();if(b)xp*=b.x;return{xp,cr}}
+const buffNow=()=>state.buff&&now()<state.buff.until?state.buff:null;
 function evLeft(e){const ms=e.end(new Date())-now(),h=Math.floor(ms/36e5),m=Math.floor(ms%36e5/6e4),sec=Math.floor(ms%6e4/1e3);return(h?h+'h ':'')+z2(m)+'m '+z2(sec)+'s'}
 function evTags(e){return(e.xp>1?'XP ×'+e.xp+' ':'')+(e.cr>1?'CRED ×'+e.cr:'')}
 function eventIntro(){const evs=activeEvents().filter(e=>!(state.seenEv||{})[e.k+dk()]);if(!evs.length||$('#ovl').innerHTML)return;
@@ -1093,6 +1133,56 @@ function endFocus(full){const f=state.focus;if(!f)return;const mins=Math.round((
  else{sfx('undo');toast(t('tOut'),t('tUnder'))}
  save();render()}
 
+/* ---------- shards: decrypt, rewards, fuse ---------- */
+const CODES=['1C','55','BD','E9','7A','FF'];
+const DEC=[{len:3,n:4,time:12},{len:3,n:4,time:10},{len:4,n:5,time:12},{len:5,n:5,time:13}];
+const shardName=()=>pick(SH_A)+' '+pick(SH_B)+' '+pick(SH_C);
+let decT=null;
+function openDecrypt(id){const sh=state.shards.find(x=>x.id===id);if(!sh||!sh.enc)return;const cf=DEC[sh.r];
+ const seq=Array.from({length:cf.len},()=>pick(CODES)),cells=Array.from({length:cf.n*cf.n},()=>pick(CODES));
+ const pos=[];while(pos.length<cf.len){const q=Math.floor(Math.random()*cells.length);if(!pos.includes(q))pos.push(q)}pos.forEach((q,k)=>cells[q]=seq[k]);
+ ui.dec={id,r:sh.r,seq,cells,n:cf.n,step:0,used:[],end:now()+cf.time*1000,total:cf.time*1000,state:'run'};
+ sfx('open');buzz(10);
+ $('#ovl').innerHTML='<div class="ov cpov" data-act="decclose"><div class="term-win dec opening r'+sh.r+'" role="dialog" aria-modal="true" aria-label="'+esc(t('decrypt'))+'"><div class="tw-bar"><span class="gl">'+S().glyph+'</span><span>KIN://DECRYPT</span><span class="tw-file">'+esc(sh.name)+'</span><span class="bc"></span><button class="tw-x" data-act="decclose" aria-label="'+esc(t('closeW'))+'">✕</button></div><div id="decbody"></div></div></div>';
+ paintDec();setTimeout(()=>{const w=$('.term-win');if(w)w.classList.remove('opening')},700);
+ clearInterval(decT);decT=setInterval(()=>{const d=ui.dec;if(!d||d.state!=='run'){clearInterval(decT);return}const left=d.end-now(),bar=$('#dbar');if(bar)bar.style.width=Math.max(0,left/d.total*100)+'%';if(left<=0)decFail()},80)}
+function paintDec(){const d=ui.dec,b=$('#decbody');if(!d||!b)return;
+ if(d.state==='run'){b.innerHTML='<div class="decwrap"><div class="lab">'+esc(t('seq'))+'</div><div class="seqrow">'+d.seq.map((c,k)=>'<span class="sq '+(k<d.step?'ok':k===d.step?'cur':'')+'">'+c+'</span>').join('')+'</div>'+
+  '<div class="dtime"><i id="dbar" style="width:'+Math.max(0,(d.end-now())/d.total*100)+'%"></i></div>'+
+  '<div class="dgrid" id="dgrid" style="--n:'+d.n+'">'+d.cells.map((c,i)=>'<button class="dc'+(d.used.includes(i)?' used':'')+'" data-act="dcell" data-v="'+i+'"'+(d.used.includes(i)?' disabled':'')+'>'+c+'</button>').join('')+'</div>'+
+  '<p class="faint dhint">'+esc(t('decHint'))+'</p></div>';return}
+ if(d.state==='win'){const rw=d.rw;b.innerHTML='<div class="decwrap decres"><div class="glitch" data-t="'+esc(t('granted'))+'">'+esc(t('granted'))+'</div><div class="rwbig">'+esc(rwLabel(rw))+'</div>'+(rw.t==='lore'?'<p class="loretxt">'+esc(t('lore')[rw.n-1])+'</p>':'')+'<button class="btn pri" data-act="decclose">'+esc(t('cont'))+' ▸</button></div>';return}
+ b.innerHTML='<div class="decwrap decres"><div class="glitch" data-t="'+esc(t('lost'))+'" style="color:var(--accent)">'+esc(t('lost'))+'</div><p class="muted">'+esc(t('lostB'))+'</p><button class="btn" data-act="decclose">'+esc(t('closeW'))+'</button></div>'}
+function decTap(i,el){const d=ui.dec;if(!d||d.state!=='run'||d.used.includes(i))return;
+ if(d.cells[i]===d.seq[d.step]){d.used.push(i);d.step++;sfx('key');tone(330*Math.pow(1.19,d.step),0,.08,'square',.03,0,{lp:2400});buzz(8);
+  if(d.step>=d.seq.length)return decWin();paintDec()}
+ else{d.end-=1500;sfx('err');buzz([30,30]);paintDec();const g=$('#dgrid');if(g){g.classList.remove('shake');void g.offsetWidth;g.classList.add('shake')}}}
+function rollReward(sh){const r=sh.r,x=Math.random(),lore=state.lore||[],missing=[1,2,3,4,5,6,7,8,9,10].filter(n=>!lore.includes(n)),locked=SKINS.filter(k=>k.lock&&!(state.unlock||{})[k.k]);
+ const cred=[[10,20],[30,50],[80,120],[200,260]][r],credRw={t:'cred',n:cred[0]+Math.floor(Math.random()*(cred[1]-cred[0]))};
+ if(r===3){if(locked.length)return{t:'skin',k:locked[0].k,bonus:150};return{t:'buff',x:2,m:60,bonus:150}}
+ if(r===2){if(x<.15&&locked.length)return{t:'skin',k:pick(locked).k};if(x<.45)return{t:'buff',x:1.5,m:60};if(x<.65&&missing.length)return{t:'lore',n:pick(missing)};return credRw}
+ if(r===1){if(x<.25)return{t:'buff',x:1.5,m:30};if(x<.5&&missing.length)return{t:'lore',n:pick(missing)};return credRw}
+ if(x<.3&&missing.length)return{t:'lore',n:pick(missing)};return credRw}
+function rwLabel(rw){if(!rw)return'';if(rw.t==='cred')return t('rwCred',{n:rw.n});if(rw.t==='buff')return t('rwBuff',{x:rw.x,m:rw.m})+(rw.bonus?' · '+t('rwCred',{n:rw.bonus}):'');if(rw.t==='lore')return t('rwLore',{n:z2(rw.n)});if(rw.t==='skin')return t('rwSkin',{n:(SKINS.find(k=>k.k===rw.k)||{}).n})+(rw.bonus?' · '+t('rwCred',{n:rw.bonus}):'');return''}
+function decWin(){const d=ui.dec;clearInterval(decT);const sh=state.shards.find(x=>x.id===d.id);if(!sh)return;
+ const rw=rollReward(sh);sh.enc=false;sh.rw=rw;
+ if(rw.t==='cred')state.cred+=rw.n;
+ if(rw.bonus)state.cred+=rw.bonus;
+ if(rw.t==='buff'){const b=buffNow();state.buff={x:Math.max(rw.x,b?b.x:1),until:Math.max(now(),b?b.until:0)+rw.m*6e4}}
+ if(rw.t==='lore'){state.lore=state.lore||[];if(!state.lore.includes(rw.n))state.lore.push(rw.n)}
+ if(rw.t==='skin'){state.unlock=state.unlock||{};state.unlock[rw.k]=true}
+ d.state='win';d.rw=rw;save();paintDec();renderHud();
+ if(!samp(sh.r>=3?'levelup':'detect',{vol:.8}))sfx('land');buzz([20,40,80]);
+ const w=$('.term-win');if(w){const q=w.getBoundingClientRect();burst(q.left+q.width/2,q.top+q.height/2,sh.r>=2?80:45,[tok('--warn'),tok('--accent2'),tok('--accent')])}
+ setTimeout(checkAch,600)}
+function decFail(){const d=ui.dec;if(!d||d.state!=='run')return;clearInterval(decT);d.state='lost';sfx('err');buzz([60,40,60]);paintDec()}
+function closeDec(){clearInterval(decT);const w=$('.term-win');ui.dec=null;if(w){w.classList.add('closing');setTimeout(()=>{$('#ovl').innerHTML='';render()},300)}else{$('#ovl').innerHTML='';render()}}
+function fuse(r){const pool=state.shards.filter(x=>!x.enc&&x.r===r).sort((a,b)=>a.at-b.at);if(r>=3||pool.length<3)return;
+ const gone=pool.slice(0,3).map(x=>x.id);state.shards=state.shards.filter(x=>!gone.includes(x.id));
+ state.shards.unshift({id:uid(),name:shardName(),r:r+1,at:now(),enc:true});
+ if(!samp('detect',{vol:.7}))sfx('land');buzz([20,30,60]);burst(innerWidth/2,innerHeight/2,50,[tok('--accent2'),tok('--warn')]);
+ toast(t('tFuse'),t('fuseB',{a:t('rar')[r],b:t('rar')[r+1]}),'c2');save();render()}
+
 /* ---------- incoming call (focus debrief) ---------- */
 let ring=null;
 function incomingCall(mins,r){buzz([400,200,400,200,400]);ring=samp('call',{vol:.7,loop:true});if(!ring){sfx('jack')}
@@ -1113,6 +1203,7 @@ function renderHud(){const L=lvl(state.xp),s=S(),st=streakNow();
  '<div class="hstats"><div class="strip"><span class="seg lvs"><small>LV</small><b class="g">'+L.L+'</b></span><span class="seg crs" title="'+esc(t('credits'))+'">'+I.cred+'<b>'+state.cred+'</b></span><span class="seg sts '+(st?'':'cold')+'" title="'+esc(t('streakT'))+'">'+I.flame+'<b>'+st+'</b></span></div>'+'<div class="tools"><button class="tbtn langb" data-act="langov" aria-label="'+esc(t('language'))+'">'+s.lang.toUpperCase()+'</button><button class="tbtn" data-act="mute" aria-label="'+esc(s.sound?t('mute'):t('unmute'))+'">'+(s.sound?I.son:I.soff)+'</button></div>'+'<button class="avbtn" data-act="go" data-v="stats" aria-label="'+esc(t('profile'))+'">'+avatarHtml('s')+'<i id="syncdot" class="sync"></i></button></div></div>'+
  '<div class="xpw"><div class="xpbar" role="progressbar" aria-valuemin="0" aria-valuemax="'+L.need+'" aria-valuenow="'+L.into+'"><div class="xpfill" style="width:'+(L.into/L.need*100).toFixed(1)+'%"></div></div><div class="xpl">'+L.into+'/'+L.need+' XP · '+esc(rank(L.L).toUpperCase())+'</div></div>'+
  '<div class="combo '+(comboOn?'on':'')+(comboOn&&ui.comboSeen!==c.n?' pop':'')+'" id="combo"><span>×'+mult+' '+esc(t('combo'))+'</span><div class="cbar"><i id="cbar" style="width:'+(cl/9000).toFixed(1)+'%"></i></div><span class="faint" id="cleft" style="font-family:var(--fu);font-size:11px">'+mmss(cl/1000)+'</span></div>'+
+ (buffNow()?'<button class="evbar buffbar" data-act="go" data-v="loot"><b>◆ '+esc(t('overclock'))+'</b><span>XP ×'+buffNow().x+'</span><span class="r" id="buffleft">'+mmss((buffNow().until-now())/1000)+'</span></button>':'')+
  (activeEvents().length?activeEvents().map(e=>'<button class="evbar" data-act="evinfo"><b>◆ '+esc(t('events')[e.k][0])+'</b><span>'+esc(evTags(e))+'</span><span class="r" data-evleft="'+e.k+'">'+esc(evLeft(e))+'</span></button>').join(''):'')+
  '<button class="jackchip '+(state.focus&&ui.view!=='focus'?'on':'')+'" data-act="go" data-v="focus">● '+esc(t('jacked'))+' <b id="jchip">'+mmss(focusLeft())+'</b></button>';
  ui.comboSeen=(c.n>=2&&cl>0)?c.n:null;
@@ -1161,13 +1252,20 @@ function vFocus(){const f=state.focus;
   '<div class="edl"><span class="lab">'+esc(t('fWin'))+'</span><div class="seg">'+[5,15,25,45].map(m=>'<button class="'+(ui.fDur===m?'on':'')+'" data-act="fdur" data-v="'+m+'">'+m+' '+esc(t('min'))+'</button>').join('')+'</div></div>'+
   '<button class="btn cy bigbtn" data-act="jack">'+esc(t('jackFor',{m:ui.fDur}))+'</button></div></section>'}
 function vLoot(){const cnt=[0,0,0,0];state.shards.forEach(s=>cnt[s.r]++);const rar=t('rar'),loc=S().lang==='sv'?'sv-SE':S().lang==='pl'?'pl-PL':'en-GB';
+ const enc=state.shards.filter(x=>x.enc),dec=state.shards.filter(x=>!x.enc),lore=(state.lore||[]).slice().sort((a,b)=>a-b);
+ const fus=[0,1,2].filter(r=>dec.filter(x=>x.r===r).length>=3);
+ const shardCard=s=>'<div class="shard r'+s.r+(s.enc?' enc':'')+'"><b>'+esc(s.name)+'</b><span class="rr">'+esc(rar[s.r])+(s.enc?' · '+esc(t('encL')):'')+'</span>'+(s.enc?'<button class="btn sm cy" data-act="decrypt" data-id="'+s.id+'">'+esc(t('decrypt'))+'</button>':(s.rw?'<span class="rwl">'+esc(rwLabel(s.rw))+'</span>':''))+'</div>';
  return'<section class="panel">'+ph(t('cred'),'残高')+'<div class="pb"><div class="cred">'+state.cred+' <span style="font-size:.4em;letter-spacing:.2em">CRED</span></div><p class="muted" style="margin:8px 0 0;font-size:14px">'+esc(t('credN'))+'</p></div></section>'+
+ '<section class="panel"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(t('shards'))+'<span class="jp">断片</span><span class="ct">'+enc.length+'</span><span class="end"><span class="bc"></span></span></div>'+
+  (enc.length?'<div class="shards">'+enc.map(shardCard).join('')+'</div>':'<div class="empty">'+esc(t('decNone'))+'</div>')+
+  (fus.length?'<div class="pb row" style="border-top:1px solid var(--line)"><span class="lab">'+esc(t('fuseL'))+'</span>'+fus.map(r=>'<button class="btn sm" data-act="fuse" data-v="'+r+'">'+esc(t('fuseB',{a:rar[r],b:rar[r+1]}))+'</button>').join('')+'</div>':'')+
+  (dec.length?'<div class="shards dimmed">'+dec.slice(0,40).map(shardCard).join('')+'</div>':'')+'</section>'+
+ '<section class="panel"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(t('archive'))+'<span class="jp">記録</span><span class="ct">'+lore.length+'/10</span></div>'+(lore.length?'<div class="pb lore">'+lore.map(n=>'<p>'+esc(t('lore')[n-1])+'</p>').join('')+'</div>':'<div class="empty">'+esc(t('archiveE'))+'</div>')+'</section>'+
  '<section class="panel">'+ph(t('shop'),'報酬')+
   (state.rewards.length?state.rewards.map(r=>{const ok=state.cred>=r.cost;return'<div class="rw"><div class="rn"><div>'+esc(r.name)+'</div><div class="rc">'+r.cost+' CRED'+(ok?'':' · '+esc(t('needMore',{n:r.cost-state.cred})))+'</div></div><div class="row"><button class="btn sm '+(ok?'pri':'')+'" data-act="buy" data-id="'+r.id+'" '+(ok?'':'disabled')+'>'+esc(t('buy'))+'</button>'+(ui.confirm==='r'+r.id?'<button class="btn sm dng" data-act="delrw" data-id="'+r.id+'">'+esc(t('confirm'))+'</button>':'<button class="btn sm" data-act="askdelrw" data-id="'+r.id+'" aria-label="'+esc(t('removeRw'))+'">✕</button>')+'</div></div>'}).join(''):'<div class="empty">'+esc(t('noRw'))+'</div>')+
   '<form class="pb row" data-form="rw" style="border-top:1px solid var(--line)"><label class="sr" for="rwn">'+esc(t('rwPh'))+'</label><input class="inp" id="rwn" placeholder="'+esc(t('rwPh'))+'" style="flex:3 1 180px" autocomplete="off"><label class="sr" for="rwc">'+esc(t('costPh'))+'</label><input class="inp" id="rwc" type="number" min="1" inputmode="numeric" placeholder="'+esc(t('costPh'))+'" style="flex:1 1 80px"><button class="btn" type="submit">'+esc(t('add'))+'</button></form></section>'+
  (state.buys.length?'<section class="panel">'+ph(t('buys'))+'<div class="pb" style="font-family:var(--fu);font-size:12.5px;display:flex;flex-direction:column;gap:4px">'+state.buys.slice(0,6).map(b=>'<div><span class="faint">'+new Date(b.at).toLocaleDateString(loc,{day:'numeric',month:'short'})+'</span> &nbsp;'+esc(b.name)+' <span style="color:var(--warn)">−'+b.cost+'</span></div>').join('')+'</div></section>':'')+
- '<section class="panel"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(t('shards'))+'<span class="jp">断片</span><span class="ct">'+state.shards.length+'</span><span class="end"><span class="faint" style="letter-spacing:.06em">'+cnt.map((n,i)=>n+' '+rar[i][0]).join(' · ')+'</span></span></div>'+
-  (state.shards.length?'<div class="shards">'+state.shards.slice(0,60).map(s=>'<div class="shard r'+s.r+'"><b>'+esc(s.name)+'</b><span class="rr">'+esc(rar[s.r])+'</span></div>').join('')+'</div>':'<div class="empty">'+esc(t('shardsE'))+'</div>')+'</section>'}
+ ''}
 function vStats(){const L=lvl(state.xp),days=[];for(let i=13;i>=0;i--){const d=dayOff(-i);days.push({d,n:state.hist[d]||0})}
  const mx=Math.max(4,...days.map(x=>x.n)),W=420,H=150,pl=24,pb=22,bw=(W-pl-4)/14;
  let svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(t('chartL'))+'">';
@@ -1190,7 +1288,7 @@ function vCfg(){const s=S();
  '<section class="panel">'+ph(t('account'),'認証')+'<div class="cfg">'+(SB_ON?'<p class="muted" style="margin:0;font-size:14px">'+esc(t('accN'))+'</p>'+(sb?authHtml():'<div class="faint">…</div>'):'<p class="muted" style="margin:0;font-size:14px">'+esc(cloud?t('gridOnly'):t('localOnly'))+'</p>')+'</div></section>'+
  '<section class="panel">'+ph(t('packs'),'外観')+'<div class="pb seg">'+PACKS.map((p,i)=>'<button data-act="pack" data-v="'+i+'">'+esc(p.n)+'</button>').join('')+'</div></section>'+
  '<section class="panel">'+ph(t('look'))+'<div class="cfg">'+
-  '<div class="f"><span class="lab">'+esc(t('palette'))+'</span>'+segH('skin',SKINS)+'</div>'+
+  '<div class="f"><span class="lab">'+esc(t('palette'))+'</span><div class="seg">'+SKINS.map(o=>{const lk=o.lock&&!(state.unlock||{})[o.k];return'<button class="'+(S().skin===o.k?'on':'')+'" data-act="set" data-k="skin" data-v="'+o.k+'"'+(lk?' disabled':'')+'><span class="sw">'+o.sw.map(c=>'<i style="background:'+c+'"></i>').join('')+'</span>'+esc(o.n)+(lk?' · '+esc(t('locked')):'')+'</button>'}).join('')+'</div></div>'+
   '<div class="f"><span class="lab">'+esc(t('type'))+'</span>'+segH('font',FONTS)+'</div>'+
   '<div class="f"><span class="lab">'+esc(t('orn'))+'</span>'+segH('orn',['barcode','brackets','none'].map(k=>({k,n:t('ornN')[k]})))+'</div>'+
   '<div class="f"><span class="lab">'+esc(t('back'))+'</span>'+segH('back',['night','grid','rain','flat'].map(k=>({k,n:t('backN')[k]})))+'</div>'+
@@ -1213,12 +1311,13 @@ function vCfg(){const s=S();
 function render(){renderHud();const v=ui.view;
  $('#view').innerHTML=v==='focus'?vFocus():v==='loot'?vLoot():v==='stats'?vStats():v==='cfg'?vCfg():vBoard();
  const nv=t('nav');
- $('#nav').innerHTML=[['board',I.board],['focus',I.bolt],['loot',I.cube],['stats',I.bars],['cfg',I.cfg]].map((n,i)=>'<button class="'+(v===n[0]?'on':'')+'" data-act="go" data-v="'+n[0]+'" aria-current="'+(v===n[0]?'page':'false')+'">'+n[1]+esc(nv[i])+'</button>').join('');
+ $('#nav').innerHTML=[['board',I.board],['focus',I.bolt],['loot',I.cube],['stats',I.bars],['cfg',I.cfg]].map((n,i)=>'<button class="'+(v===n[0]?'on':'')+'" data-act="go" data-v="'+n[0]+'" aria-current="'+(v===n[0]?'page':'false')+'">'+n[1]+esc(nv[i])+(n[0]==='loot'&&state.shards.some(x=>x.enc)?'<i class="nbadge">'+state.shards.filter(x=>x.enc).length+'</i>':'')+'</button>').join('');
  if(ui.refocus){const el=document.getElementById(ui.refocus);if(el)el.focus({preventScroll:true});ui.refocus=null}}
 
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;const a=b.dataset.act,id=b.dataset.id,v=b.dataset.v;
- if((a==='closeov'||a==='closecp')&&e.target!==b&&b.classList.contains('ov'))return;
+ if((a==='closeov'||a==='closecp'||a==='decclose')&&e.target!==b&&b.classList.contains('ov'))return;
+ if(a==='decclose'&&b.classList.contains('ov')&&ui.dec&&ui.dec.state==='run')return;
  if(!['askdel','askabort','askdelrw','askwipe'].includes(a))ui.confirm=null;
  const tk=id&&findT(id);
  switch(a){
@@ -1273,6 +1372,10 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
   case'offline':state.offline=true;persistLocal();closeGate();sfx('tap');break;
   case'callans':callEnd(true);break;
   case'callrej':callEnd(false);break;
+  case'decrypt':openDecrypt(id);break;
+  case'dcell':decTap(+v,b);break;
+  case'decclose':closeDec();sfx('tap');break;
+  case'fuse':fuse(+v);break;
   case'closeov':$('#ovl').innerHTML='';sfx('tap');break;
  }});
 document.addEventListener('submit',e=>{const f=e.target.dataset.form;if(!f)return;e.preventDefault();
@@ -1285,6 +1388,7 @@ document.addEventListener('keydown',e=>{const el=e.target;
  if((e.key==='n'||e.key==='N')&&!e.metaKey&&!e.ctrlKey&&!e.altKey&&!/INPUT|TEXTAREA|SELECT/.test(el.tagName)&&!$('#ovl').innerHTML&&!document.getElementById('boot')){e.preventDefault();openCompiler();return}
  if(e.key==='Enter'&&el.dataset&&el.dataset.enter==='cpstep'){e.preventDefault();const v=el.value.trim();if(v){ui.draft.steps.push(v);sfx('add');paintComposer('cp-step')}return}
  if(e.key==='Enter'&&el.dataset&&el.dataset.enter==='cptag'){e.preventDefault();const v=el.value.trim().replace(/^#/,'').toLowerCase().replace(/\s+/g,'-');if(v){ui.draft.cat=v;ui.flash='cat';sfx('add');paintComposer('cp-name')}return}if(e.key==='Enter'&&el.dataset&&el.dataset.enter==='addsub'){e.preventDefault();const tk=findT(el.dataset.id),v=el.value.trim();if(!tk||!v)return;tk.subs.push({id:uid(),t:v,done:false});delete tk.sample;tk.done=false;sfx('add');ui.refocus='sub-'+tk.id;save();render()}
+ if(e.key==='Escape'&&ui.dec){closeDec();return}
  if(e.key==='Escape'&&$('#ovl').innerHTML&&!document.getElementById('gate')){$('#ovl').innerHTML=''}});
 document.addEventListener('input',e=>{
  if(e.target.id==='cp-name'){const el=e.target;ui.draft.title=el.value;const m=el.value.match(TOKRE);if(m){const kind=applyToken(m[2]);if(kind){ui.draft.title=el.value.slice(0,m.index+m[1].length);ui.flash=kind;sfx('sub');buzz(8);paintComposer('cp-name')}}return}
@@ -1300,6 +1404,7 @@ setInterval(()=>{
  if(f){const left=focusLeft();const c=$('#fclock');if(c)c.textContent=mmss(left);const r=$('#ringc');if(r){const C=2*Math.PI*88;r.setAttribute('stroke-dashoffset',(C*(1-Math.max(0,left)/f.dur)).toFixed(1))}const j=$('#jchip');if(j)j.textContent=mmss(left);
   if(left<=0&&f.paused==null)endFocus(true)}
  glitchHackText();
+ {const bl=$('#buffleft');if(bl){const b=buffNow();if(b)bl.textContent=mmss((b.until-now())/1000);else renderHud()}}
  document.querySelectorAll('[data-evleft]').forEach(el=>{const e=EVENTS.find(x=>x.k===el.dataset.evleft);if(e)el.textContent=evLeft(e)});
  const cb=$('#cbar');if(cb){const cl=Math.max(0,15*60e3-(now()-state.combo.last));cb.style.width=(cl/9000).toFixed(1)+'%';const ct=$('#cleft');if(ct)ct.textContent=mmss(cl/1000);if(cl<=0)$('#combo').classList.remove('on')}
 },500);
