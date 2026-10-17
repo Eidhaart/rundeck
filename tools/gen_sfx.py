@@ -74,92 +74,121 @@ def growl(d, f, cut_pts, res=0.18, gain=5.0, formant=True):
     grit = crush(filt(y, 'highpass', 2200), 6, 3)*0.18
     return y + grit
 
-# ---------- task complete: short neuro growl hit ----------
+
+# ---------- heavy engine: tuned to a neuro/dubstep balance (most energy 60-1000 Hz, low crest) ----------
+VOW={'o':(450,800),'a':(780,1200),'i':(320,2300),'u':(330,700)}
+def vowel(x, v):
+    f1, f2 = VOW[v]
+    return filt(x, 'bandpass', [f1*0.8, f1*1.25])*1.0 + filt(x, 'bandpass', [f2*0.85, f2*1.2])*0.8
+def shift(x, ms):
+    n = N(ms/1000); return np.concatenate([np.zeros(n), x[:-n]])
+def beast(d, f, cut_pts, vfrom='u', vto='a', vmix_pts=None, gain=11, fm_idx=3.0):
+    """Big mid growl: reese + FM layer, hard drive, moving resonant filter, vowel morph, comb grit."""
+    fa = np.broadcast_to(np.asarray(f, float), (N(d),))
+    x = T(d)
+    fmv = np.sin(2*np.pi*phase(fa*2) + fm_idx*np.sin(2*np.pi*phase(fa)))
+    osc = reese(fa, d, 6, 0.017) + 0.7*fmv + 0.4*saw_p(phase(fa*0.5))
+    y = drive(osc, gain)
+    y = svf_lp(y, curve(d, cut_pts), 0.11)
+    m = np.clip(np.interp(T(d), *zip(*vmix_pts)) if vmix_pts else np.linspace(0, 1, N(d)), 0, 1)
+    y = 0.45*y + vowel(y, vfrom)*(1-m)*1.2 + vowel(y, vto)*m*1.2
+    y = drive(2.2*y, 1.4)
+    y = y + 0.5*shift(y, 3.1) - 0.35*shift(y, 5.3)
+    y = filt(y, 'highpass', 85)
+    return filt(y, 'lowpass', 5500)
+def subline(d, f, amp=0.8):
+    fa = np.broadcast_to(np.asarray(f, float), (N(d),))
+    return filt(np.sin(2*np.pi*phase(fa)), 'lowpass', 110)*amp
+def snare(amp=0.6):
+    d = 0.18; b = sine(curve(d, [(0, 230), (d, 170)]), d)*env(d, 0.001, 22)*0.8
+    b += filt(noise(d), 'bandpass', [1500, 6000])*env(d, 0.001, 16)*0.7
+    return drive(b*1.5, 1.2)*amp
+def glue(x, amt=3.2):
+    """loud and dense: soft clip then a gentle second stage, like a mastered drop"""
+    assert np.isfinite(x).all(), 'non-finite samples'
+    x = x/(np.max(np.abs(x))+1e-9); return np.tanh(amt*x)/np.tanh(amt)
+
 def complete():
-    d = 0.75; b = np.zeros(N(d))
-    place(b, kick(0.34, 170, 42, 8), 0)
-    g = growl(0.42, curve(0.42, [(0, 74), (0.03, 55), (0.42, 55)]),
-              [(0, 260), (0.05, 3400), (0.16, 1100), (0.3, 380), (0.42, 220)], res=0.16, gain=6)
-    place(b, g*adsr(0.42, 0.004, 0.2, 0.12)*0.85, 0.008)
-    place(b, filt(noise(0.06), 'highpass', 5000)*env(0.06, 0.001, 60)*0.25, 0.0)
-    return echo(b, 0.095, 0.22, 2, 900)
+    d = 0.95; b = np.zeros(N(d)); G = 49.0
+    place(b, kick(0.26, 150, 45, 12, 0.75), 0)
+    place(b, snare(0.35), 0.0)
+    bz = beast(0.62, curve(0.62, [(0, 62), (0.035, G), (0.62, G)]),
+               [(0, 260), (0.07, 2600), (0.2, 900), (0.32, 2200), (0.5, 420), (0.62, 200)],
+               'u', 'a', [(0, .02), (0.09, 1), (0.22, .25), (0.34, .95), (0.62, .1)])
+    place(b, bz*adsr(0.62, 0.004, 0.42, 0.12)*1.0, 0.012)
+    place(b, subline(0.62, G)*adsr(0.62, 0.006, 0.4, 0.15), 0.012)
+    return glue(echo(b, 0.084, 0.16, 1, 700), 3.4)
 
-# ---------- heavy task: double wub with a drop to E1 ----------
 def complete_heavy():
-    d = 1.25; b = np.zeros(N(d))
-    place(b, kick(0.5, 180, 36, 5.5, 1.15), 0)
-    g1 = growl(0.32, curve(0.32, [(0, 80), (0.03, 55), (0.32, 55)]),
-               [(0, 240), (0.05, 3800), (0.2, 600), (0.32, 260)], res=0.14, gain=7)
-    place(b, g1*adsr(0.32, 0.003, 0.2, 0.08)*0.85, 0.01)
-    g2 = growl(0.6, curve(0.6, [(0, 55), (0.05, 41.2), (0.6, 41.2)]),
-               [(0, 300), (0.06, 2600), (0.18, 1500), (0.32, 3000), (0.6, 200)], res=0.15, gain=7)
-    place(b, g2*adsr(0.6, 0.004, 0.35, 0.18)*0.95, 0.33)
-    place(b, kick(0.4, 150, 34, 6, 0.8), 0.33)
-    return echo(b, 0.13, 0.2, 2, 800)
+    d = 1.6; b = np.zeros(N(d)); s16 = 60/172/4
+    pat = [(0, 49.0, 0.30), (s16*3, 49.0, 0.22), (s16*5, 55.0, 0.2), (s16*8, 41.2, 0.62)]
+    place(b, kick(0.3, 160, 42, 9, 0.85), 0); place(b, snare(0.4), 0)
+    for k, (at, f, dd) in enumerate(pat):
+        last = k == len(pat)-1
+        cut = [(0, 240), (dd*0.25, 3000 if last else 2400), (dd*0.6, 700), (dd, 180)] if not last else \
+              [(0, 300), (0.07, 3200), (0.2, 800), (0.33, 2600), (0.48, 600), (dd, 160)]
+        bz = beast(dd, curve(dd, [(0, f*1.25), (0.03, f), (dd, f)]), cut, 'o' if k % 2 else 'u', 'a' if k % 2 == 0 else 'i',
+                   [(0, .05), (dd*0.3, 1), (dd, .2)])
+        place(b, bz*adsr(dd, 0.003, dd*0.7, 0.06)*(1.05 if last else 0.9), at)
+        place(b, subline(dd, f)*adsr(dd, 0.005, dd*0.7, 0.08), at)
+    place(b, kick(0.4, 170, 38, 7, 1.0), pat[-1][0]); place(b, snare(0.45), pat[-1][0])
+    return glue(echo(b, 0.11, 0.14, 1, 600), 3.6)
 
-# ---------- ping: metallic tick with a sub blip (loot, achievements, compile) ----------
 def ping():
-    d = 0.5; b = np.zeros(N(d)); x = T(0.25)
-    m = 3.1*np.exp(-x*30)*np.sin(2*np.pi*1310*3.5*x)
-    tink = np.sin(2*np.pi*1310*x + m)*env(0.25, 0.0008, 22)
-    place(b, drive(tink, 2)*0.45, 0)
-    place(b, sine(curve(0.18, [(0, 120), (0.18, 55)]), 0.18)*env(0.18, 0.001, 18)*0.8, 0)
-    g = growl(0.12, 82.4, [(0, 400), (0.03, 2600), (0.12, 300)], res=0.2, gain=5, formant=False)
-    place(b, g*adsr(0.12, 0.002, 0.06, 0.04)*0.35, 0.02)
-    return echo(b, 0.085, 0.25, 2, 2500)
+    d = 0.4; b = np.zeros(N(d))
+    bz = beast(0.22, 65.4, [(0, 400), (0.04, 2400), (0.22, 260)], 'o', 'i', [(0, 0), (0.06, 1), (0.22, .3)], gain=9)
+    place(b, bz*adsr(0.22, 0.003, 0.1, 0.08)*0.9, 0)
+    place(b, subline(0.22, 65.4, 0.6)*adsr(0.22, 0.004, 0.1, 0.08), 0)
+    x = T(0.12); place(b, np.sin(2*np.pi*1975*x + 2*np.exp(-x*40)*np.sin(2*np.pi*1975*3.5*x))*env(0.12, 0.0005, 35)*0.18, 0)
+    return glue(b, 2.6)
 
-# ---------- detected: growl riser into a hit ----------
 def detected():
-    d = 1.15; b = np.zeros(N(d))
-    rise = growl(0.55, curve(0.55, [(0, 41), (0.55, 98)]), [(0, 180), (0.5, 3000), (0.55, 3500)], res=0.13, gain=6)
-    place(b, rise*np.linspace(0.2, 1, N(0.55))**1.5*0.75, 0)
-    place(b, kick(0.5, 190, 35, 6, 1.1), 0.55)
-    crack = crush(filt(noise(0.25), 'bandpass', [300, 3000])*env(0.25, 0.001, 14), 5, 5)*0.6
-    place(b, crack, 0.55)
-    tail = growl(0.45, 41.2, [(0, 1800), (0.45, 160)], res=0.2, gain=5)
-    place(b, tail*adsr(0.45, 0.003, 0.15, 0.2)*0.6, 0.56)
-    return echo(b, 0.16, 0.25, 2, 900)
+    d = 1.3; b = np.zeros(N(d)); rd = 0.62
+    rise = beast(rd, curve(rd, [(0, 36), (rd, 82)]), [(0, 160), (rd*0.9, 3200), (rd, 3600)], 'u', 'i', [(0, 0), (rd, 1)], gain=10)
+    place(b, rise*np.linspace(0.15, 1, N(rd))**1.6, 0)
+    place(b, kick(0.5, 180, 38, 6, 1.1), rd); place(b, snare(0.6), rd)
+    hit = beast(0.6, 41.2, [(0, 2800), (0.15, 900), (0.3, 1800), (0.6, 160)], 'a', 'o', [(0, 0), (0.6, 1)], gain=12)
+    place(b, hit*adsr(0.6, 0.003, 0.35, 0.15), rd + 0.005)
+    place(b, subline(0.6, 41.2)*adsr(0.6, 0.004, 0.4, 0.15), rd + 0.005)
+    return glue(echo(b, 0.14, 0.15, 1, 600), 3.4)
 
-# ---------- heat: gritty two-tone alarm over a pulsing reese ----------
 def heat():
-    d = 3.3; x = T(d)
+    d = 3.4; x = T(d); b = np.zeros(N(d))
     gate = filt((np.sin(2*np.pi*1.1*x) > 0).astype(float), 'lowpass', 16)
     f = 392 + 196*gate
-    s = drive(0.6*np.sign(np.sin(2*np.pi*phase(f))) + 0.5*saw_p(phase(f*1.006)), 2.5)
-    s = filt(s, 'bandpass', [300, 2600])*(0.7 + 0.3*np.sin(2*np.pi*8*x))*0.55
-    bass = growl(d, 49, [(0, 300), (d*0.5, 900), (d, 300)], res=0.25, gain=4, formant=False)
-    bass *= 0.55 + 0.45*np.maximum(0, np.sin(2*np.pi*2.2*x))
-    b = s + bass*0.55
-    place(b, kick(0.5, 170, 36, 6), 0)
+    s = drive(np.sign(np.sin(2*np.pi*phase(f)))*0.6 + 0.5*saw_p(phase(f*1.006)), 2.5)
+    b += filt(s, 'bandpass', [350, 2400])*(0.7 + 0.3*np.sin(2*np.pi*8*x))*0.35
+    wob = curve(d, [(0, 300)] + [(t, (2400 if i % 2 else 300)) for i, t in enumerate(np.arange(0.2, d, 0.2))] + [(d, 250)])
+    b += beast(d, 49.0, list(zip(np.linspace(0, d, len(wob[::4410])), wob[::4410])), 'u', 'a', None, gain=10)*0.75
+    b += subline(d, 49.0, 0.7)
+    for k in range(0, 8): place(b, kick(0.25, 150, 45, 12, 0.7), k*0.42)
     b *= np.minimum(1, x/0.03)*np.minimum(1, (d-x)/0.5)
-    return echo(b, 0.18, 0.2, 2, 1200)
+    return glue(b, 3.0)
 
-# ---------- ring: dark original ringtone, wobbling bass under a gritty minor lead ----------
 def ring():
-    bpm = 126; s8 = 60/bpm/2
+    bpm = 172; s8 = 60/bpm/2
     lead = [659.3, 0, 523.3, 587.3, 0, 493.9, 523.3, 0, 440.0, 0, 493.9, 523.3, 0, 587.3, 493.9, 0]
-    roots = [55.0, 55.0, 43.65, 49.0]
-    bar = N(s8*16); total = bar*2 + N(0.5); b = np.zeros(total)
+    roots = [49.0, 49.0, 41.2, 43.65]
+    bar = N(s8*16); total = bar*2 + N(0.4); b = np.zeros(total)
     for rep in range(2):
         o = rep*bar/SR
         for i, f in enumerate(lead):
             if not f: continue
-            x = T(s8*1.7); m = 1.6*np.exp(-x*14)*np.sin(2*np.pi*f*2*x)
-            n = drive(np.sin(2*np.pi*f*x + m), 1.6)*env(s8*1.7, 0.002, 9)*0.22
-            place(b, filt(n, 'lowpass', 3500), o + i*s8)
+            x = T(s8*1.6); m = 1.4*np.exp(-x*14)*np.sin(2*np.pi*f*2*x)
+            place(b, filt(drive(np.sin(2*np.pi*f*x + m), 1.5)*env(s8*1.6, 0.002, 10)*0.16, 'lowpass', 3200), o + i*s8)
         for q, r in enumerate(roots):
             dd = s8*4
-            g = growl(dd, r, [(0, 250), (dd*0.25, 1800), (dd*0.5, 300), (dd*0.75, 1600), (dd, 250)], res=0.2, gain=5, formant=True)
-            place(b, g*adsr(dd, 0.005, dd*0.8, 0.05)*0.42, o + q*dd)
-            place(b, kick(0.3, 150, 40, 9, 0.6), o + q*dd)
-        for i in range(8):
-            place(b, filt(noise(0.025), 'highpass', 7000)*env(0.025, 0.0005, 150)*0.1, o + i*s8*2 + s8)
-    return echo(b, s8*1.5, 0.18, 2, 2200)
+            bz = beast(dd, r, [(0, 250), (dd*0.25, 2400), (dd*0.5, 300), (dd*0.75, 2000), (dd, 250)], 'u' if q % 2 else 'o', 'a', [(0, 0), (dd*0.25, 1), (dd*0.5, 0), (dd*0.75, 1), (dd, 0)], gain=10)
+            place(b, bz*adsr(dd, 0.004, dd*0.85, 0.03)*0.7, o + q*dd)
+            place(b, subline(dd, r, 0.6)*adsr(dd, 0.004, dd*0.85, 0.03), o + q*dd)
+            place(b, kick(0.25, 150, 42, 10, 0.7), o + q*dd)
+            place(b, snare(0.35), o + q*dd + s8*2)
+    return glue(b, 2.8)
 
-finish(complete(), 'complete')
-finish(complete_heavy(), 'complete_heavy')
+finish(complete(), 'complete', peak=0.95)
+finish(complete_heavy(), 'complete_heavy', peak=0.95)
 finish(ping(), 'ping', peak=0.8)
-finish(detected(), 'detected')
-finish(heat(), 'heat', peak=0.82)
-finish(ring(), 'ring', peak=0.82)
+finish(detected(), 'detected', peak=0.95)
+finish(heat(), 'heat', peak=0.85)
+finish(ring(), 'ring', peak=0.85)
 print('done')
