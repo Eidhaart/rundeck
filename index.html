@@ -522,6 +522,9 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 .avmenu button svg{width:15px;height:15px;color:var(--accent)}
 .avmenu button:hover,.avmenu button:focus-visible{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);outline:none}
 .prof .row{flex-wrap:wrap;gap:8px}
+
+.alinks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px}
+.pwform{margin-top:6px;padding-top:12px;border-top:1px dashed color-mix(in srgb,var(--accent) 35%,transparent)}
 </style>
 </head>
 <body>
@@ -543,7 +546,7 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 const DICT={
 en:{lang:'English',node:'Grid standard',
  nav:['Board','Jack in','Loot','File','Config'],
- credits:'Credits',streakT:'Day streak',netOff:"You're offline. Progress is stored on this device and syncs when you reconnect.",netLocalS:'Not signed in',netLocal:'Offline mode. Progress is stored on this device only.',saveLocal:'Saved on this device',saveGrid:'Synced to your private store',saveCloud:'Synced to your account',saveErr:'Sync failed, saved on this device',mute:'Mute',unmute:'Unmute',
+ credits:'Credits',streakT:'Day streak',netOff:"You're offline. Progress is stored on this device and syncs when you reconnect.",netLocalS:'Not signed in',chPw:'Change password',cancel:'Cancel',newPw:'New password',confPw:'Repeat password',pwCode:'Code',pwSave:'Save password',pwMismatch:"The passwords don't match.",pwDone:'PASSWORD UPDATED',pwNonceMsg:'For safety we emailed you a code. Enter it to confirm the change.',forgot:'Forgot password?',resetSent:'If that email has an account, a reset link is on its way.',pwRecover:'Set a new password',netLocal:'Offline mode. Progress is stored on this device only.',saveLocal:'Saved on this device',saveGrid:'Synced to your private store',saveCloud:'Synced to your account',saveErr:'Sync failed, saved on this device',mute:'Mute',unmute:'Unmute',
  combo:'COMBO',jacked:'JACKED IN',
  lists:{today:['Today','Nothing queued. Type a task above.'],routine:['Routines','No routines. Add one with @r'],contract:['Contracts','No contracts. Big jobs go here, add steps inside.'],backlog:['Backlog','Backlog clear.']},
  samples:'Starter contracts loaded as samples. Keep what fits.',purge:'Purge samples',
@@ -579,7 +582,7 @@ en:{lang:'English',node:'Grid standard',
 },
 pl:{lang:'Polski',node:'Węzeł Warszawa',
  nav:['Tablica','Podłącz','Łupy','Akta','Konfig'],
- credits:'Kredyty',streakT:'Seria dni',netOff:'Jesteś offline. Postęp zapisuje się na tym urządzeniu i zsynchronizuje się po połączeniu.',netLocalS:'Niezalogowany',netLocal:'Tryb offline. Postęp zapisuje się tylko na tym urządzeniu.',saveLocal:'Zapisano na tym urządzeniu',saveGrid:'Zsynchronizowano z prywatnym magazynem',saveCloud:'Zsynchronizowano z kontem',saveErr:'Błąd synchronizacji, zapisano lokalnie',mute:'Wycisz',unmute:'Włącz dźwięk',
+ credits:'Kredyty',streakT:'Seria dni',netOff:'Jesteś offline. Postęp zapisuje się na tym urządzeniu i zsynchronizuje się po połączeniu.',netLocalS:'Niezalogowany',chPw:'Zmień hasło',cancel:'Anuluj',newPw:'Nowe hasło',confPw:'Powtórz hasło',pwCode:'Kod',pwSave:'Zapisz hasło',pwMismatch:'Hasła nie są takie same.',pwDone:'HASŁO ZMIENIONE',pwNonceMsg:'Dla bezpieczeństwa wysłaliśmy ci kod e-mailem. Wpisz go, aby potwierdzić zmianę.',forgot:'Nie pamiętasz hasła?',resetSent:'Jeśli ten e-mail ma konto, link do resetu jest w drodze.',pwRecover:'Ustaw nowe hasło',netLocal:'Tryb offline. Postęp zapisuje się tylko na tym urządzeniu.',saveLocal:'Zapisano na tym urządzeniu',saveGrid:'Zsynchronizowano z prywatnym magazynem',saveCloud:'Zsynchronizowano z kontem',saveErr:'Błąd synchronizacji, zapisano lokalnie',mute:'Wycisz',unmute:'Włącz dźwięk',
  combo:'KOMBO',jacked:'PODŁĄCZONY',
  lists:{today:['Dziś','Pusto. Wpisz zadanie powyżej.'],routine:['Rutyny','Brak rutyn. Dodaj przez @r'],contract:['Kontrakty','Brak kontraktów. Duże zadania tutaj, kroki w środku.'],backlog:['Na później','Nic nie czeka.']},
  samples:'Wczytano przykładowe kontrakty. Zostaw, co pasuje.',purge:'Usuń przykłady',
@@ -615,7 +618,7 @@ pl:{lang:'Polski',node:'Węzeł Warszawa',
 },
 sv:{lang:'Svenska',node:'Nod Stockholm',
  nav:['Tavla','Koppla in','Byte','Akt','Konfig'],
- credits:'Krediter',streakT:'Dagar i rad',netOff:'Du är offline. Framstegen sparas på den här enheten och synkas när du är uppkopplad igen.',netLocalS:'Inte inloggad',netLocal:'Offlineläge. Framstegen sparas bara på den här enheten.',saveLocal:'Sparat på den här enheten',saveGrid:'Synkat till ditt privata lager',saveCloud:'Synkat till ditt konto',saveErr:'Synk misslyckades, sparat lokalt',mute:'Ljud av',unmute:'Ljud på',
+ credits:'Krediter',streakT:'Dagar i rad',netOff:'Du är offline. Framstegen sparas på den här enheten och synkas när du är uppkopplad igen.',netLocalS:'Inte inloggad',chPw:'Byt lösenord',cancel:'Avbryt',newPw:'Nytt lösenord',confPw:'Upprepa lösenord',pwCode:'Kod',pwSave:'Spara lösenord',pwMismatch:'Lösenorden matchar inte.',pwDone:'LÖSENORD BYTT',pwNonceMsg:'För säkerhets skull har vi mejlat dig en kod. Ange den för att bekräfta bytet.',forgot:'Glömt lösenordet?',resetSent:'Om e-postadressen har ett konto är en återställningslänk på väg.',pwRecover:'Välj ett nytt lösenord',netLocal:'Offlineläge. Framstegen sparas bara på den här enheten.',saveLocal:'Sparat på den här enheten',saveGrid:'Synkat till ditt privata lager',saveCloud:'Synkat till ditt konto',saveErr:'Synk misslyckades, sparat lokalt',mute:'Ljud av',unmute:'Ljud på',
  combo:'KOMBO',jacked:'INKOPPLAD',
  lists:{today:['Idag','Inget i kö. Skriv en uppgift ovan.'],routine:['Rutiner','Inga rutiner. Lägg till med @r'],contract:['Kontrakt','Inga kontrakt. Stora jobb hamnar här, med steg inuti.'],backlog:['Senare','Inget parkerat.']},
  samples:'Exempelkontrakt inlästa. Behåll det som passar.',purge:'Rensa exempel',
@@ -738,7 +741,7 @@ let state=null;
 try{const raw=JSON.parse(localStorage.getItem(KEY)||'null');if(raw&&raw.tasks)state=norm(raw)}catch(e){}
 if(!state)state=seed(navLang);
 const S=()=>state.set;
-const ui={view:'board',open:null,just:null,confirm:null,termLog:[],showBack:false,fTask:null,fDur:15,spinning:false,importing:false,auth:{msg:'',err:false,busy:false},gate:false};
+const ui={view:'board',open:null,just:null,confirm:null,termLog:[],showBack:false,fTask:null,fDur:15,spinning:false,importing:false,auth:{msg:'',err:false,busy:false},pw:{open:false,msg:'',err:false,busy:false,nonce:false,recovery:false},gate:false};
 try{const v=localStorage.getItem(KEY+'.view');if(v)ui.view=v}catch(e){}
 
 /* ---------- sync: local, claude.ai private store, or Supabase ---------- */
@@ -777,6 +780,7 @@ async function initSb(){
   if(data&&data.session){sbUser=data.session.user;await pullSb()}
   else if(!state.offline){ui.gate=true;if(!document.getElementById('boot'))showGate()}
   sb.auth.onAuthStateChange((ev,session)=>{const u=session&&session.user;
+   if(ev==='PASSWORD_RECOVERY'){ui.pw={open:true,msg:'',err:false,busy:false,nonce:false,recovery:true};ui.view='cfg';setTimeout(()=>{closeGate();render();toast(t('pwRecover'),'','c2');const n=document.getElementById('pw-new');if(n)n.focus()},400)}
    if(u&&(!sbUser||sbUser.id!==u.id)){sbUser=u;closeGate();pullSb().then(()=>toast(t('tIn'),u.email||'','c2'))}
    else if(!u&&sbUser){sbUser=null;signedOut()}});
   render();
@@ -857,7 +861,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&sbUser)pu
 setInterval(()=>{if(sbUser&&!document.hidden&&navigator.onLine!==false&&!sbBusy)pullSb()},45000);
 /* Cloudflare Turnstile in interaction-only mode: invisible for almost everyone, a single tap for the rest. */
 let cfWid=null,cfToken=null,cfLoading=null,cfBox=null,cfWait=null;
-async function captchaReady(){if(!CFG.turnstileSiteKey)return;const box=document.getElementById('cf-box');if(!box)return;
+async function captchaReady(){if(!CFG.turnstileSiteKey)return;const box=authRoot().querySelector('#cf-box');if(!box)return;
  if(!window.turnstile){cfLoading=cfLoading||loadScript('https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit');try{await cfLoading}catch(e){return}}
  if(cfWid!=null&&cfBox===box&&box.isConnected)return;
  if(cfWid!=null){try{window.turnstile.remove(cfWid)}catch(e){}cfWid=null}cfToken=null;cfBox=box;
@@ -869,9 +873,9 @@ async function captchaToken(){if(!CFG.turnstileSiteKey)return undefined;
  try{window.turnstile.reset(cfWid);window.turnstile.execute(cfWid)}catch(e){try{window.turnstile.execute(cfWid)}catch(_){}}
  const tk=await got;cfToken=null;return tk||undefined}
 async function authDo(kind){
- const em=(document.getElementById('au-email')||{}).value||'',pw=(document.getElementById('au-pass')||{}).value||'';
+ const em=(authRoot().querySelector('#au-email')||{}).value||'',pw=(authRoot().querySelector('#au-pass')||{}).value||'';
  const A=ui.auth;A.err=false;A.msg='';
- if(kind==='magic'){if(!em.includes('@')){A.err=true;A.msg=t('needMail');return paintAuth()}}
+ if(kind==='magic'||kind==='reset'){if(!em.includes('@')){A.err=true;A.msg=t('needMail');return paintAuth()}}
  else if(!em.includes('@')||pw.length<8){A.err=true;A.msg=t('needCreds');return paintAuth()}
  A.busy=true;A.msg=t('verifying');paintAuth();
  const captcha=await captchaToken();
@@ -879,27 +883,50 @@ async function authDo(kind){
  try{let r;
   if(kind==='in')r=await sb.auth.signInWithPassword({email:em,password:pw,options:{captchaToken:captcha}});
   else if(kind==='up')r=await sb.auth.signUp({email:em,password:pw,options:{emailRedirectTo:redirect,captchaToken:captcha}});
+  else if(kind==='reset')r=await sb.auth.resetPasswordForEmail(em,{redirectTo:redirect,captchaToken:captcha});
   else r=await sb.auth.signInWithOtp({email:em,options:{emailRedirectTo:redirect,captchaToken:captcha}});
   if(r.error)throw r.error;
-  if(!(kind==='up'&&!r.data.session)&&kind!=='magic')A.msg='';
+  if(!(kind==='up'&&!r.data.session)&&kind!=='magic'&&kind!=='reset')A.msg='';
   if(kind==='up'&&!r.data.session){A.msg=t('checkMail')}
   else if(kind==='magic'){A.msg=t('linkSent')}
+  else if(kind==='reset'){A.msg=t('resetSent')}
   sfx('land');
  }catch(e){A.err=true;A.msg=t('authErr',{m:e.message||String(e)});sfx('err')}
  A.busy=false;paintAuth();
 }
+function pwHtml(){const P=ui.pw;if(!P.open)return'';
+ return'<form class="auth pwform" data-form="pw" novalidate><div class="lab">'+esc(P.recovery?t('pwRecover'):t('chPw'))+'</div>'+
+ '<label class="afield" for="pw-new"><span class="ap">&gt; '+esc(t('newPw').toLowerCase())+'</span><input id="pw-new" type="password" autocomplete="new-password" minlength="8"><button type="button" class="peek" data-act="peekpw">'+esc(t('showPw'))+'</button></label>'+
+ '<label class="afield" for="pw-conf"><span class="ap">&gt; '+esc(t('confPw').toLowerCase())+'</span><input id="pw-conf" type="password" autocomplete="new-password" minlength="8"></label>'+
+ (P.nonce?'<label class="afield" for="pw-code"><span class="ap">&gt; '+esc(t('pwCode').toLowerCase())+'</span><input id="pw-code" inputmode="numeric" autocomplete="one-time-code" spellcheck="false"></label>':'')+
+ '<div class="ahint">'+esc(t('minHint'))+'</div>'+
+ '<div class="row"><button class="btn pri sm" type="submit" '+(P.busy?'disabled':'')+'>▸ '+esc(t('pwSave'))+'</button><button class="btn sm" type="button" data-act="pwclose">'+esc(t('cancel'))+'</button></div>'+
+ '<div class="msg '+(P.err?'er':'')+'" id="pw-msg" aria-live="polite">'+esc(P.msg)+'</div></form>'}
+function paintPw(){const m=document.getElementById('pw-msg');if(m){m.textContent=ui.pw.msg;m.className='msg '+(ui.pw.err?'er':'')}document.querySelectorAll('form[data-form="pw"] button[type="submit"]').forEach(b=>b.disabled=ui.pw.busy)}
+async function pwDo(){const P=ui.pw,v=id=>(document.getElementById(id)||{}).value||'';const pw=v('pw-new'),cf=v('pw-conf'),code=v('pw-code').trim();
+ P.err=true;if(pw.length<8){P.msg=t('needCreds');sfx('err');return paintPw()}if(pw!==cf){P.msg=t('pwMismatch');sfx('err');return paintPw()}
+ if(P.nonce&&!code){P.msg=t('pwNonceMsg');sfx('err');return paintPw()}
+ P.err=false;P.busy=true;P.msg=t('verifying');paintPw();
+ try{const r=await sb.auth.updateUser(P.nonce?{password:pw,nonce:code}:{password:pw});
+  if(r.error){const m=(r.error.code||'')+' '+(r.error.message||'');
+   if(/reauth/i.test(m)&&!P.nonce){const rr=await sb.auth.reauthenticate();if(rr.error)throw rr.error;P.nonce=true;P.busy=false;P.msg=t('pwNonceMsg');render();['pw-new','pw-conf'].forEach((id,i)=>{const e=document.getElementById(id);if(e)e.value=i?cf:pw});const c=document.getElementById('pw-code');if(c)c.focus();return}
+   throw r.error}
+  ui.pw={open:false,msg:'',err:false,busy:false,nonce:false,recovery:false};toast(t('pwDone'),'','c2');sfx('land');render();return
+ }catch(e){P.err=true;P.msg=t('authErr',{m:e.message||String(e)});sfx('err')}
+ P.busy=false;paintPw()}
+const authRoot=()=>document.getElementById('gate')||document;
 function authHtml(){const A=ui.auth;
- if(sbUser)return'<div class="auth"><div class="muted">'+esc(t('signedAs',{e:sbUser.email||''}))+'</div><div class="row"><button class="btn sm" data-act="signout">'+esc(t('signOut'))+'</button>'+(ui.confirm==='delacc'?'<button class="btn sm dng" data-act="delacc">'+esc(t('delAccC'))+'</button>':'<button class="btn sm" data-act="askdelacc">'+esc(t('delAcc'))+'</button>')+'</div>'+(ui.confirm==='delacc'?'<p class="faint" style="margin:0;font-size:12.5px;color:var(--accent)">'+esc(t('delAccN'))+'</p>':'')+'<p class="faint" style="margin:0;font-size:12.5px">'+esc(t('privacy'))+'</p></div>';
+ if(sbUser)return'<div class="auth"><div class="muted">'+esc(t('signedAs',{e:sbUser.email||''}))+'</div><div class="row"><button class="btn sm" data-act="signout">'+esc(t('signOut'))+'</button>'+(ui.pw.open?'':'<button class="btn sm" data-act="pwopen">'+esc(t('chPw'))+'</button>')+(ui.confirm==='delacc'?'<button class="btn sm dng" data-act="delacc">'+esc(t('delAccC'))+'</button>':'<button class="btn sm" data-act="askdelacc">'+esc(t('delAcc'))+'</button>')+'</div>'+pwHtml()+(ui.confirm==='delacc'?'<p class="faint" style="margin:0;font-size:12.5px;color:var(--accent)">'+esc(t('delAccN'))+'</p>':'')+'<p class="faint" style="margin:0;font-size:12.5px">'+esc(t('privacy'))+'</p></div>';
  const m=ui.authMode||'in',lockI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>';
  return'<form class="auth" data-form="auth" novalidate><div class="amode" role="tablist"><button type="button" role="tab" aria-selected="'+(m==='in')+'" class="'+(m==='in'?'on':'')+'" data-act="amode" data-v="in">'+esc(t('signIn'))+'</button><button type="button" role="tab" aria-selected="'+(m==='up')+'" class="'+(m==='up'?'on':'')+'" data-act="amode" data-v="up">'+esc(t('signUp'))+'</button></div>'+
  '<label class="afield" for="au-email"><span class="ap">&gt; '+esc(t('email').toLowerCase())+'</span><input id="au-email" type="email" autocomplete="email" inputmode="email" spellcheck="false" autocapitalize="off"></label>'+
  '<label class="afield" for="au-pass"><span class="ap">&gt; '+esc(t('pass').toLowerCase())+'</span><input id="au-pass" type="password" autocomplete="'+(m==='up'?'new-password':'current-password')+'" minlength="8"><button type="button" class="peek" data-act="peek">'+esc(t('showPw'))+'</button></label>'+
  (m==='up'?'<div class="ahint">'+esc(t('minHint'))+'</div>':'')+
  '<button class="btn pri bigbtn" type="submit" '+(A.busy?'disabled':'')+'>▸ '+esc(m==='up'?t('signUp'):t('signIn'))+'</button>'+
- '<button class="linkbtn" type="button" data-act="magic">'+esc(t('magicAlt'))+'</button>'+
+ '<div class="alinks"><button class="linkbtn" type="button" data-act="magic">'+esc(t('magicAlt'))+'</button>'+(m==='in'?'<button class="linkbtn" type="button" data-act="forgot">'+esc(t('forgot'))+'</button>':'')+'</div>'+
  '<div class="msg '+(A.err?'er':'')+'" id="au-msg" aria-live="polite">'+esc(A.msg)+'</div><div id="cf-box"></div>'+
  '<p class="asec">'+lockI+'<span>'+esc(t('secure'))+' <a href="privacy.html" target="_blank" rel="noopener">'+esc(t('privacyLink'))+'</a></span></p></form>'}
-function paintAuth(){const m=document.getElementById('au-msg');if(m){m.textContent=ui.auth.msg;m.className='msg '+(ui.auth.err?'er':'')}document.querySelectorAll('form[data-form="auth"] button').forEach(b=>b.disabled=ui.auth.busy)}
+function paintAuth(){const m=authRoot().querySelector('#au-msg');if(m){m.textContent=ui.auth.msg;m.className='msg '+(ui.auth.err?'er':'')}document.querySelectorAll('form[data-form="auth"] button').forEach(b=>b.disabled=ui.auth.busy)}
 function showGate(){if(!SB_ON||sbUser)return;sfx('open');
  $('#ovl').innerHTML='<div class="ov gate" id="gate"><div class="term-win gatewin opening" role="dialog" aria-modal="true" aria-label="'+esc(t('authTitle'))+'"><div class="tw-bar"><span class="gl">'+S().glyph+'</span><span>KIN://AUTH</span><span class="tw-file">node_07</span><span class="bc"></span></div>'+
   '<div class="gatebody"><div class="gatehead">'+I.logo+'<div><div class="bname g">RUNDECK</div><div class="bsub">Meridian Municipal Grid</div></div></div>'+
@@ -1442,7 +1469,7 @@ function render(){renderHud();const v=ui.view;
  $('#view').innerHTML=v==='focus'?vFocus():v==='loot'?vLoot():v==='stats'?vStats():v==='cfg'?vCfg():vBoard();
  const nv=t('nav');
  $('#nav').innerHTML=[['board',I.board],['focus',I.bolt],['loot',I.cube],['stats',I.bars],['cfg',I.cfg]].map((n,i)=>'<button class="'+(v===n[0]?'on':'')+'" data-act="go" data-v="'+n[0]+'" aria-current="'+(v===n[0]?'page':'false')+'">'+n[1]+esc(nv[i])+(n[0]==='loot'&&state.shards.some(x=>x.enc)?'<i class="nbadge">'+state.shards.filter(x=>x.enc).length+'</i>':'')+'</button>').join('');
- if(v==='cfg'&&SB_ON&&!sbUser&&document.getElementById('cf-box'))captchaReady();
+ if(v==='cfg'&&SB_ON&&!sbUser&&authRoot().querySelector('#cf-box'))captchaReady();
  if(ui.refocus){const el=document.getElementById(ui.refocus);if(el)el.focus({preventScroll:true});ui.refocus=null}}
 
 /* ---------- events ---------- */
@@ -1498,10 +1525,14 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
   case'askwipe':ui.confirm='wipe';sfx('err');render();break;
   case'wipe':{const keep={...S()},own=state.owner;state=seed(keep.lang);state.tasks=[];state.set=keep;state.owner=own;save();sfx('undo');toast(t('tReset'),t('tResetB'));render();break}
   case'signup':authDo('up');break;
-  case'amode':ui.authMode=v;ui.auth.msg='';ui.auth.err=false;sfx('tap');{const em=(document.getElementById('au-email')||{}).value||'';repaintGate();const e2=document.getElementById('au-email');if(e2){e2.value=em;e2.focus()}}break;
-  case'peek':{const pw=document.getElementById('au-pass');if(pw){const show=pw.type==='password';pw.type=show?'text':'password';b.textContent=show?t('hidePw'):t('showPw');sfx('tap')}break}
+  case'amode':ui.authMode=v;ui.auth.msg='';ui.auth.err=false;sfx('tap');{const em=(authRoot().querySelector('#au-email')||{}).value||'';repaintGate();const e2=authRoot().querySelector('#au-email');if(e2){e2.value=em;e2.focus()}}break;
+  case'peek':{const pw=authRoot().querySelector('#au-pass');if(pw){const show=pw.type==='password';pw.type=show?'text':'password';b.textContent=show?t('hidePw'):t('showPw');sfx('tap')}break}
   case'glang':setLang(v,true);sfx('lang');repaintGate();break;
   case'magic':authDo('magic');break;
+  case'forgot':authDo('reset');break;
+  case'pwopen':ui.pw.open=true;ui.pw.msg='';ui.pw.err=false;sfx('tap');render();{const n=document.getElementById('pw-new');if(n)n.focus()}break;
+  case'pwclose':ui.pw={open:false,msg:'',err:false,busy:false,nonce:false,recovery:false};sfx('tap');render();break;
+  case'peekpw':{const a=document.getElementById('pw-new'),c=document.getElementById('pw-conf');if(a){const show=a.type==='password';a.type=c.type=show?'text':'password';b.textContent=show?t('hidePw'):t('showPw');sfx('tap')}break}
   case'signout':sfx('tap');if(sb)sb.auth.signOut();break;
   case'signin':sfx('tap');if(SB_ON&&!sbUser){ui.gate=true;showGate()}break;
   case'askdelacc':ui.confirm='delacc';sfx('err');render();break;
@@ -1518,6 +1549,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
 document.addEventListener('submit',e=>{const f=e.target.dataset.form;if(!f)return;e.preventDefault();
  if(f==='term'){const i=$('#term');const v=i.value;i.value='';term(v)}
  if(f==='auth')authDo(ui.authMode||'in');
+ if(f==='pw')pwDo();
  if(f==='rw'){const n=$('#rwn').value.trim(),c=parseInt($('#rwc').value);if(!n||!(c>0)){toast(t('tNeedNC'),'');sfx('err');return}state.rewards.push({id:uid(),name:n,cost:c});sfx('add');save();render()}});
 document.addEventListener('keydown',e=>{const el=e.target;
  if(el.closest&&el.closest('.term-win')&&/INPUT|TEXTAREA/.test(el.tagName)&&!e.metaKey&&!e.ctrlKey){if(e.key==='Enter')sfx('enter');else if(e.key==='Backspace'||e.key==='Delete')sfx('key','back');else if(e.key===' ')sfx('key','space');else if(e.key.length===1)sfx('key')}
