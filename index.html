@@ -726,34 +726,51 @@ function rollover(){
 const streakNow=()=>{const s=state.streak;return(s.last===dk()||s.last===dayOff(-1))?s.n:0};
 
 /* ---------- audio ---------- */
-let AC=null,master=null,hum=null;
+let AC=null,master=null,hum=null,bus=null;
+/* Sound: everything runs through soft-clip drive, a darkening low-pass and a short dub echo. */
 function audio(){if(!S().sound)return null;
- if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)();master=AC.createGain();master.connect(AC.destination)}catch(e){return null}}
+ if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)();
+  master=AC.createGain();const drive=AC.createWaveShaper(),curve=new Float32Array(1024);for(let i=0;i<1024;i++){const x=i/511.5-1;curve[i]=Math.tanh(x*1.8)}drive.curve=curve;
+  const lp=AC.createBiquadFilter();lp.type='lowpass';lp.frequency.value=6500;lp.Q.value=.4;
+  const dl=AC.createDelay(1),fb=AC.createGain(),dlp=AC.createBiquadFilter(),wet=AC.createGain();dl.delayTime.value=.19;fb.gain.value=.28;dlp.type='lowpass';dlp.frequency.value=1600;wet.gain.value=.22;
+  bus=AC.createGain();bus.connect(drive);drive.connect(lp);lp.connect(master);master.connect(AC.destination);
+  lp.connect(dl);dl.connect(dlp);dlp.connect(fb);fb.connect(dl);dlp.connect(wet);wet.connect(master);
+ }catch(e){return null}}
  if(AC.state==='suspended')AC.resume();master.gain.value=S().vol;return AC}
-function tone(f,t0,dur,type,v,f2){const ac=audio();if(!ac)return;const tt=ac.currentTime+t0;const o=ac.createOscillator(),g=ac.createGain();o.type=type||'square';o.frequency.setValueAtTime(f,tt);if(f2)o.frequency.exponentialRampToValueAtTime(f2,tt+dur);g.gain.setValueAtTime(.0001,tt);g.gain.exponentialRampToValueAtTime(v||.1,tt+.008);g.gain.exponentialRampToValueAtTime(.0001,tt+dur);o.connect(g);g.connect(master);o.start(tt);o.stop(tt+dur+.03)}
-function noise(t0,dur,v,freq){const ac=audio();if(!ac)return;const tt=ac.currentTime+t0;const n=Math.floor(ac.sampleRate*dur),b=ac.createBuffer(1,n,ac.sampleRate),d=b.getChannelData(0);for(let i=0;i<n;i++)d[i]=Math.random()*2-1;const s=ac.createBufferSource();s.buffer=b;const f=ac.createBiquadFilter();f.type='bandpass';f.frequency.value=freq||3000;const g=ac.createGain();g.gain.setValueAtTime(v||.06,tt);g.gain.exponentialRampToValueAtTime(.0001,tt+dur);s.connect(f);f.connect(g);g.connect(master);s.start(tt)}
+function filt(ac,type,f,q){const x=ac.createBiquadFilter();x.type=type;x.frequency.value=f;x.Q.value=q||.7;return x}
+/* osc voice: f -> f2 glide, optional low-pass (lp) with sweep to lp2 */
+function tone(f,t0,dur,type,v,f2,o){const ac=audio();if(!ac)return;o=o||{};const tt=ac.currentTime+t0;const os=ac.createOscillator(),g=ac.createGain();os.type=type||'sine';os.frequency.setValueAtTime(f,tt);if(o.det)os.detune.value=o.det;if(f2)os.frequency.exponentialRampToValueAtTime(f2,tt+dur*(o.gl||1));
+ g.gain.setValueAtTime(.0001,tt);g.gain.exponentialRampToValueAtTime(v||.1,tt+(o.a||.006));g.gain.exponentialRampToValueAtTime(.0001,tt+dur);
+ let node=os;if(o.lp){const fl=filt(ac,'lowpass',o.lp,o.q);if(o.lp2)fl.frequency.exponentialRampToValueAtTime(o.lp2,tt+dur*.9);node.connect(fl);node=fl}
+ node.connect(g);g.connect(bus);os.start(tt);os.stop(tt+dur+.05)}
+function noise(t0,dur,v,freq,o){const ac=audio();if(!ac)return;o=o||{};const tt=ac.currentTime+t0;const n=Math.max(1,Math.floor(ac.sampleRate*dur)),buf=ac.createBuffer(1,n,ac.sampleRate),d=buf.getChannelData(0);for(let i=0;i<n;i++)d[i]=Math.random()*2-1;
+ const src=ac.createBufferSource();src.buffer=buf;const f=filt(ac,o.type||'bandpass',freq||2000,o.q||1);if(o.f2)f.frequency.exponentialRampToValueAtTime(o.f2,tt+dur);
+ const g=ac.createGain();g.gain.setValueAtTime(o.a?.0001:(v||.05),tt);if(o.a)g.gain.exponentialRampToValueAtTime(v||.05,tt+o.a);g.gain.exponentialRampToValueAtTime(.0001,tt+dur);src.connect(f);f.connect(g);g.connect(bus);src.start(tt)}
+const sub=(t0,f,f2,dur,v)=>tone(f,t0,dur,'sine',v,f2,{gl:.6});
+const click=(t0,v,f)=>noise(t0,.012,v||.08,f||3500,{type:'highpass'});
+const chord=(t0,fs,dur,v,lp,lp2)=>fs.forEach((f,i)=>{tone(f,t0,dur,'sawtooth',v,0,{lp,lp2,det:i%2?-9:9,a:.02});tone(f,t0,dur,'sawtooth',v*.7,0,{lp,lp2,det:i%2?7:-7,a:.02})});
 const SFX={
- tap(){tone(1500,0,.025,'square',.035)},
- nav(){tone(880,0,.04,'square',.05);tone(1320,.035,.05,'square',.04)},
- add(){tone(660,0,.06,'triangle',.12);tone(990,.06,.09,'triangle',.12);noise(0,.04,.04,5000)},
- done(n){const k=Math.pow(1.06,Math.min(n||1,8)-1);[523,659,784,1047].forEach((f,i)=>tone(f*k,i*.055,.2,'triangle',.15));noise(0,.06,.07,2500);tone(110,0,.15,'sine',.2,55)},
- sub(){tone(988,0,.05,'triangle',.1);tone(1480,.045,.08,'triangle',.08)},
- undo(){tone(520,0,.12,'sawtooth',.05,260)},
- level(){tone(180,0,.55,'sawtooth',.07,1400);noise(0,.4,.05,1200);[523,659,784,1047,1319].forEach((f,i)=>tone(f,.5+i*.07,.7,'triangle',.11))},
- loot(){[1568,2093,2637,3136,4186].forEach((f,i)=>tone(f,i*.05,.12,'sine',.07))},
- buy(){tone(988,0,.08,'square',.07);tone(1319,.08,.3,'square',.07);noise(.08,.1,.04,6000)},
- err(){tone(140,0,.2,'sawtooth',.09);tone(132,.02,.2,'sawtooth',.06)},
- tick(){tone(2400,0,.018,'square',.035)},
- land(){tone(392,0,.1,'square',.08);tone(784,.09,.35,'triangle',.14);noise(.09,.12,.05,3000)},
- boot(){tone(60,0,.7,'sawtooth',.07,420);noise(0,.35,.06,800);[262,392,523,784].forEach((f,i)=>tone(f,.45+i*.09,.35,'triangle',.1))},
- ach(){[784,988,1175,1568].forEach((f,i)=>tone(f,i*.08,.25,'square',.05))},
- jack(){tone(90,0,.5,'sawtooth',.08,40);tone(1200,.1,.4,'sine',.06,300);noise(0,.5,.05,600)},
- hack(){for(let i=0;i<7;i++)tone(2600-i*280,i*.035,.03,'square',.05);noise(0,.3,.09,1400);tone(220,.28,.35,'sawtooth',.06,110);tone(880,.62,.12,'triangle',.08);tone(1320,.7,.2,'triangle',.08)},
- open(){tone(260,0,.09,'square',.05,900);noise(0,.12,.04,4200);tone(1250,.09,.05,'square',.04);tone(1660,.14,.07,'triangle',.05)},
- lang(){for(let i=0;i<9;i++)tone(600+Math.random()*2400,i*.03,.025,'square',.03);tone(523,.3,.12,'triangle',.1);tone(1047,.38,.25,'triangle',.1)}
+ tap(){click(0,.05,4200);tone(140,0,.04,'sine',.05)},
+ nav(){click(0,.06,3000);click(.035,.04,5200);sub(0,95,60,.09,.12)},
+ add(){noise(0,.09,.06,700,{f2:3200,q:2});sub(0,80,50,.14,.2);click(.08,.06)},
+ done(n){const k=Math.pow(2,(Math.min(n||1,6)-1)/12);sub(0,120*k,42,.32,.34);click(0,.09,2500);chord(.01,[110*k,130.81*k,164.81*k],.42,.035,1400,300);noise(0,.18,.035,1800,{q:3,f2:600})},
+ sub(){click(0,.06,4000);tone(220,0,.08,'square',.025,0,{lp:900});sub(0,90,60,.07,.08)},
+ undo(){tone(180,0,.22,'sawtooth',.05,70,{lp:700});noise(0,.12,.03,500,{type:'lowpass'})},
+ level(){sub(0,70,32,1.3,.38);noise(0,.5,.08,900,{type:'lowpass',f2:120});chord(.15,[110,130.81,164.81,246.94],1.6,.03,180,2400);tone(55,.15,1.6,'sawtooth',.04,0,{lp:300})},
+ loot(){[0,.07,.14].forEach((t0,i)=>{tone([659.25,622.25,880][i],t0,.5,'sine',.035,0,{});tone([659.25,622.25,880][i]*2.01,t0,.25,'sine',.012)});click(0,.05,6000);sub(0,60,40,.2,.1)},
+ buy(){click(0,.08,2800);click(.05,.07,4400);sub(.04,90,45,.22,.22);noise(.06,.14,.05,1200,{q:4,f2:400})},
+ err(){tone(55,0,.26,'square',.06,0,{lp:500});tone(58.3,0,.26,'square',.05,0,{lp:500});click(0,.07,1500)},
+ tick(){click(0,.035,5000)},
+ land(){sub(0,110,45,.3,.28);click(0,.08);tone(1046.5,0,.4,'triangle',.02,0,{lp:2200});tone(987.8,.02,.4,'triangle',.015,0,{lp:2200})},
+ boot(){tone(40,0,1.1,'sawtooth',.07,85,{lp:90,lp2:1600});noise(0,1,.05,300,{type:'lowpass',f2:3000,a:.8});sub(1,90,30,1.2,.4);chord(1,[73.42,87.31,110,155.56],1.4,.028,1200,250);click(1,.1,2500)},
+ ach(){chord(0,[146.83,174.61,220],.7,.035,1600,400);sub(0,100,40,.4,.24);click(0,.08)},
+ jack(){sub(0,150,30,.8,.36);noise(0,.6,.06,4000,{f2:200,q:2});tone(110,.1,.9,'sawtooth',.035,55,{lp:400});click(0,.1,2000)},
+ open(){noise(0,.18,.05,400,{f2:4500,q:3});click(.16,.08,3500);sub(.16,85,55,.12,.16)},
+ lang(){for(let i=0;i<8;i++)click(i*.028,.05,1200+Math.random()*4000);sub(.24,90,50,.18,.18);tone(220,.24,.25,'sawtooth',.025,0,{lp:800})},
+ hack(){for(let i=0;i<6;i++)click(i*.03,.06,800+Math.random()*3000);tone(46,.18,.5,'sawtooth',.05,0,{lp:300})}
 };
 function sfx(n,a){try{SFX[n]&&SFX[n](a)}catch(e){}}
-function startHum(){const ac=audio();if(!ac||hum)return;const g=ac.createGain();g.gain.value=.0001;g.gain.exponentialRampToValueAtTime(.05,ac.currentTime+1.5);const f=ac.createBiquadFilter();f.type='lowpass';f.frequency.value=320;const o1=ac.createOscillator(),o2=ac.createOscillator(),lfo=ac.createOscillator(),lg=ac.createGain();o1.frequency.value=55;o2.frequency.value=82.6;o2.type='triangle';lfo.frequency.value=.12;lg.gain.value=90;lfo.connect(lg);lg.connect(f.frequency);o1.connect(f);o2.connect(f);f.connect(g);g.connect(master);o1.start();o2.start();lfo.start();hum={g,o:[o1,o2,lfo]}}
+function startHum(){const ac=audio();if(!ac||hum)return;const g=ac.createGain();g.gain.value=.0001;g.gain.exponentialRampToValueAtTime(.05,ac.currentTime+1.5);const f=ac.createBiquadFilter();f.type='lowpass';f.frequency.value=220;f.Q.value=3;const o1=ac.createOscillator(),o2=ac.createOscillator(),lfo=ac.createOscillator(),lg=ac.createGain();o1.type='sawtooth';o1.frequency.value=41.2;o2.type='sawtooth';o2.frequency.value=41.6;lfo.frequency.value=.07;lg.gain.value=120;lfo.connect(lg);lg.connect(f.frequency);o1.connect(f);o2.connect(f);f.connect(g);g.connect(bus);o1.start();o2.start();lfo.start();hum={g,o:[o1,o2,lfo]}}
 function stopHum(){if(!hum||!AC)return;const h=hum;hum=null;try{h.g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+.6);setTimeout(()=>h.o.forEach(o=>{try{o.stop()}catch(e){}}),700)}catch(e){}}
 function buzz(p){if(S().haptics&&navigator.vibrate){try{navigator.vibrate(p)}catch(e){}}}
 
