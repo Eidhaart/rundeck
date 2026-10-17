@@ -343,6 +343,46 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 .avbtn .avw.av-s{width:34px;height:34px}
 .avbtn .sync{position:absolute;right:-3px;bottom:-3px;width:9px;height:9px;border:2px solid var(--solid)}
 @media(max-width:520px){.hrow{flex-wrap:wrap}.hstats{margin-left:0;width:100%;justify-content:space-between}.strip{flex:1;min-width:0}.strip .seg{flex:1;justify-content:center;padding:0 6px}}
+
+/* Task compiler */
+.code{font-family:var(--fu);font-size:14px;padding:6px 0;background:color-mix(in srgb,var(--solid) 65%,transparent)}
+.ln{display:grid;grid-template-columns:38px 1fr;min-height:40px}
+.ln>i{font-style:normal;display:flex;align-items:flex-start;justify-content:flex-end;padding:12px 10px 0 0;color:var(--faint);border-right:1px solid var(--line);font-size:11px;font-variant-numeric:tabular-nums}
+.lc{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:4px 12px;min-width:0}
+.ln.in .lc{padding-left:26px}
+.ln .k{color:var(--num);min-width:64px}
+.kw{color:var(--accent)}.fn{color:var(--accent2)}.pn{color:var(--dim)}
+.cm{color:var(--faint);font-size:12.5px}.cm b{color:var(--ok);font-weight:400}.cm em{color:var(--warn);font-style:normal}
+.q{color:var(--warn);opacity:.7}
+.cin{flex:1;min-width:120px;background:transparent;border:0;border-bottom:1px dashed var(--line-hi);color:var(--warn);font-family:var(--fu);font-size:17px;padding:7px 2px;outline:0;border-radius:0}
+.cin::placeholder{color:var(--faint)}
+.cin:focus{border-bottom:1px solid var(--accent2)}
+.cin.sm{flex:0 1 120px;min-width:84px;font-size:14px;color:var(--fg)}
+.tok{font-family:var(--fu);font-size:12px;letter-spacing:.08em;padding:7px 10px;border:1px solid var(--line);color:var(--dim);background:var(--raise);transition:background .12s,color .12s,border-color .12s}
+.tok:hover{border-color:var(--accent2);color:var(--fg)}
+.tok.on{color:var(--ink);background:var(--accent2);border-color:var(--accent2)}
+.tok .x{margin-left:7px;opacity:.65}
+.tok.flash.on{animation:pop .35s}
+.cpfoot{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 12px;border-top:1px solid var(--line)}
+.cpfoot .hint{font-family:var(--fu);font-size:11px;color:var(--faint);letter-spacing:.05em}
+.code.compiled{animation:compiled .7s ease-out}
+@keyframes compiled{0%{background:color-mix(in srgb,var(--ok) 16%,transparent);box-shadow:inset 3px 0 0 var(--ok)}100%{}}
+.code.err{animation:shake .4s}
+.composer .tout{padding-top:8px}
+@media(max-width:520px){.ln{grid-template-columns:30px 1fr}.ln .k{min-width:100%;font-size:12px;margin-bottom:-2px}.ln.in .lc{padding-left:14px}.cin{min-width:0}}
+
+/* Quick add */
+.fab{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:34;width:58px;height:58px;display:grid;place-items:center;background:var(--accent);color:var(--ink);clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));animation:fabp 3s ease-in-out infinite}
+.fab svg{width:28px;height:28px}
+.fab:active{transform:scale(.94)}
+@keyframes fabp{50%{filter:brightness(1.25)}}
+@media(min-width:900px){.fab{right:calc(50% - 410px - 74px)}}
+
+/* Events */
+.evbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;width:100%;margin-top:8px;padding:6px 10px;font-family:var(--fu);font-size:11.5px;letter-spacing:.12em;text-align:left;color:var(--ink);background:repeating-linear-gradient(-45deg,var(--warn) 0 12px,color-mix(in srgb,var(--warn) 78%,var(--bg)) 12px 24px);background-size:34px 34px;animation:stripes 1.6s linear infinite}
+.evbar b{letter-spacing:.18em}
+.evbar .r{margin-left:auto;font-variant-numeric:tabular-nums}
+@keyframes stripes{to{background-position:34px 0}}
 </style>
 </head>
 <body>
@@ -382,6 +422,7 @@ en:{lang:'English',node:'Grid standard',
  profile:'Operator profile',handle:'Handle',avatar:'Portrait',upload:'Upload portrait',removeAv:'Remove',avRaw:'Raw',avDuo:'Duotone',avNote:'Square photos work best. Resized to 256 px.',
  account:'Account',accN:'Sign in to keep your deck on every device.',email:'Email',pass:'Password',signIn:'Sign in',signUp:'Create account',magic:'Email me a login link',signOut:'Sign out',signedAs:'Signed in as {e}',checkMail:'Check your email to confirm, then sign in.',linkSent:'Login link sent. Open it on this device.',offline:'Continue offline',authTitle:'Operator authentication',authErr:'Sign-in failed: {m}',needCreds:'Enter your email and a password of 6+ characters.',needMail:'Enter your email first.',localOnly:'Accounts are off on this copy. Everything saves on this device.',gridOnly:'Everything is saved in a private store only you can read.',
  tNoT:'NO TARGETS',tAddF:'Add a task first.',tJack:'JACKED IN',tJackB:'{m} min. Phone face down. Go.',tSess:'SESSION COMPLETE',tOut:'JACKED OUT',tFocusR:'{m} min focused · +{x} XP',tUnder:'Under a minute. No payout.',tWipe:'BOARD WIPE',tWipeB:'Every Today task cleared.',tLoot:'LOOT DROP · {r}',tAch:'ACHIEVEMENT · {n}',tBuy:'PURCHASED',tBuyB:'{n}. Enjoy it, you earned it.',tNeedNC:'NEEDS NAME AND COST',tCopied:'BACKUP COPIED',tCopiedB:'Paste it somewhere safe.',tSel:'SELECT AND COPY',tSelB:'Clipboard blocked, the text is selected below.',tRest:'RESTORED',tRestB:'Backup loaded.',tRestF:'RESTORE FAILED',tRestFB:'That text is not a RunDeck backup.',tReset:'RESET',tResetB:'Clean slate.',tLang:'LOCALE SET',tAv:'PORTRAIT UPDATED',tAvF:'That file could not be read as an image.',tIn:'SIGNED IN',tOutA:'SIGNED OUT',
+ composer:'Task compiler',cpName:'what needs doing?',kName:'name',kWeight:'weight',kBoard:'board',kTag:'tag',kSteps:'steps',stepAdd:'+ step',tagNew:'#new',run:'Run',cpHint:'Enter runs it · shortcuts !2 #tag @c work too',reward:'reward',compiled:'compiled',deployed:'deployed to {b}',newBtn:'New task',none:'none',cpEmpty:'Give it a name first.',evOnline:'EVENT ONLINE',evEnds:'ends in {t}',evGo:'Let’s go',events:{weekend:['WEEKEND OVERTIME','Every task pays XP ×1.5 and CRED ×2 until Monday.'],payday:['PAYDAY','It is the 25th. CRED ×2 all day.']},
  lvBonus:'BONUS +{n} CRED',cont:'Continue',upC:'CLEARANCE UPGRADED',upS:'REP UP',
  bHand:'HANDSHAKE',bOp:'OPERATOR',bVer:'VERIFIED',bLoad:'LOADING CONTRACTS',bCred:'CREDSTICK',bStreak:'STREAK',bDays:'DAYS',bGo:'Jack in ▸',bSkip:'Skip boot next time',bSkipped:'Boot skipped from now on',
  seed:{t:['Drink a glass of water','Reply to the oldest unread email','Tidy the desk for five minutes'],r:['Morning stretch','Pick tomorrow’s top three'],c:'Clean the kitchen',cs:['Dishes into the machine','Wipe the counters','Take out the trash'],b:'Book the dentist',rw:['One episode of a show','30 minutes of gaming','Fancy coffee run'],cats:['body','work','home','mind','admin']},
@@ -409,6 +450,7 @@ pl:{lang:'Polski',node:'Węzeł Warszawa',
  profile:'Profil operatora',handle:'Ksywka',avatar:'Portret',upload:'Wgraj portret',removeAv:'Usuń',avRaw:'Surowy',avDuo:'Duoton',avNote:'Najlepiej kwadratowe zdjęcie. Skalowane do 256 px.',
  account:'Konto',accN:'Zaloguj się, by mieć wszystko na każdym urządzeniu.',email:'E-mail',pass:'Hasło',signIn:'Zaloguj',signUp:'Załóż konto',magic:'Wyślij mi link logowania',signOut:'Wyloguj',signedAs:'Zalogowano jako {e}',checkMail:'Sprawdź pocztę, potwierdź konto i zaloguj się.',linkSent:'Link wysłany. Otwórz go na tym urządzeniu.',offline:'Kontynuuj offline',authTitle:'Uwierzytelnianie operatora',authErr:'Logowanie nieudane: {m}',needCreds:'Podaj e-mail i hasło (min. 6 znaków).',needMail:'Najpierw podaj e-mail.',localOnly:'Konta są wyłączone w tej kopii. Wszystko zapisuje się na tym urządzeniu.',gridOnly:'Wszystko jest w prywatnym magazynie, tylko ty to widzisz.',
  tNoT:'BRAK CELÓW',tAddF:'Najpierw dodaj zadanie.',tJack:'PODŁĄCZONY',tJackB:'{m} min. Telefon ekranem w dół. Start.',tSess:'SESJA ZAKOŃCZONA',tOut:'ODŁĄCZONO',tFocusR:'{m} min skupienia · +{x} XP',tUnder:'Poniżej minuty. Bez wypłaty.',tWipe:'CZYSTA TABLICA',tWipeB:'Wszystkie zadania na dziś zrobione.',tLoot:'ŁUP · {r}',tAch:'OSIĄGNIĘCIE · {n}',tBuy:'KUPIONO',tBuyB:'{n}. Zasłużone, korzystaj.',tNeedNC:'PODAJ NAZWĘ I KOSZT',tCopied:'KOPIA SKOPIOWANA',tCopiedB:'Wklej ją w bezpieczne miejsce.',tSel:'ZAZNACZ I SKOPIUJ',tSelB:'Schowek zablokowany, tekst zaznaczony poniżej.',tRest:'PRZYWRÓCONO',tRestB:'Kopia wczytana.',tRestF:'BŁĄD PRZYWRACANIA',tRestFB:'To nie jest kopia RunDeck.',tReset:'ZRESETOWANO',tResetB:'Czysta karta.',tLang:'JĘZYK USTAWIONY',tAv:'PORTRET ZAKTUALIZOWANY',tAvF:'Nie da się odczytać tego pliku jako obrazu.',tIn:'ZALOGOWANO',tOutA:'WYLOGOWANO',
+ composer:'Kompilator zadań',cpName:'co trzeba zrobić?',kName:'nazwa',kWeight:'waga',kBoard:'tablica',kTag:'tag',kSteps:'kroki',stepAdd:'+ krok',tagNew:'#nowy',run:'Uruchom',cpHint:'Enter uruchamia · skróty !2 #tag @c też działają',reward:'nagroda',compiled:'skompilowano',deployed:'wdrożono do {b}',newBtn:'Nowe zadanie',none:'brak',cpEmpty:'Najpierw nadaj nazwę.',evOnline:'WYDARZENIE AKTYWNE',evEnds:'koniec za {t}',evGo:'Jedziemy',events:{weekend:['NADGODZINY WEEKENDOWE','Każde zadanie daje XP ×1,5 i KRED ×2 aż do poniedziałku.'],payday:['WYPŁATA','Jest 25. KRED ×2 przez cały dzień.']},
  lvBonus:'BONUS +{n} KRED',cont:'Dalej',upC:'AWANS UPRAWNIEŃ',upS:'RESPEKT W GÓRĘ',
  bHand:'UZGADNIANIE',bOp:'OPERATOR',bVer:'ZWERYFIKOWANO',bLoad:'WCZYTYWANIE KONTRAKTÓW',bCred:'KREDYTKA',bStreak:'SERIA',bDays:'DNI',bGo:'Podłącz się ▸',bSkip:'Pomiń start następnym razem',bSkipped:'Start będzie pomijany',
  seed:{t:['Wypij szklankę wody','Odpowiedz na najstarszego nieprzeczytanego maila','Ogarnij biurko przez pięć minut'],r:['Poranne rozciąganie','Wybierz trzy najważniejsze rzeczy na jutro'],c:'Posprzątaj kuchnię',cs:['Naczynia do zmywarki','Przetrzyj blaty','Wynieś śmieci'],b:'Umów dentystę',rw:['Jeden odcinek serialu','30 minut grania','Wypad na dobrą kawę'],cats:['ciało','praca','dom','głowa','sprawy']},
@@ -436,6 +478,7 @@ sv:{lang:'Svenska',node:'Nod Stockholm',
  profile:'Operatörsprofil',handle:'Alias',avatar:'Porträtt',upload:'Ladda upp porträtt',removeAv:'Ta bort',avRaw:'Rå',avDuo:'Duoton',avNote:'Kvadratiska bilder blir bäst. Skalas till 256 px.',
  account:'Konto',accN:'Logga in för att ha allt på alla enheter.',email:'E-post',pass:'Lösenord',signIn:'Logga in',signUp:'Skapa konto',magic:'Mejla mig en inloggningslänk',signOut:'Logga ut',signedAs:'Inloggad som {e}',checkMail:'Kolla din e-post, bekräfta och logga sedan in.',linkSent:'Länk skickad. Öppna den på den här enheten.',offline:'Fortsätt offline',authTitle:'Operatörsautentisering',authErr:'Inloggningen misslyckades: {m}',needCreds:'Ange e-post och ett lösenord på minst 6 tecken.',needMail:'Ange din e-post först.',localOnly:'Konton är avstängda i den här kopian. Allt sparas på den här enheten.',gridOnly:'Allt sparas i ett privat lager som bara du kan läsa.',
  tNoT:'INGA MÅL',tAddF:'Lägg till en uppgift först.',tJack:'INKOPPLAD',tJackB:'{m} min. Mobilen upp och ner. Kör.',tSess:'PASS KLART',tOut:'URKOPPLAD',tFocusR:'{m} min fokus · +{x} XP',tUnder:'Under en minut. Ingen utbetalning.',tWipe:'TOM TAVLA',tWipeB:'Alla dagens uppgifter klara.',tLoot:'BYTE · {r}',tAch:'PRESTATION · {n}',tBuy:'KÖPT',tBuyB:'{n}. Njut, du har förtjänat det.',tNeedNC:'BEHÖVER NAMN OCH PRIS',tCopied:'BACKUP KOPIERAD',tCopiedB:'Klistra in den på ett säkert ställe.',tSel:'MARKERA OCH KOPIERA',tSelB:'Urklipp blockerat, texten är markerad nedan.',tRest:'ÅTERSTÄLLT',tRestB:'Backup inläst.',tRestF:'ÅTERSTÄLLNING MISSLYCKADES',tRestFB:'Den texten är ingen RunDeck-backup.',tReset:'NOLLSTÄLLT',tResetB:'Rent bord.',tLang:'SPRÅK VALT',tAv:'PORTRÄTT UPPDATERAT',tAvF:'Filen kunde inte läsas som bild.',tIn:'INLOGGAD',tOutA:'UTLOGGAD',
+ composer:'Uppgiftskompilator',cpName:'vad behöver göras?',kName:'namn',kWeight:'vikt',kBoard:'tavla',kTag:'tagg',kSteps:'steg',stepAdd:'+ steg',tagNew:'#ny',run:'Kör',cpHint:'Enter kör · genvägar som !2 #tagg @c funkar också',reward:'belöning',compiled:'kompilerat',deployed:'utplacerad i {b}',newBtn:'Ny uppgift',none:'ingen',cpEmpty:'Ge den ett namn först.',evOnline:'EVENT AKTIVT',evEnds:'slutar om {t}',evGo:'Kör hårt',events:{weekend:['HELGÖVERTID','Varje uppgift ger XP ×1,5 och KRED ×2 fram till måndag.'],payday:['LÖNING','Det är den 25:e. KRED ×2 hela dagen.']},
  lvBonus:'BONUS +{n} KRED',cont:'Fortsätt',upC:'BEHÖRIGHET UPPGRADERAD',upS:'RYKTET STIGER',
  bHand:'HANDSKAKNING',bOp:'OPERATÖR',bVer:'VERIFIERAD',bLoad:'LÄSER IN KONTRAKT',bCred:'KREDITSTICKA',bStreak:'SVIT',bDays:'DAGAR',bGo:'Koppla in ▸',bSkip:'Hoppa över starten nästa gång',bSkipped:'Starten hoppas över framöver',
  seed:{t:['Drick ett glas vatten','Svara på det äldsta olästa mejlet','Röj skrivbordet i fem minuter'],r:['Morgonstretch','Välj morgondagens tre viktigaste'],c:'Städa köket',cs:['Disken in i maskinen','Torka av bänkarna','Ta ut soporna'],b:'Boka tandläkaren',rw:['Ett avsnitt av en serie','30 minuter gaming','Fikarunda på stan'],cats:['kropp','jobb','hem','huvud','ärenden']},
@@ -615,7 +658,7 @@ function authHtml(){const A=ui.auth;
 function paintAuth(){const m=document.getElementById('au-msg');if(m){m.textContent=ui.auth.msg;m.className='msg '+(ui.auth.err?'er':'')}document.querySelectorAll('form[data-form="auth"] button').forEach(b=>b.disabled=ui.auth.busy)}
 function showGate(){if(!SB_ON||sbUser)return;sfx('err');
  $('#ovl').innerHTML='<div class="ov gate" id="gate"><div class="ovbox"><div class="brand" style="justify-content:center">'+I.logo+'<span class="bname g">RUNDECK</span></div><div class="k">MERIDIAN MUNICIPAL GRID</div><div class="glitch" data-t="'+esc(t('authTitle').toUpperCase())+'">'+esc(t('authTitle').toUpperCase())+'</div><p class="muted" style="margin:0;max-width:420px">'+esc(t('accN'))+'</p>'+authHtml()+'<button class="btn sm" data-act="offline">'+esc(t('offline'))+'</button></div></div>'}
-function closeGate(){const g=document.getElementById('gate');if(g)$('#ovl').innerHTML='';ui.gate=false}
+function closeGate(){const g=document.getElementById('gate');if(g)$('#ovl').innerHTML='';ui.gate=false;setTimeout(eventIntro,300)}
 
 /* ---------- day rollover ---------- */
 function rollover(){
@@ -726,13 +769,14 @@ function rank(L){const r=V().ranks;return r[Math.min(r.length-1,Math.floor((L-1)
 function award(base,rect,opt){opt=opt||{};
  const before=lvl(state.xp).L;let mult=1;
  if(opt.combo){const c=state.combo;c.n=(now()-c.last<15*60e3)?c.n+1:1;c.last=now();mult=Math.min(3,1+.5*(c.n-1));state.stats.bestCombo=Math.max(state.stats.bestCombo,c.n)}
- const xp=Math.round(base*mult),cr=Math.round(xp/2);
+ const em=evMult();const xp=Math.round(base*mult*em.xp),cr=Math.round(base*mult*em.xp/2*em.cr);
  state.xp+=xp;state.cred+=cr;
  if(opt.task){state.stats.total++;const d=dk();state.hist[d]=(state.hist[d]||0)+1;
   const s=state.streak;if(s.last!==d){s.n=(s.last===dayOff(-1))?s.n+1:1;s.last=d}state.stats.bestStreak=Math.max(state.stats.bestStreak,s.n)}
  const x=rect?rect.left+rect.width/2:innerWidth/2,y=rect?rect.top+rect.height/2:innerHeight/2;
  burst(x,y,opt.task?34:14);floatTxt(x+(opt.task?40:20),y,'+'+xp+' XP');
  if(mult>1)setTimeout(()=>floatTxt(x+40,y-26,'×'+mult+' '+t('combo'),tok('--warn')),180);
+ if(em.xp>1||em.cr>1)setTimeout(()=>floatTxt(x-30,y-48,activeEvents().map(e=>t('events')[e.k][0]).join(' + '),tok('--warn')),320);
  const after=lvl(state.xp).L;
  return{xp,cr,lvUp:after>before?after:0,mult}
 }
@@ -789,6 +833,59 @@ function term(raw){const line=raw.trim();if(!line)return;
  log('▸ '+V().add+': '+title+'  ['+t('diff')[tk.diff]+(cat?' #'+cat:'')+' → '+t('lists')[list][0].toUpperCase()+']','ok');
  sfx('add');buzz(10);ui.just=tk.id;save();ui.refocus='term';render();setTimeout(()=>{ui.just=null},950)}
 
+/* ---------- events ---------- */
+const nextMidnight=d=>{const x=new Date(d);x.setHours(24,0,0,0);return x};
+const EVENTS=[
+ {k:'weekend',on:d=>d.getDay()===0||d.getDay()===6,xp:1.5,cr:2,end:d=>{let x=nextMidnight(d);while(x.getDay()!==1)x=nextMidnight(x);return x}},
+ {k:'payday',on:d=>d.getDate()===25,xp:1,cr:2,end:d=>nextMidnight(d)}
+];
+const activeEvents=()=>{const d=new Date();return EVENTS.filter(e=>e.on(d))};
+function evMult(){let xp=1,cr=1;activeEvents().forEach(e=>{xp*=e.xp;cr*=e.cr});return{xp,cr}}
+function evLeft(e){const ms=e.end(new Date())-now(),h=Math.floor(ms/36e5),m=Math.floor(ms%36e5/6e4),sec=Math.floor(ms%6e4/1e3);return(h?h+'h ':'')+z2(m)+'m '+z2(sec)+'s'}
+function evTags(e){return(e.xp>1?'XP ×'+e.xp+' ':'')+(e.cr>1?'CRED ×'+e.cr:'')}
+function eventIntro(){const evs=activeEvents().filter(e=>!(state.seenEv||{})[e.k+dk()]);if(!evs.length||$('#ovl').innerHTML)return;
+ const e=evs[0];state.seenEv=state.seenEv||{};evs.forEach(x=>state.seenEv[x.k+dk()]=1);save();
+ const [n,d]=t('events')[e.k];sfx('level');buzz([30,50,30,50]);burst(innerWidth/2,innerHeight/2,80,[tok('--warn'),tok('--accent'),tok('--accent2')]);
+ $('#ovl').innerHTML='<div class="ov" data-act="closeov"><div class="ovbox"><div class="evbar" style="width:100%;max-width:420px;justify-content:center"><b>'+esc(t('evOnline'))+'</b></div><div class="glitch" data-t="'+esc(n)+'" style="color:var(--warn);font-size:clamp(34px,10vw,64px)">'+esc(n)+'</div><p style="margin:0;max-width:420px;font-size:16px">'+esc(d)+'</p><div class="lab" style="color:var(--warn);font-size:13px">'+esc(evTags(e))+' · '+esc(t('evEnds',{t:evLeft(e)}))+'</div><button class="btn pri" data-act="closeov">'+esc(t('evGo'))+' ▸</button></div></div>'}
+
+/* ---------- task compiler ---------- */
+ui.draft={title:'',diff:1,list:'today',cat:'',steps:[]};
+const TOKRE=/(^|\s)(![123emh]|#[^\s#]+|@\S+)\s$/i;
+function applyToken(tkn){const d=ui.draft;let m;
+ if((m=tkn.match(/^!([123]|e|m|h)$/i))){d.diff={e:1,m:2,h:3}[m[1].toLowerCase()]||+m[1];return'diff'}
+ if((m=tkn.match(/^#(\S+)/))){d.cat=m[1].toLowerCase();return'cat'}
+ if((m=tkn.match(/^@(\S+)/))&&LMAP[m[1].toLowerCase()]){d.list=LMAP[m[1].toLowerCase()];return'list'}
+ return null}
+function knownTags(){const set=new Set();state.tasks.forEach(x=>{if(x.cat)set.add(x.cat)});if(ui.draft.cat)set.add(ui.draft.cat);return[...set].slice(0,8)}
+function composerInner(){const d=ui.draft,m=evMult(),base=DX[d.diff]+d.steps.length*5,xp=Math.round(DX[d.diff]*m.xp),cr=Math.round(DX[d.diff]*m.xp/2*m.cr),ev=m.xp>1||m.cr>1;
+ const tok=(k,v,label,on)=>'<button type="button" class="tok '+(on?'on':'')+(ui.flash===k?' flash':'')+'" data-act="cpset" data-k="'+k+'" data-v="'+esc(v)+'">'+esc(label)+'</button>';
+ const L=(n,html,ind)=>'<div class="ln'+(ind?' in':'')+'"><i>'+n+'</i><div class="lc">'+html+'</div></div>';
+ return'<div class="code" id="cpcode">'+
+ L(1,'<span class="kw">run</span> <span class="fn">new_task</span><span class="pn">({</span>')+
+ L(2,'<label class="k" for="cp-name">'+esc(t('kName'))+':</label><span class="q">"</span><input id="cp-name" class="cin" autocomplete="off" enterkeyhint="go" value="'+esc(d.title)+'" placeholder="'+esc(t('cpName'))+'"><span class="q">"</span>',1)+
+ L(3,'<span class="k">'+esc(t('kWeight'))+':</span>'+[1,2,3].map(n=>tok('diff',n,t('diff')[n]+' +'+DX[n],d.diff===n)).join(''),1)+
+ L(4,'<span class="k">'+esc(t('kBoard'))+':</span>'+LIST_KEYS.map(k=>tok('list',k,t('lists')[k][0],d.list===k)).join(''),1)+
+ L(5,'<span class="k">'+esc(t('kTag'))+':</span>'+tok('cat','',t('none'),!d.cat)+knownTags().map(c=>tok('cat',c,'#'+c,d.cat===c)).join('')+'<label class="sr" for="cp-tag">'+esc(t('tagNew'))+'</label><input id="cp-tag" class="cin sm" autocomplete="off" data-enter="cptag" placeholder="'+esc(t('tagNew'))+'">',1)+
+ L(6,'<span class="k">'+esc(t('kSteps'))+':</span>'+d.steps.map((x,i)=>'<button type="button" class="tok on" data-act="cpdelstep" data-v="'+i+'">'+esc(x)+'<span class="x">✕</span></button>').join('')+'<label class="sr" for="cp-step">'+esc(t('stepAdd'))+'</label><input id="cp-step" class="cin sm" autocomplete="off" data-enter="cpstep" placeholder="'+esc(t('stepAdd'))+'">',1)+
+ L(7,'<span class="pn">})</span> <span class="cm">// '+esc(t('reward'))+': <b>+'+xp+' XP · +'+cr+' CRED</b>'+(d.steps.length?' + '+d.steps.length*5+' XP':'')+(ev?' <em>· '+esc(activeEvents().map(e=>t('events')[e.k][0]).join(' + '))+'</em>':'')+'</span>')+
+ '</div><div class="cpfoot"><button class="btn pri" data-act="deploy">▸ '+esc(t('run'))+'</button><span class="hint">'+esc(t('cpHint'))+'</span></div>'+
+ (ui.termLog.length?'<div class="tout">'+ui.termLog.map(l=>'<div class="'+l.c+'">'+esc(l.m)+'</div>').join('')+'</div>':'')}
+function vComposer(){return'<section class="panel composer" id="composer"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(t('composer'))+'<span class="jp">作成</span><span class="end"><span class="faint tagl" style="letter-spacing:.1em">'+esc(V().tag)+'</span><span class="bc"></span></span></div><div id="cpbody">'+composerInner()+'</div></section>'}
+function paintComposer(focusId){const b=$('#cpbody');if(!b)return;b.innerHTML=composerInner();ui.flash=null;
+ if(focusId){const el=document.getElementById(focusId);if(el){el.focus({preventScroll:true});try{el.setSelectionRange(el.value.length,el.value.length)}catch(e){}}}}
+function deploy(){const d=ui.draft;let v=(d.title||'').trim();
+ if(v[0]==='/'){d.title='';term(v);return}
+ const words=[];v.split(/\s+/).forEach(w=>{if(!w)return;if(!applyToken(w))words.push(w)});v=words.join(' ');
+ if(!v){sfx('err');buzz(40);ui.termLog.push({m:'✕ '+t('cpEmpty'),c:'er'});ui.termLog=ui.termLog.slice(-3);paintComposer('cp-name');const c=$('#cpcode');if(c)c.classList.add('err');return}
+ const tk={id:uid(),title:v,list:d.list,diff:d.diff,cat:d.cat,done:false,created:now(),subs:d.steps.map(x=>({id:uid(),t:x,done:false}))};state.tasks.push(tk);
+ const m=evMult();
+ ui.termLog.push({m:'✓ '+t('compiled')+' · '+V().add+' · '+t('deployed',{b:t('lists')[d.list][0].toUpperCase()})+' · +'+Math.round(DX[d.diff]*m.xp)+' XP',c:'ok'});ui.termLog=ui.termLog.slice(-3);
+ sfx('add');setTimeout(()=>sfx('sub'),90);buzz([10,30,10]);
+ ui.draft={title:'',diff:1,list:d.list,cat:'',steps:[]};ui.just=tk.id;ui.showBack=ui.showBack||d.list==='backlog';
+ save();render();const c=$('#cpcode');if(c){c.classList.add('compiled');const r=c.getBoundingClientRect();burst(r.right-60,r.bottom-20,22,[tok('--ok'),tok('--accent2')])}
+ const n=document.getElementById('cp-name');if(n)n.focus({preventScroll:true});setTimeout(()=>{ui.just=null},950)}
+function openComposer(){if(ui.view!=='board'){ui.view='board';render()}sfx('nav');buzz(8);const c=$('#composer');if(c)c.scrollIntoView({behavior:S().motion==='reduced'?'auto':'smooth',block:'start'});setTimeout(()=>{const n=document.getElementById('cp-name');if(n)n.focus({preventScroll:true})},S().motion==='reduced'?0:350)}
+
 /* ---------- roulette ---------- */
 function openTasks(){let c=state.tasks.filter(x=>!x.done&&(x.list==='today'||x.list==='contract'));if(!c.length)c=state.tasks.filter(x=>!x.done&&x.list==='routine');if(!c.length)c=state.tasks.filter(x=>!x.done);return c}
 function roulette(){if(ui.spinning)return;const c=openTasks();if(!c.length){toast(t('tNoT'),t('tAddF'));sfx('err');return}
@@ -815,6 +912,7 @@ function renderHud(){const L=lvl(state.xp),s=S(),st=streakNow();
  '<div class="hstats"><div class="strip"><span class="seg lvs"><small>LV</small><b class="g">'+L.L+'</b></span><span class="seg crs" title="'+esc(t('credits'))+'">'+I.cred+'<b>'+state.cred+'</b></span><span class="seg sts '+(st?'':'cold')+'" title="'+esc(t('streakT'))+'">'+I.flame+'<b>'+st+'</b></span></div>'+'<div class="tools"><button class="tbtn langb" data-act="langov" aria-label="'+esc(t('language'))+'">'+s.lang.toUpperCase()+'</button><button class="tbtn" data-act="mute" aria-label="'+esc(s.sound?t('mute'):t('unmute'))+'">'+(s.sound?I.son:I.soff)+'</button></div>'+'<button class="avbtn" data-act="go" data-v="stats" aria-label="'+esc(t('profile'))+'">'+avatarHtml('s')+'<i id="syncdot" class="sync"></i></button></div></div>'+
  '<div class="xpw"><div class="xpbar" role="progressbar" aria-valuemin="0" aria-valuemax="'+L.need+'" aria-valuenow="'+L.into+'"><div class="xpfill" style="width:'+(L.into/L.need*100).toFixed(1)+'%"></div></div><div class="xpl">'+L.into+'/'+L.need+' XP · '+esc(rank(L.L).toUpperCase())+'</div></div>'+
  '<div class="combo '+(comboOn?'on':'')+'" id="combo"><span>×'+mult+' '+esc(t('combo'))+'</span><div class="cbar"><i id="cbar" style="width:'+(cl/9000).toFixed(1)+'%"></i></div><span class="faint" id="cleft" style="font-family:var(--fu);font-size:11px">'+mmss(cl/1000)+'</span></div>'+
+ (activeEvents().length?activeEvents().map(e=>'<button class="evbar" data-act="evinfo"><b>◆ '+esc(t('events')[e.k][0])+'</b><span>'+esc(evTags(e))+'</span><span class="r" data-evleft="'+e.k+'">'+esc(evLeft(e))+'</span></button>').join(''):'')+
  '<button class="jackchip '+(state.focus&&ui.view!=='focus'?'on':'')+'" data-act="go" data-v="focus">● '+esc(t('jacked'))+' <b id="jchip">'+mmss(focusLeft())+'</b></button>';
  setSync(syncMode)}
 function pips(d){return'<span class="pips" title="'+esc(t('diff')[d])+'">'+[1,2,3].map(i=>'<i class="'+(i<=d?'on':'')+'"></i>').join('')+'</span>'}
@@ -841,10 +939,7 @@ function vBoard(){const tg=findT(state.target),todays=state.tasks.filter(x=>x.li
   '<div class="row"><button class="btn pri" data-act="pick">'+I.dice+esc(t('pick'))+'</button>'+(tg?'<button class="btn cy" data-act="jackthis" data-id="'+tg.id+'">'+I.bolt+esc(t('jackIn'))+'</button><button class="btn" data-act="done" data-id="'+tg.id+'">'+esc(t('done'))+'</button>':'')+'</div>'+
   '<div style="margin-top:14px"><div class="tline"><span>'+esc(t('today'))+'</span><span>'+esc(t('cleared',{a:td,b:todays.length}))+'</span></div><div class="today">'+todays.map(x=>'<i class="'+(x.done?'on':'')+'"></i>').join('')+'</div></div>'+
  '</div></section>';
- h+='<section class="panel"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(t('cmd'))+'<span class="jp">端末</span><span class="end"><span class="faint tagl" style="letter-spacing:.1em">'+esc(V().tag)+'</span></span></div>'+
-  '<form class="term" data-form="term"><span class="pr">'+S().glyph+'</span><label class="sr" for="term">'+esc(t('newTask'))+'</label><input id="term" autocomplete="off" enterkeyhint="send" placeholder="'+esc(t('termPh'))+'"></form>'+
-  (ui.termLog.length?'<div class="tout">'+ui.termLog.map(l=>'<div class="'+l.c+'">'+esc(l.m)+'</div>').join('')+'</div>':'')+
-  '<div class="hints">'+['!1','!2','!3','#'+t('seed').cats[2],'#'+t('seed').cats[1],'@r','@c','@b','/pick','/help'].map(x=>'<button type="button" data-act="hint" data-v="'+esc(x)+'">'+esc(x)+'</button>').join('')+'</div></section>';
+ h+=vComposer();
  lists().forEach(l=>{const ts=state.tasks.filter(x=>x.list===l.k).sort((a,b)=>(a.done-b.done)||(a.created-b.created));const open=ts.filter(x=>!x.done).length;const col=l.k==='backlog'&&!ui.showBack;
   h+='<section class="panel"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(l.n)+'<span class="jp">'+l.jp+'</span><span class="ct">'+open+'</span><span class="end">'+(l.k==='routine'?'<span class="faint" style="letter-spacing:.08em">'+esc(t('resets'))+'</span>':'')+(l.k==='backlog'?'<button class="collapse" data-act="toggleback">'+esc(col?t('show'):t('hide'))+'</button>':'')+'<span class="bc"></span></span></div>'+
   (col?'':(ts.length?'<ul class="tasks">'+ts.map(taskHtml).join('')+'</ul>':'<div class="empty">'+esc(l.empty)+'</div>'))+'</section>'});
@@ -915,6 +1010,7 @@ function vCfg(){const s=S();
 function render(){renderHud();const v=ui.view;
  $('#view').innerHTML=v==='focus'?vFocus():v==='loot'?vLoot():v==='stats'?vStats():v==='cfg'?vCfg():vBoard();
  const nv=t('nav');
+ {const f=$('#fab');if(f)f.setAttribute('aria-label',t('newBtn'))}
  $('#nav').innerHTML=[['board',I.board],['focus',I.bolt],['loot',I.cube],['stats',I.bars],['cfg',I.cfg]].map((n,i)=>'<button class="'+(v===n[0]?'on':'')+'" data-act="go" data-v="'+n[0]+'" aria-current="'+(v===n[0]?'page':'false')+'">'+n[1]+esc(nv[i])+'</button>').join('');
  if(ui.refocus){const el=document.getElementById(ui.refocus);if(el)el.focus({preventScroll:true});ui.refocus=null}}
 
@@ -937,6 +1033,11 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
   case'del':state.tasks=state.tasks.filter(x=>x.id!==id);if(state.target===id)state.target=null;ui.open=null;sfx('undo');save();render();break;
   case'purge':state.tasks=state.tasks.filter(x=>!x.sample||x.done);if(state.target&&!findT(state.target))state.target=null;sfx('undo');save();render();break;
   case'pick':roulette();break;
+  case'cpset':{const k=b.dataset.k;ui.draft[k]=k==='diff'?+v:v;ui.flash=k;sfx(k==='diff'?'sub':'tap');buzz(6);paintComposer();break}
+  case'cpdelstep':ui.draft.steps.splice(+v,1);sfx('undo');paintComposer('cp-step');break;
+  case'deploy':deploy();break;
+  case'fab':openComposer();break;
+  case'evinfo':state.seenEv={};eventIntro();break;
   case'hint':{const i=$('#term');if(i){i.value=(i.value.trim()+' '+v+' ').trimStart();i.focus();sfx('tap')}break}
   case'toggleback':ui.showBack=!ui.showBack;sfx('tap');render();break;
   case'mute':S().sound=!S().sound;applySet();if(S().sound)sfx('nav');save();renderHud();break;
@@ -972,9 +1073,14 @@ document.addEventListener('submit',e=>{const f=e.target.dataset.form;if(!f)retur
  if(f==='term'){const i=$('#term');const v=i.value;i.value='';term(v)}
  if(f==='auth')authDo('in');
  if(f==='rw'){const n=$('#rwn').value.trim(),c=parseInt($('#rwc').value);if(!n||!(c>0)){toast(t('tNeedNC'),'');sfx('err');return}state.rewards.push({id:uid(),name:n,cost:c});sfx('add');save();render()}});
-document.addEventListener('keydown',e=>{const el=e.target;if(e.key==='Enter'&&el.dataset&&el.dataset.enter==='addsub'){e.preventDefault();const tk=findT(el.dataset.id),v=el.value.trim();if(!tk||!v)return;tk.subs.push({id:uid(),t:v,done:false});delete tk.sample;tk.done=false;sfx('add');ui.refocus='sub-'+tk.id;save();render()}
+document.addEventListener('keydown',e=>{const el=e.target;
+ if(e.key==='Enter'&&el.id==='cp-name'){e.preventDefault();deploy();return}
+ if(e.key==='Enter'&&el.dataset&&el.dataset.enter==='cpstep'){e.preventDefault();const v=el.value.trim();if(v){ui.draft.steps.push(v);sfx('add');paintComposer('cp-step')}return}
+ if(e.key==='Enter'&&el.dataset&&el.dataset.enter==='cptag'){e.preventDefault();const v=el.value.trim().replace(/^#/,'').toLowerCase().replace(/\s+/g,'-');if(v){ui.draft.cat=v;ui.flash='cat';sfx('add');paintComposer('cp-name')}return}if(e.key==='Enter'&&el.dataset&&el.dataset.enter==='addsub'){e.preventDefault();const tk=findT(el.dataset.id),v=el.value.trim();if(!tk||!v)return;tk.subs.push({id:uid(),t:v,done:false});delete tk.sample;tk.done=false;sfx('add');ui.refocus='sub-'+tk.id;save();render()}
  if(e.key==='Escape'&&$('#ovl').innerHTML&&!document.getElementById('gate')){$('#ovl').innerHTML=''}});
-document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.range;if(k){S()[k]=parseFloat(e.target.value);applySet();save()}});
+document.addEventListener('input',e=>{
+ if(e.target.id==='cp-name'){const el=e.target;ui.draft.title=el.value;const m=el.value.match(TOKRE);if(m){const kind=applyToken(m[2]);if(kind){ui.draft.title=el.value.slice(0,m.index+m[1].length);ui.flash=kind;sfx('sub');buzz(8);paintComposer('cp-name')}}return}
+ const k=e.target.dataset&&e.target.dataset.range;if(k){S()[k]=parseFloat(e.target.value);applySet();save()}});
 document.addEventListener('change',e=>{
  if(e.target.dataset&&e.target.dataset.change==='handle'){S().handle=e.target.value.trim().toUpperCase().slice(0,24)||'OPERATOR';save();renderHud()}
  if(e.target.id==='avfile'&&e.target.files&&e.target.files[0])setAvatarFile(e.target.files[0])});
@@ -985,6 +1091,7 @@ setInterval(()=>{
  const f=state.focus;
  if(f){const left=focusLeft();const c=$('#fclock');if(c)c.textContent=mmss(left);const r=$('#ringc');if(r){const C=2*Math.PI*88;r.setAttribute('stroke-dashoffset',(C*(1-Math.max(0,left)/f.dur)).toFixed(1))}const j=$('#jchip');if(j)j.textContent=mmss(left);
   if(left<=0&&f.paused==null)endFocus(true)}
+ document.querySelectorAll('[data-evleft]').forEach(el=>{const e=EVENTS.find(x=>x.k===el.dataset.evleft);if(e)el.textContent=evLeft(e)});
  const cb=$('#cbar');if(cb){const cl=Math.max(0,15*60e3-(now()-state.combo.last));cb.style.width=(cl/9000).toFixed(1)+'%';const ct=$('#cleft');if(ct)ct.textContent=mmss(cl/1000);if(cl<=0)$('#combo').classList.remove('on')}
 },500);
 setInterval(()=>{if(state.day!==dk()){rollover();render()}},60e3);
@@ -994,17 +1101,18 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&state.day
 function bootLines(){const op=S().handle||'OPERATOR';return[['MERIDIAN MUNICIPAL GRID // NODE 07',''],[t('bHand')+' ',' OK'],[t('bOp')+': '+op+' ',' '+t('bVer')],[t('bLoad')+' ',' '+state.tasks.filter(x=>!x.done).length],[t('bCred')+' ',' '+state.cred+' CRED'],[t('bStreak')+' ',' '+streakNow()+' '+t('bDays')],[V().tag.toUpperCase(),'rd']]}
 function lineHtml([a,b]){const pad=a.length<28&&b&&b!=='rd'?'.'.repeat(28-a.length):'';return b==='rd'?'<div class="rd">'+esc(a)+'</div>':b?'<div>'+esc(a+pad)+'<span class="okk">'+esc(b)+'</span></div>':'<div>'+esc(a)+'</div>'}
 function bootChrome(o){o.querySelector('#bgo').textContent=t('bGo');o.querySelector('#bskip').textContent=S().boot?t('bSkip'):t('bSkipped');o.querySelector('.bootlang').innerHTML='<span class="faint">'+I.globe.replace('<svg','<svg style="width:16px;height:16px;vertical-align:-3px"')+'</span>'+LANGS.map(l=>'<button class="'+(S().lang===l?'on':'')+'" data-boot-lang="'+l+'">'+l.toUpperCase()+'</button>').join('')}
-function boot(){if(!S().boot){if(ui.gate)showGate();return}
+function boot(){if(!S().boot){if(ui.gate)showGate();else setTimeout(eventIntro,400);return}
  const o=document.createElement('div');o.className='boot';o.id='boot';
  o.innerHTML='<div class="bl"><div class="logo">'+avatarHtml('m')+'<span class="n">RUNDECK</span></div><div id="bl"></div><div class="bootlang"></div><div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="btn pri" id="bgo"></button><button class="btn sm" id="bskip"></button></div></div>';
  document.body.appendChild(o);bootChrome(o);const bl=o.querySelector('#bl');let i=0;
  const step=()=>{const L=bootLines();if(i>=L.length||!document.getElementById('boot'))return;bl.insertAdjacentHTML('beforeend',lineHtml(L[i]));i++;setTimeout(step,S().motion==='reduced'?0:170)};step();
  o.addEventListener('click',e=>{const lb=e.target.closest('[data-boot-lang]');if(!lb)return;S().lang=lb.dataset.bootLang;retitleSamples(S().lang);applySet();save();render();sfx('lang');bl.innerHTML=bootLines().slice(0,i).map(lineHtml).join('');bootChrome(o);scramble(bl)});
- const close=()=>{sfx('boot');buzz([20,40,20]);o.style.transition='opacity .35s';o.style.opacity='0';setTimeout(()=>{o.remove();if(ui.gate)showGate()},360);setTimeout(()=>burst(innerWidth/2,90,24),200);if(state.focus&&state.focus.paused==null)startHum()};
+ const close=()=>{sfx('boot');buzz([20,40,20]);o.style.transition='opacity .35s';o.style.opacity='0';setTimeout(()=>{o.remove();if(ui.gate)showGate();else eventIntro()},360);setTimeout(()=>burst(innerWidth/2,90,24),200);if(state.focus&&state.focus.paused==null)startHum()};
  o.querySelector('#bgo').addEventListener('click',close);
  o.querySelector('#bskip').addEventListener('click',e=>{S().boot=false;save();e.target.textContent=t('bSkipped');e.target.disabled=true});
 }
 
+document.body.insertAdjacentHTML('beforeend','<button class="fab" id="fab" data-act="fab" aria-label="New task"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg></button>');
 sizeFx();rollover();applySet();render();boot();initGrid();initSb();
 
 })();
