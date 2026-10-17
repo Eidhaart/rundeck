@@ -34,7 +34,7 @@ Import the repo at vercel.com/new. Framework preset: Other. No build command, ou
 
 ## Sound
 
-All sounds are synthesized for RunDeck. Short effects are generated live with the Web Audio API; six clips in `sfx/` (task complete, heavy task complete, ping, detection sting, alarm, ringtone) are rendered by `tools/gen_sfx.py`:
+All sounds are synthesized for RunDeck. Short effects are generated live with the Web Audio API; six clips in `sfx/` are rendered by `tools/gen_sfx.py` in a dark neuro-bass style: a growl hit for task complete, a double wub with a drop for heavy tasks, a metallic ping, a growl riser for detection, an alarm over a pulsing reese, and a wobble-bass ringtone:
 
 ```
 python3 tools/gen_sfx.py sfx
