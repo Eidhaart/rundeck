@@ -32,6 +32,12 @@ The anon key is meant to be public. Access is enforced by the policies in `schem
 
 Import the repo at vercel.com/new. Framework preset: Other. No build command, output directory `.`.
 
-## Sound files
+## Sound
 
-The app layers four short clips over its synthesized effects: `notify` (task complete, loot, achievements), `detect` (target lock, level up), `heat` (event start) and `call` (end of a focus session). They are loaded from `sounds/notify.mp3`, `sounds/detect.mp3`, `sounds/heat.mp3` and `sounds/call.mp3`. That folder is git-ignored because the clips are not ours to redistribute; without it the app uses its synthesized sounds.
+All sounds are synthesized for RunDeck. Short effects are generated live with the Web Audio API; six clips in `sfx/` (task complete, heavy task complete, ping, detection sting, alarm, ringtone) are rendered by `tools/gen_sfx.py`:
+
+```
+python3 tools/gen_sfx.py sfx
+```
+
+It needs numpy, scipy and ffmpeg.
