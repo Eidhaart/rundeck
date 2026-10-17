@@ -512,6 +512,16 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 #netwarn.on{display:block}
 @keyframes nwb{0%,92%{opacity:.85}96%{opacity:.35}}
 @media(prefers-reduced-motion:reduce){#netwarn{animation:none}}
+
+.avwrap{position:relative;flex:none}
+.avmenu{position:absolute;right:0;top:100%;margin-top:6px;min-width:190px;z-index:40;background:var(--solid);border:1px solid var(--accent);box-shadow:0 10px 30px rgba(0,0,0,.55);padding:4px;opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .14s,transform .14s,visibility 0s .14s;clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%)}
+.avmenu::before{content:'';position:absolute;left:0;right:0;top:-8px;height:8px}
+@media(hover:hover){.avwrap:hover .avmenu,.avwrap:focus-within .avmenu{opacity:1;visibility:visible;transform:none;transition:opacity .14s,transform .14s}}
+.avm-h{font-size:10px;letter-spacing:.08em;opacity:.6;padding:6px 8px 7px;border-bottom:1px solid color-mix(in srgb,var(--accent) 30%,transparent);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px}
+.avmenu button{display:flex;align-items:center;gap:8px;width:100%;background:none;border:0;color:inherit;font:inherit;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:8px;cursor:pointer;text-align:left}
+.avmenu button svg{width:15px;height:15px;color:var(--accent)}
+.avmenu button:hover,.avmenu button:focus-visible{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);outline:none}
+.prof .row{flex-wrap:wrap;gap:8px}
 </style>
 </head>
 <body>
@@ -533,7 +543,7 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 const DICT={
 en:{lang:'English',node:'Grid standard',
  nav:['Board','Jack in','Loot','File','Config'],
- credits:'Credits',streakT:'Day streak',netOff:"You're offline. Progress is stored on this device and syncs when you reconnect.",netLocal:'Offline mode. Progress is stored on this device only.',saveLocal:'Saved on this device',saveGrid:'Synced to your private store',saveCloud:'Synced to your account',saveErr:'Sync failed, saved on this device',mute:'Mute',unmute:'Unmute',
+ credits:'Credits',streakT:'Day streak',netOff:"You're offline. Progress is stored on this device and syncs when you reconnect.",netLocalS:'Not signed in',netLocal:'Offline mode. Progress is stored on this device only.',saveLocal:'Saved on this device',saveGrid:'Synced to your private store',saveCloud:'Synced to your account',saveErr:'Sync failed, saved on this device',mute:'Mute',unmute:'Unmute',
  combo:'COMBO',jacked:'JACKED IN',
  lists:{today:['Today','Nothing queued. Type a task above.'],routine:['Routines','No routines. Add one with @r'],contract:['Contracts','No contracts. Big jobs go here, add steps inside.'],backlog:['Backlog','Backlog clear.']},
  samples:'Starter contracts loaded as samples. Keep what fits.',purge:'Purge samples',
@@ -569,7 +579,7 @@ en:{lang:'English',node:'Grid standard',
 },
 pl:{lang:'Polski',node:'Węzeł Warszawa',
  nav:['Tablica','Podłącz','Łupy','Akta','Konfig'],
- credits:'Kredyty',streakT:'Seria dni',netOff:'Jesteś offline. Postęp zapisuje się na tym urządzeniu i zsynchronizuje się po połączeniu.',netLocal:'Tryb offline. Postęp zapisuje się tylko na tym urządzeniu.',saveLocal:'Zapisano na tym urządzeniu',saveGrid:'Zsynchronizowano z prywatnym magazynem',saveCloud:'Zsynchronizowano z kontem',saveErr:'Błąd synchronizacji, zapisano lokalnie',mute:'Wycisz',unmute:'Włącz dźwięk',
+ credits:'Kredyty',streakT:'Seria dni',netOff:'Jesteś offline. Postęp zapisuje się na tym urządzeniu i zsynchronizuje się po połączeniu.',netLocalS:'Niezalogowany',netLocal:'Tryb offline. Postęp zapisuje się tylko na tym urządzeniu.',saveLocal:'Zapisano na tym urządzeniu',saveGrid:'Zsynchronizowano z prywatnym magazynem',saveCloud:'Zsynchronizowano z kontem',saveErr:'Błąd synchronizacji, zapisano lokalnie',mute:'Wycisz',unmute:'Włącz dźwięk',
  combo:'KOMBO',jacked:'PODŁĄCZONY',
  lists:{today:['Dziś','Pusto. Wpisz zadanie powyżej.'],routine:['Rutyny','Brak rutyn. Dodaj przez @r'],contract:['Kontrakty','Brak kontraktów. Duże zadania tutaj, kroki w środku.'],backlog:['Na później','Nic nie czeka.']},
  samples:'Wczytano przykładowe kontrakty. Zostaw, co pasuje.',purge:'Usuń przykłady',
@@ -605,7 +615,7 @@ pl:{lang:'Polski',node:'Węzeł Warszawa',
 },
 sv:{lang:'Svenska',node:'Nod Stockholm',
  nav:['Tavla','Koppla in','Byte','Akt','Konfig'],
- credits:'Krediter',streakT:'Dagar i rad',netOff:'Du är offline. Framstegen sparas på den här enheten och synkas när du är uppkopplad igen.',netLocal:'Offlineläge. Framstegen sparas bara på den här enheten.',saveLocal:'Sparat på den här enheten',saveGrid:'Synkat till ditt privata lager',saveCloud:'Synkat till ditt konto',saveErr:'Synk misslyckades, sparat lokalt',mute:'Ljud av',unmute:'Ljud på',
+ credits:'Krediter',streakT:'Dagar i rad',netOff:'Du är offline. Framstegen sparas på den här enheten och synkas när du är uppkopplad igen.',netLocalS:'Inte inloggad',netLocal:'Offlineläge. Framstegen sparas bara på den här enheten.',saveLocal:'Sparat på den här enheten',saveGrid:'Synkat till ditt privata lager',saveCloud:'Synkat till ditt konto',saveErr:'Synk misslyckades, sparat lokalt',mute:'Ljud av',unmute:'Ljud på',
  combo:'KOMBO',jacked:'INKOPPLAD',
  lists:{today:['Idag','Inget i kö. Skriv en uppgift ovan.'],routine:['Rutiner','Inga rutiner. Lägg till med @r'],contract:['Kontrakt','Inga kontrakt. Stora jobb hamnar här, med steg inuti.'],backlog:['Senare','Inget parkerat.']},
  samples:'Exempelkontrakt inlästa. Behåll det som passar.',purge:'Rensa exempel',
@@ -655,6 +665,7 @@ const I={
  chk:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
  cred:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M14.5 9.5h-3.5a1.75 1.75 0 0 0 0 3.5h2a1.75 1.75 0 0 1 0 3.5H9.5M12 8v1.5M12 16.5V18"/></svg>',
  globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.6 5.4 3.6 8.5s-1.1 5.9-3.6 8.5c-2.5-2.6-3.6-5.4-3.6-8.5S9.5 6.1 12 3.5z"/></svg>',
+ pwr:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3v8"/><path d="M7 6.3a7 7 0 1 0 10 0"/></svg>',
  cam:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>'
 };
 
@@ -1319,7 +1330,7 @@ const lists=()=>LIST_KEYS.map(k=>({k,n:t('lists')[k][0],empty:t('lists')[k][1],j
 function renderHud(){const L=lvl(state.xp),s=S(),st=streakNow();
  const c=state.combo,cl=Math.max(0,15*60e3-(now()-c.last)),comboOn=c.n>=2&&cl>0,mult=Math.min(3,1+.5*(c.n-1));
  $('#hud').innerHTML='<div class="hrow"><div class="brand">'+I.logo+'<div><div class="bname g">RUNDECK</div><div class="bsub">Meridian Municipal Grid · '+esc(s.handle||'OPERATOR')+'</div></div></div>'+
- '<div class="hstats"><div class="strip"><span class="seg lvs"><small>LV</small><b class="g">'+L.L+'</b></span><span class="seg crs" title="'+esc(t('credits'))+'">'+I.cred+'<b>'+state.cred+'</b></span><span class="seg sts '+(st?'':'cold')+'" title="'+esc(t('streakT'))+'">'+I.flame+'<b>'+st+'</b></span></div>'+'<div class="tools"><button class="tbtn langb" data-act="langov" aria-label="'+esc(t('language'))+'">'+s.lang.toUpperCase()+'</button><button class="tbtn" data-act="mute" aria-label="'+esc(s.sound?t('mute'):t('unmute'))+'">'+(s.sound?I.son:I.soff)+'</button></div>'+'<button class="avbtn" data-act="go" data-v="stats" aria-label="'+esc(t('profile'))+'">'+avatarHtml('s')+'<i id="syncdot" class="sync"></i></button></div></div>'+
+ '<div class="hstats"><div class="strip"><span class="seg lvs"><small>LV</small><b class="g">'+L.L+'</b></span><span class="seg crs" title="'+esc(t('credits'))+'">'+I.cred+'<b>'+state.cred+'</b></span><span class="seg sts '+(st?'':'cold')+'" title="'+esc(t('streakT'))+'">'+I.flame+'<b>'+st+'</b></span></div>'+'<div class="tools"><button class="tbtn langb" data-act="langov" aria-label="'+esc(t('language'))+'">'+s.lang.toUpperCase()+'</button><button class="tbtn" data-act="mute" aria-label="'+esc(s.sound?t('mute'):t('unmute'))+'">'+(s.sound?I.son:I.soff)+'</button></div>'+'<div class="avwrap"><button class="avbtn" data-act="go" data-v="stats" aria-label="'+esc(t('profile'))+'">'+avatarHtml('s')+'<i id="syncdot" class="sync"></i></button>'+(SB_ON?'<div class="avmenu" role="menu"><div class="avm-h">'+esc(sbUser?(sbUser.email||S().handle):t('netLocalS'))+'</div>'+(sbUser?'<button role="menuitem" data-act="signout">'+I.pwr+esc(t('signOut'))+'</button>':'<button role="menuitem" data-act="signin">'+I.pwr+esc(t('signIn'))+'</button>')+'</div>':'')+'</div></div></div>'+
  '<div class="xpw"><div class="xpbar" role="progressbar" aria-valuemin="0" aria-valuemax="'+L.need+'" aria-valuenow="'+L.into+'"><div class="xpfill" style="width:'+(L.into/L.need*100).toFixed(1)+'%"></div></div><div class="xpl">'+L.into+'/'+L.need+' XP · '+esc(rank(L.L).toUpperCase())+'</div></div>'+
  '<div class="combo '+(comboOn?'on':'')+(comboOn&&ui.comboSeen!==c.n?' pop':'')+'" id="combo"><span>×'+mult+' '+esc(t('combo'))+'</span><div class="cbar"><i id="cbar" style="width:'+(cl/9000).toFixed(1)+'%"></i></div><span class="faint" id="cleft" style="font-family:var(--fu);font-size:11px">'+mmss(cl/1000)+'</span></div>'+
  (buffNow()?'<button class="evbar buffbar" data-act="go" data-v="loot"><b>◆ '+esc(t('overclock'))+'</b><span>XP ×'+buffNow().x+'</span><span class="r" id="buffleft">'+mmss((buffNow().until-now())/1000)+'</span></button>':'')+
@@ -1392,7 +1403,7 @@ function vStats(){const L=lvl(state.xp),days=[];for(let i=13;i>=0;i--){const d=d
  days.forEach((x,i)=>{const h=(H-pb-10)*(x.n/mx),X=pl+4+i*bw,last=i===13;svg+='<rect x="'+(X+2)+'" y="'+((H-pb)-h)+'" width="'+(bw-5)+'" height="'+Math.max(h,1)+'" fill="'+(last?'var(--accent)':'var(--accent2)')+'" opacity="'+(last?1:.7)+'"/>';if(i%2===1||last)svg+='<text x="'+(X+bw/2)+'" y="'+(H-6)+'" text-anchor="middle" font-size="9.5" fill="var(--faint)" font-family="monospace">'+x.d.slice(8)+'</text>';if(x.n)svg+='<text x="'+(X+bw/2)+'" y="'+((H-pb)-h-4)+'" text-anchor="middle" font-size="10" fill="var(--fg)" font-family="monospace">'+x.n+'</text>'});
  svg+='</svg>';
  const got=ACH.filter(a=>state.ach[a.k]).length,an=t('achs');
- return'<section class="panel">'+ph(t('file'),'記録')+'<div class="pb"><div class="prof">'+avatarHtml('l')+'<div class="pt"><div class="lab">'+esc(rank(L.L))+'</div><div class="ph2 g">'+esc(S().handle)+'</div><div style="font-family:var(--fd);font-size:20px;color:var(--accent)">'+esc(t('level'))+' '+L.L+'</div><div class="muted" style="font-family:var(--fu);font-size:12px">'+esc(t('toLv',{n:L.need-L.into,l:L.L+1,x:state.xp}))+'</div><div style="font-family:var(--fu);font-size:12px;color:var(--astral)">'+esc(t('patches',{n:(state.hx&&state.hx.patched)||0}))+'</div><div class="row" style="margin-top:8px"><button class="btn sm" data-act="go" data-v="cfg">'+I.cam+esc(t('profile'))+'</button></div></div></div></div>'+
+ return'<section class="panel">'+ph(t('file'),'記録')+'<div class="pb"><div class="prof">'+avatarHtml('l')+'<div class="pt"><div class="lab">'+esc(rank(L.L))+'</div><div class="ph2 g">'+esc(S().handle)+'</div><div style="font-family:var(--fd);font-size:20px;color:var(--accent)">'+esc(t('level'))+' '+L.L+'</div><div class="muted" style="font-family:var(--fu);font-size:12px">'+esc(t('toLv',{n:L.need-L.into,l:L.L+1,x:state.xp}))+'</div><div style="font-family:var(--fu);font-size:12px;color:var(--astral)">'+esc(t('patches',{n:(state.hx&&state.hx.patched)||0}))+'</div><div class="row" style="margin-top:8px"><button class="btn sm" data-act="go" data-v="cfg">'+I.cam+esc(t('profile'))+'</button>'+(SB_ON?(sbUser?'<button class="btn sm" data-act="signout">'+I.pwr+esc(t('signOut'))+'</button>':'<button class="btn sm" data-act="signin">'+I.pwr+esc(t('signIn'))+'</button>'):'')+'</div></div></div></div>'+
  '<div class="kpis"><div class="kpi"><div class="lab">'+esc(t('kCleared'))+'</div><div class="v">'+state.stats.total+'</div></div><div class="kpi"><div class="lab">'+esc(t('kStreak'))+'</div><div class="v">'+streakNow()+'</div></div><div class="kpi"><div class="lab">'+esc(t('kBest'))+'</div><div class="v">'+state.stats.bestStreak+'</div></div><div class="kpi"><div class="lab">'+esc(t('kFocus'))+'</div><div class="v">'+state.stats.focusMin+'</div></div></div></section>'+
  '<section class="panel">'+ph(t('last14'))+'<div class="chart">'+svg+'</div></section>'+
  '<section class="panel"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(t('ach'))+'<span class="jp">実績</span><span class="ct">'+got+'/'+ACH.length+'</span></div><div class="ach">'+ACH.map(a=>'<div class="badge '+(state.ach[a.k]?'on':'')+'"><b>'+esc(an[a.k][0])+'</b><span>'+esc(an[a.k][1])+'</span></div>').join('')+'</div></section>'}
@@ -1491,7 +1502,8 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
   case'peek':{const pw=document.getElementById('au-pass');if(pw){const show=pw.type==='password';pw.type=show?'text':'password';b.textContent=show?t('hidePw'):t('showPw');sfx('tap')}break}
   case'glang':setLang(v,true);sfx('lang');repaintGate();break;
   case'magic':authDo('magic');break;
-  case'signout':if(sb)sb.auth.signOut();break;
+  case'signout':sfx('tap');if(sb)sb.auth.signOut();break;
+  case'signin':sfx('tap');if(SB_ON&&!sbUser){ui.gate=true;showGate()}break;
   case'askdelacc':ui.confirm='delacc';sfx('err');render();break;
   case'delacc':(async()=>{try{const r=await sb.rpc('delete_my_account');if(r.error)throw r.error;toast(t('tDel'),t('tDelB'));await sb.auth.signOut()}catch(err){toast(t('tDelF'),err.message||'');sfx('err')}})();break;
   case'offline':state.offline=true;persistLocal();closeGate();paintNet();sfx('tap');break;
