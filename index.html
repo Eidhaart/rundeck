@@ -780,12 +780,18 @@ async function pushSb(){if(!sbUser||sbBusy||!sbDirty)return;sbBusy=true;sbDirty=
  sbBusy=false;if(sbDirty)pushSb()}
 function signedOut(){const keep={...S(),handle:'OPERATOR',avatar:''};try{localStorage.removeItem(KEY)}catch(e){}state=seed(keep.lang);state.set=keep;state.tasks=[];persistLocal();setSync('local');toast(t('tOutA'),'');render()}
 /* Cloudflare Turnstile in interaction-only mode: invisible for almost everyone, a single tap for the rest. */
-let cfWid=null,cfToken=null,cfLoading=null;
+let cfWid=null,cfToken=null,cfLoading=null,cfBox=null,cfWait=null;
 async function captchaReady(){if(!CFG.turnstileSiteKey)return;const box=document.getElementById('cf-box');if(!box)return;
  if(!window.turnstile){cfLoading=cfLoading||loadScript('https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit');try{await cfLoading}catch(e){return}}
- if(cfWid!=null){try{window.turnstile.remove(cfWid)}catch(e){}cfWid=null}cfToken=null;
- cfWid=window.turnstile.render(box,{sitekey:CFG.turnstileSiteKey,appearance:'interaction-only',theme:'dark',size:'flexible',callback:tk=>{cfToken=tk},'expired-callback':()=>{cfToken=null},'error-callback':()=>{cfToken=null}})}
-async function captchaToken(){if(!CFG.turnstileSiteKey)return undefined;for(let i=0;i<80&&!cfToken;i++)await new Promise(r=>setTimeout(r,100));const tk=cfToken;cfToken=null;try{window.turnstile&&cfWid!=null&&window.turnstile.reset(cfWid)}catch(e){}return tk||undefined}
+ if(cfWid!=null&&cfBox===box&&box.isConnected)return;
+ if(cfWid!=null){try{window.turnstile.remove(cfWid)}catch(e){}cfWid=null}cfToken=null;cfBox=box;
+ const done=tk=>{cfToken=tk||null;if(cfWait){const w=cfWait;cfWait=null;w(cfToken)}};
+ cfWid=window.turnstile.render(box,{sitekey:CFG.turnstileSiteKey,appearance:'interaction-only',execution:'execute',theme:'dark',size:'flexible',callback:tk=>done(tk),'expired-callback':()=>{cfToken=null},'error-callback':()=>{done(null);return true}})}
+async function captchaToken(){if(!CFG.turnstileSiteKey)return undefined;
+ if(!(cfBox&&cfBox.isConnected&&cfWid!=null))await captchaReady();if(cfWid==null||!window.turnstile)return undefined;
+ cfToken=null;const got=new Promise(r=>{cfWait=r;setTimeout(()=>{if(cfWait===r){cfWait=null;r(null)}},12000)});
+ try{window.turnstile.reset(cfWid);window.turnstile.execute(cfWid)}catch(e){try{window.turnstile.execute(cfWid)}catch(_){}}
+ const tk=await got;cfToken=null;return tk||undefined}
 async function authDo(kind){
  const em=(document.getElementById('au-email')||{}).value||'',pw=(document.getElementById('au-pass')||{}).value||'';
  const A=ui.auth;A.err=false;A.msg='';
