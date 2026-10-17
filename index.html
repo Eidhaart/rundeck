@@ -371,13 +371,6 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 .composer .tout{padding-top:8px}
 @media(max-width:520px){.ln{grid-template-columns:30px 1fr}.ln .k{min-width:100%;font-size:12px;margin-bottom:-2px}.ln.in .lc{padding-left:14px}.cin{min-width:0}}
 
-/* Quick add */
-.fab{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:34;width:58px;height:58px;display:grid;place-items:center;background:var(--accent);color:var(--ink);clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));animation:fabp 3s ease-in-out infinite}
-.fab svg{width:28px;height:28px}
-.fab:active{transform:scale(.94)}
-@keyframes fabp{50%{filter:brightness(1.25)}}
-@media(min-width:900px){.fab{right:calc(50% - 410px - 74px)}}
-
 /* Events */
 .evbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;width:100%;margin-top:8px;padding:6px 10px;font-family:var(--fu);font-size:11.5px;letter-spacing:.12em;text-align:left;color:var(--ink);background:repeating-linear-gradient(-45deg,var(--warn) 0 12px,color-mix(in srgb,var(--warn) 78%,var(--bg)) 12px 24px);background-size:34px 34px;animation:stripes 1.6s linear infinite}
 .evbar b{letter-spacing:.18em}
@@ -1104,7 +1097,6 @@ function vCfg(){const s=S();
 function render(){renderHud();const v=ui.view;
  $('#view').innerHTML=v==='focus'?vFocus():v==='loot'?vLoot():v==='stats'?vStats():v==='cfg'?vCfg():vBoard();
  const nv=t('nav');
- {const f=$('#fab');if(f)f.setAttribute('aria-label',t('newBtn'))}
  $('#nav').innerHTML=[['board',I.board],['focus',I.bolt],['loot',I.cube],['stats',I.bars],['cfg',I.cfg]].map((n,i)=>'<button class="'+(v===n[0]?'on':'')+'" data-act="go" data-v="'+n[0]+'" aria-current="'+(v===n[0]?'page':'false')+'">'+n[1]+esc(nv[i])+'</button>').join('');
  if(ui.refocus){const el=document.getElementById(ui.refocus);if(el)el.focus({preventScroll:true});ui.refocus=null}}
 
@@ -1211,7 +1203,6 @@ function boot(){if(!S().boot){if(ui.gate)showGate();else setTimeout(eventIntro,4
  o.querySelector('#bskip').addEventListener('click',e=>{S().boot=false;save();e.target.textContent=t('bSkipped');e.target.disabled=true});
 }
 
-document.body.insertAdjacentHTML('beforeend','<button class="fab" id="fab" data-act="fab" aria-label="New task"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg></button>');
 sizeFx();rollover();applySet();render();boot();initGrid();initSb();
 
 })();
