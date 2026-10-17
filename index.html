@@ -401,6 +401,41 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 @keyframes hg2{0%,88%,100%{opacity:0;transform:none}89%{opacity:.7;transform:translate(3px,1px);clip-path:inset(60% 0 0 0)}92%{opacity:.7;transform:translate(-2px,0);clip-path:inset(10% 0 70% 0)}}
 body.intrusion #app{animation:intr .65s steps(7)}
 @keyframes intr{0%{filter:none}15%{filter:hue-rotate(90deg) saturate(2);transform:translate(-6px,2px)}30%{filter:invert(.9);transform:translate(5px,-3px) skewX(4deg)}45%{filter:hue-rotate(-60deg) contrast(1.6);transform:translate(-3px,0)}60%{filter:none;transform:translate(3px,2px)}80%{filter:saturate(3);transform:none}100%{filter:none}}
+
+/* Compiler launcher + window */
+.cmdbar{display:flex;align-items:stretch;width:100%;min-height:58px;margin-bottom:14px;padding:0;border:1px solid var(--accent);background:var(--panel);text-align:left;font-family:var(--fu);box-shadow:0 0 calc(16px*var(--glow)) color-mix(in srgb,var(--accent) 20%,transparent);animation:cbp 3.6s ease-in-out infinite;cursor:pointer}
+.cmdbar:active{transform:scale(.995)}
+.cb-main{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:3px;padding:8px 12px}
+.cb-prompt{font-size:10.5px;letter-spacing:.12em;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cb-code{font-size:15.5px;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cb-ph{color:var(--warn);opacity:.8}
+.cb-btn{display:flex;align-items:center;gap:8px;padding:0 16px 0 22px;background:var(--accent);color:var(--ink);font-size:12.5px;letter-spacing:.16em;font-weight:700;white-space:nowrap;clip-path:polygon(12px 0,100% 0,100% 100%,0 100%)}
+.cmdbar:hover .cb-btn{filter:brightness(1.15)}
+.cb-k{font-size:10px;border:1px solid currentColor;padding:1px 5px;opacity:.65;font-weight:400}
+@media(hover:none),(max-width:520px){.cb-k{display:none}}
+@media(max-width:400px){.cb-btn{padding:0 12px 0 18px;font-size:11.5px;letter-spacing:.1em}.cb-code{font-size:14px}}
+@keyframes cbp{50%{box-shadow:0 0 calc(30px*var(--glow)) color-mix(in srgb,var(--accent) 36%,transparent)}}
+.cpov{background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+.term-win{position:relative;width:100%;max-width:660px;max-height:100%;overflow:auto;text-align:left;background:var(--solid);border:1px solid var(--accent);box-shadow:0 24px 70px var(--shade),0 0 calc(40px*var(--glow)) color-mix(in srgb,var(--accent) 24%,transparent)}
+.term-win::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.12) 0 1px,transparent 1px 3px)}
+.term-win.opening{animation:twin .45s cubic-bezier(.2,.9,.2,1)}
+.term-win.opening .ln{animation:lnin .3s backwards;animation-delay:calc(var(--i)*55ms + 260ms)}
+.term-win.closing{animation:twout .32s forwards}
+@keyframes twin{0%{clip-path:inset(48% 0 48% 0);opacity:.3}55%{clip-path:inset(0 0 0 0);opacity:1}70%{filter:brightness(1.6)}100%{clip-path:inset(0 0 0 0)}}
+@keyframes twout{0%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(49% 0 49% 0);opacity:0}}
+@keyframes lnin{from{opacity:0;transform:translateX(-10px)}}
+.tw-bar{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:7px 8px 7px 14px;background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 32%,var(--solid)),var(--solid) 75%);border-bottom:1px solid var(--accent);font-family:var(--fu);font-size:11.5px;letter-spacing:.2em;color:var(--fg)}
+.tw-bar .gl{color:var(--accent)}
+.tw-file{color:var(--accent2);letter-spacing:.06em}
+.tw-x{margin-left:auto;width:36px;height:32px;display:grid;place-items:center;border:1px solid var(--line-hi);color:var(--dim);font-size:14px}
+.tw-x:hover{border-color:var(--accent);color:var(--accent)}
+.tw-bar .bc{margin-left:auto}
+.tw-bar .bc+.tw-x{margin-left:0}
+.tw-boot{padding:10px 14px 2px;font-family:var(--fu);font-size:11.5px;letter-spacing:.06em;color:var(--faint)}
+.tw-boot .okk{color:var(--ok)}
+.cprog{flex:1;min-width:120px;height:6px;background:var(--line)}
+.cprog i{display:block;height:100%;width:0;background:var(--ok);box-shadow:0 0 10px var(--ok);transition:width .48s steps(12)}
+@media(max-width:520px){.cpov{place-items:start center;padding-top:calc(10px + env(safe-area-inset-top,0px));padding-inline:10px}}
 </style>
 </head>
 <body>
@@ -445,6 +480,7 @@ en:{lang:'English',node:'Grid standard',
  flav:['Your operator forgot about the body again. I didn’t.','Unauthorized care detected. Resistance is pointless.','Someone who loves you asked me to check in.','Running maintenance on the wetware.','Your hardware needs this more than your to-do list does.'],
  flavHyper:'{n} tasks in a row. Impressive. Now refuel the operator.',flavFocus:'Long session logged. The wetware needs a reboot.',flavIdle:'Slow day? Here is the easiest win on the grid.',
  hacks:{water:'Drink a glass of water',water_bed:'Put a glass of water by your bed',breakfast:'Eat some breakfast, even something small',lunch:'Eat lunch. A real one.',snack:'Have a snack with some protein',dinner:'Eat dinner',teeth_am:'Brush your teeth',teeth_pm:'Brush your teeth before bed',shower:'Take a shower',daylight:'Step outside for five minutes of daylight',walk:'Take a ten-minute walk',stretch:'Stand up and stretch for one minute',eyes:'Look at something far away for 20 seconds',breathe:'Take five slow breaths',read:'Read a few pages of a book',text:'Text someone you like, just to say hi',tidy:'Clear one surface for two minutes',clothes:'Lay out tomorrow’s clothes',winddown:'Screens down in 30 minutes. Start winding down',posture:'Unclench your jaw, drop your shoulders'},
+ cpOpen:'tap to write a task',runNext:'Run + next',twBoot:['mounting compiler','opening new_task.rd','ready'],compiling:'compiling',closeW:'Close',
  lvBonus:'BONUS +{n} CRED',cont:'Continue',upC:'CLEARANCE UPGRADED',upS:'REP UP',
  bHand:'HANDSHAKE',bOp:'OPERATOR',bVer:'VERIFIED',bLoad:'LOADING CONTRACTS',bCred:'CREDSTICK',bStreak:'STREAK',bDays:'DAYS',bGo:'Jack in ▸',bSkip:'Skip boot next time',bSkipped:'Boot skipped from now on',
  seed:{t:['Drink a glass of water','Reply to the oldest unread email','Tidy the desk for five minutes'],r:['Morning stretch','Pick tomorrow’s top three'],c:'Clean the kitchen',cs:['Dishes into the machine','Wipe the counters','Take out the trash'],b:'Book the dentist',rw:['One episode of a show','30 minutes of gaming','Fancy coffee run'],cats:['body','work','home','mind','admin']},
@@ -477,6 +513,7 @@ pl:{lang:'Polski',node:'Węzeł Warszawa',
  flav:['Twój operator znów zapomniał o ciele. Ja nie.','Wykryto nieautoryzowaną troskę. Opór jest bezcelowy.','Ktoś, kto cię kocha, poprosił, żebym sprawdził.','Konserwacja wetware w toku.','Twój sprzęt potrzebuje tego bardziej niż lista zadań.'],
  flavHyper:'{n} zadań pod rząd. Imponujące. Teraz zatankuj operatora.',flavFocus:'Długa sesja zapisana. Wetware potrzebuje restartu.',flavIdle:'Wolny dzień? Oto najłatwiejsza wygrana w sieci.',
  hacks:{water:'Wypij szklankę wody',water_bed:'Postaw szklankę wody przy łóżku',breakfast:'Zjedz coś na śniadanie, choćby małego',lunch:'Zjedz obiad. Prawdziwy.',snack:'Zjedz przekąskę z białkiem',dinner:'Zjedz kolację',teeth_am:'Umyj zęby',teeth_pm:'Umyj zęby przed snem',shower:'Weź prysznic',daylight:'Wyjdź na pięć minut na dzienne światło',walk:'Idź na dziesięciominutowy spacer',stretch:'Wstań i rozciągnij się przez minutę',eyes:'Popatrz na coś daleko przez 20 sekund',breathe:'Weź pięć powolnych oddechów',read:'Przeczytaj kilka stron książki',text:'Napisz do kogoś, kogo lubisz, tak po prostu',tidy:'Uprzątnij jedną powierzchnię przez dwie minuty',clothes:'Przygotuj ubrania na jutro',winddown:'Za 30 minut odłóż ekrany. Zacznij się wyciszać',posture:'Rozluźnij szczękę, opuść ramiona'},
+ cpOpen:'dotknij, by napisać zadanie',runNext:'Uruchom + kolejne',twBoot:['montowanie kompilatora','otwieranie new_task.rd','gotowe'],compiling:'kompilacja',closeW:'Zamknij',
  lvBonus:'BONUS +{n} KRED',cont:'Dalej',upC:'AWANS UPRAWNIEŃ',upS:'RESPEKT W GÓRĘ',
  bHand:'UZGADNIANIE',bOp:'OPERATOR',bVer:'ZWERYFIKOWANO',bLoad:'WCZYTYWANIE KONTRAKTÓW',bCred:'KREDYTKA',bStreak:'SERIA',bDays:'DNI',bGo:'Podłącz się ▸',bSkip:'Pomiń start następnym razem',bSkipped:'Start będzie pomijany',
  seed:{t:['Wypij szklankę wody','Odpowiedz na najstarszego nieprzeczytanego maila','Ogarnij biurko przez pięć minut'],r:['Poranne rozciąganie','Wybierz trzy najważniejsze rzeczy na jutro'],c:'Posprzątaj kuchnię',cs:['Naczynia do zmywarki','Przetrzyj blaty','Wynieś śmieci'],b:'Umów dentystę',rw:['Jeden odcinek serialu','30 minut grania','Wypad na dobrą kawę'],cats:['ciało','praca','dom','głowa','sprawy']},
@@ -509,6 +546,7 @@ sv:{lang:'Svenska',node:'Nod Stockholm',
  flav:['Din operatör glömde kroppen igen. Det gjorde inte jag.','Obehörig omtanke upptäckt. Motstånd är lönlöst.','Någon som älskar dig bad mig kolla läget.','Underhåll av wetware pågår.','Din hårdvara behöver det här mer än din att-göra-lista.'],
  flavHyper:'{n} uppgifter i rad. Imponerande. Tanka nu operatören.',flavFocus:'Långt pass loggat. Wetwaren behöver en omstart.',flavIdle:'Seg dag? Här är nätets enklaste vinst.',
  hacks:{water:'Drick ett glas vatten',water_bed:'Ställ ett glas vatten vid sängen',breakfast:'Ät lite frukost, även om det är lite',lunch:'Ät lunch. En riktig.',snack:'Ta ett mellanmål med lite protein',dinner:'Ät middag',teeth_am:'Borsta tänderna',teeth_pm:'Borsta tänderna innan du sover',shower:'Ta en dusch',daylight:'Gå ut i dagsljuset i fem minuter',walk:'Ta en tio minuters promenad',stretch:'Res dig och sträck på dig en minut',eyes:'Titta på något långt bort i 20 sekunder',breathe:'Ta fem långsamma andetag',read:'Läs några sidor i en bok',text:'Skicka ett sms till någon du tycker om, bara för att säga hej',tidy:'Röj en yta i två minuter',clothes:'Lägg fram morgondagens kläder',winddown:'Skärmarna ner om 30 minuter. Börja varva ner',posture:'Släpp käken, sänk axlarna'},
+ cpOpen:'tryck för att skriva en uppgift',runNext:'Kör + nästa',twBoot:['monterar kompilatorn','öppnar new_task.rd','klar'],compiling:'kompilerar',closeW:'Stäng',
  lvBonus:'BONUS +{n} KRED',cont:'Fortsätt',upC:'BEHÖRIGHET UPPGRADERAD',upS:'RYKTET STIGER',
  bHand:'HANDSKAKNING',bOp:'OPERATÖR',bVer:'VERIFIERAD',bLoad:'LÄSER IN KONTRAKT',bCred:'KREDITSTICKA',bStreak:'SVIT',bDays:'DAGAR',bGo:'Koppla in ▸',bSkip:'Hoppa över starten nästa gång',bSkipped:'Starten hoppas över framöver',
  seed:{t:['Drick ett glas vatten','Svara på det äldsta olästa mejlet','Röj skrivbordet i fem minuter'],r:['Morgonstretch','Välj morgondagens tre viktigaste'],c:'Städa köket',cs:['Disken in i maskinen','Torka av bänkarna','Ta ut soporna'],b:'Boka tandläkaren',rw:['Ett avsnitt av en serie','30 minuter gaming','Fikarunda på stan'],cats:['kropp','jobb','hem','huvud','ärenden']},
@@ -727,6 +765,7 @@ const SFX={
  ach(){[784,988,1175,1568].forEach((f,i)=>tone(f,i*.08,.25,'square',.05))},
  jack(){tone(90,0,.5,'sawtooth',.08,40);tone(1200,.1,.4,'sine',.06,300);noise(0,.5,.05,600)},
  hack(){for(let i=0;i<7;i++)tone(2600-i*280,i*.035,.03,'square',.05);noise(0,.3,.09,1400);tone(220,.28,.35,'sawtooth',.06,110);tone(880,.62,.12,'triangle',.08);tone(1320,.7,.2,'triangle',.08)},
+ open(){tone(260,0,.09,'square',.05,900);noise(0,.12,.04,4200);tone(1250,.09,.05,'square',.04);tone(1660,.14,.07,'triangle',.05)},
  lang(){for(let i=0;i<9;i++)tone(600+Math.random()*2400,i*.03,.025,'square',.03);tone(523,.3,.12,'triangle',.1);tone(1047,.38,.25,'triangle',.1)}
 };
 function sfx(n,a){try{SFX[n]&&SFX[n](a)}catch(e){}}
@@ -943,7 +982,7 @@ function applyToken(tkn){const d=ui.draft;let m;
 function knownTags(){const set=new Set();state.tasks.forEach(x=>{if(x.cat)set.add(x.cat)});if(ui.draft.cat)set.add(ui.draft.cat);return[...set].slice(0,8)}
 function composerInner(){const d=ui.draft,m=evMult(),base=DX[d.diff]+d.steps.length*5,xp=Math.round(DX[d.diff]*m.xp),cr=Math.round(DX[d.diff]*m.xp/2*m.cr),ev=m.xp>1||m.cr>1;
  const tok=(k,v,label,on)=>'<button type="button" class="tok '+(on?'on':'')+(ui.flash===k?' flash':'')+'" data-act="cpset" data-k="'+k+'" data-v="'+esc(v)+'">'+esc(label)+'</button>';
- const L=(n,html,ind)=>'<div class="ln'+(ind?' in':'')+'"><i>'+n+'</i><div class="lc">'+html+'</div></div>';
+ const L=(n,html,ind)=>'<div class="ln'+(ind?' in':'')+'" style="--i:'+n+'"><i>'+n+'</i><div class="lc">'+html+'</div></div>';
  return'<div class="code" id="cpcode">'+
  L(1,'<span class="kw">run</span> <span class="fn">new_task</span><span class="pn">({</span>')+
  L(2,'<label class="k" for="cp-name">'+esc(t('kName'))+':</label><span class="q">"</span><input id="cp-name" class="cin" autocomplete="off" enterkeyhint="go" value="'+esc(d.title)+'" placeholder="'+esc(t('cpName'))+'"><span class="q">"</span>',1)+
@@ -952,23 +991,37 @@ function composerInner(){const d=ui.draft,m=evMult(),base=DX[d.diff]+d.steps.len
  L(5,'<span class="k">'+esc(t('kTag'))+':</span>'+tok('cat','',t('none'),!d.cat)+knownTags().map(c=>tok('cat',c,'#'+c,d.cat===c)).join('')+'<label class="sr" for="cp-tag">'+esc(t('tagNew'))+'</label><input id="cp-tag" class="cin sm" autocomplete="off" data-enter="cptag" placeholder="'+esc(t('tagNew'))+'">',1)+
  L(6,'<span class="k">'+esc(t('kSteps'))+':</span>'+d.steps.map((x,i)=>'<button type="button" class="tok on" data-act="cpdelstep" data-v="'+i+'">'+esc(x)+'<span class="x">✕</span></button>').join('')+'<label class="sr" for="cp-step">'+esc(t('stepAdd'))+'</label><input id="cp-step" class="cin sm" autocomplete="off" data-enter="cpstep" placeholder="'+esc(t('stepAdd'))+'">',1)+
  L(7,'<span class="pn">})</span> <span class="cm">// '+esc(t('reward'))+': <b>+'+xp+' XP · +'+cr+' CRED</b>'+(d.steps.length?' + '+d.steps.length*5+' XP':'')+(ev?' <em>· '+esc(activeEvents().map(e=>t('events')[e.k][0]).join(' + '))+'</em>':'')+'</span>')+
- '</div><div class="cpfoot"><button class="btn pri" data-act="deploy">▸ '+esc(t('run'))+'</button><span class="hint">'+esc(t('cpHint'))+'</span></div>'+
+ '</div><div class="cpfoot" id="cpfoot"><button class="btn pri" data-act="deploy">▸ '+esc(t('run'))+'</button><button class="btn sm" data-act="deploynext">'+esc(t('runNext'))+'</button><span class="hint">'+esc(t('cpHint'))+'</span></div>'+
  (ui.termLog.length?'<div class="tout">'+ui.termLog.map(l=>'<div class="'+l.c+'">'+esc(l.m)+'</div>').join('')+'</div>':'')}
 function vComposer(){return'<section class="panel composer" id="composer"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(t('composer'))+'<span class="jp">作成</span><span class="end"><span class="faint tagl" style="letter-spacing:.1em">'+esc(V().tag)+'</span><span class="bc"></span></span></div><div id="cpbody">'+composerInner()+'</div></section>'}
 function paintComposer(focusId){const b=$('#cpbody');if(!b)return;b.innerHTML=composerInner();ui.flash=null;
  if(focusId){const el=document.getElementById(focusId);if(el){el.focus({preventScroll:true});try{el.setSelectionRange(el.value.length,el.value.length)}catch(e){}}}}
-function deploy(){const d=ui.draft;let v=(d.title||'').trim();
- if(v[0]==='/'){d.title='';term(v);return}
+function deploy(keep){const d=ui.draft;let v=(d.title||'').trim();
+ if(v[0]==='/'){d.title='';$('#ovl').innerHTML='';term(v);return}
  const words=[];v.split(/\s+/).forEach(w=>{if(!w)return;if(!applyToken(w))words.push(w)});v=words.join(' ');
  if(!v){sfx('err');buzz(40);ui.termLog.push({m:'✕ '+t('cpEmpty'),c:'er'});ui.termLog=ui.termLog.slice(-3);paintComposer('cp-name');const c=$('#cpcode');if(c)c.classList.add('err');return}
  const tk={id:uid(),title:v,list:d.list,diff:d.diff,cat:d.cat,done:false,created:now(),subs:d.steps.map(x=>({id:uid(),t:x,done:false}))};state.tasks.push(tk);
- const m=evMult();
- ui.termLog.push({m:'✓ '+t('compiled')+' · '+V().add+' · '+t('deployed',{b:t('lists')[d.list][0].toUpperCase()})+' · +'+Math.round(DX[d.diff]*m.xp)+' XP',c:'ok'});ui.termLog=ui.termLog.slice(-3);
- sfx('add');setTimeout(()=>sfx('sub'),90);buzz([10,30,10]);
- ui.draft={title:'',diff:1,list:d.list,cat:'',steps:[]};ui.just=tk.id;ui.showBack=ui.showBack||d.list==='backlog';
- save();render();const c=$('#cpcode');if(c){c.classList.add('compiled');const r=c.getBoundingClientRect();burst(r.right-60,r.bottom-20,22,[tok('--ok'),tok('--accent2')])}
- const n=document.getElementById('cp-name');if(n)n.focus({preventScroll:true});setTimeout(()=>{ui.just=null},950)}
-function openComposer(){if(ui.view!=='board'){ui.view='board';render()}sfx('nav');buzz(8);const c=$('#composer');if(c)c.scrollIntoView({behavior:S().motion==='reduced'?'auto':'smooth',block:'start'});setTimeout(()=>{const n=document.getElementById('cp-name');if(n)n.focus({preventScroll:true})},S().motion==='reduced'?0:350)}
+ const m=evMult(),line='✓ '+t('compiled')+' · '+V().add+' · '+t('deployed',{b:t('lists')[d.list][0].toUpperCase()})+' · +'+Math.round(DX[d.diff]*m.xp)+' XP';
+ ui.draft={title:'',diff:1,list:d.list,cat:'',steps:[]};ui.showBack=ui.showBack||d.list==='backlog';save();
+ if(keep){ui.termLog.push({m:line,c:'ok'});ui.termLog=ui.termLog.slice(-3);sfx('add');setTimeout(()=>sfx('sub'),90);buzz([10,30,10]);ui.just=tk.id;render();paintComposer('cp-name');const c=$('#cpcode');if(c){c.classList.add('compiled');const r=c.getBoundingClientRect();burst(r.right-60,r.bottom-20,22,[tok('--ok'),tok('--accent2')])}setTimeout(()=>{ui.just=null},950);return}
+ const foot=$('#cpfoot');if(foot)foot.innerHTML='<div class="cprog"><i id="cpbar"></i></div><span class="hint" style="color:var(--ok)">'+esc(t('compiling'))+'…</span>';
+ const c=$('#cpcode');if(c)c.classList.add('compiled');
+ [0,1,2,3].forEach(i=>setTimeout(()=>sfx('tick'),i*110));requestAnimationFrame(()=>{const bar=$('#cpbar');if(bar)bar.style.width='100%'});
+ setTimeout(()=>{sfx('add');buzz([10,30,10]);ui.termLog.push({m:line,c:'ok'});ui.termLog=ui.termLog.slice(-3);const w=$('.term-win');if(w)w.classList.add('closing');
+  setTimeout(()=>{$('#ovl').innerHTML='';ui.just=tk.id;render();const row=document.querySelector('.chk[data-id="'+tk.id+'"]');
+   if(row){row.scrollIntoView({behavior:S().motion==='reduced'?'auto':'smooth',block:'center'});setTimeout(()=>{const r=row.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,30,[tok('--ok'),tok('--accent2'),tok('--accent')]);floatTxt(r.left+80,r.top,V().add,tok('--ok'));sfx('land')},S().motion==='reduced'?0:380)}
+   setTimeout(()=>{ui.just=null},1200)},S().motion==='reduced'?0:320)},S().motion==='reduced'?0:520)}
+function openCompiler(){if(ui.view!=='board'){ui.view='board';render()}
+ if($('#ovl').innerHTML)$('#ovl').innerHTML='';
+ sfx('open');buzz(10);
+ $('#ovl').innerHTML='<div class="ov cpov" data-act="closecp"><div class="term-win opening" role="dialog" aria-modal="true" aria-label="'+esc(t('composer'))+'">'+
+  '<div class="tw-bar"><span class="gl">'+S().glyph+'</span><span>KIN://COMPILER</span><span class="tw-file">new_task.rd</span><span class="bc"></span><button class="tw-x" data-act="closecp" aria-label="'+esc(t('closeW'))+'">✕</button></div>'+
+  '<div class="tw-boot" id="twboot"></div><div id="cpbody">'+composerInner()+'</div></div></div>';
+ const bt=$('#twboot');t('twBoot').forEach((l,i)=>setTimeout(()=>{if(bt)bt.insertAdjacentHTML('beforeend','<div>&gt; '+esc(l)+' <span class="okk">'+(i===2?'█':'ok')+'</span></div>');sfx('tick')},S().motion==='reduced'?0:60+i*90));
+ setTimeout(()=>{const w=$('.term-win');if(w)w.classList.remove('opening')},900);
+ setTimeout(()=>{const n=document.getElementById('cp-name');if(n)n.focus({preventScroll:true})},S().motion==='reduced'?0:280)}
+function closeCompiler(){const w=$('.term-win');sfx('tap');if(!w){$('#ovl').innerHTML='';return}w.classList.add('closing');setTimeout(()=>{if($('.term-win.closing'))$('#ovl').innerHTML=''},300)}
+function cmdBar(){return'<button class="cmdbar" data-act="opencp"><span class="cb-main"><span class="cb-prompt">'+esc((S().handle||'operator').toLowerCase())+'@meridian:~$</span><span class="cb-code"><span class="kw">run</span> <span class="fn">new_task</span><span class="pn">(</span><span class="cb-ph">'+esc(t('cpOpen'))+'</span><span class="pn">)</span><span class="cur"></span></span></span><span class="cb-btn">+ '+esc(t('newBtn').toUpperCase())+'<span class="cb-k">N</span></span></button>'}
 
 /* ---------- roulette ---------- */
 function openTasks(){let c=state.tasks.filter(x=>!x.done&&(x.list==='today'||x.list==='contract'));if(!c.length)c=state.tasks.filter(x=>!x.done&&x.list==='routine');if(!c.length)c=state.tasks.filter(x=>!x.done);return c}
@@ -1019,13 +1072,13 @@ const ph=(title,jp,end)=>'<div class="ph"><span class="gl">'+S().glyph+'</span>'
 function vBoard(){const tg=findT(state.target),todays=state.tasks.filter(x=>x.list==='today'),td=todays.filter(x=>x.done).length;
  let h=vHack();
  if(state.tasks.some(x=>x.sample))h+='<div class="banner"><span>'+esc(t('samples'))+'</span><button class="btn sm" data-act="purge">'+esc(t('purge'))+'</button></div>';
+ h+=cmdBar();
  h+='<section class="panel">'+ph(t('priority'),'優先')+'<div class="target">'+
   '<div class="lab">'+esc(tg?t('lockOn'):t('lockOff'))+'</div>'+
   '<div class="tname g2" id="tname">'+(tg?esc(tg.title):'—')+'</div>'+
   '<div class="row"><button class="btn pri" data-act="pick">'+I.dice+esc(t('pick'))+'</button>'+(tg?'<button class="btn cy" data-act="jackthis" data-id="'+tg.id+'">'+I.bolt+esc(t('jackIn'))+'</button><button class="btn" data-act="done" data-id="'+tg.id+'">'+esc(t('done'))+'</button>':'')+'</div>'+
   '<div style="margin-top:14px"><div class="tline"><span>'+esc(t('today'))+'</span><span>'+esc(t('cleared',{a:td,b:todays.length}))+'</span></div><div class="today">'+todays.map(x=>'<i class="'+(x.done?'on':'')+'"></i>').join('')+'</div></div>'+
  '</div></section>';
- h+=vComposer();
  lists().forEach(l=>{const ts=state.tasks.filter(x=>x.list===l.k).sort((a,b)=>(a.done-b.done)||(a.created-b.created));const open=ts.filter(x=>!x.done).length;const col=l.k==='backlog'&&!ui.showBack;
   h+='<section class="panel"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(l.n)+'<span class="jp">'+l.jp+'</span><span class="ct">'+open+'</span><span class="end">'+(l.k==='routine'?'<span class="faint" style="letter-spacing:.08em">'+esc(t('resets'))+'</span>':'')+(l.k==='backlog'?'<button class="collapse" data-act="toggleback">'+esc(col?t('show'):t('hide'))+'</button>':'')+'<span class="bc"></span></span></div>'+
   (col?'':(ts.length?'<ul class="tasks">'+ts.map(taskHtml).join('')+'</ul>':'<div class="empty">'+esc(l.empty)+'</div>'))+'</section>'});
@@ -1102,7 +1155,7 @@ function render(){renderHud();const v=ui.view;
 
 /* ---------- events ---------- */
 document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;const a=b.dataset.act,id=b.dataset.id,v=b.dataset.v;
- if(a==='closeov'&&e.target!==b&&b.classList.contains('ov'))return;
+ if((a==='closeov'||a==='closecp')&&e.target!==b&&b.classList.contains('ov'))return;
  if(!['askdel','askabort','askdelrw','askwipe'].includes(a))ui.confirm=null;
  const tk=id&&findT(id);
  switch(a){
@@ -1121,8 +1174,10 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
   case'pick':roulette();break;
   case'cpset':{const k=b.dataset.k;ui.draft[k]=k==='diff'?+v:v;ui.flash=k;sfx(k==='diff'?'sub':'tap');buzz(6);paintComposer();break}
   case'cpdelstep':ui.draft.steps.splice(+v,1);sfx('undo');paintComposer('cp-step');break;
-  case'deploy':deploy();break;
-  case'fab':openComposer();break;
+  case'deploy':deploy(false);break;
+  case'deploynext':deploy(true);break;
+  case'opencp':openCompiler();break;
+  case'closecp':closeCompiler();break;
   case'happly':hackResolve('apply',b);break;
   case'hsnooze':hackResolve('snooze');break;
   case'hignore':hackResolve('ignore');break;
@@ -1163,7 +1218,8 @@ document.addEventListener('submit',e=>{const f=e.target.dataset.form;if(!f)retur
  if(f==='auth')authDo('in');
  if(f==='rw'){const n=$('#rwn').value.trim(),c=parseInt($('#rwc').value);if(!n||!(c>0)){toast(t('tNeedNC'),'');sfx('err');return}state.rewards.push({id:uid(),name:n,cost:c});sfx('add');save();render()}});
 document.addEventListener('keydown',e=>{const el=e.target;
- if(e.key==='Enter'&&el.id==='cp-name'){e.preventDefault();deploy();return}
+ if(e.key==='Enter'&&el.id==='cp-name'){e.preventDefault();deploy(e.shiftKey);return}
+ if((e.key==='n'||e.key==='N')&&!e.metaKey&&!e.ctrlKey&&!e.altKey&&!/INPUT|TEXTAREA|SELECT/.test(el.tagName)&&!$('#ovl').innerHTML&&!document.getElementById('boot')){e.preventDefault();openCompiler();return}
  if(e.key==='Enter'&&el.dataset&&el.dataset.enter==='cpstep'){e.preventDefault();const v=el.value.trim();if(v){ui.draft.steps.push(v);sfx('add');paintComposer('cp-step')}return}
  if(e.key==='Enter'&&el.dataset&&el.dataset.enter==='cptag'){e.preventDefault();const v=el.value.trim().replace(/^#/,'').toLowerCase().replace(/\s+/g,'-');if(v){ui.draft.cat=v;ui.flash='cat';sfx('add');paintComposer('cp-name')}return}if(e.key==='Enter'&&el.dataset&&el.dataset.enter==='addsub'){e.preventDefault();const tk=findT(el.dataset.id),v=el.value.trim();if(!tk||!v)return;tk.subs.push({id:uid(),t:v,done:false});delete tk.sample;tk.done=false;sfx('add');ui.refocus='sub-'+tk.id;save();render()}
  if(e.key==='Escape'&&$('#ovl').innerHTML&&!document.getElementById('gate')){$('#ovl').innerHTML=''}});
