@@ -422,7 +422,8 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 @media(max-width:520px){.cpov{place-items:start center;padding-top:calc(10px + env(safe-area-inset-top,0px));padding-inline:10px}}
 
 /* Incoming call */
-.callov{background:color-mix(in srgb,var(--bg) 90%,transparent)}
+.ov.callov{background:color-mix(in srgb,var(--bg) 95%,transparent)}
+.kinav{display:block;width:84px;height:84px;filter:drop-shadow(0 0 10px color-mix(in srgb,var(--warn) 50%,transparent))}
 .callring{position:relative;display:grid;place-items:center;width:150px;height:150px}
 .callring::before,.callring::after{content:"";position:absolute;inset:0;border:1px solid var(--warn);animation:ringp 1.4s ease-out infinite}
 .callring::after{animation-delay:.7s}
@@ -1074,7 +1075,7 @@ let ring=null;
 function incomingCall(mins,r){buzz([400,200,400,200,400]);ring=samp('call',{vol:.55});if(!ring){sfx('jack')}
  const done=()=>{if(ring){ring.stop();ring=null}};
  ui.call={mins,r};
- $('#ovl').innerHTML='<div class="ov callov"><div class="ovbox"><div class="callring">'+avatarHtml('m').replace('avw','avw kin')+'</div><div class="k">'+esc(t('callIn'))+'</div><div class="callname">KIN.daemon</div><div class="lab" style="letter-spacing:.3em">· · ·</div><div class="row" style="justify-content:center"><button class="btn hk2" data-act="callans">'+esc(t('answer'))+'</button><button class="btn" data-act="callrej">'+esc(t('decline'))+'</button></div></div></div>';
+ $('#ovl').innerHTML='<div class="ov callov"><div class="ovbox"><div class="callring"><span class="kinav"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 6l38 22v44L50 94 12 72V28z" fill="none" stroke="var(--warn)" stroke-width="2"/><path d="M50 20l26 15v30L50 80 24 65V35z" fill="var(--warn)" opacity=".12"/><path d="M26 50q24-22 48 0q-24 22-48 0z" fill="none" stroke="var(--warn)" stroke-width="2.5"/><circle cx="50" cy="50" r="7" fill="var(--warn)"/></svg></span></div><div class="k">'+esc(t('callIn'))+'</div><div class="callname">KIN.daemon</div><div class="lab" style="letter-spacing:.3em">· · ·</div><div class="row" style="justify-content:center"><button class="btn hk2" data-act="callans">'+esc(t('answer'))+'</button><button class="btn" data-act="callrej">'+esc(t('decline'))+'</button></div></div></div>';
  ui.callTimer=setTimeout(()=>{if(ui.call)callEnd(false)},16000);ui.callDone=done}
 function callEnd(answered){const c=ui.call;if(!c)return;clearTimeout(ui.callTimer);ui.callDone&&ui.callDone();ui.call=null;click(0,.12,2000);
  if(answered){$('#ovl').innerHTML='<div class="ov" data-act="closeov"><div class="ovbox"><div class="k">KIN.daemon</div><p class="calltxt">'+esc(t('callMsg',{m:c.mins,x:c.r.xp}))+'</p><button class="btn pri" data-act="closeov">'+esc(t('cont'))+' ▸</button></div></div>';sfx('ach')}
