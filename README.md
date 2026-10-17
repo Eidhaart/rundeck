@@ -37,6 +37,10 @@ The anon key is meant to be public; the secret (service role) key must never go 
 - Signing out removes the local copy of the deck from the device.
 - `vercel.json` sends a strict Content-Security-Policy, HSTS, no framing, nosniff and a locked-down Permissions-Policy.
 
+### Offline and multiple devices
+
+The app works offline and keeps a local copy. When a device reconnects (or is reopened, or every 45 s while open) it does a three-way merge against the last version it synced: XP and credits from each device add up, tasks are matched by id so completions, edits, new tasks and deletions from every device are kept, and only a direct clash on the same field of the same task goes to the device syncing last. Writes use optimistic locking (`data->>sid`), so two devices saving at once never overwrite each other. A `//WARNING` line shows while a signed-in device has no connection.
+
 Bot protection uses Cloudflare Turnstile in interaction-only mode, so most people never see a challenge. To turn it on: create a Turnstile widget at dash.cloudflare.com (mode: Invisible or Managed), put its **site key** in `config.js` as `turnstileSiteKey`, and put its **secret key** in Supabase under Authentication → Attack Protection → CAPTCHA (provider: Turnstile). Leave `turnstileSiteKey` empty to run without it.
 
 Recommended dashboard settings: keep email confirmation on, set the minimum password length to 8, turn on leaked-password protection if your plan has it, and use a custom SMTP sender before inviting many users.

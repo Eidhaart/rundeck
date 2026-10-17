@@ -507,6 +507,11 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 .asec a{color:var(--accent2)}
 .gatefoot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px}
 .glang button{padding:5px 8px;font-size:11px}
+
+#netwarn{display:none;font-family:var(--mono,monospace);font-size:11px;letter-spacing:.06em;color:var(--warn,#ffb347);padding:6px 2px 2px;opacity:.85;animation:nwb 2.4s steps(2) infinite}
+#netwarn.on{display:block}
+@keyframes nwb{0%,92%{opacity:.85}96%{opacity:.35}}
+@media(prefers-reduced-motion:reduce){#netwarn{animation:none}}
 </style>
 </head>
 <body>
@@ -528,7 +533,7 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 const DICT={
 en:{lang:'English',node:'Grid standard',
  nav:['Board','Jack in','Loot','File','Config'],
- credits:'Credits',streakT:'Day streak',saveLocal:'Saved on this device',saveGrid:'Synced to your private store',saveCloud:'Synced to your account',saveErr:'Sync failed, saved on this device',mute:'Mute',unmute:'Unmute',
+ credits:'Credits',streakT:'Day streak',netOff:"You're offline. Progress is stored on this device and syncs when you reconnect.",netLocal:'Offline mode. Progress is stored on this device only.',saveLocal:'Saved on this device',saveGrid:'Synced to your private store',saveCloud:'Synced to your account',saveErr:'Sync failed, saved on this device',mute:'Mute',unmute:'Unmute',
  combo:'COMBO',jacked:'JACKED IN',
  lists:{today:['Today','Nothing queued. Type a task above.'],routine:['Routines','No routines. Add one with @r'],contract:['Contracts','No contracts. Big jobs go here, add steps inside.'],backlog:['Backlog','Backlog clear.']},
  samples:'Starter contracts loaded as samples. Keep what fits.',purge:'Purge samples',
@@ -564,7 +569,7 @@ en:{lang:'English',node:'Grid standard',
 },
 pl:{lang:'Polski',node:'Węzeł Warszawa',
  nav:['Tablica','Podłącz','Łupy','Akta','Konfig'],
- credits:'Kredyty',streakT:'Seria dni',saveLocal:'Zapisano na tym urządzeniu',saveGrid:'Zsynchronizowano z prywatnym magazynem',saveCloud:'Zsynchronizowano z kontem',saveErr:'Błąd synchronizacji, zapisano lokalnie',mute:'Wycisz',unmute:'Włącz dźwięk',
+ credits:'Kredyty',streakT:'Seria dni',netOff:'Jesteś offline. Postęp zapisuje się na tym urządzeniu i zsynchronizuje się po połączeniu.',netLocal:'Tryb offline. Postęp zapisuje się tylko na tym urządzeniu.',saveLocal:'Zapisano na tym urządzeniu',saveGrid:'Zsynchronizowano z prywatnym magazynem',saveCloud:'Zsynchronizowano z kontem',saveErr:'Błąd synchronizacji, zapisano lokalnie',mute:'Wycisz',unmute:'Włącz dźwięk',
  combo:'KOMBO',jacked:'PODŁĄCZONY',
  lists:{today:['Dziś','Pusto. Wpisz zadanie powyżej.'],routine:['Rutyny','Brak rutyn. Dodaj przez @r'],contract:['Kontrakty','Brak kontraktów. Duże zadania tutaj, kroki w środku.'],backlog:['Na później','Nic nie czeka.']},
  samples:'Wczytano przykładowe kontrakty. Zostaw, co pasuje.',purge:'Usuń przykłady',
@@ -600,7 +605,7 @@ pl:{lang:'Polski',node:'Węzeł Warszawa',
 },
 sv:{lang:'Svenska',node:'Nod Stockholm',
  nav:['Tavla','Koppla in','Byte','Akt','Konfig'],
- credits:'Krediter',streakT:'Dagar i rad',saveLocal:'Sparat på den här enheten',saveGrid:'Synkat till ditt privata lager',saveCloud:'Synkat till ditt konto',saveErr:'Synk misslyckades, sparat lokalt',mute:'Ljud av',unmute:'Ljud på',
+ credits:'Krediter',streakT:'Dagar i rad',netOff:'Du är offline. Framstegen sparas på den här enheten och synkas när du är uppkopplad igen.',netLocal:'Offlineläge. Framstegen sparas bara på den här enheten.',saveLocal:'Sparat på den här enheten',saveGrid:'Synkat till ditt privata lager',saveCloud:'Synkat till ditt konto',saveErr:'Synk misslyckades, sparat lokalt',mute:'Ljud av',unmute:'Ljud på',
  combo:'KOMBO',jacked:'INKOPPLAD',
  lists:{today:['Idag','Inget i kö. Skriv en uppgift ovan.'],routine:['Rutiner','Inga rutiner. Lägg till med @r'],contract:['Kontrakt','Inga kontrakt. Stora jobb hamnar här, med steg inuti.'],backlog:['Senare','Inget parkerat.']},
  samples:'Exempelkontrakt inlästa. Behåll det som passar.',purge:'Rensa exempel',
@@ -766,19 +771,79 @@ async function initSb(){
   render();
  }catch(e){setSync('err')}
 }
+/* ---------- merge: three-way, so two devices (or two people) working offline never wipe each other ----------
+   base = the deck as it was at the last successful sync. Changes made since then on each side are combined:
+   counters add up (XP, credits), items are matched by id, and only a true clash on the same field picks this device. */
+const BKEY=KEY+'.base';
+let sbBase=null;try{sbBase=JSON.parse(localStorage.getItem(BKEY)||'null')}catch(e){}
+function keepBase(d){sbBase=JSON.parse(JSON.stringify(d));try{localStorage.setItem(BKEY,JSON.stringify(sbBase))}catch(e){}}
+const ADD=new Set(['xp','cred','archived','stats.total','stats.wipes','stats.focusMin','stats.hacks']);
+const MAXK=new Set(['updated','stats.bestStreak','stats.bestCombo','stats.longFocus']);
+const same=(a,b)=>{if(a===b)return true;if(typeof a!=='object'||typeof b!=='object'||!a||!b)return false;if(Array.isArray(a)!==Array.isArray(b))return false;const ka=Object.keys(a),kb=Object.keys(b);if(ka.length!==kb.length)return false;for(const k of ka)if(!same(a[k],b[k]))return false;return true};
+const isObj=x=>x&&typeof x==='object'&&!Array.isArray(x);
+const byId=a=>Array.isArray(a)&&a.length>0&&a.every(x=>isObj(x)&&x.id!=null);
+function m3(b,l,r,path){
+ if(same(l,r))return l;
+ if(l===undefined&&b!==undefined&&same(r,b))return undefined;
+ if(r===undefined&&b!==undefined&&same(l,b))return undefined;
+ if(same(l,b))return r;if(same(r,b))return l;
+ if(typeof l==='number'&&typeof r==='number'){
+  if(ADD.has(path)||path.startsWith('hist.'))return r+(l-(typeof b==='number'?b:0));
+  if(MAXK.has(path))return Math.max(l,r);return l}
+ if((byId(l)||byId(r)||byId(b))&&(Array.isArray(l)||l==null)&&(Array.isArray(r)||r==null)){
+  const B=new Map((Array.isArray(b)?b:[]).map(x=>[x.id,x])),L=new Map((l||[]).map(x=>[x.id,x])),R=new Map((r||[]).map(x=>[x.id,x]));
+  const out=[],seen=new Set();
+  for(const x of [...(l||[]),...(r||[])]){if(seen.has(x.id))continue;seen.add(x.id);
+   const v=m3(B.get(x.id),L.get(x.id),R.get(x.id),path+'[]');if(v!==undefined)out.push(v)}
+  return out}
+ if(isObj(l)&&isObj(r)){const o={},bb=isObj(b)?b:{};
+  for(const k of new Set([...Object.keys(l),...Object.keys(r)])){const v=m3(bb[k],l[k],r[k],path?path+'.'+k:k);if(v!==undefined)o[k]=v}
+  return o}
+ if(l===undefined)return r;if(r===undefined)return l;
+ return l}
+function mergeDeck(b,l,r){const m=m3(b||{},l,r,'');m.cred=Math.max(0,m.cred||0);m.xp=Math.max(0,m.xp||0);return m}
+
+/* ---------- Supabase sync with optimistic locking (each write carries a random sid; a write only lands if nobody wrote in between) ---------- */
+let sbSeen=sbBase?(sbBase.sid||null):undefined,sbTimer=null,netOk=navigator.onLine!==false;
+const isNetErr=e=>navigator.onLine===false||/fetch|network|load failed|timeout/i.test(String(e&&(e.message||e)));
+async function fetchRemote(){const {data,error}=await sb.from('decks').select('data').eq('user_id',sbUser.id).maybeSingle();if(error)throw error;return data&&data.data||null}
+function adopt(d){const keepUi=S().lang;state=norm(d);state.owner=sbUser.id;state.offline=false;persistLocal();rollover();applySet();if(S().lang!==keepUi)render();render()}
 async function pullSb(){
- try{const {data,error}=await sb.from('decks').select('data,updated_at').eq('user_id',sbUser.id).maybeSingle();
-  if(error)throw error;
-  if(data&&data.data&&data.data.tasks&&(state.owner!==sbUser.id||(data.data.updated||0)>(state.updated||0))){state=norm(data.data)}
-  state.owner=sbUser.id;state.offline=false;persistLocal();rollover();applySet();setSync('cloud');sbDirty=true;pushSb();render();
- }catch(e){setSync('err')}
+ try{const rem=await fetchRemote();netUp();
+  if(rem&&rem.tasks){
+   if(state.owner!==sbUser.id){adopt(rem);keepBase(rem);sbSeen=rem.sid||null}
+   else if(!sbBase){sbSeen=rem.sid||null;keepBase(rem);if((rem.updated||0)>(state.updated||0))adopt(rem);else sbDirty=true}
+   else if(rem.sid!==sbSeen){const loc=state,m=mergeDeck(sbBase,loc,rem);m.sid=rem.sid;const changed=!same(m,rem);adopt(m);keepBase(rem);sbSeen=rem.sid||null;if(changed)sbDirty=true}
+   else if(!same(state,sbBase))sbDirty=true}
+  else{sbSeen=undefined;sbDirty=true}
+  state.owner=sbUser.id;state.offline=false;persistLocal();setSync('cloud');pushSb();render();
+ }catch(e){isNetErr(e)?netDown():setSync('err')}
 }
 async function pushSb(){if(!sbUser||sbBusy||!sbDirty)return;sbBusy=true;sbDirty=false;
- try{const r1=await sb.from('decks').upsert({user_id:sbUser.id,data:state,updated_at:new Date().toISOString()});if(r1.error)throw r1.error;
+ try{for(let tries=0;tries<4;tries++){
+   const sid=uid(),out={...state,sid};let res;
+   if(sbSeen!==undefined){let q=sb.from('decks').update({data:out,updated_at:new Date().toISOString()}).eq('user_id',sbUser.id);q=sbSeen===null?q.is('data->>sid',null):q.eq('data->>sid',sbSeen);res=await q.select('user_id')}
+   else{res=await sb.from('decks').insert({user_id:sbUser.id,data:out,updated_at:new Date().toISOString()}).select('user_id');if(res.error&&res.error.code==='23505')res={data:[]}}
+   if(res.error)throw res.error;
+   if(res.data&&res.data.length){state.sid=sid;sbSeen=sid;keepBase(out);persistLocal();break}
+   /* someone else wrote first: fold their changes in and try again */
+   const rem=await fetchRemote();if(rem&&rem.tasks){const m=mergeDeck(sbBase,state,rem);adopt(m);keepBase(rem);sbSeen=rem.sid||null}else sbSeen=undefined}
   await sb.from('profiles').upsert({id:sbUser.id,handle:S().handle,lang:S().lang,level:lvl(state.xp).L,xp:state.xp,updated_at:new Date().toISOString()});
-  setSync('cloud')}catch(e){setSync('err')}
- sbBusy=false;if(sbDirty)pushSb()}
-function signedOut(){const keep={...S(),handle:'OPERATOR',avatar:''};try{localStorage.removeItem(KEY)}catch(e){}state=seed(keep.lang);state.set=keep;state.tasks=[];persistLocal();setSync('local');toast(t('tOutA'),'');render()}
+  netUp();setSync('cloud')}catch(e){sbDirty=true;isNetErr(e)?netDown():setSync('err')}
+ sbBusy=false;if(sbDirty&&netOk)pushSb()}
+function signedOut(){const keep={...S(),handle:'OPERATOR',avatar:''};try{localStorage.removeItem(KEY);localStorage.removeItem(BKEY)}catch(e){}sbBase=null;sbSeen=undefined;state=seed(keep.lang);state.set=keep;state.tasks=[];persistLocal();setSync('local');toast(t('tOutA'),'');render();paintNet()}
+
+/* ---------- offline warning ---------- */
+function paintNet(){let el=document.getElementById('netwarn');const v=document.getElementById('view');if(!v)return;
+ if(!el){el=document.createElement('div');el.id='netwarn';el.setAttribute('role','status');v.parentNode.insertBefore(el,v)}
+ const msg=!SB_ON?'':!sbUser?(state.offline?t('netLocal'):''):!netOk?t('netOff'):'';
+ el.textContent=msg?'//WARNING: '+msg:'';el.className=msg?'on':''}
+function netDown(){netOk=false;setSync('err');paintNet()}
+function netUp(){if(!netOk){netOk=true;paintNet()}}
+addEventListener('offline',()=>{netOk=false;paintNet()});
+addEventListener('online',()=>{if(sbUser)pullSb();else{netOk=true;paintNet()}});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&sbUser)pullSb()});
+setInterval(()=>{if(sbUser&&!document.hidden&&navigator.onLine!==false&&!sbBusy)pullSb()},45000);
 /* Cloudflare Turnstile in interaction-only mode: invisible for almost everyone, a single tap for the rest. */
 let cfWid=null,cfToken=null,cfLoading=null,cfBox=null,cfWait=null;
 async function captchaReady(){if(!CFG.turnstileSiteKey)return;const box=document.getElementById('cf-box');if(!box)return;
@@ -1429,7 +1494,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
   case'signout':if(sb)sb.auth.signOut();break;
   case'askdelacc':ui.confirm='delacc';sfx('err');render();break;
   case'delacc':(async()=>{try{const r=await sb.rpc('delete_my_account');if(r.error)throw r.error;toast(t('tDel'),t('tDelB'));await sb.auth.signOut()}catch(err){toast(t('tDelF'),err.message||'');sfx('err')}})();break;
-  case'offline':state.offline=true;persistLocal();closeGate();sfx('tap');break;
+  case'offline':state.offline=true;persistLocal();closeGate();paintNet();sfx('tap');break;
   case'callans':callEnd(true);break;
   case'callrej':callEnd(false);break;
   case'decrypt':openDecrypt(id);break;
@@ -1487,7 +1552,7 @@ function boot(){if(!S().boot){if(ui.gate)showGate();else setTimeout(eventIntro,4
  o.querySelector('#bskip').addEventListener('click',e=>{S().boot=false;save();e.target.textContent=t('bSkipped');e.target.disabled=true});
 }
 
-sizeFx();rollover();applySet();render();boot();initGrid();initSb();
+sizeFx();rollover();applySet();render();paintNet();boot();initGrid();initSb();
 
 })();
 </script>
