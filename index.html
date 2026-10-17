@@ -761,7 +761,7 @@ function audio(){if(!S().sound)return null;
  }catch(e){return null}loadSounds()}
  if(AC.state==='suspended')AC.resume();master.gain.value=S().vol;return AC}
 /* Sample layer: clips in ./sfx/ (or embedded via window.RUNDECK_SOUNDS). Missing files fall back to synth. */
-const SND={},SND_SRC=Object.assign({c1:'sfx/complete_1.mp3',c2:'sfx/complete_2.mp3',c3:'sfx/complete_3.mp3',heavy:'sfx/complete_heavy.mp3',ping:'sfx/ping.mp3',detect:'sfx/detected.mp3',levelup:'sfx/levelup.mp3',heat:'sfx/heat.mp3',call:'sfx/ring.mp3',jackin:'sfx/jackin.mp3',boot:'sfx/boot.mp3',error:'sfx/error.mp3'},window.RUNDECK_SOUNDS||{});let sndLoading=false;
+const SND={},SND_SRC=Object.assign({c1:'sfx/complete_1.mp3',c2:'sfx/complete_2.mp3',c3:'sfx/complete_3.mp3',heavy:'sfx/complete_heavy.mp3',hack:'sfx/hack_complete.mp3',ping:'sfx/ping.mp3',detect:'sfx/detected.mp3',levelup:'sfx/levelup.mp3',heat:'sfx/heat.mp3',call:'sfx/ring.mp3',jackin:'sfx/jackin.mp3',boot:'sfx/boot.mp3',error:'sfx/error.mp3'},window.RUNDECK_SOUNDS||{});let sndLoading=false;
 async function loadSounds(){if(sndLoading||!AC)return;sndLoading=true;
  for(const [k,src] of Object.entries(SND_SRC)){try{let ab;
   if(src.startsWith('data:')){const b=atob(src.slice(src.indexOf(',')+1)),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);ab=u.buffer}
@@ -787,6 +787,7 @@ const SFX={
  nav(){click(0,.06,3000);click(.035,.04,5200);sub(0,95,60,.09,.12)},
  add(){noise(0,.09,.06,700,{f2:3200,q:2});sub(0,80,50,.14,.2);click(.08,.06)},
  done(o){o=typeof o==='object'?o:{n:o};const c=Math.min(o.n||1,6),k=Math.pow(2,(c-1)/12);
+  if(o.hack&&samp('hack',{vol:.9}))return;
   if(samp(o.heavy?'heavy':nextComplete(),{rate:Math.pow(2,(c-1)/12),vol:.9}))return;
   click(0,.14,2600);tone(190,0,.2,'sine',.45,46,{gl:.45});noise(0,.09,.06,7000,{type:'highpass'});
   [220,329.63,440].forEach((f,i)=>tone(f*k,0,.36,i===2?'square':'sawtooth',i===2?.018:.04,0,{lp:3600,lp2:170,det:i?8:-8,a:.003}))},
@@ -902,7 +903,7 @@ function complete(id,el){const tk=findT(id);if(!tk)return;
  const res=award(tk.hack?20:(DX[tk.diff]||10),rect,{combo:true,task:true});tk.award=res.xp;tk.awardCr=res.cr;
  if(tk.hack){const H=HX();H.lastCat[tk.hc]=now();H.patched=(H.patched||0)+1;if(rect)setTimeout(()=>floatTxt(rect.left+70,rect.top-20,t('patchedF'),tok('--astral')),260);if(Math.random()<.25)setTimeout(dropShard,1400)}
  if(state.target===id)state.target=null;
- sfx('done',{n:state.combo.n,heavy:tk.diff===3||state.combo.n%5===0});buzz([18,30,40]);
+ sfx('done',{n:state.combo.n,heavy:tk.diff===3||state.combo.n%5===0,hack:!!tk.hack});buzz([18,30,40]);
  const todays=state.tasks.filter(x=>x.list==='today');if(tk.list==='today'&&todays.length>=3&&todays.every(x=>x.done)){state.stats.wipes++;setTimeout(()=>{toast(t('tWipe'),t('tWipeB'),'cw');burst(innerWidth/2,innerHeight/3,70)},700)}
  ui.just=id;ui.open=null;
  afterGain(res,[pick(V().done),'+'+res.xp+' XP · +'+res.cr+' CRED']);

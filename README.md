@@ -40,6 +40,7 @@ Short UI effects are synthesized live with the Web Audio API. The clips in `sfx/
 |---|---|
 | `complete_1-3.mp3` | Completing a task, rotated so the same one never plays twice in a row |
 | `complete_heavy.mp3` | Completing a HEAVY task, and every 5th hit of a combo |
+| `hack_complete.mp3` | Completing a care-hack task (a glitched remix of `complete_1`) |
 | `ping.mp3` | Loot drops and achievements |
 | `detected.mp3` | Pick for me locking a target |
 | `levelup.mp3` | Level up |
