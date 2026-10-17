@@ -846,7 +846,7 @@ async function pushSb(){if(!sbUser||sbBusy||!sbDirty)return;sbBusy=true;sbDirty=
   await sb.from('profiles').upsert({id:sbUser.id,handle:S().handle,lang:S().lang,level:lvl(state.xp).L,xp:state.xp,updated_at:new Date().toISOString()});
   netUp();setSync('cloud')}catch(e){sbDirty=true;isNetErr(e)?netDown():setSync('err')}
  sbBusy=false;if(sbDirty&&netOk)pushSb()}
-function signedOut(){const keep={...S(),handle:'OPERATOR',avatar:''};try{localStorage.removeItem(KEY);localStorage.removeItem(BKEY)}catch(e){}sbBase=null;sbSeen=undefined;state=seed(keep.lang);state.set=keep;state.tasks=[];persistLocal();setSync('local');toast(t('tOutA'),'');render();paintNet()}
+function signedOut(){const keep={...S(),handle:'OPERATOR',avatar:''};try{localStorage.removeItem(KEY);localStorage.removeItem(BKEY)}catch(e){}sbBase=null;sbSeen=undefined;state=seed(keep.lang);state.set=keep;state.tasks=[];persistLocal();setSync('local');render();paintNet();ui.pw={open:false,msg:'',err:false,busy:false,nonce:false,recovery:false};ui.auth={msg:'',err:false,busy:false};ui.authMode='in';ui.gate=true;showGate()}
 
 /* ---------- offline warning ---------- */
 function paintNet(){let el=document.getElementById('netwarn');const v=document.getElementById('view');if(!v)return;
