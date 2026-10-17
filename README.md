@@ -26,7 +26,18 @@ window.RUNDECK_CONFIG = {
 };
 ```
 
-The anon key is meant to be public. Access is enforced by the policies in `schema.sql`: each user reads and writes only their own deck and portrait folder. Profiles (handle, portrait, level) are readable by signed-in users, ready for leaderboards later.
+The anon key is meant to be public; the secret (service role) key must never go in the app or the repo.
+
+### Security and privacy
+
+- Passwords are handled and hashed by Supabase Auth. RunDeck's tables never contain emails or passwords.
+- Row-level security is forced on every table: each user can read and change only their own profile and deck. Anonymous visitors have no access.
+- Portraits are stored inside the private deck, not in public storage.
+- Signed-in users can delete their account from Config → Account. That removes the auth user, profile and deck (`delete_my_account()`).
+- Signing out removes the local copy of the deck from the device.
+- `vercel.json` sends a strict Content-Security-Policy, HSTS, no framing, nosniff and a locked-down Permissions-Policy.
+
+Recommended dashboard settings: keep email confirmation on, set the minimum password length to 8, turn on leaked-password protection if your plan has it, add CAPTCHA to sign-ups (Authentication → Attack Protection), and use a custom SMTP sender before inviting many users.
 
 ## Deploy
 
