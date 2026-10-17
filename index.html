@@ -783,8 +783,10 @@ const chord=(t0,fs,dur,v,lp,lp2)=>fs.forEach((f,i)=>{tone(f,t0,dur,'sawtooth',v,
 let cBag=[],cLast=null;
 function nextComplete(){const pool=['c1','c2','c3'].filter(k=>SND[k]);if(!pool.length)return'c1';if(!cBag.length){cBag=pool.slice().sort(()=>Math.random()-.5);if(cBag.length>1&&cBag[0]===cLast)cBag.push(cBag.shift())}return cLast=cBag.shift()}
 const SFX={
- tap(){click(0,.05,4200);tone(140,0,.04,'sine',.05)},
- nav(){click(0,.06,3000);click(.035,.04,5200);sub(0,95,60,.09,.12)},
+ tap(){noise(0,.006,.022,2400,{q:2});tone(150,0,.035,'sine',.035,110)},
+ nav(i){const f=[220,261.63,293.66,329.63,392][i>=0&&i<5?i:0];
+  noise(0,.007,.03,1700,{q:2.5});tone(190,0,.075,'sine',.085,105);
+  tone(f,.012,.11,'square',.016,0,{lp:700,lp2:250,a:.004});tone(f*2.003,.012,.06,'sine',.006)},
  add(){noise(0,.09,.06,700,{f2:3200,q:2});sub(0,80,50,.14,.2);click(.08,.06)},
  done(o){o=typeof o==='object'?o:{n:o};const c=Math.min(o.n||1,6),k=Math.pow(2,(c-1)/12);
   if(o.hack&&samp('hack',{vol:.9}))return;
@@ -1208,7 +1210,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
  if(!['askdel','askabort','askdelrw','askwipe'].includes(a))ui.confirm=null;
  const tk=id&&findT(id);
  switch(a){
-  case'go':if(ui.view!==v){ui.view=v;try{localStorage.setItem(KEY+'.view',v)}catch(e){}sfx('nav');buzz(6);window.scrollTo({top:0})}render();break;
+  case'go':if(ui.view!==v){ui.view=v;try{localStorage.setItem(KEY+'.view',v)}catch(e){}sfx('nav',['board','focus','loot','stats','cfg'].indexOf(v));buzz(6);window.scrollTo({top:0})}render();break;
   case'done':complete(id,b);break;
   case'open':ui.open=ui.open===id?null:id;sfx('tap');render();break;
   case'sub':toggleSub(id,b.dataset.s,b);break;
