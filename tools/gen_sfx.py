@@ -49,7 +49,7 @@ def echo(x, delay, fb=0.3, n=3, lp=1400):
 def finish(x, name, peak=0.92, length=None):
     if length: x = x[:N(length)]
     x = filt(x, 'highpass', 28)
-    x = np.tanh(1.6*x/(np.max(np.abs(x))+1e-9)); x = x/np.max(np.abs(x))*peak
+    x = x/(np.max(np.abs(x))+1e-9)*peak
     f = N(0.012); x[-f:] *= np.linspace(1, 0, f)
     raw = os.path.join(OUT, name + '.f32'); x.astype(np.float32).tofile(raw)
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ar', str(SR), '-ac', '1', '-i', raw, '-b:a', '160k', os.path.join(OUT, name + '.mp3')], check=True)
@@ -75,117 +75,123 @@ def growl(d, f, cut_pts, res=0.18, gain=5.0, formant=True):
     return y + grit
 
 
-# ---------- heavy engine: tuned to a neuro/dubstep balance (most energy 60-1000 Hz, low crest) ----------
-VOW={'o':(450,800),'a':(780,1200),'i':(320,2300),'u':(330,700)}
-def vowel(x, v):
-    f1, f2 = VOW[v]
-    return filt(x, 'bandpass', [f1*0.8, f1*1.25])*1.0 + filt(x, 'bandpass', [f2*0.85, f2*1.2])*0.8
-def shift(x, ms):
-    n = N(ms/1000); return np.concatenate([np.zeros(n), x[:-n]])
-def beast(d, f, cut_pts, vfrom='u', vto='a', vmix_pts=None, gain=11, fm_idx=3.0):
-    """Big mid growl: reese + FM layer, hard drive, moving resonant filter, vowel morph, comb grit."""
+# ---------- clean heavy engine: defined pitch, clean sub, one filter move, light saturation ----------
+def bassvoice(d, f, cut_pts, res=0.35, voices=2, det=0.005, sat=2.2, sq_mix=0.5):
     fa = np.broadcast_to(np.asarray(f, float), (N(d),))
-    x = T(d)
-    fmv = np.sin(2*np.pi*phase(fa*2) + fm_idx*np.sin(2*np.pi*phase(fa)))
-    osc = reese(fa, d, 6, 0.017) + 0.7*fmv + 0.4*saw_p(phase(fa*0.5))
-    y = drive(osc, gain)
-    y = svf_lp(y, curve(d, cut_pts), 0.11)
-    m = np.clip(np.interp(T(d), *zip(*vmix_pts)) if vmix_pts else np.linspace(0, 1, N(d)), 0, 1)
-    y = 0.45*y + vowel(y, vfrom)*(1-m)*1.2 + vowel(y, vto)*m*1.2
-    y = drive(2.2*y, 1.4)
-    y = y + 0.5*shift(y, 3.1) - 0.35*shift(y, 5.3)
-    y = filt(y, 'highpass', 85)
-    return filt(y, 'lowpass', 5500)
-def subline(d, f, amp=0.8):
-    fa = np.broadcast_to(np.asarray(f, float), (N(d),))
-    return filt(np.sin(2*np.pi*phase(fa)), 'lowpass', 110)*amp
-def snare(amp=0.6):
-    d = 0.18; b = sine(curve(d, [(0, 230), (d, 170)]), d)*env(d, 0.001, 22)*0.8
-    b += filt(noise(d), 'bandpass', [1500, 6000])*env(d, 0.001, 16)*0.7
-    return drive(b*1.5, 1.2)*amp
-def glue(x, amt=3.2):
-    """loud and dense: soft clip then a gentle second stage, like a mastered drop"""
-    assert np.isfinite(x).all(), 'non-finite samples'
-    x = x/(np.max(np.abs(x))+1e-9); return np.tanh(amt*x)/np.tanh(amt)
+    osc = reese(fa, d, voices, det) + sq_mix*np.tanh(4*np.sin(2*np.pi*phase(fa)))
+    y = svf_lp(osc, curve(d, cut_pts), res)
+    return np.tanh(sat*y)/np.tanh(sat)
+def sub808(d, f0, f1, dec=3.0, sat=1.6):
+    s = np.sin(2*np.pi*phase(curve(d, [(0, f0), (0.06, f1*1.02), (d, f1)])))
+    return np.tanh(sat*s)/np.tanh(sat)*env(d, 0.001, dec)
+def punch(amp=0.8):
+    d = 0.16; k = sine(curve(d, [(0, 140), (0.05, 55), (d, 45)]), d)*env(d, 0.0006, 16)
+    k[:N(0.004)] += filt(noise(0.004), 'bandpass', [1500, 5000])*0.35
+    return k*amp
+def master(x, sat=1.3):
+    assert np.isfinite(x).all()
+    x = x/(np.max(np.abs(x))+1e-9); x = filt(x, 'lowpass', 7000); return np.tanh(sat*x)/np.tanh(sat)
 
-def complete():
-    d = 0.95; b = np.zeros(N(d)); G = 49.0
-    place(b, kick(0.26, 150, 45, 12, 0.75), 0)
-    place(b, snare(0.35), 0.0)
-    bz = beast(0.62, curve(0.62, [(0, 62), (0.035, G), (0.62, G)]),
-               [(0, 260), (0.07, 2600), (0.2, 900), (0.32, 2200), (0.5, 420), (0.62, 200)],
-               'u', 'a', [(0, .02), (0.09, 1), (0.22, .25), (0.34, .95), (0.62, .1)])
-    place(b, bz*adsr(0.62, 0.004, 0.42, 0.12)*1.0, 0.012)
-    place(b, subline(0.62, G)*adsr(0.62, 0.006, 0.4, 0.15), 0.012)
-    return glue(echo(b, 0.084, 0.16, 1, 700), 3.4)
+G, E, A = 49.0, 41.2, 55.0
 
+# A. WOMP: classic pitch-drop wub
+def complete_womp():
+    d = 0.7; b = np.zeros(N(d))
+    place(b, punch(0.7), 0)
+    w = bassvoice(0.55, curve(0.55, [(0, 196), (0.07, 2*G), (0.55, 2*G)]), [(0, 2600), (0.08, 1900), (0.35, 520), (0.55, 200)], res=0.3, sat=2.6)
+    place(b, w*adsr(0.55, 0.003, 0.3, 0.12)*1.0, 0.005)
+    place(b, sub808(0.6, 98, G, 4.0)*0.5, 0.005)
+    return master(b)
+
+# B. REESE: smooth, wide, dark, a slow filter swell
+def complete_reese():
+    d = 0.8; b = np.zeros(N(d))
+    place(b, punch(0.6), 0)
+    r = bassvoice(0.7, 2*G, [(0, 380), (0.12, 1700), (0.4, 900), (0.7, 280)], res=0.25, voices=3, det=0.008, sat=2.2, sq_mix=0.3)
+    place(b, r*adsr(0.7, 0.008, 0.4, 0.15)*1.0, 0.0)
+    place(b, sub808(0.75, G*1.5, G, 3.0, 1.3)*0.5, 0.0)
+    return master(b)
+
+# C. IMPACT: tight distorted 808 thump with a short stab on top
+def complete_impact():
+    d = 0.55; b = np.zeros(N(d))
+    place(b, punch(1.0), 0)
+    place(b, sub808(0.5, 160, A, 7.0, 4.0)*0.8, 0)
+    st = bassvoice(0.18, A*4, [(0, 3000), (0.18, 400)], res=0.3, voices=2, sat=2.4)
+    place(b, st*env(0.18, 0.002, 14)*0.8, 0.004)
+    return master(b, 1.6)
+
+# heavy task: wob-wob-WOMP
 def complete_heavy():
-    d = 1.6; b = np.zeros(N(d)); s16 = 60/172/4
-    pat = [(0, 49.0, 0.30), (s16*3, 49.0, 0.22), (s16*5, 55.0, 0.2), (s16*8, 41.2, 0.62)]
-    place(b, kick(0.3, 160, 42, 9, 0.85), 0); place(b, snare(0.4), 0)
-    for k, (at, f, dd) in enumerate(pat):
-        last = k == len(pat)-1
-        cut = [(0, 240), (dd*0.25, 3000 if last else 2400), (dd*0.6, 700), (dd, 180)] if not last else \
-              [(0, 300), (0.07, 3200), (0.2, 800), (0.33, 2600), (0.48, 600), (dd, 160)]
-        bz = beast(dd, curve(dd, [(0, f*1.25), (0.03, f), (dd, f)]), cut, 'o' if k % 2 else 'u', 'a' if k % 2 == 0 else 'i',
-                   [(0, .05), (dd*0.3, 1), (dd, .2)])
-        place(b, bz*adsr(dd, 0.003, dd*0.7, 0.06)*(1.05 if last else 0.9), at)
-        place(b, subline(dd, f)*adsr(dd, 0.005, dd*0.7, 0.08), at)
-    place(b, kick(0.4, 170, 38, 7, 1.0), pat[-1][0]); place(b, snare(0.45), pat[-1][0])
-    return glue(echo(b, 0.11, 0.14, 1, 600), 3.6)
+    d = 1.3; b = np.zeros(N(d)); s8 = 60/150/2
+    for k, f in enumerate([G, G]):
+        at = k*s8
+        place(b, punch(0.55), at)
+        w = bassvoice(s8*0.95, 2*f, [(0, 400), (s8*0.35, 2000), (s8*0.95, 300)], res=0.35, sat=2.6)
+        place(b, w*adsr(s8*0.95, 0.003, s8*0.6, 0.04)*1.0, at)
+        place(b, sub808(s8*0.95, f*1.3, f, 6)*0.45, at)
+    at = 2*s8
+    place(b, punch(0.9), at)
+    w = bassvoice(0.75, curve(0.75, [(0, 196), (0.09, 2*E), (0.75, 2*E)]), [(0, 2800), (0.1, 2000), (0.45, 500), (0.75, 180)], res=0.3, sat=2.6)
+    place(b, w*adsr(0.75, 0.003, 0.45, 0.15)*1.0, at)
+    place(b, sub808(0.8, 98, E, 3.2)*0.55, at)
+    return master(b)
 
+# ping: short clean blip with a tiny sub (loot, achievements, compile)
 def ping():
-    d = 0.4; b = np.zeros(N(d))
-    bz = beast(0.22, 65.4, [(0, 400), (0.04, 2400), (0.22, 260)], 'o', 'i', [(0, 0), (0.06, 1), (0.22, .3)], gain=9)
-    place(b, bz*adsr(0.22, 0.003, 0.1, 0.08)*0.9, 0)
-    place(b, subline(0.22, 65.4, 0.6)*adsr(0.22, 0.004, 0.1, 0.08), 0)
-    x = T(0.12); place(b, np.sin(2*np.pi*1975*x + 2*np.exp(-x*40)*np.sin(2*np.pi*1975*3.5*x))*env(0.12, 0.0005, 35)*0.18, 0)
-    return glue(b, 2.6)
+    d = 0.35; b = np.zeros(N(d)); x = T(0.14)
+    place(b, np.sin(2*np.pi*1568*x + 1.2*np.exp(-x*40)*np.sin(2*np.pi*1568*2*x))*env(0.14, 0.0008, 30)*0.35, 0)
+    place(b, sub808(0.22, 130, 65.4, 14)*0.6, 0)
+    return master(b, 1.1)
 
+# detected: rising filter into a womp
 def detected():
-    d = 1.3; b = np.zeros(N(d)); rd = 0.62
-    rise = beast(rd, curve(rd, [(0, 36), (rd, 82)]), [(0, 160), (rd*0.9, 3200), (rd, 3600)], 'u', 'i', [(0, 0), (rd, 1)], gain=10)
-    place(b, rise*np.linspace(0.15, 1, N(rd))**1.6, 0)
-    place(b, kick(0.5, 180, 38, 6, 1.1), rd); place(b, snare(0.6), rd)
-    hit = beast(0.6, 41.2, [(0, 2800), (0.15, 900), (0.3, 1800), (0.6, 160)], 'a', 'o', [(0, 0), (0.6, 1)], gain=12)
-    place(b, hit*adsr(0.6, 0.003, 0.35, 0.15), rd + 0.005)
-    place(b, subline(0.6, 41.2)*adsr(0.6, 0.004, 0.4, 0.15), rd + 0.005)
-    return glue(echo(b, 0.14, 0.15, 1, 600), 3.4)
+    d = 1.2; b = np.zeros(N(d)); rd = 0.5
+    r = bassvoice(rd, curve(rd, [(0, 82.4), (rd, 164.8)]), [(0, 150), (rd, 1400)], res=0.35, sat=1.8)
+    place(b, r*np.linspace(0.1, 1, N(rd))**1.5*0.6, 0)
+    place(b, punch(0.9), rd)
+    w = bassvoice(0.65, curve(0.65, [(0, 220), (0.08, 2*E), (0.65, 2*E)]), [(0, 2600), (0.1, 1800), (0.4, 480), (0.65, 180)], res=0.3, sat=2.6)
+    place(b, w*adsr(0.65, 0.003, 0.35, 0.15)*1.0, rd)
+    place(b, sub808(0.7, 110, E, 3.5)*0.55, rd)
+    return master(b)
 
+# heat: two-tone alarm over a steady wobble
 def heat():
     d = 3.4; x = T(d); b = np.zeros(N(d))
     gate = filt((np.sin(2*np.pi*1.1*x) > 0).astype(float), 'lowpass', 16)
     f = 392 + 196*gate
-    s = drive(np.sign(np.sin(2*np.pi*phase(f)))*0.6 + 0.5*saw_p(phase(f*1.006)), 2.5)
-    b += filt(s, 'bandpass', [350, 2400])*(0.7 + 0.3*np.sin(2*np.pi*8*x))*0.35
-    wob = curve(d, [(0, 300)] + [(t, (2400 if i % 2 else 300)) for i, t in enumerate(np.arange(0.2, d, 0.2))] + [(d, 250)])
-    b += beast(d, 49.0, list(zip(np.linspace(0, d, len(wob[::4410])), wob[::4410])), 'u', 'a', None, gain=10)*0.75
-    b += subline(d, 49.0, 0.7)
-    for k in range(0, 8): place(b, kick(0.25, 150, 45, 12, 0.7), k*0.42)
+    al = filt(np.tanh(3*np.sin(2*np.pi*phase(f))), 'bandpass', [350, 2200])*(0.75 + 0.25*np.sin(2*np.pi*8*x))
+    b += al*0.3
+    pts = [(0, 200)] + [(t0, 900 if i % 2 else 200) for i, t0 in enumerate(np.arange(0.2, d, 0.2))] + [(d, 200)]
+    b += bassvoice(d, 2*G, pts, res=0.35, sat=1.8)*0.55
+    b += np.sin(2*np.pi*G*x)*0.55
+    for k in range(8): place(b, punch(0.5), k*0.4)
     b *= np.minimum(1, x/0.03)*np.minimum(1, (d-x)/0.5)
-    return glue(b, 3.0)
+    return master(b)
 
+# ring: dark ringtone with a clean wobble bassline
 def ring():
-    bpm = 172; s8 = 60/bpm/2
+    bpm = 140; s8 = 60/bpm/2
     lead = [659.3, 0, 523.3, 587.3, 0, 493.9, 523.3, 0, 440.0, 0, 493.9, 523.3, 0, 587.3, 493.9, 0]
-    roots = [49.0, 49.0, 41.2, 43.65]
+    roots = [G, G, E, 43.65]
     bar = N(s8*16); total = bar*2 + N(0.4); b = np.zeros(total)
     for rep in range(2):
         o = rep*bar/SR
         for i, f in enumerate(lead):
             if not f: continue
-            x = T(s8*1.6); m = 1.4*np.exp(-x*14)*np.sin(2*np.pi*f*2*x)
-            place(b, filt(drive(np.sin(2*np.pi*f*x + m), 1.5)*env(s8*1.6, 0.002, 10)*0.16, 'lowpass', 3200), o + i*s8)
+            x = T(s8*1.6); m = 1.0*np.exp(-x*16)*np.sin(2*np.pi*f*2*x)
+            place(b, np.sin(2*np.pi*f*x + m)*env(s8*1.6, 0.002, 10)*0.18, o + i*s8)
         for q, r in enumerate(roots):
             dd = s8*4
-            bz = beast(dd, r, [(0, 250), (dd*0.25, 2400), (dd*0.5, 300), (dd*0.75, 2000), (dd, 250)], 'u' if q % 2 else 'o', 'a', [(0, 0), (dd*0.25, 1), (dd*0.5, 0), (dd*0.75, 1), (dd, 0)], gain=10)
-            place(b, bz*adsr(dd, 0.004, dd*0.85, 0.03)*0.7, o + q*dd)
-            place(b, subline(dd, r, 0.6)*adsr(dd, 0.004, dd*0.85, 0.03), o + q*dd)
-            place(b, kick(0.25, 150, 42, 10, 0.7), o + q*dd)
-            place(b, snare(0.35), o + q*dd + s8*2)
-    return glue(b, 2.8)
+            w = bassvoice(dd, 2*r, [(0, 300), (dd*0.25, 1500), (dd*0.5, 300), (dd*0.75, 1500), (dd, 300)], res=0.35, sat=2.2)
+            place(b, w*adsr(dd, 0.004, dd*0.85, 0.03)*0.55, o + q*dd)
+            place(b, np.sin(2*np.pi*r*T(dd))*adsr(dd, 0.004, dd*0.85, 0.03)*0.5, o + q*dd)
+            place(b, punch(0.5), o + q*dd)
+    return master(b)
 
-finish(complete(), 'complete', peak=0.95)
+finish(complete_womp(), 'complete', peak=0.95)
+finish(complete_reese(), 'complete_reese', peak=0.95)
+finish(complete_impact(), 'complete_impact', peak=0.95)
 finish(complete_heavy(), 'complete_heavy', peak=0.95)
 finish(ping(), 'ping', peak=0.8)
 finish(detected(), 'detected', peak=0.95)
