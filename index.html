@@ -377,30 +377,14 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 .evbar .r{margin-left:auto;font-variant-numeric:tabular-nums}
 @keyframes stripes{to{background-position:34px 0}}
 
-/* Care hacks */
-.hack{border:1px dashed var(--ok);background:repeating-linear-gradient(0deg,color-mix(in srgb,var(--ok) 5%,transparent) 0 2px,transparent 2px 4px),color-mix(in srgb,var(--solid) 80%,transparent);font-family:var(--fu);overflow:hidden;animation:hjit 5.5s infinite}
-.hack::after{content:"";position:absolute;left:0;right:0;top:0;pointer-events:none;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--ok) 14%,transparent),transparent);height:30%;animation:hscan 4s linear infinite}
-.hkh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;border-bottom:1px dashed color-mix(in srgb,var(--ok) 50%,transparent);font-size:11.5px;letter-spacing:.16em;color:var(--ok);text-transform:uppercase}
-.hkg{font-weight:700;letter-spacing:.24em}
-.hkd{color:var(--faint);letter-spacing:.1em;text-transform:none}
-.hkh .r{margin-left:auto;color:var(--dim);letter-spacing:.06em;text-transform:none;font-variant-numeric:tabular-nums}
-.hkb{padding:12px;display:flex;flex-direction:column;gap:6px}
-.hkf{font-size:12.5px;color:var(--dim)}
-.hkt{position:relative;font-family:var(--fd);font-size:clamp(19px,5vw,24px);line-height:1.2;color:var(--fg);text-wrap:balance}
-.hkt::before,.hkt::after{content:attr(data-t);position:absolute;inset:0;pointer-events:none;opacity:0}
-.hkt::before{color:var(--ok);animation:hg1 3.7s infinite steps(2)}
-.hkt::after{color:var(--accent);animation:hg2 4.3s infinite steps(2)}
-.hkm{font-size:11.5px;color:var(--ok);letter-spacing:.08em}
-.hka{padding:0 12px 12px}
-.btn.hk{border-color:var(--ok);background:var(--ok);color:var(--ink);box-shadow:0 0 calc(14px*var(--glow)) color-mix(in srgb,var(--ok) 40%,transparent)}
-.toast.ck{border-color:var(--ok)}.toast.ck b{color:var(--ok)}
-.jackchip.hkchip{color:var(--ok);border-color:var(--ok);background:color-mix(in srgb,var(--ok) 8%,transparent)}
-@keyframes hjit{0%,93%,100%{transform:none}94%{transform:translate(2px,0) skewX(-1.5deg)}95%{transform:translate(-2px,1px)}96%{transform:translate(1px,-1px) skewX(1deg)}97%{transform:none}}
-@keyframes hscan{0%{transform:translateY(-100%)}100%{transform:translateY(400%)}}
-@keyframes hg1{0%,90%,100%{opacity:0;transform:none}91%{opacity:.8;transform:translate(-3px,0);clip-path:inset(0 0 55% 0)}93%{opacity:.8;transform:translate(2px,0);clip-path:inset(40% 0 20% 0)}}
-@keyframes hg2{0%,88%,100%{opacity:0;transform:none}89%{opacity:.7;transform:translate(3px,1px);clip-path:inset(60% 0 0 0)}92%{opacity:.7;transform:translate(-2px,0);clip-path:inset(10% 0 70% 0)}}
-body.intrusion #app{animation:intr .65s steps(7)}
-@keyframes intr{0%{filter:none}15%{filter:hue-rotate(90deg) saturate(2);transform:translate(-6px,2px)}30%{filter:invert(.9);transform:translate(5px,-3px) skewX(4deg)}45%{filter:hue-rotate(-60deg) contrast(1.6);transform:translate(-3px,0)}60%{filter:none;transform:translate(3px,2px)}80%{filter:saturate(3);transform:none}100%{filter:none}}
+/* Care hacks: injected rows that look almost normal */
+.task.hk .chk span{border-style:dashed;border-color:color-mix(in srgb,var(--astral) 70%,var(--accent))}
+.task.hk.done .chk span{background:var(--astral);border-color:var(--astral);box-shadow:0 0 calc(10px*var(--glow)) var(--astral)}
+.task.hk:not(.done) .tt{text-shadow:-.6px 0 color-mix(in srgb,var(--accent) 55%,transparent),.6px 0 color-mix(in srgb,var(--astral) 70%,transparent);animation:hkt 6.5s infinite}
+.task.hk .xpv{color:var(--astral)}
+.hxid{font-family:var(--fu);font-size:10.5px;color:color-mix(in srgb,var(--astral) 70%,var(--faint));letter-spacing:.08em;opacity:.8}
+.hkrev{font-family:var(--fu);font-size:12px;color:var(--astral);letter-spacing:.04em}
+@keyframes hkt{0%,95%,100%{transform:none;opacity:1}96%{transform:translateX(1.5px);opacity:.85}97%{transform:translateX(-1px) skewX(-6deg)}98%{transform:none;opacity:.95}}
 
 /* Compiler launcher + window */
 .cmdbar{display:flex;align-items:stretch;width:100%;min-height:58px;margin-bottom:14px;padding:0;border:1px solid var(--accent);background:var(--panel);text-align:left;font-family:var(--fu);box-shadow:0 0 calc(16px*var(--glow)) color-mix(in srgb,var(--accent) 20%,transparent);animation:cbp 3.6s ease-in-out infinite;cursor:pointer}
@@ -476,7 +460,7 @@ en:{lang:'English',node:'Grid standard',
  account:'Account',accN:'Sign in to keep your deck on every device.',email:'Email',pass:'Password',signIn:'Sign in',signUp:'Create account',magic:'Email me a login link',signOut:'Sign out',signedAs:'Signed in as {e}',checkMail:'Check your email to confirm, then sign in.',linkSent:'Login link sent. Open it on this device.',offline:'Continue offline',authTitle:'Operator authentication',authErr:'Sign-in failed: {m}',needCreds:'Enter your email and a password of 6+ characters.',needMail:'Enter your email first.',localOnly:'Accounts are off on this copy. Everything saves on this device.',gridOnly:'Everything is saved in a private store only you can read.',
  tNoT:'NO TARGETS',tAddF:'Add a task first.',tJack:'JACKED IN',tJackB:'{m} min. Phone face down. Go.',tSess:'SESSION COMPLETE',tOut:'JACKED OUT',tFocusR:'{m} min focused · +{x} XP',tUnder:'Under a minute. No payout.',tWipe:'BOARD WIPE',tWipeB:'Every Today task cleared.',tLoot:'LOOT DROP · {r}',tAch:'ACHIEVEMENT · {n}',tBuy:'PURCHASED',tBuyB:'{n}. Enjoy it, you earned it.',tNeedNC:'NEEDS NAME AND COST',tCopied:'BACKUP COPIED',tCopiedB:'Paste it somewhere safe.',tSel:'SELECT AND COPY',tSelB:'Clipboard blocked, the text is selected below.',tRest:'RESTORED',tRestB:'Backup loaded.',tRestF:'RESTORE FAILED',tRestFB:'That text is not a RunDeck backup.',tReset:'RESET',tResetB:'Clean slate.',tLang:'LOCALE SET',tAv:'PORTRAIT UPDATED',tAvF:'That file could not be read as an image.',tIn:'SIGNED IN',tOutA:'SIGNED OUT',
  composer:'Task compiler',cpName:'what needs doing?',kName:'name',kWeight:'weight',kBoard:'board',kTag:'tag',kSteps:'steps',stepAdd:'+ step',tagNew:'#new',run:'Run',cpHint:'Enter runs it · shortcuts !2 #tag @c work too',reward:'reward',compiled:'compiled',deployed:'deployed to {b}',newBtn:'New task',none:'none',cpEmpty:'Give it a name first.',evOnline:'EVENT ONLINE',evEnds:'ends in {t}',evGo:'Let’s go',events:{weekend:['WEEKEND OVERTIME','Every task pays XP ×1.5 and CRED ×2 until Monday.'],payday:['PAYDAY','It is the 25th. CRED ×2 all day.']},
- hackHead:'INTRUSION',apply:'Apply patch',snooze:'Snooze 30 min',ignore:'Ignore',linkDrops:'link drops in {t}',tIntrude:'INTRUSION DETECTED',tIntrudeB:'KIN.daemon is in your deck.',tPatched:'PATCH APPLIED',tPatchedB:'Thank you. Wetware stable.',hackFreq:'Care hacks',freq:['Off','Once a day','Twice a day'],hackNote:'A friendly daemon slips in small self-care tasks based on the time of day and how hard you are working. Ignoring them costs nothing.',patches:'Care patches applied: {n}',
+ hackHead:'INTRUSION',apply:'Apply patch',snooze:'Snooze 30 min',ignore:'Ignore',linkDrops:'link drops in {t}',tIntrude:'INTRUSION DETECTED',tIntrudeB:'KIN.daemon is in your deck.',tPatched:'PATCH APPLIED',tPatchedB:'Thank you. Wetware stable.',hackFreq:'Care hacks',freq:['Off','Once a day','Twice a day'],hackNote:'A daemon quietly slips small self-care tasks in among yours, based on the time of day and how hard you are working.',injected:'injected by KIN.daemon',patchedF:'// patched',patches:'Care patches applied: {n}',
  flav:['Your operator forgot about the body again. I didn’t.','Unauthorized care detected. Resistance is pointless.','Someone who loves you asked me to check in.','Running maintenance on the wetware.','Your hardware needs this more than your to-do list does.'],
  flavHyper:'{n} tasks in a row. Impressive. Now refuel the operator.',flavFocus:'Long session logged. The wetware needs a reboot.',flavIdle:'Slow day? Here is the easiest win on the grid.',
  hacks:{water:'Drink a glass of water',water_bed:'Put a glass of water by your bed',breakfast:'Eat some breakfast, even something small',lunch:'Eat lunch. A real one.',snack:'Have a snack with some protein',dinner:'Eat dinner',teeth_am:'Brush your teeth',teeth_pm:'Brush your teeth before bed',shower:'Take a shower',daylight:'Step outside for five minutes of daylight',walk:'Take a ten-minute walk',stretch:'Stand up and stretch for one minute',eyes:'Look at something far away for 20 seconds',breathe:'Take five slow breaths',read:'Read a few pages of a book',text:'Text someone you like, just to say hi',tidy:'Clear one surface for two minutes',clothes:'Lay out tomorrow’s clothes',winddown:'Screens down in 30 minutes. Start winding down',posture:'Unclench your jaw, drop your shoulders'},
@@ -509,7 +493,7 @@ pl:{lang:'Polski',node:'Węzeł Warszawa',
  account:'Konto',accN:'Zaloguj się, by mieć wszystko na każdym urządzeniu.',email:'E-mail',pass:'Hasło',signIn:'Zaloguj',signUp:'Załóż konto',magic:'Wyślij mi link logowania',signOut:'Wyloguj',signedAs:'Zalogowano jako {e}',checkMail:'Sprawdź pocztę, potwierdź konto i zaloguj się.',linkSent:'Link wysłany. Otwórz go na tym urządzeniu.',offline:'Kontynuuj offline',authTitle:'Uwierzytelnianie operatora',authErr:'Logowanie nieudane: {m}',needCreds:'Podaj e-mail i hasło (min. 6 znaków).',needMail:'Najpierw podaj e-mail.',localOnly:'Konta są wyłączone w tej kopii. Wszystko zapisuje się na tym urządzeniu.',gridOnly:'Wszystko jest w prywatnym magazynie, tylko ty to widzisz.',
  tNoT:'BRAK CELÓW',tAddF:'Najpierw dodaj zadanie.',tJack:'PODŁĄCZONY',tJackB:'{m} min. Telefon ekranem w dół. Start.',tSess:'SESJA ZAKOŃCZONA',tOut:'ODŁĄCZONO',tFocusR:'{m} min skupienia · +{x} XP',tUnder:'Poniżej minuty. Bez wypłaty.',tWipe:'CZYSTA TABLICA',tWipeB:'Wszystkie zadania na dziś zrobione.',tLoot:'ŁUP · {r}',tAch:'OSIĄGNIĘCIE · {n}',tBuy:'KUPIONO',tBuyB:'{n}. Zasłużone, korzystaj.',tNeedNC:'PODAJ NAZWĘ I KOSZT',tCopied:'KOPIA SKOPIOWANA',tCopiedB:'Wklej ją w bezpieczne miejsce.',tSel:'ZAZNACZ I SKOPIUJ',tSelB:'Schowek zablokowany, tekst zaznaczony poniżej.',tRest:'PRZYWRÓCONO',tRestB:'Kopia wczytana.',tRestF:'BŁĄD PRZYWRACANIA',tRestFB:'To nie jest kopia RunDeck.',tReset:'ZRESETOWANO',tResetB:'Czysta karta.',tLang:'JĘZYK USTAWIONY',tAv:'PORTRET ZAKTUALIZOWANY',tAvF:'Nie da się odczytać tego pliku jako obrazu.',tIn:'ZALOGOWANO',tOutA:'WYLOGOWANO',
  composer:'Kompilator zadań',cpName:'co trzeba zrobić?',kName:'nazwa',kWeight:'waga',kBoard:'tablica',kTag:'tag',kSteps:'kroki',stepAdd:'+ krok',tagNew:'#nowy',run:'Uruchom',cpHint:'Enter uruchamia · skróty !2 #tag @c też działają',reward:'nagroda',compiled:'skompilowano',deployed:'wdrożono do {b}',newBtn:'Nowe zadanie',none:'brak',cpEmpty:'Najpierw nadaj nazwę.',evOnline:'WYDARZENIE AKTYWNE',evEnds:'koniec za {t}',evGo:'Jedziemy',events:{weekend:['NADGODZINY WEEKENDOWE','Każde zadanie daje XP ×1,5 i KRED ×2 aż do poniedziałku.'],payday:['WYPŁATA','Jest 25. KRED ×2 przez cały dzień.']},
- hackHead:'WŁAMANIE',apply:'Zastosuj łatkę',snooze:'Drzemka 30 min',ignore:'Ignoruj',linkDrops:'połączenie zerwie się za {t}',tIntrude:'WYKRYTO WŁAMANIE',tIntrudeB:'KIN.daemon jest w twojej talii.',tPatched:'ŁATKA ZASTOSOWANA',tPatchedB:'Dziękuję. Wetware stabilne.',hackFreq:'Hakowanie troski',freq:['Wyłączone','Raz dziennie','Dwa razy dziennie'],hackNote:'Przyjazny demon podrzuca małe zadania o dbaniu o siebie, zależnie od pory dnia i tego, jak ciężko pracujesz. Ignorowanie nic nie kosztuje.',patches:'Zastosowane łatki troski: {n}',
+ hackHead:'WŁAMANIE',apply:'Zastosuj łatkę',snooze:'Drzemka 30 min',ignore:'Ignoruj',linkDrops:'połączenie zerwie się za {t}',tIntrude:'WYKRYTO WŁAMANIE',tIntrudeB:'KIN.daemon jest w twojej talii.',tPatched:'ŁATKA ZASTOSOWANA',tPatchedB:'Dziękuję. Wetware stabilne.',hackFreq:'Hakowanie troski',freq:['Wyłączone','Raz dziennie','Dwa razy dziennie'],hackNote:'Demon po cichu wsuwa między twoje zadania małe zadania o dbaniu o siebie, zależnie od pory dnia i tego, jak ciężko pracujesz.',injected:'wstrzyknięte przez KIN.daemon',patchedF:'// załatane',patches:'Zastosowane łatki troski: {n}',
  flav:['Twój operator znów zapomniał o ciele. Ja nie.','Wykryto nieautoryzowaną troskę. Opór jest bezcelowy.','Ktoś, kto cię kocha, poprosił, żebym sprawdził.','Konserwacja wetware w toku.','Twój sprzęt potrzebuje tego bardziej niż lista zadań.'],
  flavHyper:'{n} zadań pod rząd. Imponujące. Teraz zatankuj operatora.',flavFocus:'Długa sesja zapisana. Wetware potrzebuje restartu.',flavIdle:'Wolny dzień? Oto najłatwiejsza wygrana w sieci.',
  hacks:{water:'Wypij szklankę wody',water_bed:'Postaw szklankę wody przy łóżku',breakfast:'Zjedz coś na śniadanie, choćby małego',lunch:'Zjedz obiad. Prawdziwy.',snack:'Zjedz przekąskę z białkiem',dinner:'Zjedz kolację',teeth_am:'Umyj zęby',teeth_pm:'Umyj zęby przed snem',shower:'Weź prysznic',daylight:'Wyjdź na pięć minut na dzienne światło',walk:'Idź na dziesięciominutowy spacer',stretch:'Wstań i rozciągnij się przez minutę',eyes:'Popatrz na coś daleko przez 20 sekund',breathe:'Weź pięć powolnych oddechów',read:'Przeczytaj kilka stron książki',text:'Napisz do kogoś, kogo lubisz, tak po prostu',tidy:'Uprzątnij jedną powierzchnię przez dwie minuty',clothes:'Przygotuj ubrania na jutro',winddown:'Za 30 minut odłóż ekrany. Zacznij się wyciszać',posture:'Rozluźnij szczękę, opuść ramiona'},
@@ -542,7 +526,7 @@ sv:{lang:'Svenska',node:'Nod Stockholm',
  account:'Konto',accN:'Logga in för att ha allt på alla enheter.',email:'E-post',pass:'Lösenord',signIn:'Logga in',signUp:'Skapa konto',magic:'Mejla mig en inloggningslänk',signOut:'Logga ut',signedAs:'Inloggad som {e}',checkMail:'Kolla din e-post, bekräfta och logga sedan in.',linkSent:'Länk skickad. Öppna den på den här enheten.',offline:'Fortsätt offline',authTitle:'Operatörsautentisering',authErr:'Inloggningen misslyckades: {m}',needCreds:'Ange e-post och ett lösenord på minst 6 tecken.',needMail:'Ange din e-post först.',localOnly:'Konton är avstängda i den här kopian. Allt sparas på den här enheten.',gridOnly:'Allt sparas i ett privat lager som bara du kan läsa.',
  tNoT:'INGA MÅL',tAddF:'Lägg till en uppgift först.',tJack:'INKOPPLAD',tJackB:'{m} min. Mobilen upp och ner. Kör.',tSess:'PASS KLART',tOut:'URKOPPLAD',tFocusR:'{m} min fokus · +{x} XP',tUnder:'Under en minut. Ingen utbetalning.',tWipe:'TOM TAVLA',tWipeB:'Alla dagens uppgifter klara.',tLoot:'BYTE · {r}',tAch:'PRESTATION · {n}',tBuy:'KÖPT',tBuyB:'{n}. Njut, du har förtjänat det.',tNeedNC:'BEHÖVER NAMN OCH PRIS',tCopied:'BACKUP KOPIERAD',tCopiedB:'Klistra in den på ett säkert ställe.',tSel:'MARKERA OCH KOPIERA',tSelB:'Urklipp blockerat, texten är markerad nedan.',tRest:'ÅTERSTÄLLT',tRestB:'Backup inläst.',tRestF:'ÅTERSTÄLLNING MISSLYCKADES',tRestFB:'Den texten är ingen RunDeck-backup.',tReset:'NOLLSTÄLLT',tResetB:'Rent bord.',tLang:'SPRÅK VALT',tAv:'PORTRÄTT UPPDATERAT',tAvF:'Filen kunde inte läsas som bild.',tIn:'INLOGGAD',tOutA:'UTLOGGAD',
  composer:'Uppgiftskompilator',cpName:'vad behöver göras?',kName:'namn',kWeight:'vikt',kBoard:'tavla',kTag:'tagg',kSteps:'steg',stepAdd:'+ steg',tagNew:'#ny',run:'Kör',cpHint:'Enter kör · genvägar som !2 #tagg @c funkar också',reward:'belöning',compiled:'kompilerat',deployed:'utplacerad i {b}',newBtn:'Ny uppgift',none:'ingen',cpEmpty:'Ge den ett namn först.',evOnline:'EVENT AKTIVT',evEnds:'slutar om {t}',evGo:'Kör hårt',events:{weekend:['HELGÖVERTID','Varje uppgift ger XP ×1,5 och KRED ×2 fram till måndag.'],payday:['LÖNING','Det är den 25:e. KRED ×2 hela dagen.']},
- hackHead:'INTRÅNG',apply:'Applicera patch',snooze:'Snooza 30 min',ignore:'Ignorera',linkDrops:'länken bryts om {t}',tIntrude:'INTRÅNG UPPTÄCKT',tIntrudeB:'KIN.daemon är inne i din kortlek.',tPatched:'PATCH APPLICERAD',tPatchedB:'Tack. Wetware stabil.',hackFreq:'Omsorgshack',freq:['Av','En gång om dagen','Två gånger om dagen'],hackNote:'En vänlig daemon smyger in små omsorgsuppgifter utifrån tid på dygnet och hur hårt du jobbar. Att ignorera dem kostar ingenting.',patches:'Applicerade omsorgspatchar: {n}',
+ hackHead:'INTRÅNG',apply:'Applicera patch',snooze:'Snooza 30 min',ignore:'Ignorera',linkDrops:'länken bryts om {t}',tIntrude:'INTRÅNG UPPTÄCKT',tIntrudeB:'KIN.daemon är inne i din kortlek.',tPatched:'PATCH APPLICERAD',tPatchedB:'Tack. Wetware stabil.',hackFreq:'Omsorgshack',freq:['Av','En gång om dagen','Två gånger om dagen'],hackNote:'En daemon smyger tyst in små omsorgsuppgifter bland dina, utifrån tid på dygnet och hur hårt du jobbar.',injected:'injicerad av KIN.daemon',patchedF:'// patchad',patches:'Applicerade omsorgspatchar: {n}',
  flav:['Din operatör glömde kroppen igen. Det gjorde inte jag.','Obehörig omtanke upptäckt. Motstånd är lönlöst.','Någon som älskar dig bad mig kolla läget.','Underhåll av wetware pågår.','Din hårdvara behöver det här mer än din att-göra-lista.'],
  flavHyper:'{n} uppgifter i rad. Imponerande. Tanka nu operatören.',flavFocus:'Långt pass loggat. Wetwaren behöver en omstart.',flavIdle:'Seg dag? Här är nätets enklaste vinst.',
  hacks:{water:'Drick ett glas vatten',water_bed:'Ställ ett glas vatten vid sängen',breakfast:'Ät lite frukost, även om det är lite',lunch:'Ät lunch. En riktig.',snack:'Ta ett mellanmål med lite protein',dinner:'Ät middag',teeth_am:'Borsta tänderna',teeth_pm:'Borsta tänderna innan du sover',shower:'Ta en dusch',daylight:'Gå ut i dagsljuset i fem minuter',walk:'Ta en tio minuters promenad',stretch:'Res dig och sträck på dig en minut',eyes:'Titta på något långt bort i 20 sekunder',breathe:'Ta fem långsamma andetag',read:'Läs några sidor i en bok',text:'Skicka ett sms till någon du tycker om, bara för att säga hej',tidy:'Röj en yta i två minuter',clothes:'Lägg fram morgondagens kläder',winddown:'Skärmarna ner om 30 minuter. Börja varva ner',posture:'Släpp käken, sänk axlarna'},
@@ -732,7 +716,7 @@ function closeGate(){const g=document.getElementById('gate');if(g)$('#ovl').inne
 function rollover(){
  const d=dk();if(state.day===d)return;
  let arch=0;
- state.tasks=state.tasks.filter(x=>{if(x.done&&x.list!=='routine'){arch++;return false}return true});
+ state.tasks=state.tasks.filter(x=>{if(x.hack&&!x.done)return false;if(x.done&&x.list!=='routine'){arch++;return false}return true});
  state.tasks.forEach(x=>{if(x.list==='routine'){x.done=false;x.award=0;x.subs.forEach(s=>s.done=false)}});
  state.archived+=arch;state.day=d;
  if(state.target&&!state.tasks.find(x=>x.id===state.target))state.target=null;
@@ -807,6 +791,7 @@ function scramble(root){if(S().motion==='reduced')return;
 function applySet(){const s=S(),r=document.documentElement;r.dataset.skin=s.skin;r.dataset.font=s.font;r.dataset.orn=s.orn;r.dataset.back=s.back;r.dataset.motion=s.motion;r.lang=s.lang;r.style.setProperty('--scan',s.scan);r.style.setProperty('--glow',s.glow);document.body.classList.toggle('flick',!!s.flicker&&s.motion!=='reduced');rainOn(s.back==='rain');if(AC&&master)master.gain.value=s.vol;if(!s.sound)stopHum()}
 function retitleSamples(l){const sd=DICT[l].seed,m={t0:sd.t[0],t1:sd.t[1],t2:sd.t[2],r0:sd.r[0],r1:sd.r[1],c:sd.c,b:sd.b},ci={t0:0,t1:1,t2:2,r0:0,r1:3,c:2,b:4};
  state.tasks.forEach(x=>{if(x.sample&&m[x.sk]){x.title=m[x.sk];x.cat=sd.cats[ci[x.sk]];if(x.sk==='c')x.subs.forEach((s,i)=>{if(sd.cs[i])s.t=sd.cs[i]})}});
+ state.tasks.forEach(x=>{if(x.hack&&DICT[l].hacks[x.hack])x.title=DICT[l].hacks[x.hack]});
  state.rewards.forEach(r=>{if(r.sk&&r.sk[0]==='w'){const i=+r.sk.slice(1);if(sd.rw[i])r.name=sd.rw[i]}})}
 function setLang(l,silent){if(!DICT[l])return;S().lang=l;retitleSamples(l);applySet();save();render();
  if(!silent){sfx('lang');buzz([8,20,8]);scramble(document.getElementById('app'));scramble($('#nav'));toast(t('tLang'),DICT[l].lang,'c2')}}
@@ -857,10 +842,11 @@ function afterGain(res,line){
  setTimeout(checkAch,900);
 }
 function complete(id,el){const tk=findT(id);if(!tk)return;
- if(tk.done){tk.done=false;state.xp=Math.max(0,state.xp-(tk.award||0));state.cred=Math.max(0,state.cred-(tk.awardCr||0));state.stats.total=Math.max(0,state.stats.total-1);const d=dk();if(state.hist[d])state.hist[d]--;tk.award=0;tk.awardCr=0;sfx('undo');save();render();return}
+ if(tk.done){if(tk.hack&&state.hx)state.hx.patched=Math.max(0,(state.hx.patched||1)-1);tk.done=false;state.xp=Math.max(0,state.xp-(tk.award||0));state.cred=Math.max(0,state.cred-(tk.awardCr||0));state.stats.total=Math.max(0,state.stats.total-1);const d=dk();if(state.hist[d])state.hist[d]--;tk.award=0;tk.awardCr=0;sfx('undo');save();render();return}
  const rect=el&&el.getBoundingClientRect();
  tk.done=true;tk.doneAt=now();tk.subs.forEach(s=>s.done=true);
- const res=award(DX[tk.diff]||10,rect,{combo:true,task:true});tk.award=res.xp;tk.awardCr=res.cr;
+ const res=award(tk.hack?20:(DX[tk.diff]||10),rect,{combo:true,task:true});tk.award=res.xp;tk.awardCr=res.cr;
+ if(tk.hack){const H=HX();H.lastCat[tk.hc]=now();H.patched=(H.patched||0)+1;if(rect)setTimeout(()=>floatTxt(rect.left+70,rect.top-20,t('patchedF'),tok('--astral')),260);if(Math.random()<.25)setTimeout(dropShard,1400)}
  if(state.target===id)state.target=null;
  sfx('done',state.combo.n);buzz([18,30,40]);
  const todays=state.tasks.filter(x=>x.list==='today');if(tk.list==='today'&&todays.length>=3&&todays.every(x=>x.done)){state.stats.wipes++;setTimeout(()=>{toast(t('tWipe'),t('tWipeB'),'cw');burst(innerWidth/2,innerHeight/3,70)},700)}
@@ -893,7 +879,7 @@ function term(raw){const line=raw.trim();if(!line)return;
   else if(cmd==='jack'){ui.fDur=Math.max(1,Math.min(120,parseInt(arg)||15));ui.view='focus';sfx('nav')}
   else if(cmd==='help'){log(t('tHelp'),'')}
   else if(cmd==='clear'){ui.termLog=[]}
-  else if(cmd==='hack'){HX().cur=null;hackTick('manual');return}
+  else if(cmd==='hack'){hackTick('manual');return}
   else if(cmd==='lang'&&DICT[arg]){setLang(arg);return}
   else{log(t('tUnknown',{c:cmd}),'er');sfx('err')}
   render();return}
@@ -937,13 +923,14 @@ const HYPER_BOOST={water:3,eat:3,move:2.5,eyes:2.5,air:2},IDLE_BOOST={water:2.5,
 const sessionStart=now();
 function HX(){if(!state.hx)state.hx={day:'',count:0,last:0,cur:null,lastHack:{},lastCat:{},patched:0};const H=state.hx;if(H.day!==dk()){H.day=dk();H.count=0}return H}
 const doneSince=ms=>state.tasks.filter(x=>x.done&&x.doneAt&&now()-x.doneAt<ms).length;
-const hackVisible=()=>{const c=state.hx&&state.hx.cur;return!!(c&&!(c.snz&&now()<c.snz)&&now()<c.exp)};
+const liveHack=()=>state.tasks.find(x=>x.hack&&!x.done);
 function pickHack(ctx){const H=HX(),d=new Date(),h=d.getHours()+d.getMinutes()/60,n=now();
  const cands=HACKS.filter(x=>h>=x.w[0]&&h<x.w[1]&&n-(H.lastHack[x.id]||0)>x.cd*36e5);if(!cands.length)return null;
  const wt=cands.map(x=>{let w=x.b;if(ctx==='hyper'||ctx==='focus')w*=HYPER_BOOST[x.c]||.6;if(ctx==='idle')w*=IDLE_BOOST[x.c]||.7;const since=(n-(H.lastCat[x.c]||0))/36e5;w*=1+Math.min(since,24)/8;return w});
  let r=Math.random()*wt.reduce((a,b)=>a+b,0);for(let i=0;i<cands.length;i++){r-=wt[i];if(r<=0)return cands[i]}return cands[cands.length-1]}
+function expireHacks(){const n=now(),before=state.tasks.length;state.tasks=state.tasks.filter(x=>!(x.hack&&!x.done&&n>x.exp));if(state.tasks.length!==before){if(state.target&&!findT(state.target))state.target=null;save();render()}}
 function hackTick(force){const f=+S().hackFreq;const H=HX(),n=now();
- if(H.cur){if(n>H.cur.exp){H.cur=null;save();render();return}if(H.cur.snz&&n>=H.cur.snz){H.cur.snz=0;save();intrude();}return}
+ expireHacks();if(liveHack())return;
  if(force!=='manual'){
   if(!f||H.count>=f)return;
   const d=new Date(),hh=d.getHours()+d.getMinutes()/60;if(hh<7.5)return;
@@ -953,23 +940,17 @@ function hackTick(force){const f=+S().hackFreq;const H=HX(),n=now();
  let ctx=force==='hyper'||force==='focus'?force:(doneSince(90*6e4)>=4?'hyper':(today===0&&h>=12?'idle':''));
  if(!force){const hrs=(n-H.last)/36e5,guaranteed=(H.count===0&&h>=11)||(H.count===1&&f>=2&&hrs>=5&&h>=16);if(!guaranteed&&Math.random()>=.05+(ctx==='hyper'?.4:0)+(ctx==='idle'?.06:0))return}
  const x=pickHack(ctx);if(!x)return;
- H.cur={id:x.id,c:x.c,at:n,exp:n+90*6e4,ctx,fl:Math.floor(Math.random()*5),hex:Math.floor(Math.random()*0xffff).toString(16).padStart(4,'0'),hn:doneSince(90*6e4)};
- H.count++;H.last=n;save();intrude()}
-function intrude(){sfx('hack');buzz([15,40,15,40,60]);document.body.classList.remove('intrusion');void document.body.offsetWidth;document.body.classList.add('intrusion');setTimeout(()=>document.body.classList.remove('intrusion'),700);
- burst(innerWidth/2,innerHeight*.3,30,[tok('--ok'),tok('--accent2')]);toast(t('tIntrude'),t('tIntrudeB'),'ck');render()}
+ // slip it in among today's open tasks, not at the end
+ const open=state.tasks.filter(y=>y.list==='today'&&!y.done).map(y=>y.created).sort((a,b)=>a-b);
+ const created=open.length>1?(open[Math.floor(open.length/2)-1]+open[Math.floor(open.length/2)])/2-.5:n;
+ state.tasks.push({id:uid(),title:t('hacks')[x.id],hack:x.id,hc:x.c,list:'today',diff:1,cat:'',done:false,created,subs:[],exp:n+3*36e5,ctx,fl:Math.floor(Math.random()*5),hn:doneSince(90*6e4),hex:Math.floor(Math.random()*0xffff).toString(16).padStart(4,'0')});
+ H.lastHack[x.id]=n;H.count++;H.last=n;save();render()}
 function hackFlavor(c){if(c.ctx==='hyper')return t('flavHyper',{n:Math.max(4,c.hn||4)});if(c.ctx==='focus')return t('flavFocus');if(c.ctx==='idle')return t('flavIdle');return t('flav')[c.fl||0]}
-function hackLeft(){const c=state.hx&&state.hx.cur;if(!c)return'';const s=Math.max(0,Math.ceil((c.exp-now())/1000)),h=Math.floor(s/3600);return(h?h+':':'')+z2(Math.floor(s%3600/60))+':'+z2(s%60)}
-function vHack(){if(!hackVisible())return'';const c=state.hx.cur,txt=t('hacks')[c.id]||c.id,m=evMult();
- return'<section class="panel hack" id="hackcard"><div class="hkh"><span class="hkg">⚠ '+esc(t('hackHead'))+'</span><span class="hkd">KIN.daemon · 0x'+c.hex+'</span><span class="r" id="hackleft">'+esc(t('linkDrops',{t:hackLeft()}))+'</span></div>'+
- '<div class="hkb"><div class="hkf">&gt; '+esc(hackFlavor(c))+'</div><div class="hkt" data-t="'+esc(txt)+'">'+esc(txt)+'</div><div class="hkm">patch_'+c.id+'() · +'+Math.round(20*m.xp)+' XP</div></div>'+
- '<div class="row hka"><button class="btn hk" data-act="happly">✓ '+esc(t('apply'))+'</button>'+(c.snoozed?'':'<button class="btn sm" data-act="hsnooze">'+esc(t('snooze'))+'</button>')+'<button class="btn sm" data-act="hignore">'+esc(t('ignore'))+'</button></div></section>'}
-function hackResolve(kind,el){const H=HX(),c=H.cur;if(!c)return;const n=now();
- if(kind==='apply'){H.lastHack[c.id]=n;H.lastCat[c.c]=n;H.patched=(H.patched||0)+1;H.cur=null;
-  const r=award(20,el&&el.getBoundingClientRect(),{task:true});sfx('done',1);setTimeout(()=>sfx('loot'),200);buzz([20,40,60]);
-  afterGain(r,[t('tPatched'),t('tPatchedB')+' +'+r.xp+' XP']);if(Math.random()<.25)setTimeout(dropShard,1200)}
- else if(kind==='snooze'){c.snz=n+30*6e4;c.exp=Math.max(c.exp,c.snz+60*6e4);c.snoozed=true;sfx('undo')}
- else{H.lastHack[c.id]=n;H.cur=null;sfx('undo')}
- save();render()}
+const GL='░▒▓#$%&/\\<>01ｱｶｻﾀ';
+function glitchHackText(){if(S().motion==='reduced'||Math.random()>.18)return;const els=document.querySelectorAll('.task.hk:not(.done) .tt');if(!els.length)return;
+ const el=els[Math.floor(Math.random()*els.length)],orig=el.dataset.o||el.textContent;el.dataset.o=orig;const a=orig.split('');
+ for(let k=0;k<1+Math.floor(Math.random()*2);k++){const i=Math.floor(Math.random()*a.length);if(a[i]!==' ')a[i]=GL[Math.floor(Math.random()*GL.length)]}
+ el.textContent=a.join('');setTimeout(()=>{el.textContent=orig},90+Math.random()*90)}
 
 /* ---------- task compiler ---------- */
 ui.draft={title:'',diff:1,list:'today',cat:'',steps:[]};
@@ -1051,26 +1032,25 @@ function renderHud(){const L=lvl(state.xp),s=S(),st=streakNow();
  '<div class="xpw"><div class="xpbar" role="progressbar" aria-valuemin="0" aria-valuemax="'+L.need+'" aria-valuenow="'+L.into+'"><div class="xpfill" style="width:'+(L.into/L.need*100).toFixed(1)+'%"></div></div><div class="xpl">'+L.into+'/'+L.need+' XP · '+esc(rank(L.L).toUpperCase())+'</div></div>'+
  '<div class="combo '+(comboOn?'on':'')+'" id="combo"><span>×'+mult+' '+esc(t('combo'))+'</span><div class="cbar"><i id="cbar" style="width:'+(cl/9000).toFixed(1)+'%"></i></div><span class="faint" id="cleft" style="font-family:var(--fu);font-size:11px">'+mmss(cl/1000)+'</span></div>'+
  (activeEvents().length?activeEvents().map(e=>'<button class="evbar" data-act="evinfo"><b>◆ '+esc(t('events')[e.k][0])+'</b><span>'+esc(evTags(e))+'</span><span class="r" data-evleft="'+e.k+'">'+esc(evLeft(e))+'</span></button>').join(''):'')+
- (hackVisible()&&ui.view!=='board'?'<button class="jackchip on hkchip" data-act="go" data-v="board">⚠ '+esc(t('hackHead'))+' · KIN.daemon <b>›</b></button>':'')+
  '<button class="jackchip '+(state.focus&&ui.view!=='focus'?'on':'')+'" data-act="go" data-v="focus">● '+esc(t('jacked'))+' <b id="jchip">'+mmss(focusLeft())+'</b></button>';
  setSync(syncMode)}
 function pips(d){return'<span class="pips" title="'+esc(t('diff')[d])+'">'+[1,2,3].map(i=>'<i class="'+(i<=d?'on':'')+'"></i>').join('')+'</span>'}
 function taskHtml(x){const n=x.subs.length,dn=x.subs.filter(s=>s.done).length,op=ui.open===x.id;
- return'<li class="task '+(x.done?'done ':'')+(ui.just===x.id?'just ':'')+(op?'open':'')+'">'+
+ return'<li class="task '+(x.hack?'hk ':'')+(x.done?'done ':'')+(ui.just===x.id?'just ':'')+(op?'open':'')+'">'+
  '<div class="trow"><button class="chk" data-act="done" data-id="'+x.id+'" aria-label="'+esc((x.done?t('undo'):t('complete'))+' '+x.title)+'"><span>'+I.chk+'</span></button>'+
- '<button class="tb" data-act="open" data-id="'+x.id+'" aria-expanded="'+op+'"><div class="tt">'+esc(x.title)+'</div><div class="tm">'+pips(x.diff)+(x.cat?'<span class="chip">#'+esc(x.cat)+'</span>':'')+(n?'<span class="chip">'+esc(t('stepsChip',{a:dn,b:n}))+'</span>':'')+(state.target===x.id?'<span class="chip tg">'+esc(t('tgt'))+'</span>':'')+(x.sample?'<span class="chip">'+esc(t('sample'))+'</span>':'')+'</div></button>'+
- '<span class="xpv">+'+DX[x.diff]+'</span></div>'+
- (op?'<div class="ed">'+
+ '<button class="tb" data-act="open" data-id="'+x.id+'" aria-expanded="'+op+'"><div class="tt">'+esc(x.title)+'</div><div class="tm">'+pips(x.diff)+(x.cat?'<span class="chip">#'+esc(x.cat)+'</span>':'')+(n?'<span class="chip">'+esc(t('stepsChip',{a:dn,b:n}))+'</span>':'')+(state.target===x.id?'<span class="chip tg">'+esc(t('tgt'))+'</span>':'')+(x.sample?'<span class="chip">'+esc(t('sample'))+'</span>':'')+(x.hack?'<span class="hxid">0x'+esc(x.hex||'')+'</span>':'')+'</div></button>'+
+ '<span class="xpv">+'+(x.hack?20:DX[x.diff])+'</span></div>'+
+ (op?'<div class="ed">'+(x.hack?'<div class="hkrev">&gt; '+esc(t('injected'))+' · '+esc(hackFlavor(x))+'</div>':'')+
   '<div class="edl"><span class="lab">'+esc(t('steps'))+'</span><ul class="subs">'+x.subs.map(s=>'<li class="sub '+(s.done?'done':'')+'"><button class="sc" data-act="sub" data-id="'+x.id+'" data-s="'+s.id+'" aria-label="'+esc(t('toggleStep'))+'"><span></span></button><span class="st">'+esc(s.t)+'</span><button class="sx" data-act="delsub" data-id="'+x.id+'" data-s="'+s.id+'" aria-label="'+esc(t('removeStep'))+'">✕</button></li>').join('')+'</ul>'+
   '<input class="inp" id="sub-'+x.id+'" data-enter="addsub" data-id="'+x.id+'" placeholder="'+esc(t('stepPh'))+'" autocomplete="off"></div>'+
-  '<div class="edl"><span class="lab">'+esc(t('weight'))+'</span><div class="seg">'+[1,2,3].map(d=>'<button class="'+(x.diff===d?'on':'')+'" data-act="diff" data-id="'+x.id+'" data-v="'+d+'">'+esc(t('diff')[d])+' +'+DX[d]+'</button>').join('')+'</div></div>'+
+  (x.hack?'':'<div class="edl"><span class="lab">'+esc(t('weight'))+'</span><div class="seg">'+[1,2,3].map(d=>'<button class="'+(x.diff===d?'on':'')+'" data-act="diff" data-id="'+x.id+'" data-v="'+d+'">'+esc(t('diff')[d])+' +'+DX[d]+'</button>').join('')+'</div></div>')+
   '<div class="edl"><span class="lab">'+esc(t('boardL'))+'</span><div class="seg">'+lists().map(l=>'<button class="'+(x.list===l.k?'on':'')+'" data-act="move" data-id="'+x.id+'" data-v="'+l.k+'">'+esc(l.n)+'</button>').join('')+'</div></div>'+
   '<div class="row"><button class="btn sm cy" data-act="settarget" data-id="'+x.id+'">'+esc(state.target===x.id?t('clrT'):t('setT'))+'</button><button class="btn sm" data-act="jackthis" data-id="'+x.id+'">'+I.bolt+esc(t('jackIn'))+'</button>'+
   (ui.confirm===x.id?'<button class="btn sm dng" data-act="del" data-id="'+x.id+'">'+esc(t('delC'))+'</button>':'<button class="btn sm" data-act="askdel" data-id="'+x.id+'">'+esc(t('del'))+'</button>')+'</div>'+
  '</div>':'')+'</li>'}
 const ph=(title,jp,end)=>'<div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(title)+(jp?'<span class="jp">'+jp+'</span>':'')+'<span class="end">'+(end||'')+'<span class="bc"></span></span></div>';
 function vBoard(){const tg=findT(state.target),todays=state.tasks.filter(x=>x.list==='today'),td=todays.filter(x=>x.done).length;
- let h=vHack();
+ let h='';
  if(state.tasks.some(x=>x.sample))h+='<div class="banner"><span>'+esc(t('samples'))+'</span><button class="btn sm" data-act="purge">'+esc(t('purge'))+'</button></div>';
  h+=cmdBar();
  h+='<section class="panel">'+ph(t('priority'),'優先')+'<div class="target">'+
@@ -1112,7 +1092,7 @@ function vStats(){const L=lvl(state.xp),days=[];for(let i=13;i>=0;i--){const d=d
  days.forEach((x,i)=>{const h=(H-pb-10)*(x.n/mx),X=pl+4+i*bw,last=i===13;svg+='<rect x="'+(X+2)+'" y="'+((H-pb)-h)+'" width="'+(bw-5)+'" height="'+Math.max(h,1)+'" fill="'+(last?'var(--accent)':'var(--accent2)')+'" opacity="'+(last?1:.7)+'"/>';if(i%2===1||last)svg+='<text x="'+(X+bw/2)+'" y="'+(H-6)+'" text-anchor="middle" font-size="9.5" fill="var(--faint)" font-family="monospace">'+x.d.slice(8)+'</text>';if(x.n)svg+='<text x="'+(X+bw/2)+'" y="'+((H-pb)-h-4)+'" text-anchor="middle" font-size="10" fill="var(--fg)" font-family="monospace">'+x.n+'</text>'});
  svg+='</svg>';
  const got=ACH.filter(a=>state.ach[a.k]).length,an=t('achs');
- return'<section class="panel">'+ph(t('file'),'記録')+'<div class="pb"><div class="prof">'+avatarHtml('l')+'<div class="pt"><div class="lab">'+esc(rank(L.L))+'</div><div class="ph2 g">'+esc(S().handle)+'</div><div style="font-family:var(--fd);font-size:20px;color:var(--accent)">'+esc(t('level'))+' '+L.L+'</div><div class="muted" style="font-family:var(--fu);font-size:12px">'+esc(t('toLv',{n:L.need-L.into,l:L.L+1,x:state.xp}))+'</div><div style="font-family:var(--fu);font-size:12px;color:var(--ok)">'+esc(t('patches',{n:(state.hx&&state.hx.patched)||0}))+'</div><div class="row" style="margin-top:8px"><button class="btn sm" data-act="go" data-v="cfg">'+I.cam+esc(t('profile'))+'</button></div></div></div></div>'+
+ return'<section class="panel">'+ph(t('file'),'記録')+'<div class="pb"><div class="prof">'+avatarHtml('l')+'<div class="pt"><div class="lab">'+esc(rank(L.L))+'</div><div class="ph2 g">'+esc(S().handle)+'</div><div style="font-family:var(--fd);font-size:20px;color:var(--accent)">'+esc(t('level'))+' '+L.L+'</div><div class="muted" style="font-family:var(--fu);font-size:12px">'+esc(t('toLv',{n:L.need-L.into,l:L.L+1,x:state.xp}))+'</div><div style="font-family:var(--fu);font-size:12px;color:var(--astral)">'+esc(t('patches',{n:(state.hx&&state.hx.patched)||0}))+'</div><div class="row" style="margin-top:8px"><button class="btn sm" data-act="go" data-v="cfg">'+I.cam+esc(t('profile'))+'</button></div></div></div></div>'+
  '<div class="kpis"><div class="kpi"><div class="lab">'+esc(t('kCleared'))+'</div><div class="v">'+state.stats.total+'</div></div><div class="kpi"><div class="lab">'+esc(t('kStreak'))+'</div><div class="v">'+streakNow()+'</div></div><div class="kpi"><div class="lab">'+esc(t('kBest'))+'</div><div class="v">'+state.stats.bestStreak+'</div></div><div class="kpi"><div class="lab">'+esc(t('kFocus'))+'</div><div class="v">'+state.stats.focusMin+'</div></div></div></section>'+
  '<section class="panel">'+ph(t('last14'))+'<div class="chart">'+svg+'</div></section>'+
  '<section class="panel"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(t('ach'))+'<span class="jp">実績</span><span class="ct">'+got+'/'+ACH.length+'</span></div><div class="ach">'+ACH.map(a=>'<div class="badge '+(state.ach[a.k]?'on':'')+'"><b>'+esc(an[a.k][0])+'</b><span>'+esc(an[a.k][1])+'</span></div>').join('')+'</div></section>'}
@@ -1178,9 +1158,6 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
   case'deploynext':deploy(true);break;
   case'opencp':openCompiler();break;
   case'closecp':closeCompiler();break;
-  case'happly':hackResolve('apply',b);break;
-  case'hsnooze':hackResolve('snooze');break;
-  case'hignore':hackResolve('ignore');break;
   case'evinfo':state.seenEv={};eventIntro();break;
   case'hint':{const i=$('#term');if(i){i.value=(i.value.trim()+' '+v+' ').trimStart();i.focus();sfx('tap')}break}
   case'toggleback':ui.showBack=!ui.showBack;sfx('tap');render();break;
@@ -1236,7 +1213,7 @@ setInterval(()=>{
  const f=state.focus;
  if(f){const left=focusLeft();const c=$('#fclock');if(c)c.textContent=mmss(left);const r=$('#ringc');if(r){const C=2*Math.PI*88;r.setAttribute('stroke-dashoffset',(C*(1-Math.max(0,left)/f.dur)).toFixed(1))}const j=$('#jchip');if(j)j.textContent=mmss(left);
   if(left<=0&&f.paused==null)endFocus(true)}
- {const hl=$('#hackleft');if(hl)hl.textContent=t('linkDrops',{t:hackLeft()});}
+ glitchHackText();
  document.querySelectorAll('[data-evleft]').forEach(el=>{const e=EVENTS.find(x=>x.k===el.dataset.evleft);if(e)el.textContent=evLeft(e)});
  const cb=$('#cbar');if(cb){const cl=Math.max(0,15*60e3-(now()-state.combo.last));cb.style.width=(cl/9000).toFixed(1)+'%';const ct=$('#cleft');if(ct)ct.textContent=mmss(cl/1000);if(cl<=0)$('#combo').classList.remove('on')}
 },500);
