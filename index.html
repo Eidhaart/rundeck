@@ -377,14 +377,22 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 .evbar .r{margin-left:auto;font-variant-numeric:tabular-nums}
 @keyframes stripes{to{background-position:34px 0}}
 
-/* Care hacks: injected rows that look almost normal */
-.task.hk .chk span{border-style:dashed;border-color:color-mix(in srgb,var(--astral) 70%,var(--accent))}
-.task.hk.done .chk span{background:var(--astral);border-color:var(--astral);box-shadow:0 0 calc(10px*var(--glow)) var(--astral)}
-.task.hk:not(.done) .tt{text-shadow:-.6px 0 color-mix(in srgb,var(--accent) 55%,transparent),.6px 0 color-mix(in srgb,var(--astral) 70%,transparent);animation:hkt 6.5s infinite}
+/* Care hacks: injected rows that look almost normal, with a slight, steady glitch */
+.task.hk:not(.done){animation:hkrow 3.4s infinite steps(1)}
+.task.hk .chk span{border-style:dashed;border-color:color-mix(in srgb,var(--astral) 70%,var(--accent));animation:hkchk 2.7s infinite steps(1)}
+.task.hk.done .chk span{background:var(--astral);border-color:var(--astral);box-shadow:0 0 calc(10px*var(--glow)) var(--astral);animation:none}
+.task.hk:not(.done) .tt{position:relative;text-shadow:-.8px 0 color-mix(in srgb,var(--accent) 60%,transparent),.8px 0 color-mix(in srgb,var(--astral) 75%,transparent);animation:hkt 3.4s infinite steps(1)}
+.task.hk:not(.done) .tt::before,.task.hk:not(.done) .tt::after{content:attr(data-t);position:absolute;inset:0;pointer-events:none;opacity:0}
+.task.hk:not(.done) .tt::before{color:var(--accent);animation:hks1 3.4s infinite steps(1)}
+.task.hk:not(.done) .tt::after{color:var(--astral);animation:hks2 4.1s infinite steps(1)}
 .task.hk .xpv{color:var(--astral)}
 .hxid{font-family:var(--fu);font-size:10.5px;color:color-mix(in srgb,var(--astral) 70%,var(--faint));letter-spacing:.08em;opacity:.8}
 .hkrev{font-family:var(--fu);font-size:12px;color:var(--astral);letter-spacing:.04em}
-@keyframes hkt{0%,95%,100%{transform:none;opacity:1}96%{transform:translateX(1.5px);opacity:.85}97%{transform:translateX(-1px) skewX(-6deg)}98%{transform:none;opacity:.95}}
+@keyframes hkrow{0%,100%{transform:none;opacity:1}44%{transform:translateX(1px)}45%{transform:none}88%{transform:translateX(-2px);opacity:.88}89%{transform:translateX(2px)}90%{transform:none;opacity:1}}
+@keyframes hkt{0%,100%{transform:none}30%{transform:skewX(-8deg) translateX(1px)}31%{transform:none}88%{transform:translateX(2px)}90%{transform:none}}
+@keyframes hks1{0%,100%{opacity:0;transform:none}12%{opacity:.75;transform:translate(-3px,0);clip-path:inset(0 0 60% 0)}13%{opacity:0}88%{opacity:.8;transform:translate(3px,1px);clip-path:inset(45% 0 15% 0)}89%{opacity:.6;transform:translate(-2px,0);clip-path:inset(10% 0 70% 0)}90%{opacity:0}}
+@keyframes hks2{0%,100%{opacity:0;transform:none}55%{opacity:.7;transform:translate(2px,0);clip-path:inset(55% 0 0 0)}56%{opacity:0}78%{opacity:.6;transform:translate(-3px,-1px);clip-path:inset(20% 0 50% 0)}79%{opacity:0}}
+@keyframes hkchk{0%,100%{border-color:color-mix(in srgb,var(--astral) 70%,var(--accent))}40%{border-color:var(--accent);transform:rotate(45deg) translateX(1px)}41%{border-color:color-mix(in srgb,var(--astral) 70%,var(--accent));transform:rotate(45deg)}}
 
 /* Compiler launcher + window */
 .cmdbar{display:flex;align-items:stretch;width:100%;min-height:58px;margin-bottom:14px;padding:0;border:1px solid var(--accent);background:var(--panel);text-align:left;font-family:var(--fu);box-shadow:0 0 calc(16px*var(--glow)) color-mix(in srgb,var(--accent) 20%,transparent);animation:cbp 3.6s ease-in-out infinite;cursor:pointer}
@@ -993,7 +1001,7 @@ function hackTick(force){const f=+S().hackFreq;const H=HX(),n=now();
  H.lastHack[x.id]=n;H.count++;H.last=n;save();render()}
 function hackFlavor(c){if(c.ctx==='hyper')return t('flavHyper',{n:Math.max(4,c.hn||4)});if(c.ctx==='focus')return t('flavFocus');if(c.ctx==='idle')return t('flavIdle');return t('flav')[c.fl||0]}
 const GL='░▒▓#$%&/\\<>01ｱｶｻﾀ';
-function glitchHackText(){if(S().motion==='reduced'||Math.random()>.18)return;const els=document.querySelectorAll('.task.hk:not(.done) .tt');if(!els.length)return;
+function glitchHackText(){if(S().motion==='reduced'||Math.random()>.4)return;const els=document.querySelectorAll('.task.hk:not(.done) .tt');if(!els.length)return;
  const el=els[Math.floor(Math.random()*els.length)],orig=el.dataset.o||el.textContent;el.dataset.o=orig;const a=orig.split('');
  for(let k=0;k<1+Math.floor(Math.random()*2);k++){const i=Math.floor(Math.random()*a.length);if(a[i]!==' ')a[i]=GL[Math.floor(Math.random()*GL.length)]}
  el.textContent=a.join('');setTimeout(()=>{el.textContent=orig},90+Math.random()*90)}
@@ -1098,7 +1106,7 @@ function pips(d){return'<span class="pips" title="'+esc(t('diff')[d])+'">'+[1,2,
 function taskHtml(x){const n=x.subs.length,dn=x.subs.filter(s=>s.done).length,op=ui.open===x.id;
  return'<li class="task '+(x.hack?'hk ':'')+(x.done?'done ':'')+(ui.just===x.id?'just ':'')+(op?'open':'')+'">'+
  '<div class="trow"><button class="chk" data-act="done" data-id="'+x.id+'" aria-label="'+esc((x.done?t('undo'):t('complete'))+' '+x.title)+'"><span>'+I.chk+'</span></button>'+
- '<button class="tb" data-act="open" data-id="'+x.id+'" aria-expanded="'+op+'"><div class="tt">'+esc(x.title)+'</div><div class="tm">'+pips(x.diff)+(x.cat?'<span class="chip">#'+esc(x.cat)+'</span>':'')+(n?'<span class="chip">'+esc(t('stepsChip',{a:dn,b:n}))+'</span>':'')+(state.target===x.id?'<span class="chip tg">'+esc(t('tgt'))+'</span>':'')+(x.sample?'<span class="chip">'+esc(t('sample'))+'</span>':'')+(x.hack?'<span class="hxid">0x'+esc(x.hex||'')+'</span>':'')+'</div></button>'+
+ '<button class="tb" data-act="open" data-id="'+x.id+'" aria-expanded="'+op+'"><div class="tt"'+(x.hack?' data-t="'+esc(x.title)+'"':'')+'>'+esc(x.title)+'</div><div class="tm">'+pips(x.diff)+(x.cat?'<span class="chip">#'+esc(x.cat)+'</span>':'')+(n?'<span class="chip">'+esc(t('stepsChip',{a:dn,b:n}))+'</span>':'')+(state.target===x.id?'<span class="chip tg">'+esc(t('tgt'))+'</span>':'')+(x.sample?'<span class="chip">'+esc(t('sample'))+'</span>':'')+(x.hack?'<span class="hxid">0x'+esc(x.hex||'')+'</span>':'')+'</div></button>'+
  '<span class="xpv">+'+(x.hack?20:DX[x.diff])+'</span></div>'+
  (op?'<div class="ed">'+(x.hack?'<div class="hkrev">&gt; '+esc(t('injected'))+' · '+esc(hackFlavor(x))+'</div>':'')+
   '<div class="edl"><span class="lab">'+esc(t('steps'))+'</span><ul class="subs">'+x.subs.map(s=>'<li class="sub '+(s.done?'done':'')+'"><button class="sc" data-act="sub" data-id="'+x.id+'" data-s="'+s.id+'" aria-label="'+esc(t('toggleStep'))+'"><span></span></button><span class="st">'+esc(s.t)+'</span><button class="sx" data-act="delsub" data-id="'+x.id+'" data-s="'+s.id+'" aria-label="'+esc(t('removeStep'))+'">✕</button></li>').join('')+'</ul>'+
