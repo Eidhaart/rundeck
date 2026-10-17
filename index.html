@@ -525,6 +525,92 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 
 .alinks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px}
 .pwform{margin-top:6px;padding-top:12px;border-top:1px dashed color-mix(in srgb,var(--accent) 35%,transparent)}
+
+/* Plain Dark / Plain Light: calm, no terminal effects. Paired with the Plain voice for everyday wording. */
+[data-skin="plain"]{--bg:#121418;--bg2:#121418;--bg3:#121418;--panel:#1a1d23;--solid:#1d2027;--raise:#242830;--line:#2c3038;--line-hi:#3d434e;--fg:#e8eaef;--dim:#a7adb8;--faint:#737a86;--accent:#6aa8ff;--ink:#0d1117;--accent2:#7fcfa8;--num:#9cc4ff;--warn:#e2b45a;--ok:#5fcf95;--astral:#a395ff;--grid:transparent;--shade:rgba(0,0,0,.5);color-scheme:dark}
+[data-skin="paper"]{--bg:#f3f3f0;--bg2:#f3f3f0;--bg3:#f3f3f0;--panel:#ffffff;--solid:#ffffff;--raise:#f1f2f4;--line:#e0e2e6;--line-hi:#c3c7ce;--fg:#1c1e22;--dim:#565b65;--faint:#8a8f99;--accent:#2f6fe0;--ink:#ffffff;--accent2:#1f8a5c;--num:#2f6fe0;--warn:#9a6200;--ok:#1f8a5c;--astral:#6b4fd8;--grid:transparent;--shade:rgba(20,24,30,.28);color-scheme:light}
+[data-font="plain"]{--fd:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;--fb:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;--fu:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif}
+:is([data-skin="plain"],[data-skin="paper"]) body::after{display:none}
+:is([data-skin="plain"],[data-skin="paper"]) :is(*,*::before,*::after){clip-path:none!important;text-shadow:none!important;text-transform:none!important;letter-spacing:normal!important}
+:is([data-skin="plain"],[data-skin="paper"]) :is(.jp,.bc,.hxid,.glitch::before,.glitch::after,.task.hk .tt::before,.task.hk .tt::after){display:none!important}
+:is([data-skin="plain"],[data-skin="paper"]) .flick #app,:is([data-skin="plain"],[data-skin="paper"]) .task.hk,:is([data-skin="plain"],[data-skin="paper"]) .task.hk :is(.tt,.chk span){animation:none!important}
+:is([data-skin="plain"],[data-skin="paper"]) .panel{border-radius:14px;background:var(--panel);backdrop-filter:none;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+:is([data-skin="plain"],[data-skin="paper"]) :is(.btn,.seg,.seg button,.cmdbar,.inp,.chip,.evbar,.toast,.term-win,.tbtn,.strip,.avmenu,.banner,.afield,.jackchip,.task){border-radius:10px}
+:is([data-skin="plain"],[data-skin="paper"]) :is(.avw,.avbtn){border-radius:50%;overflow:hidden}
+:is([data-skin="plain"],[data-skin="paper"]) .task.hk{border-left:3px solid var(--astral)}
+:is([data-skin="plain"],[data-skin="paper"]) .bname{font-weight:700}
+:is([data-skin="plain"],[data-skin="paper"]) .evbar{background:color-mix(in srgb,var(--warn) 16%,var(--solid))!important;color:var(--fg);border:1px solid color-mix(in srgb,var(--warn) 45%,transparent);animation:none!important}
+:is([data-skin="plain"],[data-skin="paper"]) .evbar b{color:var(--warn)}
+:is([data-skin="plain"],[data-skin="paper"]) .chk span{border-radius:50%}
+:is([data-skin="plain"],[data-skin="paper"]) .cmdbar{animation:none;box-shadow:0 1px 3px rgba(0,0,0,.08);overflow:hidden}
+.cmdbar.plainbar .cb-main{display:flex;align-items:center;gap:12px;padding:0 16px;flex:1;font-family:var(--fb);font-size:15px;color:var(--dim)}
+.cmdbar.plainbar .cb-plus{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);font-size:20px;line-height:1}
+.cmdbar.plainbar .cb-main{flex-direction:row;justify-content:flex-start}
+:is([data-skin="plain"],[data-skin="paper"]) body{background-image:none!important}
+:is([data-skin="plain"],[data-skin="paper"]) :is(.ph,.panel){background-image:none!important}
+:is([data-skin="plain"],[data-skin="paper"]) .vig{display:none}
+.cmdbar.plainbar .cb-ph{color:var(--dim)}
+
+/* Guided tour */
+.tour{position:fixed;inset:0;z-index:200;pointer-events:auto;animation:tin .2s ease-out}
+.tour.out{opacity:0;transition:opacity .2s}
+.tour.dim{background:color-mix(in srgb,#04050a 66%,transparent)}
+@keyframes tin{from{opacity:0}}
+.tour-hole{position:fixed;border:2px solid var(--accent);border-radius:10px;box-shadow:0 0 0 200vmax color-mix(in srgb,#04050a 66%,transparent),0 0 24px color-mix(in srgb,var(--accent) calc(40%*var(--glow)),transparent);transition:left .32s ease,top .32s ease,width .32s ease,height .32s ease,opacity .2s;pointer-events:none}
+.tour-card{position:fixed;max-height:calc(100vh - 24px);overflow:auto;background:var(--solid);border:1px solid var(--line-hi);box-shadow:0 18px 50px rgba(0,0,0,.5);padding:14px 16px 12px;display:flex;flex-direction:column;gap:10px;animation:tcard .28s ease-out;transition:top .32s ease,left .32s ease}
+@keyframes tcard{from{opacity:0;transform:translateY(8px)}}
+.tour-art{background:var(--raise);border:1px solid var(--line);padding:8px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.tour-art .tsv{width:100%;max-width:380px;height:auto;display:block;overflow:visible}
+.tour-n{font-family:var(--fu);font-size:11px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
+.tour-txt h3{margin:2px 0 4px;font-family:var(--fd);font-size:19px;color:var(--fg);letter-spacing:.02em}
+.tour-txt p{margin:0;font-size:14.5px;line-height:1.5;color:var(--dim)}
+.tour-dots{display:flex;gap:5px;justify-content:center}
+.tour-dots i{width:6px;height:6px;border-radius:3px;background:var(--line-hi);transition:width .2s}
+.tour-dots i.past{background:color-mix(in srgb,var(--accent) 45%,var(--line-hi))}
+.tour-dots i.on{width:18px;background:var(--accent)}
+.tour-nav{display:flex;align-items:center;gap:8px}
+.tour-nav .sp{flex:1}
+.tlang{display:flex}
+.tlang button{flex:1}
+.tstyle{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tstyle button{display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:8px;background:var(--raise);border:1px solid var(--line);color:var(--fg);cursor:pointer;text-align:left;font:inherit}
+.tstyle button svg{width:100%;height:auto;display:block;margin-bottom:4px}
+.tstyle button b{font-size:13px}
+.tstyle button small{font-size:11.5px;color:var(--dim);line-height:1.3}
+.tstyle button.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.tnav{display:flex;justify-content:space-around;width:100%;padding:6px 0}
+.tnav span{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--dim);font-family:var(--fu);font-size:10px}
+.tnav b{font-weight:400;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tnav span.on{color:var(--accent)}
+.tnav svg{width:20px;height:20px}
+.tq{display:flex;align-items:center;gap:8px;justify-content:center;font-size:12.5px;color:var(--dim);padding-bottom:6px}
+.tq .helpb{width:26px;height:26px;display:inline-grid;place-items:center}
+.helpb{font-family:var(--fd);font-weight:700}
+.tsv text{font-family:var(--fu);font-size:11px;fill:var(--dim)}
+.tsv .mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;white-space:pre}
+.tsv .fg{fill:var(--fg)}.tsv .ac{fill:var(--accent)}.tsv .a2{fill:var(--accent2)}.tsv .wn{fill:var(--warn)}.tsv .ink{fill:var(--ink)}
+.tsv .lb{fill:var(--fg);font-size:10.5px;opacity:.85}.tsv .sm{font-size:10px}.tsv .sm2{font-size:11px}
+.tsv .big{font-size:17px;font-weight:700;fill:var(--fg)}.tsv .big.ac{fill:var(--accent)}.tsv .big2{font-size:14px;font-weight:700}
+.tsv .bx{fill:var(--solid);stroke:var(--line-hi);stroke-width:1}
+.tsv .bx.hi{stroke:var(--accent);stroke-width:1.5}
+.tsv .bx.care{stroke:color-mix(in srgb,var(--astral) 60%,var(--line-hi))}
+.tsv .bx.wnb{stroke:var(--warn)}
+.tsv .ln{stroke:var(--line-hi);stroke-width:1.5;fill:none}
+.tsv .dash{stroke-dasharray:4 4}
+.tsv .co{stroke:var(--faint);stroke-width:1;fill:none}
+.tsv .acf{fill:var(--accent)}.tsv .a2f{fill:var(--accent2)}.tsv .wnf{fill:var(--warn)}.tsv .asf{fill:var(--astral)}
+.tsv .acs{stroke:var(--accent);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tsv .wns{stroke:var(--warn);stroke-width:1.6;fill:none}
+.tsv .pip{fill:var(--line)}.tsv .pipst{fill:none;stroke:var(--line);stroke-width:5}
+.tsv .arc{fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round}
+.tsv .ck{fill:none;stroke:var(--accent);stroke-width:1.6}.tsv .ck.on{fill:color-mix(in srgb,var(--accent) 22%,transparent)}.tsv .ck.dash{stroke-dasharray:3 3;stroke:var(--faint)}.tsv .ck.as{stroke:var(--astral)}
+.tsv .ckm{fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tsv .chipb{fill:none;stroke:var(--line-hi)}
+.tsv .win{fill:color-mix(in srgb,var(--accent) 10%,transparent);stroke:color-mix(in srgb,var(--accent) 40%,transparent);stroke-dasharray:3 3}
+.tsv .blink{animation:blink 1s steps(1) infinite}
+:is([data-skin="plain"],[data-skin="paper"]) :is(.tour-card,.tour-art,.tstyle button){border-radius:12px}
+:is([data-skin="plain"],[data-skin="paper"]) .tour-card{box-shadow:0 18px 50px rgba(0,0,0,.25)}
+@media(max-width:480px){.tour-txt p{font-size:14px}.tstyle small{display:none}}
 </style>
 </head>
 <body>
@@ -653,6 +739,137 @@ sv:{lang:'Svenska',node:'Nod Stockholm',
   street:{done:['Snyggt jobbat, chummer.','Jobbet klart. Pengarna är inne.','Smidigt. Nästa mål.','Så görs det.','Ingen hetta. Vidare.'],ranks:['Gatråtta','Gängmedlem','Runner','Skugga','Proffs','Topprunner','Spöke','Legend','Drakdödare','Myt'],add:'JOBB UPPLAGT',sub:'STEG KLART',subB:'Alla steg klara. Stäng jobbet för full utbetalning.',tag:'Håll huvudet lågt.'}}
 }};
 
+/* Plain wording: used when Voice is set to Plain. Overrides only what has lingo; everything else falls through to the normal strings. */
+DICT.en.vPlain='Plain';DICT.en.ptsU='points';DICT.pl.ptsU='pkt';DICT.sv.ptsU='poäng';DICT.pl.vPlain='Prosty';DICT.sv.vPlain='Enkel';
+DICT.en.plain={
+ nav:['Tasks','Focus','Rewards','Profile','Settings'],
+ credits:'Points',combo:'COMBO',jacked:'FOCUSING',
+ lists:{today:['Today','Nothing here yet. Add a task above.'],routine:['Daily habits','No habits yet. Add one with @r'],contract:['Projects','No projects. Bigger jobs go here, split into steps.'],backlog:['Later','Nothing saved for later.']},
+ samples:'These are example tasks to get you started. Keep what fits.',purge:'Remove examples',
+ priority:'Focus task',lockOn:'Do this one first.',lockOff:'No focus task yet. Let the app pick one.',pick:'Pick one for me',jackIn:'Start focus',cleared:'{a}/{b} done',
+ cmd:'Quick add',weight:'Size',setT:'Make focus task',clrT:'Remove focus',tgt:'FOCUS',sample:'EXAMPLE',
+ diff:{1:'SMALL',2:'MEDIUM',3:'BIG'},
+ fJacked:'Focusing',fWindow:'Focus timer',jackOut:'Stop',jackOutC:'Confirm stop',fNote:'+2 XP per minute of focus. A full 25-minute session unlocks an achievement.',jackFor:'Start focus · {m} min',
+ cred:'Points',credN:'You earn points as you finish tasks (about half your XP), plus bonuses. Spend them on rewards you set yourself.',shop:'Rewards',shards:'Bonus boxes',shardsE:'About one in four finished tasks drops a bonus box.',rar:['Common','Rare','Epic','Legendary'],
+ file:'Profile',profile:'Edit profile',handle:'Name',avatar:'Photo',upload:'Upload photo',packs:'Themes',voice:'Wording',
+ tNoT:'NOTHING TO PICK',tJack:'FOCUS STARTED',tJackB:'{m} min. Put your phone away.',tSess:'FOCUS DONE',tOut:'FOCUS STOPPED',tWipe:'ALL DONE',tWipeB:'Every Today task is finished.',tLoot:'BONUS BOX · {r}',tAch:'ACHIEVEMENT · {n}',
+ composer:'New task',run:'Add',cpHint:'Enter adds it · shortcuts !2 #tag @c work too',compiled:'ready',deployed:'added to {b}',cpOpen:'tap to add a task',runNext:'Add + another',twBoot:[],compiling:'adding',
+ evOnline:'BONUS ON',events:{weekend:['WEEKEND BONUS','Every task gives 1.5× XP and 2× points until Monday.'],payday:['PAYDAY','It is the 25th. 2× points all day.']},
+ hackHead:'SELF-CARE',apply:'Done',tIntrude:'SELF-CARE',tIntrudeB:'A small self-care task was added to your list.',tPatched:'NICE',tPatchedB:'Thanks for looking after yourself.',hackFreq:'Self-care reminders',hackNote:'Now and then the app adds a small self-care task to your list, based on the time of day and how busy you are.',injected:'self-care reminder',patchedF:'',patches:'Self-care tasks done: {n}',
+ flav:['A small thing for you, not your list.','Quick check-in.','Your body called. It wants this.','Thirty seconds, then back to it.','Worth more than it looks.'],
+ flavHyper:'{n} tasks in a row. Take a short break.',flavFocus:'Long focus session. Time to move a little.',flavIdle:'Slow day? Here is an easy one.',
+ callIn:'FOCUS SESSION DONE',answer:'See result',decline:'Close',callMsg:'{m} min of focus. +{x} XP.',tgtAcq:'PICKED',
+ decrypt:'Open',decHint:'Tap the codes in order to open the box. A wrong code costs time.',seq:'Order',granted:'OPENED',lost:'TIME UP',lostB:'The box is still closed. Try again any time.',encL:'Closed',fuseL:'Combine',fuseB:'3 {a} → 1 {b}',archive:'Story notes',archiveE:'Open boxes to unlock short story notes.',rwBuff:'XP BOOST · ×{x} for {m} min',rwLore:'Story note {n} unlocked',rwSkin:'New colours unlocked: {n}',overclock:'XP BOOST',tLootEnc:'Open it under Rewards.',tFuse:'BOXES COMBINED',decNone:'No closed boxes. Finish tasks to find some.',
+ authTitle:'Sign in',gateSub:'Sign in to keep your tasks on all your devices.',authLines:[],
+ lvBonus:'BONUS +{n} POINTS',upC:'LEVEL UP',upS:'LEVEL UP',rwCred:'+{n} POINTS',
+ voice:{plain:{done:['Done.','Nice work.','Task finished.','One less thing.','Good job.'],ranks:['Beginner','Starter','Regular','Steady','Focused','Dedicated','Skilled','Expert','Master','Legend'],add:'TASK ADDED',sub:'ALL STEPS DONE',subB:'Every step is done. Tick the project to finish it.',tag:''}},
+ achs:{breach:['FIRST BOX','Open your first bonus box'],archivist:['STORYTELLER','Unlock all 10 story notes'],first:['FIRST STEP','Finish your first task'],ten:['GETTING GOING','Finish 10 tasks'],fifty:['REGULAR','Finish 50 tasks'],hundred:['CENTURY','Finish 100 tasks'],combo3:['ON A ROLL','Reach a ×3 combo'],st3:['THREE IN A ROW','3-day streak'],st7:['FULL WEEK','7-day streak'],focus:['DEEP FOCUS','Finish a 25-minute focus session'],clear:['CLEAN SLATE','Finish every Today task (3+)'],lv5:['LEVEL 5','Reach level 5'],lv10:['LEVEL 10','Reach level 10'],shard10:['COLLECTOR','Hold 10 bonus boxes'],buy:['TREAT YOURSELF','Buy your first reward'],patch10:['SELF-CARE','Do 10 self-care tasks']}
+};
+DICT.pl.plain={
+ nav:['Zadania','Skupienie','Nagrody','Profil','Ustawienia'],
+ credits:'Punkty',combo:'COMBO',jacked:'SKUPIENIE',
+ lists:{today:['Dzisiaj','Nic tu jeszcze nie ma. Dodaj zadanie powyżej.'],routine:['Codzienne nawyki','Brak nawyków. Dodaj z @r'],contract:['Projekty','Brak projektów. Większe sprawy trafiają tutaj, podzielone na kroki.'],backlog:['Na później','Nic nie czeka na później.']},
+ samples:'To przykładowe zadania na start. Zostaw to, co pasuje.',purge:'Usuń przykłady',
+ priority:'Zadanie na teraz',lockOn:'Zrób najpierw to.',lockOff:'Nie wybrano zadania. Niech aplikacja wybierze.',pick:'Wybierz za mnie',jackIn:'Zacznij skupienie',cleared:'{a}/{b} zrobione',
+ cmd:'Szybkie dodawanie',weight:'Rozmiar',setT:'Ustaw jako zadanie na teraz',clrT:'Usuń z „na teraz”',tgt:'NA TERAZ',sample:'PRZYKŁAD',
+ diff:{1:'MAŁE',2:'ŚREDNIE',3:'DUŻE'},
+ fJacked:'Skupienie trwa',fWindow:'Minutnik',jackOut:'Zatrzymaj',jackOutC:'Potwierdź zatrzymanie',fNote:'+2 XP za każdą minutę skupienia. Pełna sesja 25 minut odblokowuje osiągnięcie.',jackFor:'Zacznij skupienie · {m} min',
+ cred:'Punkty',credN:'Punkty zdobywasz za zadania (około połowy XP) i bonusy. Wydajesz je na nagrody, które sam ustalasz.',shop:'Nagrody',shards:'Pudełka z bonusem',shardsE:'Mniej więcej co czwarte zadanie daje pudełko z bonusem.',rar:['Zwykłe','Rzadkie','Epickie','Legendarne'],
+ file:'Profil',profile:'Edytuj profil',handle:'Imię',avatar:'Zdjęcie',upload:'Wgraj zdjęcie',packs:'Motywy',voice:'Słownictwo',
+ tNoT:'NIE MA CZEGO WYBRAĆ',tJack:'SKUPIENIE START',tJackB:'{m} min. Odłóż telefon.',tSess:'SKUPIENIE ZAKOŃCZONE',tOut:'SKUPIENIE PRZERWANE',tWipe:'WSZYSTKO ZROBIONE',tWipeB:'Każde dzisiejsze zadanie jest gotowe.',tLoot:'PUDEŁKO · {r}',tAch:'OSIĄGNIĘCIE · {n}',
+ composer:'Nowe zadanie',run:'Dodaj',cpHint:'Enter dodaje · skróty !2 #tag @c też działają',compiled:'gotowe',deployed:'dodano do: {b}',cpOpen:'dotknij, aby dodać zadanie',runNext:'Dodaj + następne',twBoot:[],compiling:'dodawanie',
+ evOnline:'BONUS AKTYWNY',events:{weekend:['BONUS WEEKENDOWY','Każde zadanie daje 1,5× XP i 2× punktów do poniedziałku.'],payday:['WYPŁATA','Jest 25. dzień miesiąca. 2× punktów przez cały dzień.']},
+ hackHead:'DBAJ O SIEBIE',apply:'Zrobione',tIntrude:'DBAJ O SIEBIE',tIntrudeB:'Na liście pojawiło się małe zadanie dla ciebie.',tPatched:'SUPER',tPatchedB:'Dzięki, że o siebie dbasz.',hackFreq:'Przypomnienia o dbaniu o siebie',hackNote:'Od czasu do czasu aplikacja dodaje małe zadanie dla twojego zdrowia, zależnie od pory dnia i tego, jak dużo pracujesz.',injected:'przypomnienie o dbaniu o siebie',patchedF:'',patches:'Zadania dla siebie: {n}',
+ flav:['Coś małego dla ciebie, nie dla listy.','Szybkie sprawdzenie.','Twoje ciało o to prosi.','Trzydzieści sekund i wracasz.','Warte więcej, niż się wydaje.'],
+ flavHyper:'{n} zadań z rzędu. Zrób krótką przerwę.',flavFocus:'Długie skupienie. Czas się trochę poruszać.',flavIdle:'Wolny dzień? Oto coś łatwego.',
+ callIn:'SESJA SKUPIENIA ZAKOŃCZONA',answer:'Zobacz wynik',decline:'Zamknij',callMsg:'{m} min skupienia. +{x} XP.',tgtAcq:'WYBRANO',
+ decrypt:'Otwórz',decHint:'Dotykaj kodów po kolei, aby otworzyć pudełko. Błędny kod zabiera czas.',seq:'Kolejność',granted:'OTWARTE',lost:'KONIEC CZASU',lostB:'Pudełko wciąż jest zamknięte. Spróbuj kiedy chcesz.',encL:'Zamknięte',fuseL:'Połącz',fuseB:'3 {a} → 1 {b}',archive:'Notatki fabularne',archiveE:'Otwieraj pudełka, aby odblokować krótkie notatki.',rwBuff:'BONUS XP · ×{x} przez {m} min',rwLore:'Odblokowano notatkę {n}',rwSkin:'Nowe kolory: {n}',overclock:'BONUS XP',tLootEnc:'Otwórz je w Nagrodach.',tFuse:'POŁĄCZONO PUDEŁKA',decNone:'Brak zamkniętych pudełek. Kończ zadania, aby je znaleźć.',
+ authTitle:'Zaloguj się',gateSub:'Zaloguj się, aby mieć zadania na wszystkich urządzeniach.',authLines:[],
+ lvBonus:'BONUS +{n} PKT',upC:'NOWY POZIOM',upS:'NOWY POZIOM',rwCred:'+{n} PKT',
+ voice:{plain:{done:['Zrobione.','Dobra robota.','Zadanie gotowe.','Jedna rzecz mniej.','Brawo.'],ranks:['Początkujący','Starter','Regularny','Wytrwały','Skupiony','Oddany','Wprawny','Ekspert','Mistrz','Legenda'],add:'DODANO ZADANIE',sub:'WSZYSTKIE KROKI ZROBIONE',subB:'Każdy krok gotowy. Zaznacz projekt, aby go zakończyć.',tag:''}},
+ achs:{breach:['PIERWSZE PUDEŁKO','Otwórz pierwsze pudełko'],archivist:['GAWĘDZIARZ','Odblokuj wszystkie 10 notatek'],first:['PIERWSZY KROK','Ukończ pierwsze zadanie'],ten:['ROZKRĘCASZ SIĘ','Ukończ 10 zadań'],fifty:['STAŁY BYWALEC','Ukończ 50 zadań'],hundred:['SETKA','Ukończ 100 zadań'],combo3:['NA FALI','Osiągnij combo ×3'],st3:['TRZY Z RZĘDU','Seria 3 dni'],st7:['CAŁY TYDZIEŃ','Seria 7 dni'],focus:['GŁĘBOKIE SKUPIENIE','Ukończ 25-minutową sesję'],clear:['CZYSTA KARTA','Ukończ wszystkie dzisiejsze zadania (3+)'],lv5:['POZIOM 5','Osiągnij poziom 5'],lv10:['POZIOM 10','Osiągnij poziom 10'],shard10:['KOLEKCJONER','Miej 10 pudełek'],buy:['NAGRODA DLA CIEBIE','Kup pierwszą nagrodę'],patch10:['DBAM O SIEBIE','Zrób 10 zadań dla siebie']}
+};
+DICT.sv.plain={
+ nav:['Uppgifter','Fokus','Belöningar','Profil','Inställningar'],
+ credits:'Poäng',combo:'COMBO',jacked:'FOKUS PÅGÅR',
+ lists:{today:['Idag','Inget här än. Lägg till en uppgift ovanför.'],routine:['Dagliga vanor','Inga vanor än. Lägg till med @r'],contract:['Projekt','Inga projekt. Större saker hamnar här, uppdelade i steg.'],backlog:['Senare','Inget sparat till senare.']},
+ samples:'Det här är exempeluppgifter att börja med. Behåll det som passar.',purge:'Ta bort exempel',
+ priority:'Fokusuppgift',lockOn:'Gör den här först.',lockOff:'Ingen fokusuppgift än. Låt appen välja.',pick:'Välj åt mig',jackIn:'Starta fokus',cleared:'{a}/{b} klara',
+ cmd:'Snabbtillägg',weight:'Storlek',setT:'Gör till fokusuppgift',clrT:'Ta bort fokus',tgt:'FOKUS',sample:'EXEMPEL',
+ diff:{1:'LITEN',2:'MELLAN',3:'STOR'},
+ fJacked:'Fokus pågår',fWindow:'Fokustimer',jackOut:'Stoppa',jackOutC:'Bekräfta stopp',fNote:'+2 XP per minut i fokus. Ett helt pass på 25 minuter låser upp en prestation.',jackFor:'Starta fokus · {m} min',
+ cred:'Poäng',credN:'Du får poäng när du gör klart uppgifter (ungefär hälften av din XP) plus bonusar. Lägg dem på belöningar du själv bestämmer.',shop:'Belöningar',shards:'Bonuslådor',shardsE:'Ungefär var fjärde klar uppgift ger en bonuslåda.',rar:['Vanlig','Ovanlig','Episk','Legendarisk'],
+ file:'Profil',profile:'Redigera profil',handle:'Namn',avatar:'Foto',upload:'Ladda upp foto',packs:'Teman',voice:'Ordval',
+ tNoT:'INGET ATT VÄLJA',tJack:'FOKUS STARTAT',tJackB:'{m} min. Lägg undan mobilen.',tSess:'FOKUS KLART',tOut:'FOKUS STOPPAT',tWipe:'ALLT KLART',tWipeB:'Alla dagens uppgifter är klara.',tLoot:'BONUSLÅDA · {r}',tAch:'PRESTATION · {n}',
+ composer:'Ny uppgift',run:'Lägg till',cpHint:'Enter lägger till · kortkommandon !2 #tagg @c funkar också',compiled:'klar',deployed:'tillagd i {b}',cpOpen:'tryck för att lägga till en uppgift',runNext:'Lägg till + nästa',twBoot:[],compiling:'lägger till',
+ evOnline:'BONUS PÅ',events:{weekend:['HELGBONUS','Varje uppgift ger 1,5× XP och 2× poäng fram till måndag.'],payday:['LÖNEDAG','Det är den 25:e. 2× poäng hela dagen.']},
+ hackHead:'TA HAND OM DIG',apply:'Klar',tIntrude:'TA HAND OM DIG',tIntrudeB:'En liten uppgift för dig har lagts till i listan.',tPatched:'SNYGGT',tPatchedB:'Tack för att du tar hand om dig.',hackFreq:'Påminnelser om egenvård',hackNote:'Ibland lägger appen till en liten egenvårdsuppgift i listan, beroende på tid på dygnet och hur mycket du jobbar.',injected:'egenvårdspåminnelse',patchedF:'',patches:'Egenvårdsuppgifter klara: {n}',
+ flav:['Något litet för dig, inte för listan.','Snabb koll.','Kroppen ringde. Den vill ha det här.','Trettio sekunder, sen tillbaka.','Värt mer än det ser ut.'],
+ flavHyper:'{n} uppgifter i rad. Ta en kort paus.',flavFocus:'Långt fokuspass. Dags att röra på sig lite.',flavIdle:'Lugn dag? Här är en enkel.',
+ callIn:'FOKUSPASSET ÄR KLART',answer:'Se resultat',decline:'Stäng',callMsg:'{m} min fokus. +{x} XP.',tgtAcq:'VALD',
+ decrypt:'Öppna',decHint:'Tryck på koderna i ordning för att öppna lådan. Fel kod kostar tid.',seq:'Ordning',granted:'ÖPPNAD',lost:'TIDEN ÄR SLUT',lostB:'Lådan är fortfarande stängd. Försök igen när du vill.',encL:'Stängd',fuseL:'Slå ihop',fuseB:'3 {a} → 1 {b}',archive:'Berättelseanteckningar',archiveE:'Öppna lådor för att låsa upp korta anteckningar.',rwBuff:'XP-BOOST · ×{x} i {m} min',rwLore:'Anteckning {n} upplåst',rwSkin:'Nya färger upplåsta: {n}',overclock:'XP-BOOST',tLootEnc:'Öppna den under Belöningar.',tFuse:'LÅDOR IHOPSLAGNA',decNone:'Inga stängda lådor. Gör klart uppgifter för att hitta några.',
+ authTitle:'Logga in',gateSub:'Logga in för att ha dina uppgifter på alla enheter.',authLines:[],
+ lvBonus:'BONUS +{n} POÄNG',upC:'NY NIVÅ',upS:'NY NIVÅ',rwCred:'+{n} POÄNG',
+ voice:{plain:{done:['Klart.','Bra jobbat.','Uppgift klar.','En sak mindre.','Snyggt.'],ranks:['Nybörjare','Igång','Regelbunden','Stadig','Fokuserad','Hängiven','Skicklig','Expert','Mästare','Legend'],add:'UPPGIFT TILLAGD',sub:'ALLA STEG KLARA',subB:'Alla steg är klara. Bocka av projektet för att avsluta det.',tag:''}},
+ achs:{breach:['FÖRSTA LÅDAN','Öppna din första bonuslåda'],archivist:['BERÄTTARE','Lås upp alla 10 anteckningar'],first:['FÖRSTA STEGET','Gör klart din första uppgift'],ten:['IGÅNG','Gör klart 10 uppgifter'],fifty:['STAMGÄST','Gör klart 50 uppgifter'],hundred:['HUNDRA','Gör klart 100 uppgifter'],combo3:['PÅ RULLE','Nå combo ×3'],st3:['TRE I RAD','3 dagar i rad'],st7:['HEL VECKA','7 dagar i rad'],focus:['DJUPT FOKUS','Gör klart ett fokuspass på 25 minuter'],clear:['RENT BORD','Gör klart alla dagens uppgifter (3+)'],lv5:['NIVÅ 5','Nå nivå 5'],lv10:['NIVÅ 10','Nå nivå 10'],shard10:['SAMLARE','Ha 10 bonuslådor'],buy:['UNNA DIG','Köp din första belöning'],patch10:['EGENVÅRD','Gör 10 egenvårdsuppgifter']}
+};
+
+/* Guided tour. {placeholders} are filled with the current names, so the text matches whichever wording is active. */
+Object.assign(DICT.en,{tourBtn:'Tour',help:'Help',helpN:'A short guided tour of how RunDeck works.',tour:{
+ skip:'Skip tour',back:'Back',next:'Next',start:'Start using RunDeck',stepOf:'{a} of {b}',
+ steps:{
+  welcome:['Welcome to RunDeck','RunDeck turns your to-do list into a game. Finish tasks to earn XP and {cred}, level up, and spend {cred} on rewards you pick yourself. This tour takes about a minute. Choose your language first if you like.'],
+  style:['Pick a style','The full experience is neon cyberpunk with sounds and hacker lingo. Plain uses calm colours and everyday names, in dark or light. You can switch any time in {cfg}.'],
+  add:['Add a task','Tap this bar, type what needs doing and press Enter. That is all you need. If you want, add shortcuts while typing: !1 !2 !3 sets the size, #word adds a tag, and @t @r @c @b picks the list.'],
+  boards:['Four lists','{today} is what you want done today. {routine} are things you repeat every day; they reset each morning. {contract} are bigger jobs you split into small steps. {backlog} is for someday, kept out of the way.'],
+  task:['Reading a task','Tap the box on the left to finish a task. Tap the name to open it: add steps, change the size or list, or delete it. The bars show the size ({s1} +10 XP, {s2} +25, {s3} +50), # is a tag (a label just for you), and the number on the right is the XP it gives.'],
+  combo:['Keep it rolling','Finish tasks within 15 minutes of each other and a combo builds up: ×1.5, ×2, up to ×3 XP. Unticking a task takes its reward back, so there is nothing to farm.'],
+  hud:['Your progress','Up top: your level, your {cred} and your day streak (days in a row you finished something). The bar fills with XP until the next level.'],
+  focus:['Stuck? Let it choose','“{pick}” chooses one task and makes it your {tgt}. “{jackIn}” starts a timer that pays +2 XP per minute. Even five minutes counts; starting is the hard part.'],
+  care:['Little self-care tasks','Once or twice a day a small task like “drink a glass of water” shows up in your list, marked in blue. It pays like any task. Change how often, or turn it off, in {cfg}.'],
+  loot:['Bonus drops','About one in four finished tasks drops a surprise. Find them under {shards} in {loot}, and open them with a quick tap-the-codes game to win {cred}, XP boosts or new colours. Three of the same kind combine into a rarer one.'],
+  shop:['Your own rewards','Add rewards you actually want, like an episode of a show, and give each a price. Buy them with {cred} once you have earned them.'],
+  events:['Bonus days','Weekends give 1.5× XP and 2× {cred}. On the 25th of every month it is payday: 2× {cred}. A banner at the top shows when a bonus is on.'],
+  done:['You are set','Everything else lives in {cfg}: style, sounds, language and your account. Tap ? at the top to see this tour again.']},
+ style:{cyber:['Cyberpunk','Neon, sound, hacker lingo'],dark:['Plain dark','Calm, everyday words'],light:['Plain light','Calm, everyday words']},
+ lbl:{add:'Add',finish:'Finish',earn:'Earn',spend:'Reward',name:'name',size:'size',tag:'tag',list:'list',tapDone:'tap = done',tapOpen:'tap = open',steps:'steps',resets:'resets daily',stepsL:'split into steps',someday:'someday',todaySub:'for today',within:'within 15 min',level:'level',streak:'streak',toNext:'XP to next level',perMin:'+2 XP / min',blue:'1–2 a day',combine:'3 → 1 rarer',price:'price',buy:'Buy',payday:'payday',days:['M','T','W','T','F','S','S'],example:'Call the dentist',exTag:'admin',water:'Drink a glass of water',rewardEx:'One episode of a show',legend:'!1 !2 !3 size · #tag · @t @r @c @b list'}}});
+Object.assign(DICT.pl,{tourBtn:'Przewodnik',help:'Pomoc',helpN:'Krótki przewodnik po tym, jak działa RunDeck.',tour:{
+ skip:'Pomiń',back:'Wstecz',next:'Dalej',start:'Zaczynamy',stepOf:'{a} z {b}',
+ steps:{
+  welcome:['Witaj w RunDeck','RunDeck zamienia listę zadań w grę. Kończ zadania, zdobywaj XP i {cred}, wbijaj poziomy i wydawaj {cred} na nagrody, które sam wybierasz. Ten przewodnik zajmie około minuty. Najpierw możesz wybrać język.'],
+  style:['Wybierz styl','Pełna wersja to neonowy cyberpunk z dźwiękami i hakerskim słownictwem. Prosty styl ma spokojne kolory i zwykłe nazwy, w wersji ciemnej lub jasnej. Zmienisz to w każdej chwili w zakładce {cfg}.'],
+  add:['Dodaj zadanie','Dotknij tego paska, wpisz, co trzeba zrobić, i naciśnij Enter. To wszystko. Jeśli chcesz, dodaj skróty: !1 !2 !3 ustawia rozmiar, #słowo dodaje tag, a @t @r @c @b wybiera listę.'],
+  boards:['Cztery listy','{today} to to, co chcesz zrobić dzisiaj. {routine} to rzeczy powtarzane codziennie; każdego ranka zaczynają od nowa. {contract} to większe sprawy podzielone na małe kroki. {backlog} to rzeczy na kiedyś, schowane z boku.'],
+  task:['Jak czytać zadanie','Dotknij pola po lewej, aby zakończyć zadanie. Dotknij nazwy, aby je otworzyć: dodaj kroki, zmień rozmiar lub listę albo je usuń. Kreski pokazują rozmiar ({s1} +10 XP, {s2} +25, {s3} +50), # to tag, czyli etykieta tylko dla ciebie, a liczba po prawej to XP za zadanie.'],
+  combo:['Złap rytm','Kończ zadania w odstępach do 15 minut, a rośnie combo: ×1,5, ×2, aż do ×3 XP. Odznaczenie zadania zabiera nagrodę, więc nie da się oszukiwać.'],
+  hud:['Twoje postępy','Na górze: twój poziom, twoje {cred} i seria dni (ile dni z rzędu coś zrobiłeś). Pasek wypełnia się XP aż do następnego poziomu.'],
+  focus:['Nie wiesz, od czego zacząć?','„{pick}” wybiera jedno zadanie i ustawia je w sekcji {tgt}. „{jackIn}” włącza minutnik, który daje +2 XP za minutę. Nawet pięć minut się liczy; najtrudniej jest zacząć.'],
+  care:['Małe zadania dla ciebie','Raz lub dwa razy dziennie na liście pojawia się małe zadanie, np. „wypij szklankę wody”, oznaczone na niebiesko. Daje XP jak każde inne. Częstotliwość zmienisz lub wyłączysz w zakładce {cfg}.'],
+  loot:['Bonusy','Mniej więcej co czwarte ukończone zadanie daje niespodziankę. Znajdziesz je w sekcji {shards} w zakładce {loot}. Otwórz je szybką grą w dotykanie kodów i wygraj {cred}, bonus XP albo nowe kolory. Trzy takie same łączą się w jedną rzadszą.'],
+  shop:['Twoje własne nagrody','Dodaj nagrody, na których ci zależy, np. odcinek serialu, i nadaj każdej cenę. Kupuj je za {cred}, gdy na nie zapracujesz.'],
+  events:['Dni z bonusem','W weekendy dostajesz 1,5× XP i 2× {cred}. 25. dnia każdego miesiąca jest wypłata: 2× {cred}. Gdy bonus trwa, na górze widać baner.'],
+  done:['Gotowe','Wszystko inne jest w zakładce {cfg}: styl, dźwięki, język i konto. Dotknij ? na górze, aby obejrzeć przewodnik jeszcze raz.']},
+ style:{cyber:['Cyberpunk','Neon, dźwięki, hakerski żargon'],dark:['Prosty ciemny','Spokojnie, zwykłe słowa'],light:['Prosty jasny','Spokojnie, zwykłe słowa']},
+ lbl:{add:'Dodaj',finish:'Zrób',earn:'Zdobądź',spend:'Nagroda',name:'nazwa',size:'rozmiar',tag:'tag',list:'lista',tapDone:'dotknij = zrobione',tapOpen:'dotknij = otwórz',steps:'kroki',resets:'od nowa co dzień',stepsL:'podzielone na kroki',someday:'na kiedyś',todaySub:'na dziś',within:'w ciągu 15 min',level:'poziom',streak:'seria',toNext:'XP do następnego poziomu',perMin:'+2 XP / min',blue:'1–2 dziennie',combine:'3 → 1 rzadsza',price:'cena',buy:'Kup',payday:'wypłata',days:['P','W','Ś','C','P','S','N'],example:'Zadzwoń do dentysty',exTag:'sprawy',water:'Wypij szklankę wody',rewardEx:'Odcinek serialu',legend:'!1 !2 !3 rozmiar · #tag · @t @r @c @b lista'}}});
+Object.assign(DICT.sv,{tourBtn:'Rundtur',help:'Hjälp',helpN:'En kort rundtur som visar hur RunDeck fungerar.',tour:{
+ skip:'Hoppa över',back:'Tillbaka',next:'Nästa',start:'Kör igång',stepOf:'{a} av {b}',
+ steps:{
+  welcome:['Välkommen till RunDeck','RunDeck gör din att göra-lista till ett spel. Gör klart uppgifter, tjäna XP och {cred}, gå upp i nivå och lägg {cred} på belöningar du väljer själv. Rundturen tar ungefär en minut. Välj språk först om du vill.'],
+  style:['Välj stil','Fullversionen är neon-cyberpunk med ljud och hackerslang. Enkel har lugna färger och vardagliga namn, i mörkt eller ljust. Du kan byta när du vill under {cfg}.'],
+  add:['Lägg till en uppgift','Tryck på fältet, skriv vad som ska göras och tryck Enter. Det är allt. Vill du kan du använda kortkommandon: !1 !2 !3 sätter storleken, #ord lägger till en tagg och @t @r @c @b väljer lista.'],
+  boards:['Fyra listor','{today} är det du vill få gjort idag. {routine} är saker du gör varje dag; de nollställs varje morgon. {contract} är större saker uppdelade i små steg. {backlog} är för någon gång, undanstoppat.'],
+  task:['Så läser du en uppgift','Tryck på rutan till vänster för att göra klart en uppgift. Tryck på namnet för att öppna den: lägg till steg, ändra storlek eller lista, eller ta bort den. Strecken visar storleken ({s1} +10 XP, {s2} +25, {s3} +50), # är en tagg, en etikett bara för dig, och siffran till höger är XP:n du får.'],
+  combo:['Håll igång','Gör klart uppgifter inom 15 minuter från varandra så växer en combo: ×1,5, ×2, upp till ×3 XP. Bockar du ur en uppgift försvinner belöningen, så det går inte att fuska.'],
+  hud:['Dina framsteg','Högst upp: din nivå, dina {cred} och din dagsserie (hur många dagar i rad du gjort klart något). Stapeln fylls med XP fram till nästa nivå.'],
+  focus:['Fastnat? Låt appen välja','”{pick}” väljer en uppgift och lägger den under {tgt}. ”{jackIn}” startar en timer som ger +2 XP per minut. Även fem minuter räknas; det svåra är att börja.'],
+  care:['Små egenvårdsuppgifter','En eller två gånger om dagen dyker en liten uppgift som ”drick ett glas vatten” upp i listan, markerad i blått. Den ger XP som vilken uppgift som helst. Ändra hur ofta, eller stäng av det, under {cfg}.'],
+  loot:['Bonusar','Ungefär var fjärde klar uppgift ger en överraskning. Du hittar dem under {shards} i {loot}. Öppna dem med ett snabbt kodspel och vinn {cred}, XP-boost eller nya färger. Tre av samma sort slås ihop till en ovanligare.'],
+  shop:['Dina egna belöningar','Lägg till belöningar du faktiskt vill ha, som ett avsnitt av en serie, och sätt ett pris på varje. Köp dem med {cred} när du har förtjänat dem.'],
+  events:['Bonusdagar','Helger ger 1,5× XP och 2× {cred}. Den 25:e varje månad är det lönedag: 2× {cred}. En banner högst upp visar när en bonus är igång.'],
+  done:['Klart!','Allt annat finns under {cfg}: stil, ljud, språk och ditt konto. Tryck på ? högst upp för att se rundturen igen.']},
+ style:{cyber:['Cyberpunk','Neon, ljud, hackerslang'],dark:['Enkel mörk','Lugnt, vardagliga ord'],light:['Enkel ljus','Lugnt, vardagliga ord']},
+ lbl:{add:'Lägg till',finish:'Gör klart',earn:'Tjäna',spend:'Belöning',name:'namn',size:'storlek',tag:'tagg',list:'lista',tapDone:'tryck = klart',tapOpen:'tryck = öppna',steps:'steg',resets:'nollställs dagligen',stepsL:'uppdelat i steg',someday:'någon gång',todaySub:'för idag',within:'inom 15 min',level:'nivå',streak:'serie',toNext:'XP till nästa nivå',perMin:'+2 XP / min',blue:'1–2 om dagen',combine:'3 → 1 ovanligare',price:'pris',buy:'Köp',payday:'lönedag',days:['M','T','O','T','F','L','S'],example:'Ring tandläkaren',exTag:'admin',water:'Drick ett glas vatten',rewardEx:'Ett avsnitt av en serie',legend:'!1 !2 !3 storlek · #tagg · @t @r @c @b lista'}}});
+
 /* ---------- icons ---------- */
 const I={
  logo:'<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="20" cy="20" r="15" stroke-width="3" stroke-dasharray="74 20" transform="rotate(-58 20 20)"/><path d="M2 20h36" stroke-width="3"/><path d="M20 8l5.5 8.5h-11z" fill="currentColor" stroke="none"/><path d="M15 26h10" stroke-width="2"/></svg>',
@@ -684,16 +901,20 @@ const SKINS=[
  {k:'matrix',n:'Matrix',sw:['#04090c','#3fe3ff','#ff6fb1','#7deeff']},
  {k:'astral',n:'Astral',sw:['#0a0710','#c39bff','#ffd27a','#5b8cff']},
  {k:'corp',n:'Corp Daylight',sw:['#e7eaee','#c8102e','#0b6bcb','#141a22']},
+ {k:'plain',n:'Plain Dark',sw:['#15171c','#6aa8ff','#8fd6b4','#e8eaef']},
+ {k:'paper',n:'Plain Light',sw:['#f6f6f4','#2f6fe0','#1f8a5c','#1c1e22']},
  {k:'ghost',n:'Ghost',sw:['#090d10','#e8f6ff','#7cf9ff','#fff38a'],lock:1},
  {k:'blood',n:'Blood Moon',sw:['#0a0405','#ff2a1a','#ff9c2a','#ffd0c4'],lock:1}
 ];
-const FONTS=[{k:'readout',n:'Readout'},{k:'chakra',n:'Chakra'},{k:'oxanium',n:'Oxanium'},{k:'plexmono',n:'Plex Mono'}];
-const GLYPHS=['▸','◆','›','■'];
+const FONTS=[{k:'readout',n:'Readout'},{k:'chakra',n:'Chakra'},{k:'oxanium',n:'Oxanium'},{k:'plexmono',n:'Plex Mono'},{k:'plain',n:'System'}];
+const GLYPHS=['▸','◆','›','■','•'];
 const PACKS=[
  {n:'Municipal Terminal',s:{skin:'municipal',font:'readout',orn:'barcode',back:'night',glyph:'▸',voice:'corp',scan:.35,glow:1}},
  {n:'Sodium Street',s:{skin:'sodium',font:'chakra',orn:'brackets',back:'grid',glyph:'›',voice:'street',scan:.25,glow:.8}},
  {n:'Matrix Ghost',s:{skin:'matrix',font:'oxanium',orn:'brackets',back:'rain',glyph:'◆',voice:'street',scan:.45,glow:1.3}},
- {n:'Corp Daylight',s:{skin:'corp',font:'plexmono',orn:'barcode',back:'grid',glyph:'■',voice:'corp',scan:.08,glow:.2}}
+ {n:'Corp Daylight',s:{skin:'corp',font:'plexmono',orn:'barcode',back:'grid',glyph:'■',voice:'corp',scan:.08,glow:.2}},
+ {n:'Plain Dark',plain:1,s:{skin:'plain',font:'plain',orn:'none',back:'flat',glyph:'•',voice:'plain',scan:0,glow:0,flicker:false}},
+ {n:'Plain Light',plain:1,s:{skin:'paper',font:'plain',orn:'none',back:'flat',glyph:'•',voice:'plain',scan:0,glow:0,flicker:false}}
 ];
 const RAR=[{c:5,w:60},{c:15,w:28},{c:40,w:10},{c:100,w:2}];
 const SH_A=['Encrypted','Ghost','Black','Chrome','Static','Neon','Feral','Quiet','Burnt','Mirror','Sodium','Hollow','Red'];
@@ -721,7 +942,11 @@ const mmss=s=>{s=Math.max(0,Math.ceil(s));return z2(Math.floor(s/60))+':'+z2(s%6
 const navLang=(()=>{const l=(navigator.language||'en').slice(0,2).toLowerCase();return LANGS.includes(l)?l:'en'})();
 
 /* ---------- i18n ---------- */
-const D=()=>DICT[(state&&state.set&&state.set.lang)||navLang]||DICT.en;
+const PLC={};const dmerge=(a,b)=>{const o=Array.isArray(a)?a.slice():{...a};for(const k in b){o[k]=b[k]&&typeof b[k]==='object'&&!Array.isArray(b[k])&&a&&a[k]&&typeof a[k]==='object'&&!Array.isArray(a[k])?dmerge(a[k],b[k]):b[k]}return o};
+const PL=()=>!!(state&&state.set&&state.set.voice==='plain');
+const CU=()=>PL()?t('ptsU'):'CRED';
+const PSKIN=()=>!!(state&&state.set&&(state.set.skin==='plain'||state.set.skin==='paper'));
+const D=()=>{const l=(state&&state.set&&state.set.lang)||navLang,b=DICT[l]||DICT.en;if(PL()&&b.plain)return PLC[l]||(PLC[l]=dmerge(b,b.plain));return b};
 function t(k,v){let s=k.split('.').reduce((o,p)=>o==null?o:o[p],D());if(s==null)s=k.split('.').reduce((o,p)=>o==null?o:o[p],DICT.en);if(typeof s==='string'&&v)s=s.replace(/\{(\w+)\}/g,(m,n)=>v[n]!=null?v[n]:m);return s}
 const V=()=>D().voice[S().voice]||D().voice.corp;
 
@@ -852,7 +1077,7 @@ function signedOut(){const keep={...S(),handle:'OPERATOR',avatar:''};try{localSt
 function paintNet(){let el=document.getElementById('netwarn');const v=document.getElementById('view');if(!v)return;
  if(!el){el=document.createElement('div');el.id='netwarn';el.setAttribute('role','status');v.parentNode.insertBefore(el,v)}
  const msg=!SB_ON?'':!sbUser?(state.offline?t('netLocal'):''):!netOk?t('netOff'):'';
- el.textContent=msg?'//WARNING: '+msg:'';el.className=msg?'on':''}
+ el.textContent=msg?(PL()?'⚠ ':'//WARNING: ')+msg:'';el.className=msg?'on':''}
 function netDown(){netOk=false;setSync('err');paintNet()}
 function netUp(){if(!netOk){netOk=true;paintNet()}}
 addEventListener('offline',()=>{netOk=false;paintNet()});
@@ -928,8 +1153,8 @@ function authHtml(){const A=ui.auth;
  '<p class="asec">'+lockI+'<span>'+esc(t('secure'))+' <a href="privacy.html" target="_blank" rel="noopener">'+esc(t('privacyLink'))+'</a></span></p></form>'}
 function paintAuth(){const m=authRoot().querySelector('#au-msg');if(m){m.textContent=ui.auth.msg;m.className='msg '+(ui.auth.err?'er':'')}document.querySelectorAll('form[data-form="auth"] button').forEach(b=>b.disabled=ui.auth.busy)}
 function showGate(){if(!SB_ON||sbUser)return;sfx('open');
- $('#ovl').innerHTML='<div class="ov gate" id="gate"><div class="term-win gatewin opening" role="dialog" aria-modal="true" aria-label="'+esc(t('authTitle'))+'"><div class="tw-bar"><span class="gl">'+S().glyph+'</span><span>KIN://AUTH</span><span class="tw-file">node_07</span><span class="bc"></span></div>'+
-  '<div class="gatebody"><div class="gatehead">'+I.logo+'<div><div class="bname g">RUNDECK</div><div class="bsub">Meridian Municipal Grid</div></div></div>'+
+ $('#ovl').innerHTML='<div class="ov gate" id="gate"><div class="term-win gatewin opening" role="dialog" aria-modal="true" aria-label="'+esc(t('authTitle'))+'"><div class="tw-bar"><span class="gl">'+S().glyph+'</span><span>'+(PL()?esc(t('authTitle')):'KIN://AUTH')+'</span><span class="tw-file">node_07</span><span class="bc"></span></div>'+
+  '<div class="gatebody"><div class="gatehead">'+I.logo+'<div><div class="bname g">RUNDECK</div><div class="bsub">'+(PL()?'':'Meridian Municipal Grid')+'</div></div></div>'+
   '<div class="tw-boot" id="gboot"></div><div class="gatetitle">'+esc(t('authTitle'))+'</div><p class="muted gsub">'+esc(t('gateSub'))+'</p>'+authHtml()+
   '<div class="gatefoot"><button class="btn sm" data-act="offline">'+esc(t('offline'))+'</button><div class="seg glang">'+LANGS.map(l=>'<button class="'+(S().lang===l?'on':'')+'" data-act="glang" data-v="'+l+'">'+l.toUpperCase()+'</button>').join('')+'</div></div></div></div></div>';
  const gb=$('#gboot');t('authLines').forEach((l,i)=>setTimeout(()=>{if(gb){gb.insertAdjacentHTML('beforeend','<div>&gt; '+esc(l)+' <span class="okk">'+(i===2?'█':'ok')+'</span></div>');sfx('tick')}},S().motion==='reduced'?0:120+i*160));
@@ -1053,7 +1278,7 @@ function scramble(root){if(S().motion==='reduced')return;
   if(fr<total)setTimeout(step,32);else items.forEach(o=>o.n.nodeValue=o.f)};step()}
 
 /* ---------- settings ---------- */
-function applySet(){const s=S(),r=document.documentElement;r.dataset.skin=s.skin;r.dataset.font=s.font;r.dataset.orn=s.orn;r.dataset.back=s.back;r.dataset.motion=s.motion;r.lang=s.lang;r.style.setProperty('--scan',s.scan);r.style.setProperty('--glow',s.glow);document.body.classList.toggle('flick',!!s.flicker&&s.motion!=='reduced');rainOn(s.back==='rain');if(AC&&master)master.gain.value=s.vol;if(!s.sound)stopHum()}
+function applySet(){const s=S(),r=document.documentElement;r.dataset.skin=s.skin;r.dataset.font=s.font;r.dataset.orn=s.orn;r.dataset.back=s.back;r.dataset.voice=s.voice;r.dataset.motion=s.motion;r.lang=s.lang;r.style.setProperty('--scan',s.scan);r.style.setProperty('--glow',s.glow);document.body.classList.toggle('flick',!!s.flicker&&s.motion!=='reduced');rainOn(s.back==='rain');if(AC&&master)master.gain.value=s.vol;if(!s.sound)stopHum()}
 function retitleSamples(l){const sd=DICT[l].seed,m={t0:sd.t[0],t1:sd.t[1],t2:sd.t[2],r0:sd.r[0],r1:sd.r[1],c:sd.c,b:sd.b},ci={t0:0,t1:1,t2:2,r0:0,r1:3,c:2,b:4};
  state.tasks.forEach(x=>{if(x.sample&&m[x.sk]){x.title=m[x.sk];x.cat=sd.cats[ci[x.sk]];if(x.sk==='c')x.subs.forEach((s,i)=>{if(sd.cs[i])s.t=sd.cs[i]})}});
  state.tasks.forEach(x=>{if(x.hack&&DICT[l].hacks[x.hack])x.title=DICT[l].hacks[x.hack]});
@@ -1165,8 +1390,8 @@ const activeEvents=()=>{const d=new Date();return EVENTS.filter(e=>e.on(d))};
 function evMult(){let xp=1,cr=1;activeEvents().forEach(e=>{xp*=e.xp;cr*=e.cr});const b=buffNow();if(b)xp*=b.x;return{xp,cr}}
 const buffNow=()=>state.buff&&now()<state.buff.until?state.buff:null;
 function evLeft(e){const ms=e.end(new Date())-now(),h=Math.floor(ms/36e5),m=Math.floor(ms%36e5/6e4),sec=Math.floor(ms%6e4/1e3);return(h?h+'h ':'')+z2(m)+'m '+z2(sec)+'s'}
-function evTags(e){return(e.xp>1?'XP ×'+e.xp+' ':'')+(e.cr>1?'CRED ×'+e.cr:'')}
-function eventIntro(){const evs=activeEvents().filter(e=>!(state.seenEv||{})[e.k+dk()]);if(!evs.length||$('#ovl').innerHTML)return;
+function evTags(e){return(e.xp>1?'XP ×'+e.xp+' ':'')+(e.cr>1?(PL()?t('credits'):'CRED')+' ×'+e.cr:'')}
+function eventIntro(){if(!state.tutDone&&!tourOn&&!document.getElementById('boot')&&!document.getElementById('gate')){setTimeout(()=>{if(!state.tutDone&&!tourOn&&!$('#ovl').innerHTML)startTour()},250);return}const evs=activeEvents().filter(e=>!(state.seenEv||{})[e.k+dk()]);if(!evs.length||$('#ovl').innerHTML)return;
  const e=evs[0];state.seenEv=state.seenEv||{};evs.forEach(x=>state.seenEv[x.k+dk()]=1);save();
  const [n,d]=t('events')[e.k];sfx('heat');buzz([30,50,30,50]);burst(innerWidth/2,innerHeight/2,80,[tok('--warn'),tok('--accent'),tok('--accent2')]);
  $('#ovl').innerHTML='<div class="ov" data-act="closeov"><div class="ovbox"><div class="evbar" style="width:100%;max-width:420px;justify-content:center"><b>'+esc(t('evOnline'))+'</b></div><div class="glitch" data-t="'+esc(n)+'" style="color:var(--warn);font-size:clamp(34px,10vw,64px)">'+esc(n)+'</div><p style="margin:0;max-width:420px;font-size:16px">'+esc(d)+'</p><div class="lab" style="color:var(--warn);font-size:13px">'+esc(evTags(e))+' · '+esc(t('evEnds',{t:evLeft(e)}))+'</div><button class="btn pri" data-act="closeov">'+esc(t('evGo'))+' ▸</button></div></div>'}
@@ -1212,7 +1437,7 @@ function hackTick(force){const f=+S().hackFreq;const H=HX(),n=now();
  H.lastHack[x.id]=n;H.count++;H.last=n;save();render()}
 function hackFlavor(c){if(c.ctx==='hyper')return t('flavHyper',{n:Math.max(4,c.hn||4)});if(c.ctx==='focus')return t('flavFocus');if(c.ctx==='idle')return t('flavIdle');return t('flav')[c.fl||0]}
 const GL='░▒▓#$%&/\\<>01ｱｶｻﾀ';
-function glitchHackText(){if(S().motion==='reduced'||Math.random()>.4)return;const els=document.querySelectorAll('.task.hk .tt');if(!els.length)return;
+function glitchHackText(){if(PSKIN()||S().motion==='reduced'||Math.random()>.4)return;const els=document.querySelectorAll('.task.hk .tt');if(!els.length)return;
  const el=els[Math.floor(Math.random()*els.length)],orig=el.dataset.o||el.textContent;el.dataset.o=orig;const a=orig.split('');
  for(let k=0;k<1+Math.floor(Math.random()*2);k++){const i=Math.floor(Math.random()*a.length);if(a[i]!==' ')a[i]=GL[Math.floor(Math.random()*GL.length)]}
  el.textContent=a.join('');setTimeout(()=>{el.textContent=orig},90+Math.random()*90)}
@@ -1236,7 +1461,7 @@ function composerInner(){const d=ui.draft,m=evMult(),base=DX[d.diff]+d.steps.len
  L(4,'<span class="k">'+esc(t('kBoard'))+':</span>'+LIST_KEYS.map(k=>tok('list',k,t('lists')[k][0],d.list===k)).join(''),1)+
  L(5,'<span class="k">'+esc(t('kTag'))+':</span>'+tok('cat','',t('none'),!d.cat)+knownTags().map(c=>tok('cat',c,'#'+c,d.cat===c)).join('')+'<label class="sr" for="cp-tag">'+esc(t('tagNew'))+'</label><input id="cp-tag" class="cin sm" autocomplete="off" data-enter="cptag" placeholder="'+esc(t('tagNew'))+'">',1)+
  L(6,'<span class="k">'+esc(t('kSteps'))+':</span>'+d.steps.map((x,i)=>'<button type="button" class="tok on" data-act="cpdelstep" data-v="'+i+'">'+esc(x)+'<span class="x">✕</span></button>').join('')+'<label class="sr" for="cp-step">'+esc(t('stepAdd'))+'</label><input id="cp-step" class="cin sm" autocomplete="off" data-enter="cpstep" placeholder="'+esc(t('stepAdd'))+'">',1)+
- L(7,'<span class="pn">})</span> <span class="cm">// '+esc(t('reward'))+': <b>+'+xp+' XP · +'+cr+' CRED</b>'+(d.steps.length?' + '+d.steps.length*5+' XP':'')+(ev?' <em>· '+esc(activeEvents().map(e=>t('events')[e.k][0]).join(' + '))+'</em>':'')+'</span>')+
+ L(7,'<span class="pn">})</span> <span class="cm">// '+esc(t('reward'))+': <b>+'+xp+' XP · +'+cr+' '+CU()+'</b>'+(d.steps.length?' + '+d.steps.length*5+' XP':'')+(ev?' <em>· '+esc(activeEvents().map(e=>t('events')[e.k][0]).join(' + '))+'</em>':'')+'</span>')+
  '</div><div class="cpfoot" id="cpfoot"><button class="btn pri" data-act="deploy">▸ '+esc(t('run'))+'</button><button class="btn sm" data-act="deploynext">'+esc(t('runNext'))+'</button><span class="hint">'+esc(t('cpHint'))+'</span></div>'+
  (ui.termLog.length?'<div class="tout">'+ui.termLog.map(l=>'<div class="'+l.c+'">'+esc(l.m)+'</div>').join('')+'</div>':'')}
 function vComposer(){return'<section class="panel composer" id="composer"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(t('composer'))+'<span class="jp">作成</span><span class="end">'+(V().tag?'<span class="faint tagl" style="letter-spacing:.1em">'+esc(V().tag)+'</span>':'')+'<span class="bc"></span></span></div><div id="cpbody">'+composerInner()+'</div></section>'}
@@ -1261,13 +1486,13 @@ function openCompiler(){if(ui.view!=='board'){ui.view='board';render()}
  if($('#ovl').innerHTML)$('#ovl').innerHTML='';
  sfx('open');buzz(10);
  $('#ovl').innerHTML='<div class="ov cpov" data-act="closecp"><div class="term-win opening" role="dialog" aria-modal="true" aria-label="'+esc(t('composer'))+'">'+
-  '<div class="tw-bar"><span class="gl">'+S().glyph+'</span><span>KIN://COMPILER</span><span class="tw-file">new_task.rd</span><span class="bc"></span><button class="tw-x" data-act="closecp" aria-label="'+esc(t('closeW'))+'">✕</button></div>'+
+  '<div class="tw-bar"><span class="gl">'+S().glyph+'</span><span>'+(PL()?esc(t('composer')):'KIN://COMPILER')+'</span><span class="tw-file">new_task.rd</span><span class="bc"></span><button class="tw-x" data-act="closecp" aria-label="'+esc(t('closeW'))+'">✕</button></div>'+
   '<div class="tw-boot" id="twboot"></div><div id="cpbody">'+composerInner()+'</div></div></div>';
  const bt=$('#twboot');t('twBoot').forEach((l,i)=>setTimeout(()=>{if(bt)bt.insertAdjacentHTML('beforeend','<div>&gt; '+esc(l)+' <span class="okk">'+(i===2?'█':'ok')+'</span></div>');sfx('tick')},S().motion==='reduced'?0:60+i*90));
  setTimeout(()=>{const w=$('.term-win');if(w)w.classList.remove('opening')},900);
  setTimeout(()=>{const n=document.getElementById('cp-name');if(n)n.focus({preventScroll:true})},S().motion==='reduced'?0:280)}
 function closeCompiler(){const w=$('.term-win');sfx('tap');if(!w){$('#ovl').innerHTML='';return}w.classList.add('closing');setTimeout(()=>{if($('.term-win.closing'))$('#ovl').innerHTML=''},300)}
-function cmdBar(){return'<button class="cmdbar" data-act="opencp"><span class="cb-main"><span class="cb-prompt">'+esc((S().handle||'operator').toLowerCase())+'@meridian:~$</span><span class="cb-code"><span class="kw">run</span> <span class="fn">new_task</span><span class="pn">(</span><span class="cb-ph">'+esc(t('cpOpen'))+'</span><span class="pn">)</span><span class="cur"></span></span></span><span class="cb-btn">+ '+esc(t('newBtn').toUpperCase())+'<span class="cb-k">N</span></span></button>'}
+function cmdBar(){if(PL())return'<button class="cmdbar plainbar" data-act="opencp"><span class="cb-main"><span class="cb-plus">+</span><span class="cb-ph">'+esc(t('cpOpen'))+'</span></span><span class="cb-btn">'+esc(t('newBtn'))+'</span></button>';return'<button class="cmdbar" data-act="opencp"><span class="cb-main"><span class="cb-prompt">'+esc((S().handle||'operator').toLowerCase())+'@meridian:~$</span><span class="cb-code"><span class="kw">run</span> <span class="fn">new_task</span><span class="pn">(</span><span class="cb-ph">'+esc(t('cpOpen'))+'</span><span class="pn">)</span><span class="cur"></span></span></span><span class="cb-btn">+ '+esc(t('newBtn').toUpperCase())+'<span class="cb-k">N</span></span></button>'}
 
 /* ---------- roulette ---------- */
 function openTasks(){let c=state.tasks.filter(x=>!x.done&&(x.list==='today'||x.list==='contract'));if(!c.length)c=state.tasks.filter(x=>!x.done&&x.list==='routine');if(!c.length)c=state.tasks.filter(x=>!x.done);return c}
@@ -1300,7 +1525,7 @@ function openDecrypt(id){const sh=state.shards.find(x=>x.id===id);if(!sh||!sh.en
  const pos=[];while(pos.length<cf.len){const q=Math.floor(Math.random()*cells.length);if(!pos.includes(q))pos.push(q)}pos.forEach((q,k)=>cells[q]=seq[k]);
  ui.dec={id,r:sh.r,seq,cells,n:cf.n,step:0,used:[],end:now()+cf.time*1000,total:cf.time*1000,state:'run'};
  sfx('open');buzz(10);
- $('#ovl').innerHTML='<div class="ov cpov" data-act="decclose"><div class="term-win dec opening r'+sh.r+'" role="dialog" aria-modal="true" aria-label="'+esc(t('decrypt'))+'"><div class="tw-bar"><span class="gl">'+S().glyph+'</span><span>KIN://DECRYPT</span><span class="tw-file">'+esc(sh.name)+'</span><span class="bc"></span><button class="tw-x" data-act="decclose" aria-label="'+esc(t('closeW'))+'">✕</button></div><div id="decbody"></div></div></div>';
+ $('#ovl').innerHTML='<div class="ov cpov" data-act="decclose"><div class="term-win dec opening r'+sh.r+'" role="dialog" aria-modal="true" aria-label="'+esc(t('decrypt'))+'"><div class="tw-bar"><span class="gl">'+S().glyph+'</span><span>'+(PL()?esc(t('decrypt')):'KIN://DECRYPT')+'</span><span class="tw-file">'+esc(sh.name)+'</span><span class="bc"></span><button class="tw-x" data-act="decclose" aria-label="'+esc(t('closeW'))+'">✕</button></div><div id="decbody"></div></div></div>';
  paintDec();setTimeout(()=>{const w=$('.term-win');if(w)w.classList.remove('opening')},700);
  clearInterval(decT);decT=setInterval(()=>{const d=ui.dec;if(!d||d.state!=='run'){clearInterval(decT);return}const left=d.end-now(),bar=$('#dbar');if(bar)bar.style.width=Math.max(0,left/d.total*100)+'%';if(left<=0)decFail()},80)}
 function paintDec(){const d=ui.dec,b=$('#decbody');if(!d||!b)return;
@@ -1356,8 +1581,8 @@ function callEnd(answered){const c=ui.call;if(!c)return;clearTimeout(ui.callTime
 const lists=()=>LIST_KEYS.map(k=>({k,n:t('lists')[k][0],empty:t('lists')[k][1],jp:JP[k]}));
 function renderHud(){const L=lvl(state.xp),s=S(),st=streakNow();
  const c=state.combo,cl=Math.max(0,15*60e3-(now()-c.last)),comboOn=c.n>=2&&cl>0,mult=Math.min(3,1+.5*(c.n-1));
- $('#hud').innerHTML='<div class="hrow"><div class="brand">'+I.logo+'<div><div class="bname g">RUNDECK</div><div class="bsub">Meridian Municipal Grid · '+esc(s.handle||'OPERATOR')+'</div></div></div>'+
- '<div class="hstats"><div class="strip"><span class="seg lvs"><small>LV</small><b class="g">'+L.L+'</b></span><span class="seg crs" title="'+esc(t('credits'))+'">'+I.cred+'<b>'+state.cred+'</b></span><span class="seg sts '+(st?'':'cold')+'" title="'+esc(t('streakT'))+'">'+I.flame+'<b>'+st+'</b></span></div>'+'<div class="tools"><button class="tbtn langb" data-act="langov" aria-label="'+esc(t('language'))+'">'+s.lang.toUpperCase()+'</button><button class="tbtn" data-act="mute" aria-label="'+esc(s.sound?t('mute'):t('unmute'))+'">'+(s.sound?I.son:I.soff)+'</button></div>'+'<div class="avwrap"><button class="avbtn" data-act="go" data-v="stats" aria-label="'+esc(t('profile'))+'">'+avatarHtml('s')+'<i id="syncdot" class="sync"></i></button>'+(SB_ON?'<div class="avmenu" role="menu"><div class="avm-h">'+esc(sbUser?(sbUser.email||S().handle):t('netLocalS'))+'</div>'+(sbUser?'<button role="menuitem" data-act="signout">'+I.pwr+esc(t('signOut'))+'</button>':'<button role="menuitem" data-act="signin">'+I.pwr+esc(t('signIn'))+'</button>')+'</div>':'')+'</div></div></div>'+
+ $('#hud').innerHTML='<div class="hrow"><div class="brand">'+I.logo+'<div><div class="bname g">RUNDECK</div><div class="bsub">'+(PL()?(s.handle&&s.handle!=='OPERATOR'?esc(s.handle):''):'Meridian Municipal Grid · '+esc(s.handle||'OPERATOR'))+'</div></div></div>'+
+ '<div class="hstats"><div class="strip"><span class="seg lvs"><small>LV</small><b class="g">'+L.L+'</b></span><span class="seg crs" title="'+esc(t('credits'))+'">'+I.cred+'<b>'+state.cred+'</b></span><span class="seg sts '+(st?'':'cold')+'" title="'+esc(t('streakT'))+'">'+I.flame+'<b>'+st+'</b></span></div>'+'<div class="tools"><button class="tbtn helpb" data-act="tour" aria-label="'+esc(t('tourBtn'))+'" title="'+esc(t('tourBtn'))+'">?</button><button class="tbtn langb" data-act="langov" aria-label="'+esc(t('language'))+'">'+s.lang.toUpperCase()+'</button><button class="tbtn" data-act="mute" aria-label="'+esc(s.sound?t('mute'):t('unmute'))+'">'+(s.sound?I.son:I.soff)+'</button></div>'+'<div class="avwrap"><button class="avbtn" data-act="go" data-v="stats" aria-label="'+esc(t('profile'))+'">'+avatarHtml('s')+'<i id="syncdot" class="sync"></i></button>'+(SB_ON?'<div class="avmenu" role="menu"><div class="avm-h">'+esc(sbUser?(sbUser.email||S().handle):t('netLocalS'))+'</div>'+(sbUser?'<button role="menuitem" data-act="signout">'+I.pwr+esc(t('signOut'))+'</button>':'<button role="menuitem" data-act="signin">'+I.pwr+esc(t('signIn'))+'</button>')+'</div>':'')+'</div></div></div>'+
  '<div class="xpw"><div class="xpbar" role="progressbar" aria-valuemin="0" aria-valuemax="'+L.need+'" aria-valuenow="'+L.into+'"><div class="xpfill" style="width:'+(L.into/L.need*100).toFixed(1)+'%"></div></div><div class="xpl">'+L.into+'/'+L.need+' XP · '+esc(rank(L.L).toUpperCase())+'</div></div>'+
  '<div class="combo '+(comboOn?'on':'')+(comboOn&&ui.comboSeen!==c.n?' pop':'')+'" id="combo"><span>×'+mult+' '+esc(t('combo'))+'</span><div class="cbar"><i id="cbar" style="width:'+(cl/9000).toFixed(1)+'%"></i></div><span class="faint" id="cleft" style="font-family:var(--fu);font-size:11px">'+mmss(cl/1000)+'</span></div>'+
  (buffNow()?'<button class="evbar buffbar" data-act="go" data-v="loot"><b>◆ '+esc(t('overclock'))+'</b><span>XP ×'+buffNow().x+'</span><span class="r" id="buffleft">'+mmss((buffNow().until-now())/1000)+'</span></button>':'')+
@@ -1384,14 +1609,14 @@ function vBoard(){const tg=findT(state.target),todays=state.tasks.filter(x=>x.li
  let h='';
  if(state.tasks.some(x=>x.sample))h+='<div class="banner"><span>'+esc(t('samples'))+'</span><button class="btn sm" data-act="purge">'+esc(t('purge'))+'</button></div>';
  h+=cmdBar();
- h+='<section class="panel">'+ph(t('priority'),'優先')+'<div class="target">'+
+ h+='<section class="panel" data-tut="target">'+ph(t('priority'),'優先')+'<div class="target">'+
   '<div class="lab">'+esc(tg?t('lockOn'):t('lockOff'))+'</div>'+
   '<div class="tname g2" id="tname">'+(tg?esc(tg.title):'—')+'</div>'+
   '<div class="row"><button class="btn pri" data-act="pick">'+I.dice+esc(t('pick'))+'</button>'+(tg?'<button class="btn cy" data-act="jackthis" data-id="'+tg.id+'">'+I.bolt+esc(t('jackIn'))+'</button><button class="btn" data-act="done" data-id="'+tg.id+'">'+esc(t('done'))+'</button>':'')+'</div>'+
   '<div style="margin-top:14px"><div class="tline"><span>'+esc(t('today'))+'</span><span>'+esc(t('cleared',{a:td,b:todays.length}))+'</span></div><div class="today">'+todays.map(x=>'<i class="'+(x.done?'on':'')+'"></i>').join('')+'</div></div>'+
  '</div></section>';
  lists().forEach(l=>{const ts=state.tasks.filter(x=>x.list===l.k).sort((a,b)=>(a.done-b.done)||(a.created-b.created));const open=ts.filter(x=>!x.done).length;const col=l.k==='backlog'&&!ui.showBack;
-  h+='<section class="panel"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(l.n)+'<span class="jp">'+l.jp+'</span><span class="ct">'+open+'</span><span class="end">'+(l.k==='routine'?'<span class="faint" style="letter-spacing:.08em">'+esc(t('resets'))+'</span>':'')+(l.k==='backlog'?'<button class="collapse" data-act="toggleback">'+esc(col?t('show'):t('hide'))+'</button>':'')+'<span class="bc"></span></span></div>'+
+  h+='<section class="panel" data-tut="l-'+l.k+'"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(l.n)+'<span class="jp">'+l.jp+'</span><span class="ct">'+open+'</span><span class="end">'+(l.k==='routine'?'<span class="faint" style="letter-spacing:.08em">'+esc(t('resets'))+'</span>':'')+(l.k==='backlog'?'<button class="collapse" data-act="toggleback">'+esc(col?t('show'):t('hide'))+'</button>':'')+'<span class="bc"></span></span></div>'+
   (col?'':(ts.length?'<ul class="tasks">'+ts.map(taskHtml).join('')+'</ul>':'<div class="empty">'+esc(l.empty)+'</div>'))+'</section>'});
  return h}
 function vFocus(){const f=state.focus;
@@ -1412,14 +1637,14 @@ function vLoot(){const cnt=[0,0,0,0];state.shards.forEach(s=>cnt[s.r]++);const r
  const enc=state.shards.filter(x=>x.enc),dec=state.shards.filter(x=>!x.enc),lore=(state.lore||[]).slice().sort((a,b)=>a-b);
  const fus=[0,1,2].filter(r=>dec.filter(x=>x.r===r).length>=3);
  const shardCard=s=>'<div class="shard r'+s.r+(s.enc?' enc':'')+'"><b>'+esc(s.name)+'</b><span class="rr">'+esc(rar[s.r])+(s.enc?' · '+esc(t('encL')):'')+'</span>'+(s.enc?'<button class="btn sm cy" data-act="decrypt" data-id="'+s.id+'">'+esc(t('decrypt'))+'</button>':(s.rw?'<span class="rwl">'+esc(rwLabel(s.rw))+'</span>':''))+'</div>';
- return'<section class="panel">'+ph(t('cred'),'残高')+'<div class="pb"><div class="cred">'+state.cred+' <span style="font-size:.4em;letter-spacing:.2em">CRED</span></div><p class="muted" style="margin:8px 0 0;font-size:14px">'+esc(t('credN'))+'</p></div></section>'+
+ return'<section class="panel">'+ph(t('cred'),'残高')+'<div class="pb"><div class="cred">'+state.cred+' <span style="font-size:.4em;letter-spacing:.2em">'+CU()+'</span></div><p class="muted" style="margin:8px 0 0;font-size:14px">'+esc(t('credN'))+'</p></div></section>'+
  '<section class="panel"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(t('shards'))+'<span class="jp">断片</span><span class="ct">'+enc.length+'</span><span class="end"><span class="bc"></span></span></div>'+
   (enc.length?'<div class="shards">'+enc.map(shardCard).join('')+'</div>':'<div class="empty">'+esc(t('decNone'))+'</div>')+
   (fus.length?'<div class="pb row" style="border-top:1px solid var(--line)"><span class="lab">'+esc(t('fuseL'))+'</span>'+fus.map(r=>'<button class="btn sm" data-act="fuse" data-v="'+r+'">'+esc(t('fuseB',{a:rar[r],b:rar[r+1]}))+'</button>').join('')+'</div>':'')+
   (dec.length?'<div class="shards dimmed">'+dec.slice(0,40).map(shardCard).join('')+'</div>':'')+'</section>'+
  '<section class="panel"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(t('archive'))+'<span class="jp">記録</span><span class="ct">'+lore.length+'/10</span></div>'+(lore.length?'<div class="pb lore">'+lore.map(n=>'<p>'+esc(t('lore')[n-1])+'</p>').join('')+'</div>':'<div class="empty">'+esc(t('archiveE'))+'</div>')+'</section>'+
- '<section class="panel">'+ph(t('shop'),'報酬')+
-  (state.rewards.length?state.rewards.map(r=>{const ok=state.cred>=r.cost;return'<div class="rw"><div class="rn"><div>'+esc(r.name)+'</div><div class="rc">'+r.cost+' CRED'+(ok?'':' · '+esc(t('needMore',{n:r.cost-state.cred})))+'</div></div><div class="row"><button class="btn sm '+(ok?'pri':'')+'" data-act="buy" data-id="'+r.id+'" '+(ok?'':'disabled')+'>'+esc(t('buy'))+'</button>'+(ui.confirm==='r'+r.id?'<button class="btn sm dng" data-act="delrw" data-id="'+r.id+'">'+esc(t('confirm'))+'</button>':'<button class="btn sm" data-act="askdelrw" data-id="'+r.id+'" aria-label="'+esc(t('removeRw'))+'">✕</button>')+'</div></div>'}).join(''):'<div class="empty">'+esc(t('noRw'))+'</div>')+
+ '<section class="panel" data-tut="shop">'+ph(t('shop'),'報酬')+
+  (state.rewards.length?state.rewards.map(r=>{const ok=state.cred>=r.cost;return'<div class="rw"><div class="rn"><div>'+esc(r.name)+'</div><div class="rc">'+r.cost+' '+CU()+(ok?'':' · '+esc(t('needMore',{n:r.cost-state.cred})))+'</div></div><div class="row"><button class="btn sm '+(ok?'pri':'')+'" data-act="buy" data-id="'+r.id+'" '+(ok?'':'disabled')+'>'+esc(t('buy'))+'</button>'+(ui.confirm==='r'+r.id?'<button class="btn sm dng" data-act="delrw" data-id="'+r.id+'">'+esc(t('confirm'))+'</button>':'<button class="btn sm" data-act="askdelrw" data-id="'+r.id+'" aria-label="'+esc(t('removeRw'))+'">✕</button>')+'</div></div>'}).join(''):'<div class="empty">'+esc(t('noRw'))+'</div>')+
   '<form class="pb row" data-form="rw" style="border-top:1px solid var(--line)"><label class="sr" for="rwn">'+esc(t('rwPh'))+'</label><input class="inp" id="rwn" placeholder="'+esc(t('rwPh'))+'" style="flex:3 1 180px" autocomplete="off"><label class="sr" for="rwc">'+esc(t('costPh'))+'</label><input class="inp" id="rwc" type="number" min="1" inputmode="numeric" placeholder="'+esc(t('costPh'))+'" style="flex:1 1 80px"><button class="btn" type="submit">'+esc(t('add'))+'</button></form></section>'+
  (state.buys.length?'<section class="panel">'+ph(t('buys'))+'<div class="pb" style="font-family:var(--fu);font-size:12.5px;display:flex;flex-direction:column;gap:4px">'+state.buys.slice(0,6).map(b=>'<div><span class="faint">'+new Date(b.at).toLocaleDateString(loc,{day:'numeric',month:'short'})+'</span> &nbsp;'+esc(b.name)+' <span style="color:var(--warn)">−'+b.cost+'</span></div>').join('')+'</div></section>':'')+
  ''}
@@ -1442,6 +1667,7 @@ function vCfg(){const s=S();
   '<div class="f"><label class="lab" for="handle">'+esc(t('handle'))+'</label><input class="inp" id="handle" maxlength="24" value="'+esc(s.handle)+'" data-change="handle"></div>'+
   '<div class="f"><span class="lab">'+esc(t('language'))+'</span><div class="seg">'+LANGS.map(l=>'<button class="'+(s.lang===l?'on':'')+'" data-act="lang" data-v="'+l+'">'+l.toUpperCase()+' · '+esc(DICT[l].lang)+'</button>').join('')+'</div></div>'+
  '</div></section>'+
+ '<section class="panel">'+ph(t('help'),'案内')+'<div class="pb"><p class="muted" style="margin:0 0 10px;font-size:14px">'+esc(t('helpN'))+'</p><button class="btn pri" data-act="tour">'+esc(t('tourBtn'))+'</button></div></section>'+
  '<section class="panel">'+ph(t('account'),'認証')+'<div class="cfg">'+(SB_ON?'<p class="muted" style="margin:0;font-size:14px">'+esc(t('accN'))+'</p>'+(sb?authHtml():'<div class="faint">…</div>')+'<p class="faint" style="margin:0;font-size:12.5px"><a href="privacy.html" target="_blank" rel="noopener" style="color:var(--accent2)">'+esc(t('privacyLink'))+'</a></p>':'<p class="muted" style="margin:0;font-size:14px">'+esc(cloud?t('gridOnly'):t('localOnly'))+'</p>')+'</div></section>'+
  '<section class="panel">'+ph(t('packs'),'外観')+'<div class="pb seg">'+PACKS.map((p,i)=>'<button data-act="pack" data-v="'+i+'">'+esc(p.n)+'</button>').join('')+'</div></section>'+
  '<section class="panel">'+ph(t('look'))+'<div class="cfg">'+
@@ -1450,7 +1676,7 @@ function vCfg(){const s=S();
   '<div class="f"><span class="lab">'+esc(t('orn'))+'</span>'+segH('orn',['barcode','brackets','none'].map(k=>({k,n:t('ornN')[k]})))+'</div>'+
   '<div class="f"><span class="lab">'+esc(t('back'))+'</span>'+segH('back',['night','grid','rain','flat'].map(k=>({k,n:t('backN')[k]})))+'</div>'+
   '<div class="f"><span class="lab">'+esc(t('glyph'))+'</span>'+segH('glyph',GLYPHS.map(x=>({k:x,n:x})))+'</div>'+
-  '<div class="f"><span class="lab">'+esc(t('voice'))+'</span>'+segH('voice',[{k:'corp',n:t('vCorp')},{k:'street',n:t('vStreet')}])+'</div>'+
+  '<div class="f"><span class="lab">'+esc(t('voice'))+'</span>'+segH('voice',[{k:'corp',n:t('vCorp')},{k:'street',n:t('vStreet')},{k:'plain',n:t('vPlain')}])+'</div>'+
   '<div class="f"><label class="lab" for="r-scan">'+esc(t('scan'))+'</label><input type="range" id="r-scan" min="0" max="1" step=".05" value="'+s.scan+'" data-range="scan"></div>'+
   '<div class="f"><label class="lab" for="r-glow">'+esc(t('glow'))+'</label><input type="range" id="r-glow" min="0" max="1.6" step=".1" value="'+s.glow+'" data-range="glow"></div>'+
   togH('flicker',t('flicker'))+togH('motion',t('motion'))+
@@ -1498,6 +1724,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
   case'deploynext':deploy(true);break;
   case'opencp':openCompiler();break;
   case'closecp':closeCompiler();break;
+  case'tour':startTour();break;
   case'evinfo':state.seenEv={};eventIntro();break;
   case'hint':{const i=$('#term');if(i){i.value=(i.value.trim()+' '+v+' ').trimStart();i.focus();sfx('tap')}break}
   case'toggleback':ui.showBack=!ui.showBack;sfx('tap');render();break;
@@ -1554,7 +1781,7 @@ document.addEventListener('submit',e=>{const f=e.target.dataset.form;if(!f)retur
 document.addEventListener('keydown',e=>{const el=e.target;
  if(el.closest&&el.closest('.term-win')&&/INPUT|TEXTAREA/.test(el.tagName)&&!e.metaKey&&!e.ctrlKey){if(e.key==='Enter')sfx('enter');else if(e.key==='Backspace'||e.key==='Delete')sfx('key','back');else if(e.key===' ')sfx('key','space');else if(e.key.length===1)sfx('key')}
  if(e.key==='Enter'&&el.id==='cp-name'){e.preventDefault();deploy(e.shiftKey);return}
- if((e.key==='n'||e.key==='N')&&!e.metaKey&&!e.ctrlKey&&!e.altKey&&!/INPUT|TEXTAREA|SELECT/.test(el.tagName)&&!$('#ovl').innerHTML&&!document.getElementById('boot')){e.preventDefault();openCompiler();return}
+ if(tourOn)return;if((e.key==='n'||e.key==='N')&&!e.metaKey&&!e.ctrlKey&&!e.altKey&&!/INPUT|TEXTAREA|SELECT/.test(el.tagName)&&!$('#ovl').innerHTML&&!document.getElementById('boot')){e.preventDefault();openCompiler();return}
  if(e.key==='Enter'&&el.dataset&&el.dataset.enter==='cpstep'){e.preventDefault();const v=el.value.trim();if(v){ui.draft.steps.push(v);sfx('add');paintComposer('cp-step')}return}
  if(e.key==='Enter'&&el.dataset&&el.dataset.enter==='cptag'){e.preventDefault();const v=el.value.trim().replace(/^#/,'').toLowerCase().replace(/\s+/g,'-');if(v){ui.draft.cat=v;ui.flash='cat';sfx('add');paintComposer('cp-name')}return}if(e.key==='Enter'&&el.dataset&&el.dataset.enter==='addsub'){e.preventDefault();const tk=findT(el.dataset.id),v=el.value.trim();if(!tk||!v)return;tk.subs.push({id:uid(),t:v,done:false});delete tk.sample;tk.done=false;sfx('add');ui.refocus='sub-'+tk.id;save();render()}
  if(e.key==='Escape'&&ui.dec){closeDec();return}
@@ -1585,7 +1812,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&state.day
 function bootLines(){const op=S().handle||'OPERATOR';return[['MERIDIAN MUNICIPAL GRID // NODE 07',''],[t('bHand')+' ',' OK'],[t('bOp')+': '+op+' ',' '+t('bVer')],[t('bLoad')+' ',' '+state.tasks.filter(x=>!x.done).length],[t('bCred')+' ',' '+state.cred+' CRED'],[t('bStreak')+' ',' '+streakNow()+' '+t('bDays')],[V().tag.toUpperCase(),'rd']]}
 function lineHtml([a,b]){const pad=a.length<28&&b&&b!=='rd'?'.'.repeat(28-a.length):'';return b==='rd'?'<div class="rd">'+esc(a)+'</div>':b?'<div>'+esc(a+pad)+'<span class="okk">'+esc(b)+'</span></div>':'<div>'+esc(a)+'</div>'}
 function bootChrome(o){o.querySelector('#bgo').textContent=t('bGo');o.querySelector('#bskip').textContent=S().boot?t('bSkip'):t('bSkipped');o.querySelector('.bootlang').innerHTML='<span class="faint">'+I.globe.replace('<svg','<svg style="width:16px;height:16px;vertical-align:-3px"')+'</span>'+LANGS.map(l=>'<button class="'+(S().lang===l?'on':'')+'" data-boot-lang="'+l+'">'+l.toUpperCase()+'</button>').join('')}
-function boot(){if(!S().boot){if(ui.gate)showGate();else setTimeout(eventIntro,400);return}
+function boot(){if(!S().boot||PL()){if(ui.gate)showGate();else setTimeout(eventIntro,400);return}
  const o=document.createElement('div');o.className='boot';o.id='boot';
  o.innerHTML='<div class="bl"><div class="logo">'+avatarHtml('m')+'<span class="n">RUNDECK</span></div><div id="bl"></div><div class="bootlang"></div><div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="btn pri" id="bgo"></button><button class="btn sm" id="bskip"></button></div></div>';
  document.body.appendChild(o);bootChrome(o);const bl=o.querySelector('#bl');let i=0;
@@ -1597,6 +1824,127 @@ function boot(){if(!S().boot){if(ui.gate)showGate();else setTimeout(eventIntro,4
 }
 
 sizeFx();rollover();applySet();render();paintNet();boot();initGrid();initSb();
+
+/* ---------- guided tour: spotlights the real UI, with a small diagram for every step ---------- */
+var tourOn=false,tourI=0,tourRoot=null,tourKey=null,tourMove=null;
+const TL=k=>t('tour.lbl.'+k);
+const LN=k=>(t('lists.'+k)||[k])[0];
+function tourVars(){const d=t('diff');return{today:LN('today'),routine:LN('routine'),contract:LN('contract'),backlog:LN('backlog'),cred:String(t('credits')).toLowerCase(),shards:t('shards'),loot:t('nav')[2],cfg:t('nav')[4],pick:t('pick'),jackIn:t('jackIn'),tgt:t('priority'),s1:d[1],s2:d[2],s3:d[3]}}
+const trunc=(s,n)=>{s=String(s);return s.length>n?s.slice(0,n-1)+'…':s};
+const fill=(s,v)=>String(s).replace(/\{(\w+)\}/g,(m,n)=>v[n]!=null?v[n]:m);
+
+/* Diagram helpers. Everything is drawn with theme tokens so it follows the active palette. */
+const svgW=(inner,h)=>'<svg class="tsv" viewBox="0 0 320 '+(h||150)+'" role="img" aria-hidden="true">'+inner+'</svg>';
+const tx=(x,y,s,cls,anchor,size)=>'<text x="'+x+'" y="'+y+'" class="'+(cls||'')+'"'+(anchor?' text-anchor="'+anchor+'"':'')+(size?' font-size="'+size+'"':'')+'>'+esc(s)+'</text>';
+const arrow=(x1,y1,x2,y2)=>'<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" class="ln" marker-end="url(#ta)"/>';
+const defs='<defs><marker id="ta" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="acf"/></marker></defs>';
+const chkC=(x,y,r,done,cls)=>(PSKIN()?'<circle cx="'+x+'" cy="'+y+'" r="'+r+'" class="'+(cls||'ck')+'"/>':'<rect x="'+(x-r*.72)+'" y="'+(y-r*.72)+'" width="'+r*1.44+'" height="'+r*1.44+'" transform="rotate(45 '+x+' '+y+')" class="'+(cls||'ck')+'"/>')+(done?'<path d="M'+(x-r*.45)+' '+y+'l'+r*.35+' '+r*.35+'l'+r*.6+' -'+r*.7+'" class="ckm"/>':'');
+const pipsS=(x,y,n)=>[0,1,2].map(i=>'<rect x="'+(x+i*7)+'" y="'+y+'" width="5" height="9" rx="1" class="'+(i<n?'acf':'pip')+'"/>').join('');
+const chipS=(x,y,s,cls)=>{const w=s.length*6.2+12;return'<rect x="'+x+'" y="'+(y-11)+'" width="'+w+'" height="15" rx="7.5" class="chipb '+(cls||'')+'"/>'+tx(x+6,y,s,'sm')};
+const callout=(x,y1,y2,label,anchor)=>'<line x1="'+x+'" y1="'+y1+'" x2="'+x+'" y2="'+y2+'" class="co"/><circle cx="'+x+'" cy="'+y1+'" r="2" class="acf"/>'+tx(x,y2+(y2>y1?11:-4),label,'lb',anchor||'middle');
+
+function artLoop(){const n=[[40,'+'],[120,'✓'],[200,'XP'],[280,'★']],L=[TL('add'),TL('finish'),TL('earn'),TL('spend')];
+ return svgW(defs+n.map((p,i)=>'<circle cx="'+p[0]+'" cy="58" r="24" class="bx'+(i===2?' hi':'')+'"/>'+tx(p[0],65,p[1],'big'+(i===2?' ac':''),'middle')+tx(p[0],100,L[i],'lb','middle')).join('')+
+  arrow(66,58,92,58)+arrow(146,58,172,58)+arrow(226,58,252,58)+'<path d="M280 112 Q160 150 40 112" class="ln dash" marker-end="url(#ta)"/>')}
+function artAdd(){const nm=TL('example'),parts=[[nm,'fg',TL('name')],[' !2','wn',TL('size')],[' #'+TL('exTag'),'a2',TL('tag')],[' @b','ac',TL('list')]],cw=7.1;let x=20,h='';
+ parts.forEach(p=>{const w=p[0].length*cw;h+='<text x="'+x+'" y="52" class="mono '+p[1]+'">'+esc(p[0])+'</text>';const s=x+(p[0][0]===' '?cw:0),e=x+w;h+='<path d="M'+s+' 66v5h'+(e-s)+'v-5" class="co"/>'+tx((s+e)/2,88,p[2],'lb','middle');x+=w});
+ return svgW('<rect x="8" y="28" width="304" height="36" rx="6" class="bx"/>'+h+'<rect x="'+(x+3)+'" y="40" width="7" height="15" class="acf blink"/>'+tx(160,122,TL('legend'),'sm','middle'),140)}
+function artBoards(){const ic={today:'<circle cx="0" cy="0" r="6" class="acs"/>'+[0,45,90,135,180,225,270,315].map(a=>'<line x1="0" y1="-9" x2="0" y2="-12" class="acs" transform="rotate('+a+')"/>').join(''),
+  routine:'<path d="M-8 -2a8 8 0 0 1 14 -4M8 2a8 8 0 0 1 -14 4" class="acs"/><path d="M6 -10v5h-5M-6 10v-5h5" class="acs"/>',
+  contract:'<rect x="-9" y="-10" width="18" height="20" rx="2" class="acs"/><path d="M-5 -4l2 2l3 -3M-5 3l2 2l3 -3" class="acs"/>',
+  backlog:'<path d="M-10 -6h20v4h-20zM-8 -2v10h16v-10M-3 2h6" class="acs"/>'},sub={today:TL('todaySub'),routine:TL('resets'),contract:TL('stepsL'),backlog:TL('someday')};
+ return svgW(LIST_KEYS.map((k,i)=>{const x=6+(i%2)*158,y=6+Math.floor(i/2)*70;return'<rect x="'+x+'" y="'+y+'" width="150" height="60" rx="8" class="bx'+(i===0?' hi':'')+'"/><g transform="translate('+(x+24)+','+(y+30)+')">'+ic[k]+'</g>'+tx(x+46,y+26,LN(k),'fg','',12)+tx(x+46,y+44,sub[k],'sm')}).join(''),146)}
+function artTask(){return svgW('<rect x="6" y="38" width="308" height="54" rx="8" class="bx"/>'+chkC(30,65,10,false)+tx(50,60,TL('example'),'fg','',12.5)+pipsS(50,70,2)+chipS(78,79,'#'+TL('exTag'))+chipS(78+('#'+TL('exTag')).length*6.2+18,79,'1/3')+tx(300,70,'+25','ac big2','end')+
+  callout(30,46,18,TL('tapDone'),'start')+callout(200,50,18,TL('tapOpen'))+callout(58,84,118,TL('size'))+callout(100,84,134,TL('tag'))+callout(78+('#'+TL('exTag')).length*6.2+30,84,118,TL('steps'))+callout(292,76,118,'XP','end'),150)}
+function artCombo(){const pts=[[56,'×1'],[128,'×1.5'],[200,'×2'],[272,'×3']];
+ return svgW('<rect x="40" y="86" width="248" height="22" rx="4" class="win"/>'+tx(164,101,TL('within'),'sm','middle')+'<line x1="20" y1="86" x2="304" y2="86" class="ln"/>'+
+  pts.map((p,i)=>chkC(p[0],60,11,i<3,i<3?'ck on':'ck dash')+tx(p[0],32,p[1],i===3?'lb':'ac big2','middle')).join('')+defs+arrow(70,60,112,60)+arrow(142,60,184,60)+'<line x1="214" y1="60" x2="256" y2="60" class="ln dash"/>',118)}
+function artHud(){return svgW('<rect x="10" y="14" width="300" height="38" rx="6" class="bx"/><line x1="110" y1="14" x2="110" y2="52" class="ln"/><line x1="210" y1="14" x2="210" y2="52" class="ln"/>'+
+  tx(40,38,'LV','sm')+tx(62,40,'3','ac big2')+'<circle cx="146" cy="33" r="7" class="wns"/>'+tx(160,39,'120','fg','',13)+'<path d="M246 40c-6 -4 -4 -12 2 -16c0 4 3 5 4 8c1 -2 1 -4 0 -6c5 3 6 10 2 14z" class="wns"/>'+tx(262,39,'4','fg','',13)+
+  tx(60,70,TL('level'),'lb','middle')+tx(160,70,String(t('credits')).toLowerCase(),'lb','middle')+tx(260,70,TL('streak'),'lb','middle')+
+  '<rect x="10" y="88" width="300" height="9" rx="4.5" class="pip"/><rect x="10" y="88" width="186" height="9" rx="4.5" class="acf"/>'+tx(310,118,'124/200 XP','sm','end')+tx(10,118,TL('toNext'),'lb'),126)}
+function artFocus(){return svgW(defs+'<rect x="16" y="36" width="44" height="44" rx="8" class="bx"/>'+[[28,48],[48,48],[38,58],[28,68],[48,68]].map(p=>'<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3" class="acf"/>').join('')+
+  arrow(66,58,96,58)+'<rect x="102" y="34" width="112" height="48" rx="8" class="bx hi"/>'+tx(112,52,trunc(t('priority'),18),'sm')+tx(112,70,trunc(TL('example'),15),'fg','',11)+arrow(220,58,236,58)+
+  '<circle cx="276" cy="58" r="30" class="pipst"/><circle cx="276" cy="58" r="30" class="arc" stroke-dasharray="132 189" transform="rotate(-90 276 58)"/>'+tx(276,63,'25:00','fg','middle',13)+
+  tx(38,104,t('pick'),'lb','middle')+tx(158,104,t('jackIn'),'lb','middle')+tx(276,104,TL('perMin'),'lb','middle'),116)}
+function artCare(){const w=TL('water');return svgW('<rect x="6" y="30" width="308" height="54" rx="8" class="bx care"/><rect x="6" y="30" width="3" height="54" class="asf"/>'+chkC(30,57,10,false,'ck as dash')+
+  (PSKIN()?'':'<text x="51" y="58" class="mono acf" opacity=".5" font-size="12.5">'+esc(w)+'</text><text x="49" y="56" class="mono asf" opacity=".6" font-size="12.5">'+esc(w)+'</text>')+'<text x="50" y="57" class="fg" font-size="12.5">'+esc(w)+'</text>'+tx(50,74,'#body','sm')+tx(300,62,'+20','ac big2','end')+
+  callout(160,84,112,TL('blue')),124)}
+function artLoot(){const grid=[3,7,1,9,2,6,4,8,5];return svgW(defs+'<g transform="translate(40,58)"><path d="M0 -22l20 10v24l-20 10l-20 -10v-24z" class="bx hi"/><path d="M-20 -12l20 10l20 -10M0 -2v24" class="ln"/></g>'+arrow(68,58,98,58)+
+  grid.map((n,i)=>{const x=104+(i%3)*26,y=24+Math.floor(i/3)*26,on=n<=3;return'<rect x="'+x+'" y="'+y+'" width="22" height="22" rx="4" class="'+(on?'bx hi':'bx')+'"/>'+tx(x+11,y+15,String(n),on?'ac':'sm','middle')}).join('')+arrow(186,58,216,58)+
+  '<circle cx="236" cy="30" r="8" class="wns"/>'+tx(252,34,'+'+String(t('credits')).toLowerCase(),'sm')+'<path d="M232 50l-4 9h6l-3 9l9 -12h-6l3 -6z" class="acf"/>'+tx(252,62,'XP ×2','sm')+[0,1,2].map(i=>'<rect x="'+(229+i*6)+'" y="80" width="5" height="12" class="'+['acf','a2f','wnf'][i]+'"/>').join('')+tx(252,90,'★','sm')+
+  [0,1,2].map(i=>'<rect x="'+(96+i*16)+'" y="114" width="12" height="12" rx="2" class="bx"/>').join('')+arrow(146,120,170,120)+'<rect x="176" y="112" width="16" height="16" rx="3" class="bx hi"/>'+tx(200,124,TL('combine'),'lb'),136)}
+function artShop(){return svgW(defs+'<rect x="20" y="22" width="70" height="30" rx="15" class="bx"/><circle cx="38" cy="37" r="7" class="wns"/>'+tx(52,42,'120','fg','',13)+arrow(90,37,118,50)+
+  '<rect x="60" y="54" width="250" height="54" rx="8" class="bx hi"/>'+tx(74,76,TL('rewardEx'),'fg','',12.5)+tx(74,95,'60 '+CU(),'wn sm2')+'<rect x="246" y="66" width="52" height="28" rx="6" class="acf"/>'+tx(272,85,TL('buy'),'ink','middle',12)+
+  callout(96,100,128,TL('price')),136)}
+function artEvents(){const D=TL('days');let h='';for(let i=0;i<7;i++){const x=14+i*42,we=i>4;h+='<rect x="'+x+'" y="34" width="36" height="36" rx="6" class="bx'+(we?' hi':'')+'"/>'+tx(x+18,57,D[i],we?'ac':'sm','middle')}
+ return svgW(h+'<path d="M224 28v-6h76v6" class="co"/>'+tx(262,16,'×1.5 XP · ×2 '+String(t('credits')).toLowerCase(),'ac sm2','middle')+
+  '<rect x="14" y="90" width="36" height="36" rx="6" class="bx wnb"/>'+tx(32,113,'25','wn','middle',13)+tx(60,106,TL('payday'),'fg','',12)+tx(60,121,'×2 '+String(t('credits')).toLowerCase(),'sm'),136)}
+function artNav(){const ic=[I.board,I.bolt,I.cube,I.bars,I.cfg],nv=t('nav');return'<div class="tnav">'+ic.map((s,i)=>'<span class="'+(i===0?'on':'')+'">'+s+'<b>'+esc(nv[i])+'</b></span>').join('')+'</div><div class="tq"><span class="tbtn helpb">?</span><span>'+esc(t('tourBtn'))+'</span></div>'}
+
+/* Interactive pieces */
+function langPick(){return'<div class="tlang seg">'+LANGS.map(l=>'<button type="button" class="'+(S().lang===l?'on':'')+'" data-tour="lang" data-v="'+l+'">'+esc(DICT[l].lang)+'</button>').join('')+'</div>'}
+function stylePick(){const cur=PSKIN()?(S().skin==='paper'?'light':'dark'):'cyber',C={cyber:['#0e0a10','#ff1238','#1fe3f0','#ebe7ef',0],dark:['#1a1d23','#6aa8ff','#7fcfa8','#e8eaef',1],light:['#ffffff','#2f6fe0','#1f8a5c','#1c1e22',1]},ST=t('tour.style');
+ return'<div class="tstyle">'+['cyber','dark','light'].map(k=>{const c=C[k],r=c[4]?6:0;return'<button type="button" data-tour="style" data-v="'+k+'" class="'+(cur===k?'on':'')+'" aria-pressed="'+(cur===k)+'">'+
+  '<svg viewBox="0 0 90 60" aria-hidden="true"><rect width="90" height="60" rx="'+r+'" fill="'+c[0]+'"/>'+(c[4]?'':'<g opacity=".25">'+[4,8,12,16,20,24,28,32,36,40,44,48,52,56].map(y=>'<line x1="0" x2="90" y1="'+y+'" y2="'+y+'" stroke="#000"/>').join('')+'</g>')+
+  '<rect x="8" y="8" width="44" height="6" rx="'+(r/2)+'" fill="'+c[1]+'"/><rect x="58" y="8" width="24" height="6" rx="3" fill="'+c[2]+'" opacity=".8"/>'+
+  [24,38].map((y,i)=>'<rect x="8" y="'+(y-1)+'" width="74" height="11" rx="'+(r/2)+'" fill="none" stroke="'+c[1]+'" stroke-opacity=".35"/>'+(c[4]?'<circle cx="15" cy="'+(y+4.5)+'" r="3" fill="none" stroke="'+c[1]+'"/>':'<rect x="12" y="'+(y+1.5)+'" width="6" height="6" transform="rotate(45 15 '+(y+4.5)+')" fill="none" stroke="'+c[1]+'"/>')+'<rect x="23" y="'+(y+3)+'" width="'+(i?34:44)+'" height="3" rx="1.5" fill="'+c[3]+'" opacity=".75"/>').join('')+'</svg>'+
+  '<b>'+esc(ST[k][0])+'</b><small>'+esc(ST[k][1])+'</small></button>'}).join('')+'</div>'}
+
+const TOUR=[
+ {k:'welcome',art:artLoop,extra:langPick},
+ {k:'style',extra:stylePick},
+ {k:'add',view:'board',sel:'.cmdbar',art:artAdd},
+ {k:'boards',view:'board',sel:'[data-tut="l-today"]',art:artBoards},
+ {k:'task',view:'board',sel:'[data-tut="l-today"] .task',art:artTask},
+ {k:'combo',view:'board',sel:'[data-tut="l-today"] .task .chk',art:artCombo},
+ {k:'hud',view:'board',sel:'#hud .hrow',art:artHud},
+ {k:'focus',view:'board',sel:'[data-tut="target"]',art:artFocus},
+ {k:'care',view:'board',sel:'.task.hk',art:artCare},
+ {k:'loot',view:'loot',sel:'#nav [data-v="loot"]',art:artLoot},
+ {k:'shop',view:'loot',sel:'[data-tut="shop"]',art:artShop},
+ {k:'events',view:'board',sel:'.evbar',art:artEvents},
+ {k:'done',view:'board',sel:'#nav',art:artNav}
+];
+
+function startTour(){if(tourOn)return;tourOn=true;tourI=0;ui.open=null;$('#ovl').innerHTML='';
+ tourRoot=document.createElement('div');tourRoot.id='tour';tourRoot.className='tour';document.body.appendChild(tourRoot);
+ tourRoot.addEventListener('click',tourClick);
+ tourKey=e=>{if(!tourOn)return;if(e.key==='Escape'){e.preventDefault();e.stopPropagation();endTour()}else if(e.key==='ArrowRight'){e.preventDefault();e.stopPropagation();tourGo(1)}else if(e.key==='ArrowLeft'){e.preventDefault();e.stopPropagation();tourGo(-1)}};
+ document.addEventListener('keydown',tourKey,true);
+ tourMove=()=>tourPlace(false);addEventListener('resize',tourMove);addEventListener('scroll',tourMove,{passive:true});
+ sfx('open');tourPaint()}
+function tourGo(d){const n=tourI+d;if(n<0)return;if(n>=TOUR.length){endTour();return}tourI=n;sfx('tap');tourPaint()}
+function endTour(){if(!tourOn)return;tourOn=false;document.removeEventListener('keydown',tourKey,true);removeEventListener('resize',tourMove);removeEventListener('scroll',tourMove);
+ if(tourRoot){tourRoot.classList.add('out');const r=tourRoot;setTimeout(()=>r.remove(),220)}tourRoot=null;
+ state.tutDone=true;save();if(ui.view!=='board'){ui.view='board';render()}scrollTo({top:0});sfx('land');setTimeout(eventIntro,400)}
+function tourClick(e){const b=e.target.closest('[data-tour]');if(!b)return;const a=b.dataset.tour,v=b.dataset.v;
+ if(a==='next')tourGo(1);else if(a==='back')tourGo(-1);else if(a==='skip')endTour();
+ else if(a==='lang'){if(S().lang!==v){setLang(v);setTimeout(tourPaint,80)}}
+ else if(a==='style'){const i=v==='cyber'?0:PACKS.findIndex(p=>p.s.skin===(v==='dark'?'plain':'paper'));Object.assign(S(),PACKS[i].s);applySet();save();render();sfx('tap');tourPaint()}}
+function tourPaint(){if(!tourOn||!tourRoot)return;const st=TOUR[tourI];
+ if(st.view&&ui.view!==st.view){ui.view=st.view;render()}
+ const sx=t('tour.steps.'+st.k),v=tourVars(),last=tourI===TOUR.length-1;
+ tourRoot.innerHTML='<div class="tour-hole"></div><div class="tour-card" role="dialog" aria-modal="true" aria-labelledby="tour-h">'+
+  (st.art?'<div class="tour-art">'+st.art()+'</div>':'')+
+  '<div class="tour-txt"><div class="tour-n">'+esc(fill(t('tour.stepOf'),{a:tourI+1,b:TOUR.length}))+'</div><h3 id="tour-h">'+esc(fill(sx[0],v))+'</h3><p>'+esc(fill(sx[1],v))+'</p></div>'+
+  (st.extra?st.extra():'')+
+  '<div class="tour-dots" aria-hidden="true">'+TOUR.map((_,i)=>'<i class="'+(i===tourI?'on':i<tourI?'past':'')+'"></i>').join('')+'</div>'+
+  '<div class="tour-nav">'+(last?'':'<button type="button" class="linkbtn" data-tour="skip">'+esc(t('tour.skip'))+'</button>')+'<span class="sp"></span>'+(tourI?'<button type="button" class="btn sm" data-tour="back">'+esc(t('tour.back'))+'</button>':'')+'<button type="button" class="btn pri sm" data-tour="next">'+esc(last?t('tour.start'):t('tour.next'))+'</button></div></div>';
+ tourPlace(true);const nx=tourRoot.querySelector('[data-tour="next"]');if(nx)nx.focus({preventScroll:true})}
+function tourTarget(){const st=TOUR[tourI];if(!st.sel)return null;const el=document.querySelector(st.sel);if(!el)return null;const r=el.getBoundingClientRect();return r.width&&r.height?el:null}
+function tourPlace(scroll){if(!tourOn||!tourRoot)return;const card=tourRoot.querySelector('.tour-card'),hole=tourRoot.querySelector('.tour-hole');if(!card)return;
+ const el=tourTarget(),vw=innerWidth,vh=innerHeight,cw=Math.min(440,vw-24);card.style.width=cw+'px';
+ if(el&&scroll){const inFixed=el.closest('#hud,.nav');if(!inFixed){const hud=$('#hud').getBoundingClientRect(),r=el.getBoundingClientRect(),top=Math.max(hud.bottom,0)+14;if(r.top<top||r.bottom>vh-card.offsetHeight-20)scrollBy({top:r.top-top,behavior:'instant'})}}
+ const ch=card.offsetHeight;
+ if(!el){tourRoot.classList.add('dim');hole.style.opacity='0';card.style.left=((vw-cw)/2)+'px';card.style.top=Math.max(12,(vh-ch)/2)+'px';return}
+ tourRoot.classList.remove('dim');const r=el.getBoundingClientRect(),pad=6;
+ const top=Math.max(4,r.top-pad),bottom=Math.min(vh-4,r.bottom+pad);
+ Object.assign(hole.style,{opacity:'1',left:(r.left-pad)+'px',top:top+'px',width:(r.width+pad*2)+'px',height:Math.max(0,bottom-top)+'px'});
+ let ct;const below=vh-bottom-12,above=top-12;
+ if(below>=ch+10)ct=bottom+10;else if(above>=ch+10)ct=top-10-ch;else ct=r.top+r.height/2>vh/2?12:vh-ch-12;
+ let cl=vw<640?(vw-cw)/2:Math.min(vw-cw-12,Math.max(12,r.left+r.width/2-cw/2));
+ card.style.left=cl+'px';card.style.top=Math.max(12,Math.min(vh-ch-12,ct))+'px'}
 
 })();
 </script>

@@ -4,6 +4,12 @@ A gamified task deck in a cyberpunk terminal style. XP, combos, loot drops, a fo
 
 It is a static site with no build step: `index.html`, `config.js`, and the SQL in `supabase/`.
 
+## Tour and Plain mode
+
+New users get a short guided tour (13 steps) that spotlights the real interface, with a small diagram for each part: adding tasks, the four lists, task sizes and tags, combos, levels, focus, self-care tasks, bonus drops, rewards and bonus days. It can be replayed from the **?** button or Settings → Help.
+
+For people who don't want the cyberpunk lingo there are **Plain Dark** and **Plain Light** themes (Config → Style packs, or the second tour step). They use calm colours, a system font, no terminal effects, and everyday names: Tasks, Daily habits, Projects, Later, Points, Bonus boxes. The wording alone can also be switched with Voice → Plain.
+
 ## Run locally
 
 ```
