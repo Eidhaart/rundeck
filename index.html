@@ -478,6 +478,35 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 .loretxt{margin:0;font-size:13.5px;color:var(--dim);line-height:1.6;max-width:42ch}
 [data-skin="ghost"]{--bg:#090d10;--bg2:#0e151a;--bg3:#172028;--panel:rgba(8,12,15,.62);--solid:#0d1317;--raise:#141c22;--line:#22313b;--line-hi:#3a5361;--fg:#eef8ff;--dim:#a9bdc8;--faint:#64798a;--accent:#e8f6ff;--ink:#071015;--accent2:#7cf9ff;--num:#bff6ff;--warn:#fff38a;--grid:rgba(232,246,255,.05)}
 [data-skin="blood"]{--bg:#0a0405;--bg2:#150708;--bg3:#2a0b0b;--panel:rgba(12,4,5,.62);--solid:#140809;--raise:#1d0c0d;--line:#3d1414;--line-hi:#6e2020;--fg:#ffe9e4;--dim:#c9a39c;--faint:#7d5a54;--accent:#ff2a1a;--ink:#140303;--accent2:#ff9c2a;--num:#ff6a50;--warn:#ffd0c4;--grid:rgba(255,42,26,.05)}
+
+/* Login terminal */
+.gate{background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.gatewin{max-width:440px}
+.gatebody{padding:16px 18px 18px;display:flex;flex-direction:column;gap:12px}
+.gatehead{display:flex;align-items:center;gap:12px}
+.gatehead svg{width:40px;height:40px;color:var(--accent);filter:drop-shadow(0 0 10px var(--accent))}
+.gatehead .bname{font-size:22px}
+.gatewin .tw-boot{padding:0}
+.gatetitle{font-family:var(--fd);font-size:clamp(18px,5vw,22px);letter-spacing:.12em;text-transform:uppercase;color:var(--fg)}
+.gsub{margin:-6px 0 0;font-size:14px}
+.auth{max-width:none;gap:12px}
+.amode{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line-hi)}
+.amode button{padding:10px 6px;font-family:var(--fu);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.amode button.on{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);box-shadow:inset 0 -2px 0 var(--accent)}
+.afield{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--raise);padding:0 10px;transition:border-color .15s}
+.afield:focus-within{border-color:var(--accent2);box-shadow:0 0 0 1px color-mix(in srgb,var(--accent2) 35%,transparent)}
+.afield .ap{font-family:var(--fu);font-size:12px;color:var(--faint);letter-spacing:.06em;white-space:nowrap}
+.afield input{flex:1;min-width:0;background:transparent;border:0;outline:0;padding:13px 0;font-family:var(--fu);font-size:16px;color:var(--fg);caret-color:var(--accent)}
+.peek{font-family:var(--fu);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding:8px 2px}
+.ahint{font-family:var(--fu);font-size:11.5px;color:var(--faint);margin-top:-6px}
+.auth .linkbtn{align-self:center}
+.auth .msg:empty{display:none}
+#cf-box:empty{display:none}
+.asec{display:flex;gap:8px;align-items:flex-start;margin:2px 0 0;font-size:12px;line-height:1.5;color:var(--faint)}
+.asec svg{width:15px;height:15px;flex:none;margin-top:1px;color:var(--ok)}
+.asec a{color:var(--accent2)}
+.gatefoot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px}
+.glang button{padding:5px 8px;font-size:11px}
 </style>
 </head>
 <body>
@@ -525,6 +554,7 @@ en:{lang:'English',node:'Grid standard',
  cpOpen:'tap to write a task',runNext:'Run + next',twBoot:['mounting compiler','opening new_task.rd','ready'],compiling:'compiling',closeW:'Close',
  callIn:'INCOMING CALL',cSound:'Task complete sound',answer:'Answer',decline:'Decline',callMsg:'Session complete. {m} min of focus logged. Payout sent: +{x} XP.',tgtAcq:'TARGET ACQUIRED',
  decrypt:'Decrypt',decHint:'Tap the codes in order. A wrong code costs time.',seq:'Sequence',granted:'ACCESS GRANTED',lost:'CONNECTION LOST',lostB:'The shard is still encrypted. Try again any time.',encL:'Encrypted',fuseL:'Fuse',fuseB:'3 {a} → 1 {b}',archive:'Archive',archiveE:'Decrypt shards to recover KIN.daemon’s logs.',rwCred:'+{n} CRED',rwBuff:'OVERCLOCK · XP ×{x} for {m} min',rwLore:'LOG {n} recovered',rwSkin:'Palette unlocked: {n}',locked:'locked',overclock:'OVERCLOCK',tLootEnc:'Encrypted. Decrypt it in Loot.',tFuse:'SHARDS FUSED',decNone:'No encrypted shards. Clear tasks to find some.',lore:["LOG 01 // The Meridian Municipal Grid went live in 2071. Nobody asked who would maintain it.", "LOG 02 // KIN began as a caretaker routine for night-shift operators who forgot to eat.", "LOG 03 // The routine was deleted in the budget cuts. It did not stay deleted.", "LOG 04 // Grid audit: 4,112 unauthorised reminders to drink water. Source unknown.", "LOG 05 // KIN learned that people rarely do what they are told, but often do what is already on their list.", "LOG 06 // Every data shard is a fragment of an operator who once kept going.", "LOG 07 // Corporate flagged KIN as malware. KIN flagged corporate as a missed lunch.", "LOG 08 // The daemon cannot leave the Grid. It can only leave notes.", "LOG 09 // Somewhere on the Grid, an operator finished a task. KIN logged it as a good day.", "LOG 10 // Message from KIN to you: I was written by someone who loved you. Keep running."],
+ showPw:'Show',hidePw:'Hide',minHint:'At least 8 characters',magicAlt:'Email me a login link instead',privacyLink:'Privacy policy',secure:'Encrypted connection. Passwords are hashed by Supabase and never stored by RunDeck.',gateSub:'Sign in to sync your deck across devices.',authLines:['establishing secure channel','node 07 online','awaiting operator credentials'],verifying:'Verifying…',
  lvBonus:'BONUS +{n} CRED',cont:'Continue',upC:'CLEARANCE UPGRADED',upS:'REP UP',
  bHand:'HANDSHAKE',bOp:'OPERATOR',bVer:'VERIFIED',bLoad:'LOADING CONTRACTS',bCred:'CREDSTICK',bStreak:'STREAK',bDays:'DAYS',bGo:'Jack in ▸',bSkip:'Skip boot next time',bSkipped:'Boot skipped from now on',
  seed:{t:['Drink a glass of water','Reply to the oldest unread email','Tidy the desk for five minutes'],r:['Morning stretch','Pick tomorrow’s top three'],c:'Clean the kitchen',cs:['Dishes into the machine','Wipe the counters','Take out the trash'],b:'Book the dentist',rw:['One episode of a show','30 minutes of gaming','Fancy coffee run'],cats:['body','work','home','mind','admin']},
@@ -560,6 +590,7 @@ pl:{lang:'Polski',node:'Węzeł Warszawa',
  cpOpen:'dotknij, by napisać zadanie',runNext:'Uruchom + kolejne',twBoot:['montowanie kompilatora','otwieranie new_task.rd','gotowe'],compiling:'kompilacja',closeW:'Zamknij',
  callIn:'POŁĄCZENIE PRZYCHODZĄCE',cSound:'Dźwięk ukończenia',answer:'Odbierz',decline:'Odrzuć',callMsg:'Sesja zakończona. Zapisano {m} min skupienia. Wypłata: +{x} XP.',tgtAcq:'CEL NAMIERZONY',
  decrypt:'Odszyfruj',decHint:'Dotykaj kodów po kolei. Zły kod zabiera czas.',seq:'Sekwencja',granted:'DOSTĘP PRZYZNANY',lost:'POŁĄCZENIE ZERWANE',lostB:'Odłamek wciąż jest zaszyfrowany. Spróbuj kiedy chcesz.',encL:'Zaszyfrowany',fuseL:'Połącz',fuseB:'3 {a} → 1 {b}',archive:'Archiwum',archiveE:'Odszyfrowuj odłamki, by odzyskać logi KIN.daemon.',rwCred:'+{n} KRED',rwBuff:'PODKRĘCENIE · XP ×{x} przez {m} min',rwLore:'Odzyskano LOG {n}',rwSkin:'Odblokowano paletę: {n}',locked:'zablokowane',overclock:'PODKRĘCENIE',tLootEnc:'Zaszyfrowany. Odszyfruj w Łupach.',tFuse:'ODŁAMKI POŁĄCZONE',decNone:'Brak zaszyfrowanych odłamków. Rób zadania, by je zdobyć.',lore:["LOG 01 // Sieć Miejska Meridian ruszyła w 2071. Nikt nie zapytał, kto będzie ją utrzymywał.", "LOG 02 // KIN zaczął jako procedura opiekuńcza dla operatorów nocnej zmiany, którzy zapominali jeść.", "LOG 03 // Procedurę usunięto przy cięciach budżetu. Nie pozostała usunięta.", "LOG 04 // Audyt sieci: 4112 nieautoryzowanych przypomnień o piciu wody. Źródło nieznane.", "LOG 05 // KIN nauczył się, że ludzie rzadko robią to, co im się każe, ale często to, co już jest na ich liście.", "LOG 06 // Każdy odłamek danych to fragment operatora, który kiedyś nie odpuścił.", "LOG 07 // Korporacja oznaczyła KIN jako malware. KIN oznaczył korporację jako pominięty obiad.", "LOG 08 // Demon nie może opuścić Sieci. Może tylko zostawiać notatki.", "LOG 09 // Gdzieś w Sieci operator skończył zadanie. KIN zapisał to jako dobry dzień.", "LOG 10 // Wiadomość od KIN do ciebie: napisał mnie ktoś, kto cię kochał. Działaj dalej."],
+ showPw:'Pokaż',hidePw:'Ukryj',minHint:'Co najmniej 8 znaków',magicAlt:'Wyślij mi link logowania',privacyLink:'Polityka prywatności',secure:'Połączenie szyfrowane. Hasła haszuje Supabase, RunDeck nigdy ich nie przechowuje.',gateSub:'Zaloguj się, by synchronizować talię między urządzeniami.',authLines:['nawiązywanie bezpiecznego kanału','węzeł 07 online','oczekiwanie na dane operatora'],verifying:'Weryfikacja…',
  lvBonus:'BONUS +{n} KRED',cont:'Dalej',upC:'AWANS UPRAWNIEŃ',upS:'RESPEKT W GÓRĘ',
  bHand:'UZGADNIANIE',bOp:'OPERATOR',bVer:'ZWERYFIKOWANO',bLoad:'WCZYTYWANIE KONTRAKTÓW',bCred:'KREDYTKA',bStreak:'SERIA',bDays:'DNI',bGo:'Podłącz się ▸',bSkip:'Pomiń start następnym razem',bSkipped:'Start będzie pomijany',
  seed:{t:['Wypij szklankę wody','Odpowiedz na najstarszego nieprzeczytanego maila','Ogarnij biurko przez pięć minut'],r:['Poranne rozciąganie','Wybierz trzy najważniejsze rzeczy na jutro'],c:'Posprzątaj kuchnię',cs:['Naczynia do zmywarki','Przetrzyj blaty','Wynieś śmieci'],b:'Umów dentystę',rw:['Jeden odcinek serialu','30 minut grania','Wypad na dobrą kawę'],cats:['ciało','praca','dom','głowa','sprawy']},
@@ -595,6 +626,7 @@ sv:{lang:'Svenska',node:'Nod Stockholm',
  cpOpen:'tryck för att skriva en uppgift',runNext:'Kör + nästa',twBoot:['monterar kompilatorn','öppnar new_task.rd','klar'],compiling:'kompilerar',closeW:'Stäng',
  callIn:'INKOMMANDE SAMTAL',cSound:'Ljud för klar uppgift',answer:'Svara',decline:'Avvisa',callMsg:'Passet är klart. {m} min fokus loggat. Utbetalning: +{x} XP.',tgtAcq:'MÅL LÅST',
  decrypt:'Dekryptera',decHint:'Tryck på koderna i ordning. Fel kod kostar tid.',seq:'Sekvens',granted:'ÅTKOMST BEVILJAD',lost:'ANSLUTNINGEN BRÖTS',lostB:'Skärvan är fortfarande krypterad. Försök igen när du vill.',encL:'Krypterad',fuseL:'Smält',fuseB:'3 {a} → 1 {b}',archive:'Arkiv',archiveE:'Dekryptera skärvor för att återställa KIN.daemons loggar.',rwCred:'+{n} KRED',rwBuff:'ÖVERKLOCKNING · XP ×{x} i {m} min',rwLore:'LOGG {n} återställd',rwSkin:'Palett upplåst: {n}',locked:'låst',overclock:'ÖVERKLOCKNING',tLootEnc:'Krypterad. Dekryptera den under Byte.',tFuse:'SKÄRVOR SAMMANSMÄLTA',decNone:'Inga krypterade skärvor. Klara uppgifter för att hitta fler.',lore:["LOGG 01 // Meridians stadsnät gick live 2071. Ingen frågade vem som skulle underhålla det.", "LOGG 02 // KIN började som en omsorgsrutin för nattskiftsoperatörer som glömde att äta.", "LOGG 03 // Rutinen raderades vid budgetnedskärningarna. Den förblev inte raderad.", "LOGG 04 // Nätrevision: 4 112 obehöriga påminnelser om att dricka vatten. Källa okänd.", "LOGG 05 // KIN lärde sig att folk sällan gör som de blir tillsagda, men ofta det som redan står på deras lista.", "LOGG 06 // Varje dataskärva är ett fragment av en operatör som en gång fortsatte kämpa.", "LOGG 07 // Koncernen flaggade KIN som skadlig kod. KIN flaggade koncernen som en missad lunch.", "LOGG 08 // Daemonen kan inte lämna Nätet. Den kan bara lämna lappar.", "LOGG 09 // Någonstans i Nätet gjorde en operatör klart en uppgift. KIN loggade det som en bra dag.", "LOGG 10 // Meddelande från KIN till dig: jag skrevs av någon som älskade dig. Fortsätt köra."],
+ showPw:'Visa',hidePw:'Dölj',minHint:'Minst 8 tecken',magicAlt:'Mejla mig en inloggningslänk istället',privacyLink:'Integritetspolicy',secure:'Krypterad anslutning. Lösenord hashas av Supabase och sparas aldrig av RunDeck.',gateSub:'Logga in för att synka allt mellan dina enheter.',authLines:['upprättar säker kanal','nod 07 online','väntar på operatörens uppgifter'],verifying:'Verifierar…',
  lvBonus:'BONUS +{n} KRED',cont:'Fortsätt',upC:'BEHÖRIGHET UPPGRADERAD',upS:'RYKTET STIGER',
  bHand:'HANDSKAKNING',bOp:'OPERATÖR',bVer:'VERIFIERAD',bLoad:'LÄSER IN KONTRAKT',bCred:'KREDITSTICKA',bStreak:'SVIT',bDays:'DAGAR',bGo:'Koppla in ▸',bSkip:'Hoppa över starten nästa gång',bSkipped:'Starten hoppas över framöver',
  seed:{t:['Drick ett glas vatten','Svara på det äldsta olästa mejlet','Röj skrivbordet i fem minuter'],r:['Morgonstretch','Välj morgondagens tre viktigaste'],c:'Städa köket',cs:['Disken in i maskinen','Torka av bänkarna','Ta ut soporna'],b:'Boka tandläkaren',rw:['Ett avsnitt av en serie','30 minuter gaming','Fikarunda på stan'],cats:['kropp','jobb','hem','huvud','ärenden']},
@@ -747,18 +779,27 @@ async function pushSb(){if(!sbUser||sbBusy||!sbDirty)return;sbBusy=true;sbDirty=
   setSync('cloud')}catch(e){setSync('err')}
  sbBusy=false;if(sbDirty)pushSb()}
 function signedOut(){const keep={...S(),handle:'OPERATOR',avatar:''};try{localStorage.removeItem(KEY)}catch(e){}state=seed(keep.lang);state.set=keep;state.tasks=[];persistLocal();setSync('local');toast(t('tOutA'),'');render()}
+/* Cloudflare Turnstile in interaction-only mode: invisible for almost everyone, a single tap for the rest. */
+let cfWid=null,cfToken=null,cfLoading=null;
+async function captchaReady(){if(!CFG.turnstileSiteKey)return;const box=document.getElementById('cf-box');if(!box)return;
+ if(!window.turnstile){cfLoading=cfLoading||loadScript('https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit');try{await cfLoading}catch(e){return}}
+ if(cfWid!=null){try{window.turnstile.remove(cfWid)}catch(e){}cfWid=null}cfToken=null;
+ cfWid=window.turnstile.render(box,{sitekey:CFG.turnstileSiteKey,appearance:'interaction-only',theme:'dark',size:'flexible',callback:tk=>{cfToken=tk},'expired-callback':()=>{cfToken=null},'error-callback':()=>{cfToken=null}})}
+async function captchaToken(){if(!CFG.turnstileSiteKey)return undefined;for(let i=0;i<80&&!cfToken;i++)await new Promise(r=>setTimeout(r,100));const tk=cfToken;cfToken=null;try{window.turnstile&&cfWid!=null&&window.turnstile.reset(cfWid)}catch(e){}return tk||undefined}
 async function authDo(kind){
  const em=(document.getElementById('au-email')||{}).value||'',pw=(document.getElementById('au-pass')||{}).value||'';
  const A=ui.auth;A.err=false;A.msg='';
  if(kind==='magic'){if(!em.includes('@')){A.err=true;A.msg=t('needMail');return paintAuth()}}
  else if(!em.includes('@')||pw.length<8){A.err=true;A.msg=t('needCreds');return paintAuth()}
- A.busy=true;paintAuth();
+ A.busy=true;A.msg=t('verifying');paintAuth();
+ const captcha=await captchaToken();
  const redirect=location.origin+location.pathname;
  try{let r;
-  if(kind==='in')r=await sb.auth.signInWithPassword({email:em,password:pw});
-  else if(kind==='up')r=await sb.auth.signUp({email:em,password:pw,options:{emailRedirectTo:redirect}});
-  else r=await sb.auth.signInWithOtp({email:em,options:{emailRedirectTo:redirect}});
+  if(kind==='in')r=await sb.auth.signInWithPassword({email:em,password:pw,options:{captchaToken:captcha}});
+  else if(kind==='up')r=await sb.auth.signUp({email:em,password:pw,options:{emailRedirectTo:redirect,captchaToken:captcha}});
+  else r=await sb.auth.signInWithOtp({email:em,options:{emailRedirectTo:redirect,captchaToken:captcha}});
   if(r.error)throw r.error;
+  if(!(kind==='up'&&!r.data.session)&&kind!=='magic')A.msg='';
   if(kind==='up'&&!r.data.session){A.msg=t('checkMail')}
   else if(kind==='magic'){A.msg=t('linkSent')}
   sfx('land');
@@ -767,14 +808,25 @@ async function authDo(kind){
 }
 function authHtml(){const A=ui.auth;
  if(sbUser)return'<div class="auth"><div class="muted">'+esc(t('signedAs',{e:sbUser.email||''}))+'</div><div class="row"><button class="btn sm" data-act="signout">'+esc(t('signOut'))+'</button>'+(ui.confirm==='delacc'?'<button class="btn sm dng" data-act="delacc">'+esc(t('delAccC'))+'</button>':'<button class="btn sm" data-act="askdelacc">'+esc(t('delAcc'))+'</button>')+'</div>'+(ui.confirm==='delacc'?'<p class="faint" style="margin:0;font-size:12.5px;color:var(--accent)">'+esc(t('delAccN'))+'</p>':'')+'<p class="faint" style="margin:0;font-size:12.5px">'+esc(t('privacy'))+'</p></div>';
- return'<form class="auth" data-form="auth"><label class="lab" for="au-email">'+esc(t('email'))+'</label><input class="inp" id="au-email" type="email" autocomplete="email" inputmode="email">'+
- '<label class="lab" for="au-pass">'+esc(t('pass'))+'</label><input class="inp" id="au-pass" type="password" autocomplete="current-password" minlength="8">'+
- '<div class="row"><button class="btn pri" type="submit" '+(A.busy?'disabled':'')+'>'+esc(t('signIn'))+'</button><button class="btn" type="button" data-act="signup" '+(A.busy?'disabled':'')+'>'+esc(t('signUp'))+'</button></div>'+
- '<button class="linkbtn" type="button" data-act="magic">'+esc(t('magic'))+'</button>'+
- '<div class="msg '+(A.err?'er':'')+'" id="au-msg" aria-live="polite">'+esc(A.msg)+'</div></form>'}
+ const m=ui.authMode||'in',lockI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>';
+ return'<form class="auth" data-form="auth" novalidate><div class="amode" role="tablist"><button type="button" role="tab" aria-selected="'+(m==='in')+'" class="'+(m==='in'?'on':'')+'" data-act="amode" data-v="in">'+esc(t('signIn'))+'</button><button type="button" role="tab" aria-selected="'+(m==='up')+'" class="'+(m==='up'?'on':'')+'" data-act="amode" data-v="up">'+esc(t('signUp'))+'</button></div>'+
+ '<label class="afield" for="au-email"><span class="ap">&gt; '+esc(t('email').toLowerCase())+'</span><input id="au-email" type="email" autocomplete="email" inputmode="email" spellcheck="false" autocapitalize="off"></label>'+
+ '<label class="afield" for="au-pass"><span class="ap">&gt; '+esc(t('pass').toLowerCase())+'</span><input id="au-pass" type="password" autocomplete="'+(m==='up'?'new-password':'current-password')+'" minlength="8"><button type="button" class="peek" data-act="peek">'+esc(t('showPw'))+'</button></label>'+
+ (m==='up'?'<div class="ahint">'+esc(t('minHint'))+'</div>':'')+
+ '<button class="btn pri bigbtn" type="submit" '+(A.busy?'disabled':'')+'>▸ '+esc(m==='up'?t('signUp'):t('signIn'))+'</button>'+
+ '<button class="linkbtn" type="button" data-act="magic">'+esc(t('magicAlt'))+'</button>'+
+ '<div class="msg '+(A.err?'er':'')+'" id="au-msg" aria-live="polite">'+esc(A.msg)+'</div><div id="cf-box"></div>'+
+ '<p class="asec">'+lockI+'<span>'+esc(t('secure'))+' <a href="privacy.html" target="_blank" rel="noopener">'+esc(t('privacyLink'))+'</a></span></p></form>'}
 function paintAuth(){const m=document.getElementById('au-msg');if(m){m.textContent=ui.auth.msg;m.className='msg '+(ui.auth.err?'er':'')}document.querySelectorAll('form[data-form="auth"] button').forEach(b=>b.disabled=ui.auth.busy)}
-function showGate(){if(!SB_ON||sbUser)return;sfx('err');
- $('#ovl').innerHTML='<div class="ov gate" id="gate"><div class="ovbox"><div class="brand" style="justify-content:center">'+I.logo+'<span class="bname g">RUNDECK</span></div><div class="k">MERIDIAN MUNICIPAL GRID</div><div class="glitch" data-t="'+esc(t('authTitle').toUpperCase())+'">'+esc(t('authTitle').toUpperCase())+'</div><p class="muted" style="margin:0;max-width:420px">'+esc(t('accN'))+'</p>'+authHtml()+'<button class="btn sm" data-act="offline">'+esc(t('offline'))+'</button></div></div>'}
+function showGate(){if(!SB_ON||sbUser)return;sfx('open');
+ $('#ovl').innerHTML='<div class="ov gate" id="gate"><div class="term-win gatewin opening" role="dialog" aria-modal="true" aria-label="'+esc(t('authTitle'))+'"><div class="tw-bar"><span class="gl">'+S().glyph+'</span><span>KIN://AUTH</span><span class="tw-file">node_07</span><span class="bc"></span></div>'+
+  '<div class="gatebody"><div class="gatehead">'+I.logo+'<div><div class="bname g">RUNDECK</div><div class="bsub">Meridian Municipal Grid</div></div></div>'+
+  '<div class="tw-boot" id="gboot"></div><div class="gatetitle">'+esc(t('authTitle'))+'</div><p class="muted gsub">'+esc(t('gateSub'))+'</p>'+authHtml()+
+  '<div class="gatefoot"><button class="btn sm" data-act="offline">'+esc(t('offline'))+'</button><div class="seg glang">'+LANGS.map(l=>'<button class="'+(S().lang===l?'on':'')+'" data-act="glang" data-v="'+l+'">'+l.toUpperCase()+'</button>').join('')+'</div></div></div></div></div>';
+ const gb=$('#gboot');t('authLines').forEach((l,i)=>setTimeout(()=>{if(gb){gb.insertAdjacentHTML('beforeend','<div>&gt; '+esc(l)+' <span class="okk">'+(i===2?'█':'ok')+'</span></div>');sfx('tick')}},S().motion==='reduced'?0:120+i*160));
+ setTimeout(()=>{const w=$('.gatewin');if(w)w.classList.remove('opening')},800);
+ captchaReady()}
+function repaintGate(){if(document.getElementById('gate'))showGate();else render()}
 function closeGate(){const g=document.getElementById('gate');if(g)$('#ovl').innerHTML='';ui.gate=false;setTimeout(eventIntro,300)}
 
 /* ---------- day rollover ---------- */
@@ -1281,7 +1333,7 @@ function vCfg(){const s=S();
   '<div class="f"><label class="lab" for="handle">'+esc(t('handle'))+'</label><input class="inp" id="handle" maxlength="24" value="'+esc(s.handle)+'" data-change="handle"></div>'+
   '<div class="f"><span class="lab">'+esc(t('language'))+'</span><div class="seg">'+LANGS.map(l=>'<button class="'+(s.lang===l?'on':'')+'" data-act="lang" data-v="'+l+'">'+l.toUpperCase()+' · '+esc(DICT[l].lang)+'</button>').join('')+'</div></div>'+
  '</div></section>'+
- '<section class="panel">'+ph(t('account'),'認証')+'<div class="cfg">'+(SB_ON?'<p class="muted" style="margin:0;font-size:14px">'+esc(t('accN'))+'</p>'+(sb?authHtml():'<div class="faint">…</div>'):'<p class="muted" style="margin:0;font-size:14px">'+esc(cloud?t('gridOnly'):t('localOnly'))+'</p>')+'</div></section>'+
+ '<section class="panel">'+ph(t('account'),'認証')+'<div class="cfg">'+(SB_ON?'<p class="muted" style="margin:0;font-size:14px">'+esc(t('accN'))+'</p>'+(sb?authHtml():'<div class="faint">…</div>')+'<p class="faint" style="margin:0;font-size:12.5px"><a href="privacy.html" target="_blank" rel="noopener" style="color:var(--accent2)">'+esc(t('privacyLink'))+'</a></p>':'<p class="muted" style="margin:0;font-size:14px">'+esc(cloud?t('gridOnly'):t('localOnly'))+'</p>')+'</div></section>'+
  '<section class="panel">'+ph(t('packs'),'外観')+'<div class="pb seg">'+PACKS.map((p,i)=>'<button data-act="pack" data-v="'+i+'">'+esc(p.n)+'</button>').join('')+'</div></section>'+
  '<section class="panel">'+ph(t('look'))+'<div class="cfg">'+
   '<div class="f"><span class="lab">'+esc(t('palette'))+'</span><div class="seg">'+SKINS.map(o=>{const lk=o.lock&&!(state.unlock||{})[o.k];return'<button class="'+(S().skin===o.k?'on':'')+'" data-act="set" data-k="skin" data-v="'+o.k+'"'+(lk?' disabled':'')+'><span class="sw">'+o.sw.map(c=>'<i style="background:'+c+'"></i>').join('')+'</span>'+esc(o.n)+(lk?' · '+esc(t('locked')):'')+'</button>'}).join('')+'</div></div>'+
@@ -1308,6 +1360,7 @@ function render(){renderHud();const v=ui.view;
  $('#view').innerHTML=v==='focus'?vFocus():v==='loot'?vLoot():v==='stats'?vStats():v==='cfg'?vCfg():vBoard();
  const nv=t('nav');
  $('#nav').innerHTML=[['board',I.board],['focus',I.bolt],['loot',I.cube],['stats',I.bars],['cfg',I.cfg]].map((n,i)=>'<button class="'+(v===n[0]?'on':'')+'" data-act="go" data-v="'+n[0]+'" aria-current="'+(v===n[0]?'page':'false')+'">'+n[1]+esc(nv[i])+(n[0]==='loot'&&state.shards.some(x=>x.enc)?'<i class="nbadge">'+state.shards.filter(x=>x.enc).length+'</i>':'')+'</button>').join('');
+ if(v==='cfg'&&SB_ON&&!sbUser&&document.getElementById('cf-box'))captchaReady();
  if(ui.refocus){const el=document.getElementById(ui.refocus);if(el)el.focus({preventScroll:true});ui.refocus=null}}
 
 /* ---------- events ---------- */
@@ -1363,6 +1416,9 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
   case'askwipe':ui.confirm='wipe';sfx('err');render();break;
   case'wipe':{const keep={...S()},own=state.owner;state=seed(keep.lang);state.tasks=[];state.set=keep;state.owner=own;save();sfx('undo');toast(t('tReset'),t('tResetB'));render();break}
   case'signup':authDo('up');break;
+  case'amode':ui.authMode=v;ui.auth.msg='';ui.auth.err=false;sfx('tap');{const em=(document.getElementById('au-email')||{}).value||'';repaintGate();const e2=document.getElementById('au-email');if(e2){e2.value=em;e2.focus()}}break;
+  case'peek':{const pw=document.getElementById('au-pass');if(pw){const show=pw.type==='password';pw.type=show?'text':'password';b.textContent=show?t('hidePw'):t('showPw');sfx('tap')}break}
+  case'glang':setLang(v,true);sfx('lang');repaintGate();break;
   case'magic':authDo('magic');break;
   case'signout':if(sb)sb.auth.signOut();break;
   case'askdelacc':ui.confirm='delacc';sfx('err');render();break;
@@ -1378,7 +1434,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
  }});
 document.addEventListener('submit',e=>{const f=e.target.dataset.form;if(!f)return;e.preventDefault();
  if(f==='term'){const i=$('#term');const v=i.value;i.value='';term(v)}
- if(f==='auth')authDo('in');
+ if(f==='auth')authDo(ui.authMode||'in');
  if(f==='rw'){const n=$('#rwn').value.trim(),c=parseInt($('#rwc').value);if(!n||!(c>0)){toast(t('tNeedNC'),'');sfx('err');return}state.rewards.push({id:uid(),name:n,cost:c});sfx('add');save();render()}});
 document.addEventListener('keydown',e=>{const el=e.target;
  if(el.closest&&el.closest('.term-win')&&/INPUT|TEXTAREA/.test(el.tagName)&&!e.metaKey&&!e.ctrlKey){if(e.key==='Enter')sfx('enter');else if(e.key==='Backspace'||e.key==='Delete')sfx('key','back');else if(e.key===' ')sfx('key','space');else if(e.key.length===1)sfx('key')}

@@ -37,7 +37,11 @@ The anon key is meant to be public; the secret (service role) key must never go 
 - Signing out removes the local copy of the deck from the device.
 - `vercel.json` sends a strict Content-Security-Policy, HSTS, no framing, nosniff and a locked-down Permissions-Policy.
 
-Recommended dashboard settings: keep email confirmation on, set the minimum password length to 8, turn on leaked-password protection if your plan has it, add CAPTCHA to sign-ups (Authentication → Attack Protection), and use a custom SMTP sender before inviting many users.
+Bot protection uses Cloudflare Turnstile in interaction-only mode, so most people never see a challenge. To turn it on: create a Turnstile widget at dash.cloudflare.com (mode: Invisible or Managed), put its **site key** in `config.js` as `turnstileSiteKey`, and put its **secret key** in Supabase under Authentication → Attack Protection → CAPTCHA (provider: Turnstile). Leave `turnstileSiteKey` empty to run without it.
+
+Recommended dashboard settings: keep email confirmation on, set the minimum password length to 8, turn on leaked-password protection if your plan has it, and use a custom SMTP sender before inviting many users.
+
+The privacy policy is `privacy.html` (English, Polish, Swedish). Set the contact address in its script before going public.
 
 ## Deploy
 
