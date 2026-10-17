@@ -321,6 +321,28 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 .ph .jp{white-space:nowrap}
 .tagl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 @media(max-width:480px){.tagl{display:none}}
+
+/* HUD readout */
+.hstats{gap:8px;flex-wrap:nowrap}
+.strip{display:flex;align-items:stretch;height:34px;border:1px solid var(--line-hi);background:var(--panel)}
+.strip .seg{display:flex;align-items:center;gap:6px;padding:0 10px;font-family:var(--fu);font-size:14px;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+.strip .seg+.seg{border-left:1px solid var(--line)}
+.strip .seg svg{width:15px;height:15px}
+.strip small{font-size:10px;letter-spacing:.2em;color:var(--faint)}
+.strip .lvs b{color:var(--accent);font-size:15px}
+.strip .crs{color:var(--warn)}
+.strip .sts{color:var(--num)}
+.strip .sts.cold{color:var(--faint)}
+.tools{display:flex;height:34px}
+.tbtn{display:grid;place-items:center;min-width:34px;height:34px;padding:0 8px;border:1px solid var(--line);color:var(--dim);font-family:var(--fu);font-size:12px;letter-spacing:.12em;background:var(--panel)}
+.tbtn+.tbtn{border-left:0}
+.tbtn:hover{color:var(--accent2);border-color:var(--accent2)}
+.tbtn svg{width:16px;height:16px}
+.langb{color:var(--accent2)}
+.avbtn{position:relative;flex:none}
+.avbtn .avw.av-s{width:34px;height:34px}
+.avbtn .sync{position:absolute;right:-3px;bottom:-3px;width:9px;height:9px;border:2px solid var(--solid)}
+@media(max-width:520px){.hrow{flex-wrap:wrap}.hstats{margin-left:0;width:100%;justify-content:space-between}.strip{flex:1;min-width:0}.strip .seg{flex:1;justify-content:center;padding:0 6px}}
 </style>
 </head>
 <body>
@@ -790,7 +812,7 @@ const lists=()=>LIST_KEYS.map(k=>({k,n:t('lists')[k][0],empty:t('lists')[k][1],j
 function renderHud(){const L=lvl(state.xp),s=S(),st=streakNow();
  const c=state.combo,cl=Math.max(0,15*60e3-(now()-c.last)),comboOn=c.n>=2&&cl>0,mult=Math.min(3,1+.5*(c.n-1));
  $('#hud').innerHTML='<div class="hrow"><div class="brand">'+I.logo+'<div><div class="bname g">RUNDECK</div><div class="bsub">Meridian Municipal Grid · '+esc(s.handle||'OPERATOR')+'</div></div></div>'+
- '<div class="hstats"><span class="pill lv g">LV '+L.L+'</span><span class="pill cr" title="'+esc(t('credits'))+'">'+I.cred+state.cred+'</span><span class="pill '+(st?'st':'cold')+'" title="'+esc(t('streakT'))+'">'+I.flame+st+'</span><span class="pill"><i id="syncdot" class="sync"></i></span><button class="pill btnp langchip" data-act="langov" aria-label="'+esc(t('language'))+'">'+s.lang.toUpperCase()+'</button><button class="pill btnp" data-act="mute" aria-label="'+esc(s.sound?t('mute'):t('unmute'))+'">'+(s.sound?I.son:I.soff)+'</button><button class="avbtn" data-act="go" data-v="stats" aria-label="'+esc(t('profile'))+'">'+avatarHtml('s')+'</button></div></div>'+
+ '<div class="hstats"><div class="strip"><span class="seg lvs"><small>LV</small><b class="g">'+L.L+'</b></span><span class="seg crs" title="'+esc(t('credits'))+'">'+I.cred+'<b>'+state.cred+'</b></span><span class="seg sts '+(st?'':'cold')+'" title="'+esc(t('streakT'))+'">'+I.flame+'<b>'+st+'</b></span></div>'+'<div class="tools"><button class="tbtn langb" data-act="langov" aria-label="'+esc(t('language'))+'">'+s.lang.toUpperCase()+'</button><button class="tbtn" data-act="mute" aria-label="'+esc(s.sound?t('mute'):t('unmute'))+'">'+(s.sound?I.son:I.soff)+'</button></div>'+'<button class="avbtn" data-act="go" data-v="stats" aria-label="'+esc(t('profile'))+'">'+avatarHtml('s')+'<i id="syncdot" class="sync"></i></button></div></div>'+
  '<div class="xpw"><div class="xpbar" role="progressbar" aria-valuemin="0" aria-valuemax="'+L.need+'" aria-valuenow="'+L.into+'"><div class="xpfill" style="width:'+(L.into/L.need*100).toFixed(1)+'%"></div></div><div class="xpl">'+L.into+'/'+L.need+' XP · '+esc(rank(L.L).toUpperCase())+'</div></div>'+
  '<div class="combo '+(comboOn?'on':'')+'" id="combo"><span>×'+mult+' '+esc(t('combo'))+'</span><div class="cbar"><i id="cbar" style="width:'+(cl/9000).toFixed(1)+'%"></i></div><span class="faint" id="cleft" style="font-family:var(--fu);font-size:11px">'+mmss(cl/1000)+'</span></div>'+
  '<button class="jackchip '+(state.focus&&ui.view!=='focus'?'on':'')+'" data-act="go" data-v="focus">● '+esc(t('jacked'))+' <b id="jchip">'+mmss(focusLeft())+'</b></button>';
