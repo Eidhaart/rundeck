@@ -10,6 +10,18 @@ New users get a short guided tour (13 steps) that spotlights the real interface,
 
 For people who don't want the cyberpunk lingo there are **Plain Dark** and **Plain Light** themes (Config → Style packs, or the second tour step). They use calm colours, a system font, no terminal effects, and everyday names: Tasks, Daily habits, Projects, Later, Points, Bonus boxes. The wording alone can also be switched with Voice → Plain.
 
+## Game rules at a glance
+
+- **Task XP:** Small 10, Medium 25, Big 50 by default, or any custom number per task. Steps pay +5 each.
+- **Combo:** tasks finished within 15 minutes of each other build ×1.5, ×2, up to ×3.
+- **Streak:** +5% XP per consecutive day, up to +50%. One missed day per week is covered by a shield. Milestones at 3, 7, 14 and 30 days give a bonus and a drop.
+- **Bounties:** open tasks in chosen lists grow +10% XP per day waiting, up to +100%. Lists, tags and single tasks can be excluded (a task excluded here is also skipped by Pick for me).
+- **Bonus days:** weekend and payday multipliers are adjustable (off, small, normal, big) and the payday date can be set.
+- **Self-care:** 0–2 small tasks a day, filtered by the kinds you keep on (body, food, mind, people, rest).
+- **Sound:** Soft (default for Plain) or Cyberpunk, plus a quiet mode.
+
+New users get a 4-step tour; tips appear the first time each feature shows up, and the full tour is under **?**.
+
 ## Run locally
 
 ```

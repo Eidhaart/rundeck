@@ -611,6 +611,36 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 :is([data-skin="plain"],[data-skin="paper"]) :is(.tour-card,.tour-art,.tstyle button){border-radius:12px}
 :is([data-skin="plain"],[data-skin="paper"]) .tour-card{box-shadow:0 18px 50px rgba(0,0,0,.25)}
 @media(max-width:480px){.tour-txt p{font-size:14px}.tstyle small{display:none}}
+.tour.hint .tour-hole{box-shadow:0 0 0 200vmax color-mix(in srgb,#04050a 45%,transparent),0 0 24px color-mix(in srgb,var(--accent) calc(40%*var(--glow)),transparent)}
+.tour.hint.dim{background:color-mix(in srgb,#04050a 45%,transparent)}
+.tmore{margin-top:8px!important;font-size:13px!important;color:var(--faint)!important}
+.tsc p{margin:6px 0 0;font-size:13px;color:var(--dim);font-family:var(--fu)}
+.tsc .linkbtn{font-size:12.5px}
+.tsv .pl{fill:var(--solid);stroke:var(--line-hi)}.tsv .pl.on{stroke:var(--accent);fill:color-mix(in srgb,var(--accent) 14%,var(--solid))}.tsv .pl.dash{stroke-dasharray:3 3}
+/* custom XP, bounty, streak bonus */
+.xprow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.xpin{display:inline-flex;align-items:center;gap:6px;border:1px dashed var(--line-hi);padding:0 8px;height:34px;font-family:var(--fu);font-size:12px;color:var(--dim)}
+.xpin.on{border-style:solid;border-color:var(--accent);color:var(--accent)}
+.xpin input{width:64px;background:none;border:0;color:var(--fg);font:inherit;font-size:14px;outline:none}
+.cin.xpc{width:96px}.cin.xpc.on{border-color:var(--accent);color:var(--accent)}
+.chip.bty{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 55%,transparent)}
+.seg.sts .sbon,.sts .sbon{font-size:10px;color:var(--warn);margin-left:3px;font-family:var(--fu)}
+.sts.hot svg{color:var(--warn);filter:drop-shadow(0 0 calc(5px*var(--glow)) var(--warn))}
+.stkflame{display:flex;align-items:center;gap:10px;color:var(--warn);font-family:var(--fd);font-size:48px}
+.stkflame svg{width:56px;height:56px}
+.selrow{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:13px;color:var(--dim)}
+.selrow select{width:auto;min-width:80px;padding:6px 10px}
+.seg.multi button{flex:0 1 auto}
+.schelp{margin-left:auto;font-size:12px}
+.schint{font-family:var(--fu);font-size:12px;color:var(--dim);padding:8px 2px 0}
+.code.pform .ln{grid-template-columns:1fr}.code.pform .ln>i{display:none}
+.code.pform .k{display:block;min-width:0;margin:0 0 4px;font-size:12px;color:var(--dim)}
+.code.pform .lc{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.code.pform .lc .k{flex-basis:100%}
+.code.pform .pfoot{padding-top:6px;border-top:1px solid var(--line);margin-top:4px}
+.code.pform .pfoot .lc{gap:8px;font-size:13px}
+.code.pform .pfoot .k{flex-basis:auto;margin:0}
+:is([data-skin="plain"],[data-skin="paper"]) .tw-bar :is(.tw-file,.bc){display:none}
 </style>
 </head>
 <body>
@@ -650,7 +680,7 @@ en:{lang:'English',node:'Grid standard',
  profile:'Operator profile',handle:'Handle',avatar:'Portrait',upload:'Upload portrait',removeAv:'Remove',avRaw:'Raw',avDuo:'Duotone',avNote:'Square photos work best. Resized to 256 px.',
  account:'Account',accN:'Sign in to keep your deck on every device.',email:'Email',pass:'Password',signIn:'Sign in',signUp:'Create account',magic:'Email me a login link',signOut:'Sign out',signedAs:'Signed in as {e}',checkMail:'Check your email to confirm, then sign in.',linkSent:'Login link sent. Open it on this device.',offline:'Continue offline',authTitle:'Operator authentication',authErr:'Sign-in failed: {m}',needCreds:'Enter your email and a password of at least 8 characters.',privacy:'Passwords are handled and hashed by Supabase Auth; RunDeck never stores them. Your deck, portrait and stats are private to your account.',delAcc:'Delete account',delAccC:'Confirm: delete everything',delAccN:'This permanently deletes your account, deck and stats. It cannot be undone.',tDel:'ACCOUNT DELETED',tDelB:'Your account and data are gone.',tDelF:'DELETE FAILED',needMail:'Enter your email first.',localOnly:'Accounts are off on this copy. Everything saves on this device.',gridOnly:'Everything is saved in a private store only you can read.',
  tNoT:'NO TARGETS',tAddF:'Add a task first.',tJack:'JACKED IN',tJackB:'{m} min. Phone face down. Go.',tSess:'SESSION COMPLETE',tOut:'JACKED OUT',tFocusR:'{m} min focused · +{x} XP',tUnder:'Under a minute. No payout.',tWipe:'BOARD WIPE',tWipeB:'Every Today task cleared.',tLoot:'LOOT DROP · {r}',tAch:'ACHIEVEMENT · {n}',tBuy:'PURCHASED',tBuyB:'{n}. Enjoy it, you earned it.',tNeedNC:'NEEDS NAME AND COST',tCopied:'BACKUP COPIED',tCopiedB:'Paste it somewhere safe.',tSel:'SELECT AND COPY',tSelB:'Clipboard blocked, the text is selected below.',tRest:'RESTORED',tRestB:'Backup loaded.',tRestF:'RESTORE FAILED',tRestFB:'That text is not a RunDeck backup.',tReset:'RESET',tResetB:'Clean slate.',tLang:'LOCALE SET',tAv:'PORTRAIT UPDATED',tAvF:'That file could not be read as an image.',tIn:'SIGNED IN',tOutA:'SIGNED OUT',
- composer:'Task compiler',cpName:'what needs doing?',kName:'name',kWeight:'weight',kBoard:'board',kTag:'tag',kSteps:'steps',stepAdd:'+ step',tagNew:'#new',run:'Run',cpHint:'Enter runs it · shortcuts !2 #tag @c work too',reward:'reward',compiled:'compiled',deployed:'deployed to {b}',newBtn:'New task',none:'none',cpEmpty:'Give it a name first.',evOnline:'EVENT ONLINE',evEnds:'ends in {t}',evGo:'Let’s go',events:{weekend:['WEEKEND OVERTIME','Every task pays XP ×1.5 and CRED ×2 until Monday.'],payday:['PAYDAY','It is the 25th. CRED ×2 all day.']},
+ composer:'Task compiler',cpName:'what needs doing?',kName:'name',kWeight:'weight',kBoard:'board',kTag:'tag',kSteps:'steps',stepAdd:'+ step',tagNew:'#new',run:'Run',cpHint:'Enter runs it · shortcuts !2 #tag @c work too',reward:'reward',compiled:'compiled',deployed:'deployed to {b}',newBtn:'New task',none:'none',cpEmpty:'Give it a name first.',evOnline:'EVENT ONLINE',evEnds:'ends in {t}',evGo:'Let’s go',events:{weekend:['WEEKEND OVERTIME','Every task pays XP ×{x} and CRED ×{c} until Monday.'],payday:['PAYDAY','It is payday. CRED ×{c} all day.']},
  hackHead:'INTRUSION',apply:'Apply patch',snooze:'Snooze 30 min',ignore:'Ignore',linkDrops:'link drops in {t}',tIntrude:'INTRUSION DETECTED',tIntrudeB:'KIN.daemon is in your deck.',tPatched:'PATCH APPLIED',tPatchedB:'Thank you. Wetware stable.',hackFreq:'Care hacks',freq:['Off','Once a day','Twice a day'],hackNote:'A daemon quietly slips small self-care tasks in among yours, based on the time of day and how hard you are working.',injected:'injected by KIN.daemon',patchedF:'// patched',patches:'Care patches applied: {n}',
  flav:['Your operator forgot about the body again. I didn’t.','Unauthorized care detected. Resistance is pointless.','Someone who loves you asked me to check in.','Running maintenance on the wetware.','Your hardware needs this more than your to-do list does.'],
  flavHyper:'{n} tasks in a row. Impressive. Now refuel the operator.',flavFocus:'Long session logged. The wetware needs a reboot.',flavIdle:'Slow day? Here is the easiest win on the grid.',
@@ -686,7 +716,7 @@ pl:{lang:'Polski',node:'Węzeł Warszawa',
  profile:'Profil operatora',handle:'Ksywka',avatar:'Portret',upload:'Wgraj portret',removeAv:'Usuń',avRaw:'Surowy',avDuo:'Duoton',avNote:'Najlepiej kwadratowe zdjęcie. Skalowane do 256 px.',
  account:'Konto',accN:'Zaloguj się, by mieć wszystko na każdym urządzeniu.',email:'E-mail',pass:'Hasło',signIn:'Zaloguj',signUp:'Załóż konto',magic:'Wyślij mi link logowania',signOut:'Wyloguj',signedAs:'Zalogowano jako {e}',checkMail:'Sprawdź pocztę, potwierdź konto i zaloguj się.',linkSent:'Link wysłany. Otwórz go na tym urządzeniu.',offline:'Kontynuuj offline',authTitle:'Uwierzytelnianie operatora',authErr:'Logowanie nieudane: {m}',needCreds:'Podaj e-mail i hasło (min. 8 znaków).',privacy:'Hasła obsługuje i haszuje Supabase Auth; RunDeck nigdy ich nie przechowuje. Twoja talia, portret i statystyki są prywatne.',delAcc:'Usuń konto',delAccC:'Potwierdź: usuń wszystko',delAccN:'To trwale usuwa konto, talię i statystyki. Nie da się tego cofnąć.',tDel:'KONTO USUNIĘTE',tDelB:'Twoje konto i dane zostały usunięte.',tDelF:'BŁĄD USUWANIA',needMail:'Najpierw podaj e-mail.',localOnly:'Konta są wyłączone w tej kopii. Wszystko zapisuje się na tym urządzeniu.',gridOnly:'Wszystko jest w prywatnym magazynie, tylko ty to widzisz.',
  tNoT:'BRAK CELÓW',tAddF:'Najpierw dodaj zadanie.',tJack:'PODŁĄCZONY',tJackB:'{m} min. Telefon ekranem w dół. Start.',tSess:'SESJA ZAKOŃCZONA',tOut:'ODŁĄCZONO',tFocusR:'{m} min skupienia · +{x} XP',tUnder:'Poniżej minuty. Bez wypłaty.',tWipe:'CZYSTA TABLICA',tWipeB:'Wszystkie zadania na dziś zrobione.',tLoot:'ŁUP · {r}',tAch:'OSIĄGNIĘCIE · {n}',tBuy:'KUPIONO',tBuyB:'{n}. Zasłużone, korzystaj.',tNeedNC:'PODAJ NAZWĘ I KOSZT',tCopied:'KOPIA SKOPIOWANA',tCopiedB:'Wklej ją w bezpieczne miejsce.',tSel:'ZAZNACZ I SKOPIUJ',tSelB:'Schowek zablokowany, tekst zaznaczony poniżej.',tRest:'PRZYWRÓCONO',tRestB:'Kopia wczytana.',tRestF:'BŁĄD PRZYWRACANIA',tRestFB:'To nie jest kopia RunDeck.',tReset:'ZRESETOWANO',tResetB:'Czysta karta.',tLang:'JĘZYK USTAWIONY',tAv:'PORTRET ZAKTUALIZOWANY',tAvF:'Nie da się odczytać tego pliku jako obrazu.',tIn:'ZALOGOWANO',tOutA:'WYLOGOWANO',
- composer:'Kompilator zadań',cpName:'co trzeba zrobić?',kName:'nazwa',kWeight:'waga',kBoard:'tablica',kTag:'tag',kSteps:'kroki',stepAdd:'+ krok',tagNew:'#nowy',run:'Uruchom',cpHint:'Enter uruchamia · skróty !2 #tag @c też działają',reward:'nagroda',compiled:'skompilowano',deployed:'wdrożono do {b}',newBtn:'Nowe zadanie',none:'brak',cpEmpty:'Najpierw nadaj nazwę.',evOnline:'WYDARZENIE AKTYWNE',evEnds:'koniec za {t}',evGo:'Jedziemy',events:{weekend:['NADGODZINY WEEKENDOWE','Każde zadanie daje XP ×1,5 i KRED ×2 aż do poniedziałku.'],payday:['WYPŁATA','Jest 25. KRED ×2 przez cały dzień.']},
+ composer:'Kompilator zadań',cpName:'co trzeba zrobić?',kName:'nazwa',kWeight:'waga',kBoard:'tablica',kTag:'tag',kSteps:'kroki',stepAdd:'+ krok',tagNew:'#nowy',run:'Uruchom',cpHint:'Enter uruchamia · skróty !2 #tag @c też działają',reward:'nagroda',compiled:'skompilowano',deployed:'wdrożono do {b}',newBtn:'Nowe zadanie',none:'brak',cpEmpty:'Najpierw nadaj nazwę.',evOnline:'WYDARZENIE AKTYWNE',evEnds:'koniec za {t}',evGo:'Jedziemy',events:{weekend:['NADGODZINY WEEKENDOWE','Każde zadanie daje XP ×{x} i KRED ×{c} aż do poniedziałku.'],payday:['WYPŁATA','Dziś wypłata. KRED ×{c} przez cały dzień.']},
  hackHead:'WŁAMANIE',apply:'Zastosuj łatkę',snooze:'Drzemka 30 min',ignore:'Ignoruj',linkDrops:'połączenie zerwie się za {t}',tIntrude:'WYKRYTO WŁAMANIE',tIntrudeB:'KIN.daemon jest w twojej talii.',tPatched:'ŁATKA ZASTOSOWANA',tPatchedB:'Dziękuję. Wetware stabilne.',hackFreq:'Hakowanie troski',freq:['Wyłączone','Raz dziennie','Dwa razy dziennie'],hackNote:'Demon po cichu wsuwa między twoje zadania małe zadania o dbaniu o siebie, zależnie od pory dnia i tego, jak ciężko pracujesz.',injected:'wstrzyknięte przez KIN.daemon',patchedF:'// załatane',patches:'Zastosowane łatki troski: {n}',
  flav:['Twój operator znów zapomniał o ciele. Ja nie.','Wykryto nieautoryzowaną troskę. Opór jest bezcelowy.','Ktoś, kto cię kocha, poprosił, żebym sprawdził.','Konserwacja wetware w toku.','Twój sprzęt potrzebuje tego bardziej niż lista zadań.'],
  flavHyper:'{n} zadań pod rząd. Imponujące. Teraz zatankuj operatora.',flavFocus:'Długa sesja zapisana. Wetware potrzebuje restartu.',flavIdle:'Wolny dzień? Oto najłatwiejsza wygrana w sieci.',
@@ -722,7 +752,7 @@ sv:{lang:'Svenska',node:'Nod Stockholm',
  profile:'Operatörsprofil',handle:'Alias',avatar:'Porträtt',upload:'Ladda upp porträtt',removeAv:'Ta bort',avRaw:'Rå',avDuo:'Duoton',avNote:'Kvadratiska bilder blir bäst. Skalas till 256 px.',
  account:'Konto',accN:'Logga in för att ha allt på alla enheter.',email:'E-post',pass:'Lösenord',signIn:'Logga in',signUp:'Skapa konto',magic:'Mejla mig en inloggningslänk',signOut:'Logga ut',signedAs:'Inloggad som {e}',checkMail:'Kolla din e-post, bekräfta och logga sedan in.',linkSent:'Länk skickad. Öppna den på den här enheten.',offline:'Fortsätt offline',authTitle:'Operatörsautentisering',authErr:'Inloggningen misslyckades: {m}',needCreds:'Ange e-post och ett lösenord på minst 8 tecken.',privacy:'Lösenord hanteras och hashas av Supabase Auth; RunDeck sparar dem aldrig. Din kortlek, ditt porträtt och din statistik är privata för ditt konto.',delAcc:'Radera konto',delAccC:'Bekräfta: radera allt',delAccN:'Detta raderar ditt konto, din data och statistik permanent. Det går inte att ångra.',tDel:'KONTO RADERAT',tDelB:'Ditt konto och din data är borta.',tDelF:'RADERING MISSLYCKADES',needMail:'Ange din e-post först.',localOnly:'Konton är avstängda i den här kopian. Allt sparas på den här enheten.',gridOnly:'Allt sparas i ett privat lager som bara du kan läsa.',
  tNoT:'INGA MÅL',tAddF:'Lägg till en uppgift först.',tJack:'INKOPPLAD',tJackB:'{m} min. Mobilen upp och ner. Kör.',tSess:'PASS KLART',tOut:'URKOPPLAD',tFocusR:'{m} min fokus · +{x} XP',tUnder:'Under en minut. Ingen utbetalning.',tWipe:'TOM TAVLA',tWipeB:'Alla dagens uppgifter klara.',tLoot:'BYTE · {r}',tAch:'PRESTATION · {n}',tBuy:'KÖPT',tBuyB:'{n}. Njut, du har förtjänat det.',tNeedNC:'BEHÖVER NAMN OCH PRIS',tCopied:'BACKUP KOPIERAD',tCopiedB:'Klistra in den på ett säkert ställe.',tSel:'MARKERA OCH KOPIERA',tSelB:'Urklipp blockerat, texten är markerad nedan.',tRest:'ÅTERSTÄLLT',tRestB:'Backup inläst.',tRestF:'ÅTERSTÄLLNING MISSLYCKADES',tRestFB:'Den texten är ingen RunDeck-backup.',tReset:'NOLLSTÄLLT',tResetB:'Rent bord.',tLang:'SPRÅK VALT',tAv:'PORTRÄTT UPPDATERAT',tAvF:'Filen kunde inte läsas som bild.',tIn:'INLOGGAD',tOutA:'UTLOGGAD',
- composer:'Uppgiftskompilator',cpName:'vad behöver göras?',kName:'namn',kWeight:'vikt',kBoard:'tavla',kTag:'tagg',kSteps:'steg',stepAdd:'+ steg',tagNew:'#ny',run:'Kör',cpHint:'Enter kör · genvägar som !2 #tagg @c funkar också',reward:'belöning',compiled:'kompilerat',deployed:'utplacerad i {b}',newBtn:'Ny uppgift',none:'ingen',cpEmpty:'Ge den ett namn först.',evOnline:'EVENT AKTIVT',evEnds:'slutar om {t}',evGo:'Kör hårt',events:{weekend:['HELGÖVERTID','Varje uppgift ger XP ×1,5 och KRED ×2 fram till måndag.'],payday:['LÖNING','Det är den 25:e. KRED ×2 hela dagen.']},
+ composer:'Uppgiftskompilator',cpName:'vad behöver göras?',kName:'namn',kWeight:'vikt',kBoard:'tavla',kTag:'tagg',kSteps:'steg',stepAdd:'+ steg',tagNew:'#ny',run:'Kör',cpHint:'Enter kör · genvägar som !2 #tagg @c funkar också',reward:'belöning',compiled:'kompilerat',deployed:'utplacerad i {b}',newBtn:'Ny uppgift',none:'ingen',cpEmpty:'Ge den ett namn först.',evOnline:'EVENT AKTIVT',evEnds:'slutar om {t}',evGo:'Kör hårt',events:{weekend:['HELGÖVERTID','Varje uppgift ger XP ×{x} och KRED ×{c} fram till måndag.'],payday:['LÖNING','Det är löning idag. KRED ×{c} hela dagen.']},
  hackHead:'INTRÅNG',apply:'Applicera patch',snooze:'Snooza 30 min',ignore:'Ignorera',linkDrops:'länken bryts om {t}',tIntrude:'INTRÅNG UPPTÄCKT',tIntrudeB:'KIN.daemon är inne i din kortlek.',tPatched:'PATCH APPLICERAD',tPatchedB:'Tack. Wetware stabil.',hackFreq:'Omsorgshack',freq:['Av','En gång om dagen','Två gånger om dagen'],hackNote:'En daemon smyger tyst in små omsorgsuppgifter bland dina, utifrån tid på dygnet och hur hårt du jobbar.',injected:'injicerad av KIN.daemon',patchedF:'// patchad',patches:'Applicerade omsorgspatchar: {n}',
  flav:['Din operatör glömde kroppen igen. Det gjorde inte jag.','Obehörig omtanke upptäckt. Motstånd är lönlöst.','Någon som älskar dig bad mig kolla läget.','Underhåll av wetware pågår.','Din hårdvara behöver det här mer än din att-göra-lista.'],
  flavHyper:'{n} uppgifter i rad. Imponerande. Tanka nu operatören.',flavFocus:'Långt pass loggat. Wetwaren behöver en omstart.',flavIdle:'Seg dag? Här är nätets enklaste vinst.',
@@ -742,9 +772,9 @@ sv:{lang:'Svenska',node:'Nod Stockholm',
 /* Plain wording: used when Voice is set to Plain. Overrides only what has lingo; everything else falls through to the normal strings. */
 DICT.en.vPlain='Plain';DICT.en.ptsU='points';DICT.pl.ptsU='pkt';DICT.sv.ptsU='poäng';DICT.pl.vPlain='Prosty';DICT.sv.vPlain='Enkel';
 DICT.en.plain={
- nav:['Tasks','Focus','Rewards','Profile','Settings'],
+ nav:['Tasks','Focus','Shop','Profile','Settings'],
  credits:'Points',combo:'COMBO',jacked:'FOCUSING',
- lists:{today:['Today','Nothing here yet. Add a task above.'],routine:['Daily habits','No habits yet. Add one with @r'],contract:['Projects','No projects. Bigger jobs go here, split into steps.'],backlog:['Later','Nothing saved for later.']},
+ lists:{today:['Today','Nothing here yet. Add a task above.'],routine:['Daily tasks','No daily tasks yet. They reset every morning.'],contract:['Projects','No projects. Bigger jobs go here, split into steps.'],backlog:['Later','Nothing saved for later.']},
  samples:'These are example tasks to get you started. Keep what fits.',purge:'Remove examples',
  priority:'Focus task',lockOn:'Do this one first.',lockOff:'No focus task yet. Let the app pick one.',pick:'Pick one for me',jackIn:'Start focus',cleared:'{a}/{b} done',
  cmd:'Quick add',weight:'Size',setT:'Make focus task',clrT:'Remove focus',tgt:'FOCUS',sample:'EXAMPLE',
@@ -754,21 +784,21 @@ DICT.en.plain={
  file:'Profile',profile:'Edit profile',handle:'Name',avatar:'Photo',upload:'Upload photo',packs:'Themes',voice:'Wording',
  tNoT:'NOTHING TO PICK',tJack:'FOCUS STARTED',tJackB:'{m} min. Put your phone away.',tSess:'FOCUS DONE',tOut:'FOCUS STOPPED',tWipe:'ALL DONE',tWipeB:'Every Today task is finished.',tLoot:'BONUS BOX · {r}',tAch:'ACHIEVEMENT · {n}',
  composer:'New task',run:'Add',cpHint:'Enter adds it · shortcuts !2 #tag @c work too',compiled:'ready',deployed:'added to {b}',cpOpen:'tap to add a task',runNext:'Add + another',twBoot:[],compiling:'adding',
- evOnline:'BONUS ON',events:{weekend:['WEEKEND BONUS','Every task gives 1.5× XP and 2× points until Monday.'],payday:['PAYDAY','It is the 25th. 2× points all day.']},
+ evOnline:'BONUS ON',events:{weekend:['WEEKEND BONUS','Every task gives {x}× XP and {c}× points until Monday.'],payday:['PAYDAY','It is payday. {c}× points all day.']},
  hackHead:'SELF-CARE',apply:'Done',tIntrude:'SELF-CARE',tIntrudeB:'A small self-care task was added to your list.',tPatched:'NICE',tPatchedB:'Thanks for looking after yourself.',hackFreq:'Self-care reminders',hackNote:'Now and then the app adds a small self-care task to your list, based on the time of day and how busy you are.',injected:'self-care reminder',patchedF:'',patches:'Self-care tasks done: {n}',
  flav:['A small thing for you, not your list.','Quick check-in.','Your body called. It wants this.','Thirty seconds, then back to it.','Worth more than it looks.'],
  flavHyper:'{n} tasks in a row. Take a short break.',flavFocus:'Long focus session. Time to move a little.',flavIdle:'Slow day? Here is an easy one.',
  callIn:'FOCUS SESSION DONE',answer:'See result',decline:'Close',callMsg:'{m} min of focus. +{x} XP.',tgtAcq:'PICKED',
- decrypt:'Open',decHint:'Tap the codes in order to open the box. A wrong code costs time.',seq:'Order',granted:'OPENED',lost:'TIME UP',lostB:'The box is still closed. Try again any time.',encL:'Closed',fuseL:'Combine',fuseB:'3 {a} → 1 {b}',archive:'Story notes',archiveE:'Open boxes to unlock short story notes.',rwBuff:'XP BOOST · ×{x} for {m} min',rwLore:'Story note {n} unlocked',rwSkin:'New colours unlocked: {n}',overclock:'XP BOOST',tLootEnc:'Open it under Rewards.',tFuse:'BOXES COMBINED',decNone:'No closed boxes. Finish tasks to find some.',
+ decrypt:'Open',decHint:'Tap the codes in order to open the box. A wrong code costs time.',seq:'Order',granted:'OPENED',lost:'TIME UP',lostB:'The box is still closed. Try again any time.',encL:'Closed',fuseL:'Combine',fuseB:'3 {a} → 1 {b}',archive:'Story notes',archiveE:'Open boxes to unlock short story notes.',rwBuff:'XP BOOST · ×{x} for {m} min',rwLore:'Story note {n} unlocked',rwSkin:'New colours unlocked: {n}',overclock:'XP BOOST',tLootEnc:'Open it in the Shop.',tFuse:'BOXES COMBINED',decNone:'No closed boxes. Finish tasks to find some.',
  authTitle:'Sign in',gateSub:'Sign in to keep your tasks on all your devices.',authLines:[],
  lvBonus:'BONUS +{n} POINTS',upC:'LEVEL UP',upS:'LEVEL UP',rwCred:'+{n} POINTS',
  voice:{plain:{done:['Done.','Nice work.','Task finished.','One less thing.','Good job.'],ranks:['Beginner','Starter','Regular','Steady','Focused','Dedicated','Skilled','Expert','Master','Legend'],add:'TASK ADDED',sub:'ALL STEPS DONE',subB:'Every step is done. Tick the project to finish it.',tag:''}},
  achs:{breach:['FIRST BOX','Open your first bonus box'],archivist:['STORYTELLER','Unlock all 10 story notes'],first:['FIRST STEP','Finish your first task'],ten:['GETTING GOING','Finish 10 tasks'],fifty:['REGULAR','Finish 50 tasks'],hundred:['CENTURY','Finish 100 tasks'],combo3:['ON A ROLL','Reach a ×3 combo'],st3:['THREE IN A ROW','3-day streak'],st7:['FULL WEEK','7-day streak'],focus:['DEEP FOCUS','Finish a 25-minute focus session'],clear:['CLEAN SLATE','Finish every Today task (3+)'],lv5:['LEVEL 5','Reach level 5'],lv10:['LEVEL 10','Reach level 10'],shard10:['COLLECTOR','Hold 10 bonus boxes'],buy:['TREAT YOURSELF','Buy your first reward'],patch10:['SELF-CARE','Do 10 self-care tasks']}
 };
 DICT.pl.plain={
- nav:['Zadania','Skupienie','Nagrody','Profil','Ustawienia'],
+ nav:['Zadania','Skupienie','Sklep','Profil','Ustawienia'],
  credits:'Punkty',combo:'COMBO',jacked:'SKUPIENIE',
- lists:{today:['Dzisiaj','Nic tu jeszcze nie ma. Dodaj zadanie powyżej.'],routine:['Codzienne nawyki','Brak nawyków. Dodaj z @r'],contract:['Projekty','Brak projektów. Większe sprawy trafiają tutaj, podzielone na kroki.'],backlog:['Na później','Nic nie czeka na później.']},
+ lists:{today:['Dzisiaj','Nic tu jeszcze nie ma. Dodaj zadanie powyżej.'],routine:['Codzienne zadania','Brak codziennych zadań. Co rano zaczynają od nowa.'],contract:['Projekty','Brak projektów. Większe sprawy trafiają tutaj, podzielone na kroki.'],backlog:['Na później','Nic nie czeka na później.']},
  samples:'To przykładowe zadania na start. Zostaw to, co pasuje.',purge:'Usuń przykłady',
  priority:'Zadanie na teraz',lockOn:'Zrób najpierw to.',lockOff:'Nie wybrano zadania. Niech aplikacja wybierze.',pick:'Wybierz za mnie',jackIn:'Zacznij skupienie',cleared:'{a}/{b} zrobione',
  cmd:'Szybkie dodawanie',weight:'Rozmiar',setT:'Ustaw jako zadanie na teraz',clrT:'Usuń z „na teraz”',tgt:'NA TERAZ',sample:'PRZYKŁAD',
@@ -778,21 +808,21 @@ DICT.pl.plain={
  file:'Profil',profile:'Edytuj profil',handle:'Imię',avatar:'Zdjęcie',upload:'Wgraj zdjęcie',packs:'Motywy',voice:'Słownictwo',
  tNoT:'NIE MA CZEGO WYBRAĆ',tJack:'SKUPIENIE START',tJackB:'{m} min. Odłóż telefon.',tSess:'SKUPIENIE ZAKOŃCZONE',tOut:'SKUPIENIE PRZERWANE',tWipe:'WSZYSTKO ZROBIONE',tWipeB:'Każde dzisiejsze zadanie jest gotowe.',tLoot:'PUDEŁKO · {r}',tAch:'OSIĄGNIĘCIE · {n}',
  composer:'Nowe zadanie',run:'Dodaj',cpHint:'Enter dodaje · skróty !2 #tag @c też działają',compiled:'gotowe',deployed:'dodano do: {b}',cpOpen:'dotknij, aby dodać zadanie',runNext:'Dodaj + następne',twBoot:[],compiling:'dodawanie',
- evOnline:'BONUS AKTYWNY',events:{weekend:['BONUS WEEKENDOWY','Każde zadanie daje 1,5× XP i 2× punktów do poniedziałku.'],payday:['WYPŁATA','Jest 25. dzień miesiąca. 2× punktów przez cały dzień.']},
+ evOnline:'BONUS AKTYWNY',events:{weekend:['BONUS WEEKENDOWY','Każde zadanie daje {x}× XP i {c}× punktów do poniedziałku.'],payday:['WYPŁATA','Dziś wypłata. {c}× punktów przez cały dzień.']},
  hackHead:'DBAJ O SIEBIE',apply:'Zrobione',tIntrude:'DBAJ O SIEBIE',tIntrudeB:'Na liście pojawiło się małe zadanie dla ciebie.',tPatched:'SUPER',tPatchedB:'Dzięki, że o siebie dbasz.',hackFreq:'Przypomnienia o dbaniu o siebie',hackNote:'Od czasu do czasu aplikacja dodaje małe zadanie dla twojego zdrowia, zależnie od pory dnia i tego, jak dużo pracujesz.',injected:'przypomnienie o dbaniu o siebie',patchedF:'',patches:'Zadania dla siebie: {n}',
  flav:['Coś małego dla ciebie, nie dla listy.','Szybkie sprawdzenie.','Twoje ciało o to prosi.','Trzydzieści sekund i wracasz.','Warte więcej, niż się wydaje.'],
  flavHyper:'{n} zadań z rzędu. Zrób krótką przerwę.',flavFocus:'Długie skupienie. Czas się trochę poruszać.',flavIdle:'Wolny dzień? Oto coś łatwego.',
  callIn:'SESJA SKUPIENIA ZAKOŃCZONA',answer:'Zobacz wynik',decline:'Zamknij',callMsg:'{m} min skupienia. +{x} XP.',tgtAcq:'WYBRANO',
- decrypt:'Otwórz',decHint:'Dotykaj kodów po kolei, aby otworzyć pudełko. Błędny kod zabiera czas.',seq:'Kolejność',granted:'OTWARTE',lost:'KONIEC CZASU',lostB:'Pudełko wciąż jest zamknięte. Spróbuj kiedy chcesz.',encL:'Zamknięte',fuseL:'Połącz',fuseB:'3 {a} → 1 {b}',archive:'Notatki fabularne',archiveE:'Otwieraj pudełka, aby odblokować krótkie notatki.',rwBuff:'BONUS XP · ×{x} przez {m} min',rwLore:'Odblokowano notatkę {n}',rwSkin:'Nowe kolory: {n}',overclock:'BONUS XP',tLootEnc:'Otwórz je w Nagrodach.',tFuse:'POŁĄCZONO PUDEŁKA',decNone:'Brak zamkniętych pudełek. Kończ zadania, aby je znaleźć.',
+ decrypt:'Otwórz',decHint:'Dotykaj kodów po kolei, aby otworzyć pudełko. Błędny kod zabiera czas.',seq:'Kolejność',granted:'OTWARTE',lost:'KONIEC CZASU',lostB:'Pudełko wciąż jest zamknięte. Spróbuj kiedy chcesz.',encL:'Zamknięte',fuseL:'Połącz',fuseB:'3 {a} → 1 {b}',archive:'Notatki fabularne',archiveE:'Otwieraj pudełka, aby odblokować krótkie notatki.',rwBuff:'BONUS XP · ×{x} przez {m} min',rwLore:'Odblokowano notatkę {n}',rwSkin:'Nowe kolory: {n}',overclock:'BONUS XP',tLootEnc:'Otwórz je w Sklepie.',tFuse:'POŁĄCZONO PUDEŁKA',decNone:'Brak zamkniętych pudełek. Kończ zadania, aby je znaleźć.',
  authTitle:'Zaloguj się',gateSub:'Zaloguj się, aby mieć zadania na wszystkich urządzeniach.',authLines:[],
  lvBonus:'BONUS +{n} PKT',upC:'NOWY POZIOM',upS:'NOWY POZIOM',rwCred:'+{n} PKT',
  voice:{plain:{done:['Zrobione.','Dobra robota.','Zadanie gotowe.','Jedna rzecz mniej.','Brawo.'],ranks:['Początkujący','Starter','Regularny','Wytrwały','Skupiony','Oddany','Wprawny','Ekspert','Mistrz','Legenda'],add:'DODANO ZADANIE',sub:'WSZYSTKIE KROKI ZROBIONE',subB:'Każdy krok gotowy. Zaznacz projekt, aby go zakończyć.',tag:''}},
  achs:{breach:['PIERWSZE PUDEŁKO','Otwórz pierwsze pudełko'],archivist:['GAWĘDZIARZ','Odblokuj wszystkie 10 notatek'],first:['PIERWSZY KROK','Ukończ pierwsze zadanie'],ten:['ROZKRĘCASZ SIĘ','Ukończ 10 zadań'],fifty:['STAŁY BYWALEC','Ukończ 50 zadań'],hundred:['SETKA','Ukończ 100 zadań'],combo3:['NA FALI','Osiągnij combo ×3'],st3:['TRZY Z RZĘDU','Seria 3 dni'],st7:['CAŁY TYDZIEŃ','Seria 7 dni'],focus:['GŁĘBOKIE SKUPIENIE','Ukończ 25-minutową sesję'],clear:['CZYSTA KARTA','Ukończ wszystkie dzisiejsze zadania (3+)'],lv5:['POZIOM 5','Osiągnij poziom 5'],lv10:['POZIOM 10','Osiągnij poziom 10'],shard10:['KOLEKCJONER','Miej 10 pudełek'],buy:['NAGRODA DLA CIEBIE','Kup pierwszą nagrodę'],patch10:['DBAM O SIEBIE','Zrób 10 zadań dla siebie']}
 };
 DICT.sv.plain={
- nav:['Uppgifter','Fokus','Belöningar','Profil','Inställningar'],
+ nav:['Uppgifter','Fokus','Butik','Profil','Inställningar'],
  credits:'Poäng',combo:'COMBO',jacked:'FOKUS PÅGÅR',
- lists:{today:['Idag','Inget här än. Lägg till en uppgift ovanför.'],routine:['Dagliga vanor','Inga vanor än. Lägg till med @r'],contract:['Projekt','Inga projekt. Större saker hamnar här, uppdelade i steg.'],backlog:['Senare','Inget sparat till senare.']},
+ lists:{today:['Idag','Inget här än. Lägg till en uppgift ovanför.'],routine:['Dagliga uppgifter','Inga dagliga uppgifter än. De nollställs varje morgon.'],contract:['Projekt','Inga projekt. Större saker hamnar här, uppdelade i steg.'],backlog:['Senare','Inget sparat till senare.']},
  samples:'Det här är exempeluppgifter att börja med. Behåll det som passar.',purge:'Ta bort exempel',
  priority:'Fokusuppgift',lockOn:'Gör den här först.',lockOff:'Ingen fokusuppgift än. Låt appen välja.',pick:'Välj åt mig',jackIn:'Starta fokus',cleared:'{a}/{b} klara',
  cmd:'Snabbtillägg',weight:'Storlek',setT:'Gör till fokusuppgift',clrT:'Ta bort fokus',tgt:'FOKUS',sample:'EXEMPEL',
@@ -802,12 +832,12 @@ DICT.sv.plain={
  file:'Profil',profile:'Redigera profil',handle:'Namn',avatar:'Foto',upload:'Ladda upp foto',packs:'Teman',voice:'Ordval',
  tNoT:'INGET ATT VÄLJA',tJack:'FOKUS STARTAT',tJackB:'{m} min. Lägg undan mobilen.',tSess:'FOKUS KLART',tOut:'FOKUS STOPPAT',tWipe:'ALLT KLART',tWipeB:'Alla dagens uppgifter är klara.',tLoot:'BONUSLÅDA · {r}',tAch:'PRESTATION · {n}',
  composer:'Ny uppgift',run:'Lägg till',cpHint:'Enter lägger till · kortkommandon !2 #tagg @c funkar också',compiled:'klar',deployed:'tillagd i {b}',cpOpen:'tryck för att lägga till en uppgift',runNext:'Lägg till + nästa',twBoot:[],compiling:'lägger till',
- evOnline:'BONUS PÅ',events:{weekend:['HELGBONUS','Varje uppgift ger 1,5× XP och 2× poäng fram till måndag.'],payday:['LÖNEDAG','Det är den 25:e. 2× poäng hela dagen.']},
+ evOnline:'BONUS PÅ',events:{weekend:['HELGBONUS','Varje uppgift ger {x}× XP och {c}× poäng fram till måndag.'],payday:['LÖNEDAG','Det är lönedag idag. {c}× poäng hela dagen.']},
  hackHead:'TA HAND OM DIG',apply:'Klar',tIntrude:'TA HAND OM DIG',tIntrudeB:'En liten uppgift för dig har lagts till i listan.',tPatched:'SNYGGT',tPatchedB:'Tack för att du tar hand om dig.',hackFreq:'Påminnelser om egenvård',hackNote:'Ibland lägger appen till en liten egenvårdsuppgift i listan, beroende på tid på dygnet och hur mycket du jobbar.',injected:'egenvårdspåminnelse',patchedF:'',patches:'Egenvårdsuppgifter klara: {n}',
  flav:['Något litet för dig, inte för listan.','Snabb koll.','Kroppen ringde. Den vill ha det här.','Trettio sekunder, sen tillbaka.','Värt mer än det ser ut.'],
  flavHyper:'{n} uppgifter i rad. Ta en kort paus.',flavFocus:'Långt fokuspass. Dags att röra på sig lite.',flavIdle:'Lugn dag? Här är en enkel.',
  callIn:'FOKUSPASSET ÄR KLART',answer:'Se resultat',decline:'Stäng',callMsg:'{m} min fokus. +{x} XP.',tgtAcq:'VALD',
- decrypt:'Öppna',decHint:'Tryck på koderna i ordning för att öppna lådan. Fel kod kostar tid.',seq:'Ordning',granted:'ÖPPNAD',lost:'TIDEN ÄR SLUT',lostB:'Lådan är fortfarande stängd. Försök igen när du vill.',encL:'Stängd',fuseL:'Slå ihop',fuseB:'3 {a} → 1 {b}',archive:'Berättelseanteckningar',archiveE:'Öppna lådor för att låsa upp korta anteckningar.',rwBuff:'XP-BOOST · ×{x} i {m} min',rwLore:'Anteckning {n} upplåst',rwSkin:'Nya färger upplåsta: {n}',overclock:'XP-BOOST',tLootEnc:'Öppna den under Belöningar.',tFuse:'LÅDOR IHOPSLAGNA',decNone:'Inga stängda lådor. Gör klart uppgifter för att hitta några.',
+ decrypt:'Öppna',decHint:'Tryck på koderna i ordning för att öppna lådan. Fel kod kostar tid.',seq:'Ordning',granted:'ÖPPNAD',lost:'TIDEN ÄR SLUT',lostB:'Lådan är fortfarande stängd. Försök igen när du vill.',encL:'Stängd',fuseL:'Slå ihop',fuseB:'3 {a} → 1 {b}',archive:'Berättelseanteckningar',archiveE:'Öppna lådor för att låsa upp korta anteckningar.',rwBuff:'XP-BOOST · ×{x} i {m} min',rwLore:'Anteckning {n} upplåst',rwSkin:'Nya färger upplåsta: {n}',overclock:'XP-BOOST',tLootEnc:'Öppna den i Butiken.',tFuse:'LÅDOR IHOPSLAGNA',decNone:'Inga stängda lådor. Gör klart uppgifter för att hitta några.',
  authTitle:'Logga in',gateSub:'Logga in för att ha dina uppgifter på alla enheter.',authLines:[],
  lvBonus:'BONUS +{n} POÄNG',upC:'NY NIVÅ',upS:'NY NIVÅ',rwCred:'+{n} POÄNG',
  voice:{plain:{done:['Klart.','Bra jobbat.','Uppgift klar.','En sak mindre.','Snyggt.'],ranks:['Nybörjare','Igång','Regelbunden','Stadig','Fokuserad','Hängiven','Skicklig','Expert','Mästare','Legend'],add:'UPPGIFT TILLAGD',sub:'ALLA STEG KLARA',subB:'Alla steg är klara. Bocka av projektet för att avsluta det.',tag:''}},
@@ -870,6 +900,62 @@ Object.assign(DICT.sv,{tourBtn:'Rundtur',help:'Hjälp',helpN:'En kort rundtur so
  style:{cyber:['Cyberpunk','Neon, ljud, hackerslang'],dark:['Enkel mörk','Lugnt, vardagliga ord'],light:['Enkel ljus','Lugnt, vardagliga ord']},
  lbl:{add:'Lägg till',finish:'Gör klart',earn:'Tjäna',spend:'Belöning',name:'namn',size:'storlek',tag:'tagg',list:'lista',tapDone:'tryck = klart',tapOpen:'tryck = öppna',steps:'steg',resets:'nollställs dagligen',stepsL:'uppdelat i steg',someday:'någon gång',todaySub:'för idag',within:'inom 15 min',level:'nivå',streak:'serie',toNext:'XP till nästa nivå',perMin:'+2 XP / min',blue:'1–2 om dagen',combine:'3 → 1 ovanligare',price:'pris',buy:'Köp',payday:'lönedag',days:['M','T','O','T','F','L','S'],example:'Ring tandläkaren',exTag:'admin',water:'Drick ett glas vatten',rewardEx:'Ett avsnitt av en serie',legend:'!1 !2 !3 storlek · #tagg · @t @r @c @b lista'}}});
 
+/* Feedback round: rewritten tour steps, tips, new settings and mechanics. */
+(function(){
+const U=(l,o)=>{const d=DICT[l];Object.assign(d.tour.steps,o.steps);Object.assign(d.tour.lbl,o.lbl);Object.assign(d.tour,o.tour);Object.assign(d,o.top)};
+U('en',{tour:{got:'Got it',noTips:'No more tips',tip:'Tip',more:'More tips will pop up the first time you meet each feature. The full tour is under ? at the top.',sc:'Shortcuts for power users',scB:'While typing a name: !1 !2 !3 sets the size, #word adds a tag, @t @r @c @b picks the list.'},
+ steps:{
+  add:['Add a task','Tap “New task”. Type a name, then tap a size and a list. A tag and steps are optional. Press Add and it lands on your list.'],
+  task:['Finish a task','Tap the box on the left when it is done. Tap the name to open it: add steps, change the size or list, or delete it. Sizes give 10, 25 or 50 XP by default, and you can type your own number instead. A # tag is just a label for you.'],
+  boards:['Four lists','{today} is what you want done today. {routine} reset every morning, for the things you do every day. {contract} are bigger jobs split into small steps. {backlog} is for someday, kept out of the way.'],
+  combo:['Keep it rolling','Finish tasks within 15 minutes of each other and a combo builds up: ×1.5, ×2, up to ×3 XP. Unticking and ticking again never pays twice.'],
+  hud:['Your progress','Up top: your level, your {cred} and your streak. Every day in a row adds +5% XP to everything, up to +50%, and one missed day a week is forgiven.'],
+  care:['Something for you, too','Your list keeps track of everything except you. Once or twice a day RunDeck slips in something small for your body or mind, like stepping outside for five minutes or texting someone you like. It shows in blue and pays like any task. Choose which kinds you want, or turn it off, in {cfg}.'],
+  shop:['Your own rewards','In {loot} you make your own shop: add things you actually want, like an episode of a show, and give each a price. Buy them with the {cred} you earn from tasks.'],
+  loot:['Bonus drops','About one in four finished tasks drops a surprise, found under {shards} in {loot}. Open it with a quick tap-the-codes game. Inside is extra {cred} for your shop, a short XP boost, or new colours for the app. Three of the same kind combine into a rarer one.'],
+  events:['Bonus days','Weekends give {wx}× XP and {wc}× {cred}. On day {pd} of each month it is payday: {pc}× {cred}. Change how big these are, or turn them off, in {cfg}.'],
+  bounty:['Bounties on old tasks','A {today} task you keep putting off grows a bounty: +10% XP for every day it waits, up to +100%. Choose which lists count, or exclude tags, in {cfg}. Each task also has its own switch.'],
+  project:['Projects','{contract} are for bigger jobs. Open one and add small steps: each step pays +5 XP, and finishing the whole thing pays the full amount.'],
+  streak:['Streak bonus','You finished something two days in a row. Every streak day adds +5% XP to everything, up to +50%. Miss one day a week and your shield keeps the streak alive.']},
+ lbl:{custom:'custom',newTag:'+ new',addBtn:'Add',day:'day',shield:'1 free miss / week',stepEach:'+5 XP each'},
+ top:{customXp:'custom',nobL:'Skip bounties and “Pick for me”',btyChip:'BOUNTY +{p}%',btyChipP:'+{p}% overdue',bonuses:'Bonuses',evWkL:'Weekend bonus',evPayL:'Payday bonus',payDayL:'Payday is on day',evLv:['Off','Small','Normal','Big'],stkL:'Streak bonus',stkN:'+5% XP per streak day, up to +50%. One missed day per week is forgiven.',btyL:'Bounties',btyN:'Tasks you put off grow +10% XP per day, up to +100%.',btyLists:'Lists that grow bounties',btyTagsL:'Never on these tags',btyTagsPh:'e.g. work, admin',careK:'Kinds of self-care',careG:{body:'Body',food:'Food',mind:'Mind',social:'People',rest:'Rest'},sset:'Sound style',ssetN:{soft:'Soft',cyber:'Cyberpunk'},quiet:'Quiet mode (only tap and finish sounds)',stkM:'{n}-DAY STREAK',stkMB:'Every task now gives +{p}% XP. Keep it going.',stkGift:'+{c} {u} and a bonus drop',shieldT:'STREAK SHIELD',shieldB:'You missed a day, so this week’s shield kept your streak.',streakTip:'+{p}% XP from your streak',evCfgN:'You can change bonus days in Settings.',showSc:'Shortcuts',hideSc:'Hide shortcuts',cpHintP:'Press Enter or Add.',rewardL:'Reward'}});
+U('pl',{tour:{got:'Rozumiem',noTips:'Bez podpowiedzi',tip:'Podpowiedź',more:'Kolejne podpowiedzi pojawią się, gdy pierwszy raz trafisz na daną funkcję. Pełny przewodnik jest pod ? na górze.',sc:'Skróty dla zaawansowanych',scB:'Podczas wpisywania nazwy: !1 !2 !3 ustawia rozmiar, #słowo dodaje tag, @t @r @c @b wybiera listę.'},
+ steps:{
+  add:['Dodaj zadanie','Dotknij „Nowe zadanie”. Wpisz nazwę, a potem wybierz rozmiar i listę. Tag i kroki są opcjonalne. Naciśnij Dodaj i zadanie trafi na listę.'],
+  task:['Zakończ zadanie','Gdy zrobisz zadanie, dotknij pola po lewej. Dotknij nazwy, aby je otworzyć: dodaj kroki, zmień rozmiar lub listę albo je usuń. Rozmiary dają domyślnie 10, 25 albo 50 XP, ale możesz wpisać własną liczbę. Tag # to po prostu etykieta dla ciebie.'],
+  boards:['Cztery listy','{today} to to, co chcesz zrobić dzisiaj. {routine} zaczynają od nowa każdego ranka, na rzeczy robione codziennie. {contract} to większe sprawy podzielone na małe kroki. {backlog} to rzeczy na kiedyś, schowane z boku.'],
+  combo:['Złap rytm','Kończ zadania w odstępach do 15 minut, a rośnie combo: ×1,5, ×2, aż do ×3 XP. Odznaczenie i ponowne zaznaczenie nigdy nie płaci dwa razy.'],
+  hud:['Twoje postępy','Na górze: twój poziom, twoje {cred} i seria dni. Każdy kolejny dzień dodaje +5% XP do wszystkiego, maksymalnie +50%, a jeden opuszczony dzień w tygodniu jest wybaczany.'],
+  care:['Coś też dla ciebie','Twoja lista pilnuje wszystkiego oprócz ciebie. Raz lub dwa razy dziennie RunDeck dorzuca coś małego dla ciała albo głowy, np. pięć minut na świeżym powietrzu albo wiadomość do kogoś, kogo lubisz. Jest oznaczone na niebiesko i daje XP jak każde zadanie. W zakładce {cfg} wybierzesz rodzaje albo to wyłączysz.'],
+  shop:['Twoje własne nagrody','W zakładce {loot} tworzysz własny sklep: dodaj rzeczy, na których ci zależy, np. odcinek serialu, i nadaj każdej cenę. Kupujesz je za {cred} zdobyte za zadania.'],
+  loot:['Bonusy','Mniej więcej co czwarte ukończone zadanie daje niespodziankę, którą znajdziesz w sekcji {shards} w zakładce {loot}. Otwórz ją szybką grą w dotykanie kodów. W środku są dodatkowe {cred} do sklepu, krótki bonus XP albo nowe kolory aplikacji. Trzy takie same łączą się w jedną rzadszą.'],
+  events:['Dni z bonusem','W weekendy dostajesz {wx}× XP i {wc}× {cred}. {pd}. dnia każdego miesiąca jest wypłata: {pc}× {cred}. W zakładce {cfg} zmienisz ich wielkość albo je wyłączysz.'],
+  bounty:['Nagrody za stare zadania','Zadanie z listy {today}, które ciągle odkładasz, zyskuje nagrodę: +10% XP za każdy dzień czekania, maksymalnie +100%. W zakładce {cfg} wybierzesz listy i wykluczysz tagi. Każde zadanie ma też własny przełącznik.'],
+  project:['Projekty','{contract} są na większe sprawy. Otwórz jedną i dodaj małe kroki: każdy krok daje +5 XP, a ukończenie całości daje pełną nagrodę.'],
+  streak:['Bonus za serię','Coś zrobiłeś dwa dni z rzędu. Każdy dzień serii dodaje +5% XP do wszystkiego, maksymalnie +50%. Jeden opuszczony dzień w tygodniu ratuje tarcza.']},
+ lbl:{custom:'własne',newTag:'+ nowy',addBtn:'Dodaj',day:'dzień',shield:'1 wolny dzień / tydz.',stepEach:'+5 XP za krok'},
+ top:{customXp:'własne',nobL:'Bez nagród za zwłokę i „Wybierz za mnie”',btyChip:'NAGRODA +{p}%',btyChipP:'+{p}% za zwłokę',bonuses:'Bonusy',evWkL:'Bonus weekendowy',evPayL:'Bonus za wypłatę',payDayL:'Wypłata jest dnia',evLv:['Wył.','Mały','Normalny','Duży'],stkL:'Bonus za serię',stkN:'+5% XP za każdy dzień serii, maksymalnie +50%. Jeden opuszczony dzień w tygodniu jest wybaczany.',btyL:'Nagrody za zwłokę',btyN:'Odkładane zadania zyskują +10% XP dziennie, maksymalnie +100%.',btyLists:'Listy z nagrodami',btyTagsL:'Nigdy dla tych tagów',btyTagsPh:'np. praca, sprawy',careK:'Rodzaje dbania o siebie',careG:{body:'Ciało',food:'Jedzenie',mind:'Głowa',social:'Ludzie',rest:'Odpoczynek'},sset:'Styl dźwięków',ssetN:{soft:'Delikatne',cyber:'Cyberpunk'},quiet:'Tryb cichy (tylko dotknięcie i ukończenie)',stkM:'SERIA {n} DNI',stkMB:'Każde zadanie daje teraz +{p}% XP. Tak trzymaj.',stkGift:'+{c} {u} i bonusowa niespodzianka',shieldT:'TARCZA SERII',shieldB:'Opuściłeś dzień, ale tygodniowa tarcza uratowała serię.',streakTip:'+{p}% XP z serii',evCfgN:'Dni z bonusem zmienisz w Ustawieniach.',showSc:'Skróty',hideSc:'Ukryj skróty',cpHintP:'Naciśnij Enter albo Dodaj.',rewardL:'Nagroda'}});
+U('sv',{tour:{got:'Uppfattat',noTips:'Inga fler tips',tip:'Tips',more:'Fler tips dyker upp första gången du stöter på varje funktion. Hela rundturen finns under ? högst upp.',sc:'Kortkommandon för vana användare',scB:'Medan du skriver ett namn: !1 !2 !3 sätter storleken, #ord lägger till en tagg, @t @r @c @b väljer lista.'},
+ steps:{
+  add:['Lägg till en uppgift','Tryck på ”Ny uppgift”. Skriv ett namn och tryck sedan på en storlek och en lista. Tagg och steg är valfria. Tryck på Lägg till så hamnar den i din lista.'],
+  task:['Gör klart en uppgift','Tryck på rutan till vänster när du är klar. Tryck på namnet för att öppna den: lägg till steg, ändra storlek eller lista, eller ta bort den. Storlekarna ger 10, 25 eller 50 XP som standard, men du kan skriva ett eget tal. En #tagg är bara en etikett för dig.'],
+  boards:['Fyra listor','{today} är det du vill få gjort idag. {routine} nollställs varje morgon, för det du gör varje dag. {contract} är större saker uppdelade i små steg. {backlog} är för någon gång, undanstoppat.'],
+  combo:['Håll igång','Gör klart uppgifter inom 15 minuter från varandra så växer en combo: ×1,5, ×2, upp till ×3 XP. Att bocka ur och i igen ger aldrig dubbelt.'],
+  hud:['Dina framsteg','Högst upp: din nivå, dina {cred} och din serie. Varje dag i rad ger +5% XP på allt, upp till +50%, och en missad dag i veckan förlåts.'],
+  care:['Något för dig också','Din lista håller koll på allt utom dig. En eller två gånger om dagen lägger RunDeck in något litet för kroppen eller huvudet, som att gå ut i fem minuter eller skicka ett sms till någon du gillar. Det syns i blått och ger XP som vilken uppgift som helst. Under {cfg} väljer du vilka sorter du vill ha, eller stänger av det.'],
+  shop:['Dina egna belöningar','I {loot} gör du din egen butik: lägg till saker du faktiskt vill ha, som ett avsnitt av en serie, och sätt ett pris på varje. Köp dem med {cred} du tjänar på uppgifter.'],
+  loot:['Bonusar','Ungefär var fjärde klar uppgift ger en överraskning, som du hittar under {shards} i {loot}. Öppna den med ett snabbt kodspel. Inuti finns extra {cred} till butiken, en kort XP-boost eller nya färger till appen. Tre av samma sort slås ihop till en ovanligare.'],
+  events:['Bonusdagar','Helger ger {wx}× XP och {wc}× {cred}. Dag {pd} varje månad är det lönedag: {pc}× {cred}. Ändra hur stora de är, eller stäng av dem, under {cfg}.'],
+  bounty:['Belöning på gamla uppgifter','En uppgift i {today} som du skjuter upp får en belöning: +10% XP för varje dag den väntar, upp till +100%. Välj vilka listor som räknas, eller undanta taggar, under {cfg}. Varje uppgift har också en egen brytare.'],
+  project:['Projekt','{contract} är för större saker. Öppna ett och lägg till små steg: varje steg ger +5 XP, och när allt är klart får du hela belöningen.'],
+  streak:['Seriebonus','Du har gjort klart något två dagar i rad. Varje dag i serien ger +5% XP på allt, upp till +50%. Missar du en dag i veckan räddar skölden serien.']},
+ lbl:{custom:'eget',newTag:'+ ny',addBtn:'Lägg till',day:'dag',shield:'1 fri miss / vecka',stepEach:'+5 XP per steg'},
+ top:{customXp:'eget',nobL:'Ingen belöning och inte i ”Välj åt mig”',btyChip:'BELÖNING +{p}%',btyChipP:'+{p}% väntebonus',bonuses:'Bonusar',evWkL:'Helgbonus',evPayL:'Lönedagsbonus',payDayL:'Lönedag är dag',evLv:['Av','Liten','Normal','Stor'],stkL:'Seriebonus',stkN:'+5% XP per dag i serien, upp till +50%. En missad dag per vecka förlåts.',btyL:'Väntebelöning',btyN:'Uppgifter du skjuter upp växer med +10% XP per dag, upp till +100%.',btyLists:'Listor som får belöning',btyTagsL:'Aldrig för de här taggarna',btyTagsPh:'t.ex. jobb, admin',careK:'Sorters egenvård',careG:{body:'Kropp',food:'Mat',mind:'Huvud',social:'Människor',rest:'Vila'},sset:'Ljudstil',ssetN:{soft:'Mjuk',cyber:'Cyberpunk'},quiet:'Tyst läge (bara tryck- och klartljud)',stkM:'{n} DAGAR I RAD',stkMB:'Varje uppgift ger nu +{p}% XP. Fortsätt så.',stkGift:'+{c} {u} och en bonusöverraskning',shieldT:'SERIESKÖLD',shieldB:'Du missade en dag, så veckans sköld räddade serien.',streakTip:'+{p}% XP från serien',evCfgN:'Bonusdagar ändrar du under Inställningar.',showSc:'Kortkommandon',hideSc:'Dölj kortkommandon',cpHintP:'Tryck Enter eller Lägg till.',rewardL:'Belöning'}});
+})();
+Object.assign(DICT.en.plain,{kName:'name',kWeight:'size',kBoard:'list',kTag:'tag',kSteps:'steps'});
+Object.assign(DICT.pl.plain,{kName:'nazwa',kWeight:'rozmiar',kBoard:'lista',kTag:'tag',kSteps:'kroki'});
+Object.assign(DICT.sv.plain,{kName:'namn',kWeight:'storlek',kBoard:'lista',kTag:'tagg',kSteps:'steg'});
+
 /* ---------- icons ---------- */
 const I={
  logo:'<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="20" cy="20" r="15" stroke-width="3" stroke-dasharray="74 20" transform="rotate(-58 20 20)"/><path d="M2 20h36" stroke-width="3"/><path d="M20 8l5.5 8.5h-11z" fill="currentColor" stroke="none"/><path d="M15 26h10" stroke-width="2"/></svg>',
@@ -909,12 +995,12 @@ const SKINS=[
 const FONTS=[{k:'readout',n:'Readout'},{k:'chakra',n:'Chakra'},{k:'oxanium',n:'Oxanium'},{k:'plexmono',n:'Plex Mono'},{k:'plain',n:'System'}];
 const GLYPHS=['▸','◆','›','■','•'];
 const PACKS=[
- {n:'Municipal Terminal',s:{skin:'municipal',font:'readout',orn:'barcode',back:'night',glyph:'▸',voice:'corp',scan:.35,glow:1}},
- {n:'Sodium Street',s:{skin:'sodium',font:'chakra',orn:'brackets',back:'grid',glyph:'›',voice:'street',scan:.25,glow:.8}},
- {n:'Matrix Ghost',s:{skin:'matrix',font:'oxanium',orn:'brackets',back:'rain',glyph:'◆',voice:'street',scan:.45,glow:1.3}},
- {n:'Corp Daylight',s:{skin:'corp',font:'plexmono',orn:'barcode',back:'grid',glyph:'■',voice:'corp',scan:.08,glow:.2}},
- {n:'Plain Dark',plain:1,s:{skin:'plain',font:'plain',orn:'none',back:'flat',glyph:'•',voice:'plain',scan:0,glow:0,flicker:false}},
- {n:'Plain Light',plain:1,s:{skin:'paper',font:'plain',orn:'none',back:'flat',glyph:'•',voice:'plain',scan:0,glow:0,flicker:false}}
+ {n:'Municipal Terminal',s:{skin:'municipal',font:'readout',orn:'barcode',back:'night',glyph:'▸',voice:'corp',scan:.35,glow:1,sset:'cyber'}},
+ {n:'Sodium Street',s:{skin:'sodium',font:'chakra',orn:'brackets',back:'grid',glyph:'›',voice:'street',scan:.25,glow:.8,sset:'cyber'}},
+ {n:'Matrix Ghost',s:{skin:'matrix',font:'oxanium',orn:'brackets',back:'rain',glyph:'◆',voice:'street',scan:.45,glow:1.3,sset:'cyber'}},
+ {n:'Corp Daylight',s:{skin:'corp',font:'plexmono',orn:'barcode',back:'grid',glyph:'■',voice:'corp',scan:.08,glow:.2,sset:'cyber'}},
+ {n:'Plain Dark',plain:1,s:{skin:'plain',font:'plain',orn:'none',back:'flat',glyph:'•',voice:'plain',scan:0,glow:0,flicker:false,sset:'soft'}},
+ {n:'Plain Light',plain:1,s:{skin:'paper',font:'plain',orn:'none',back:'flat',glyph:'•',voice:'plain',scan:0,glow:0,flicker:false,sset:'soft'}}
 ];
 const RAR=[{c:5,w:60},{c:15,w:28},{c:40,w:10},{c:100,w:2}];
 const SH_A=['Encrypted','Ghost','Black','Chrome','Static','Neon','Feral','Quiet','Burnt','Mirror','Sodium','Hollow','Red'];
@@ -951,7 +1037,7 @@ function t(k,v){let s=k.split('.').reduce((o,p)=>o==null?o:o[p],D());if(s==null)
 const V=()=>D().voice[S().voice]||D().voice.corp;
 
 /* ---------- state ---------- */
-const DEF={lang:navLang,skin:'municipal',font:'readout',orn:'barcode',back:'night',scan:.35,glow:1,flicker:false,glyph:'▸',voice:'corp',sound:true,vol:.6,haptics:true,motion:matchMedia('(prefers-reduced-motion: reduce)').matches?'reduced':'full',boot:true,hackFreq:2,cSound:'womp',handle:'OPERATOR',avatar:'',avStyle:'duo'};
+const DEF={lang:navLang,skin:'municipal',font:'readout',orn:'barcode',back:'night',scan:.35,glow:1,flicker:false,glyph:'▸',voice:'corp',sound:true,vol:.6,haptics:true,motion:matchMedia('(prefers-reduced-motion: reduce)').matches?'reduced':'full',boot:true,hackFreq:2,cSound:'womp',handle:'OPERATOR',avatar:'',avStyle:'duo',sset:'',quiet:false,careOff:{},evWk:'normal',evPay:'normal',payDay:25,bty:{today:true,contract:false,backlog:false},btyTags:''};
 function seed(lang){
  const d=DICT[lang]||DICT.en,sd=d.seed,c=sd.cats;
  const T=(sk,title,list,diff,cat,subs)=>({id:uid(),sk,title,list,diff,cat,done:false,sample:true,created:now(),subs:(subs||[]).map(x=>({id:uid(),t:x,done:false}))});
@@ -961,7 +1047,7 @@ function seed(lang){
   shards:[],buys:[],hist:{},ach:{},archived:0,streak:{n:0,last:null},combo:{n:0,last:0},focus:null,
   stats:{total:0,bestStreak:0,bestCombo:0,focusMin:0,longFocus:0,wipes:0},set:{...DEF,lang}};
 }
-function norm(s){const b=seed((s&&s.set&&s.set.lang)||navLang);s=Object.assign(b,s||{});s.set=Object.assign({...DEF},s.set||{});s.stats=Object.assign(b.stats,s.stats||{});s.tasks=(s.tasks||[]).map(x=>({subs:[],diff:1,list:'today',...x}));s.shards=(s.shards||[]).map(x=>({enc:false,...x}));return s}
+function norm(s){const b=seed((s&&s.set&&s.set.lang)||navLang);s=Object.assign(b,s||{});s.set=Object.assign({...DEF},s.set||{});s.set.bty=Object.assign({...DEF.bty},s.set.bty||{});s.set.careOff=Object.assign({},s.set.careOff||{});s.stats=Object.assign(b.stats,s.stats||{});s.tasks=(s.tasks||[]).map(x=>({subs:[],diff:1,list:'today',...x}));s.shards=(s.shards||[]).map(x=>({enc:false,...x}));return s}
 let state=null;
 try{const raw=JSON.parse(localStorage.getItem(KEY)||'null');if(raw&&raw.tasks)state=norm(raw)}catch(e){}
 if(!state)state=seed(navLang);
@@ -1174,7 +1260,16 @@ function rollover(){
  const keys=Object.keys(state.hist).sort();while(keys.length>90)delete state.hist[keys.shift()];
  save();
 }
-const streakNow=()=>{const s=state.streak;return(s.last===dk()||s.last===dayOff(-1))?s.n:0};
+const weekKey=(d=new Date())=>{const x=new Date(d);x.setHours(0,0,0,0);x.setDate(x.getDate()-((x.getDay()+6)%7));return dk(x)};
+const shieldFree=()=>(state.streak.shield||'')!==weekKey();
+const streakNow=()=>{const s=state.streak;return(s.last===dk()||s.last===dayOff(-1)||(s.last===dayOff(-2)&&shieldFree()))?s.n:0};
+const DAY=864e5,sod=x=>{const d=new Date(x);d.setHours(0,0,0,0);return d.getTime()};
+const btyTagSet=()=>new Set(String(S().btyTags||'').split(/[\s,#]+/).map(x=>x.trim().toLowerCase()).filter(Boolean));
+function bountyPct(x){if(!x||x.done||x.hack||x.nob||x.list==='routine')return 0;const B=S().bty||{};if(!B[x.list])return 0;if(x.cat&&btyTagSet().has(String(x.cat).toLowerCase()))return 0;
+ const days=Math.round((sod(now())-sod(x.since||x.created||now()))/DAY);return Math.max(0,Math.min(10,days))*10}
+const TXP=x=>x.hack?20:(x.xp>0?x.xp:(DX[x.diff]||10));
+const streakBonus=n=>n>=2?Math.min(50,(n-1)*5):0;
+const MILES=[3,7,14,30];
 
 /* ---------- audio ---------- */
 let AC=null,master=null,hum=null,bus=null;
@@ -1201,7 +1296,7 @@ function filt(ac,type,f,q){const x=ac.createBiquadFilter();x.type=type;x.frequen
 function tone(f,t0,dur,type,v,f2,o){const ac=audio();if(!ac)return;o=o||{};const tt=ac.currentTime+t0;const os=ac.createOscillator(),g=ac.createGain();os.type=type||'sine';os.frequency.setValueAtTime(f,tt);if(o.det)os.detune.value=o.det;if(f2)os.frequency.exponentialRampToValueAtTime(f2,tt+dur*(o.gl||1));
  g.gain.setValueAtTime(.0001,tt);g.gain.exponentialRampToValueAtTime(v||.1,tt+(o.a||.006));g.gain.exponentialRampToValueAtTime(.0001,tt+dur);
  let node=os;if(o.lp){const fl=filt(ac,'lowpass',o.lp,o.q);if(o.lp2)fl.frequency.exponentialRampToValueAtTime(o.lp2,tt+dur*.9);node.connect(fl);node=fl}
- node.connect(g);g.connect(bus);os.start(tt);os.stop(tt+dur+.05)}
+ node.connect(g);g.connect(o.clean?master:bus);os.start(tt);os.stop(tt+dur+.05)}
 function noise(t0,dur,v,freq,o){const ac=audio();if(!ac)return;o=o||{};const tt=ac.currentTime+t0;const n=Math.max(1,Math.floor(ac.sampleRate*dur)),buf=ac.createBuffer(1,n,ac.sampleRate),d=buf.getChannelData(0);for(let i=0;i<n;i++)d[i]=Math.random()*2-1;
  const src=ac.createBufferSource();src.buffer=buf;const f=filt(ac,o.type||'bandpass',freq||2000,o.q||1);if(o.f2)f.frequency.exponentialRampToValueAtTime(o.f2,tt+dur);
  const g=ac.createGain();g.gain.setValueAtTime(o.a?.0001:(v||.05),tt);if(o.a)g.gain.exponentialRampToValueAtTime(v||.05,tt+o.a);g.gain.exponentialRampToValueAtTime(.0001,tt+dur);src.connect(f);f.connect(g);g.connect(bus);src.start(tt)}
@@ -1242,7 +1337,38 @@ const SFX={
  heat(){if(!samp('heat',{vol:.7}))SFX.level()},
  hack(){for(let i=0;i<6;i++)click(i*.03,.06,800+Math.random()*3000);tone(46,.18,.5,'sawtooth',.05,0,{lp:300})}
 };
-function sfx(n,a){try{SFX[n]&&SFX[n](a)}catch(e){}}
+SFX.streak=function(){if(samp('levelup',{rate:1.12,vol:.8}))return;SFX.level()};
+/* Soft set: short clean sine blips, the default for the Plain styles. */
+const bl=(f,t0,d,v,f2)=>tone(f,t0,d,'sine',v,f2,{clean:1,a:.004});
+const SOFT={
+ tap(){bl(1180,0,.045,.03)},
+ nav(i){bl([660,740,830,880,990][i>=0&&i<5?i:0],0,.06,.03)},
+ add(){bl(660,0,.08,.045);bl(880,.06,.1,.04)},
+ done(o){o=typeof o==='object'?o:{n:o};const k=Math.pow(2,(Math.min(o.n||1,6)-1)/12);
+  if(o.hack){bl(740*k,0,.09,.05);bl(988*k,.07,.16,.045);return}
+  bl(784*k,0,.08,.06);bl(1175*k,.07,o.heavy?.2:.13,.055);if(o.heavy)bl(1568*k,.14,.22,.035)},
+ sub(){bl(1046,0,.06,.035)},
+ undo(){bl(660,0,.09,.04,440)},
+ level(){[523.25,659.25,783.99,1046.5].forEach((f,i)=>bl(f,i*.09,.26,.05))},
+ streak(){[659.25,880,1174.66,1567.98].forEach((f,i)=>bl(f,i*.08,.3,.05))},
+ loot(){bl(1318.5,0,.1,.04);bl(1760,.08,.18,.035)},
+ buy(){bl(880,0,.07,.045);bl(1318.5,.06,.12,.04)},
+ err(){bl(330,0,.09,.05);bl(262,.09,.14,.05)},
+ tick(){bl(2000,0,.02,.012)},
+ land(){bl(988,0,.08,.035);bl(1318.5,.06,.12,.03)},
+ boot(){},
+ ach(){[784,988,1318.5].forEach((f,i)=>bl(f,i*.08,.2,.045))},
+ jack(){bl(523.25,0,.12,.045);bl(783.99,.1,.2,.045)},
+ open(){bl(880,0,.05,.025)},
+ key(){bl(1500+Math.random()*300,0,.02,.01)},
+ enter(){bl(1046.5,0,.05,.025)},
+ lang(){bl(880,0,.05,.025);bl(1108.7,.05,.06,.025)},
+ heat(){[659.25,880,1046.5,1318.5].forEach((f,i)=>bl(f,i*.07,.22,.045))},
+ hack(){bl(990,0,.06,.03);bl(740,.07,.1,.025)}
+};
+const SSET=()=>S().sset||(PSKIN()?'soft':'cyber');
+const QUIET_OK=new Set(['tap','done','sub','undo','err']);
+function sfx(n,a){try{if(S().quiet&&!QUIET_OK.has(n))return;const set=SSET()==='soft'?SOFT:SFX;set[n]&&set[n](a)}catch(e){}}
 function startHum(){const ac=audio();if(!ac||hum)return;const g=ac.createGain();g.gain.value=.0001;g.gain.exponentialRampToValueAtTime(.05,ac.currentTime+1.5);const f=ac.createBiquadFilter();f.type='lowpass';f.frequency.value=220;f.Q.value=3;const o1=ac.createOscillator(),o2=ac.createOscillator(),lfo=ac.createOscillator(),lg=ac.createGain();o1.type='sawtooth';o1.frequency.value=41.2;o2.type='sawtooth';o2.frequency.value=41.6;lfo.frequency.value=.07;lg.gain.value=120;lfo.connect(lg);lg.connect(f.frequency);o1.connect(f);o2.connect(f);f.connect(g);g.connect(bus);o1.start();o2.start();lfo.start();hum={g,o:[o1,o2,lfo]}}
 function stopHum(){if(!hum||!AC)return;const h=hum;hum=null;try{h.g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+.6);setTimeout(()=>h.o.forEach(o=>{try{o.stop()}catch(e){}}),700)}catch(e){}}
 function buzz(p){if(S().haptics&&navigator.vibrate){try{navigator.vibrate(p)}catch(e){}}}
@@ -1314,11 +1440,14 @@ function award(base,rect,opt){opt=opt||{};
  const em=evMult();const xp=Math.round(base*mult*em.xp),cr=Math.round(base*mult*em.xp/2*em.cr);
  state.xp+=xp;state.cred+=cr;
  if(opt.task){state.stats.total++;const d=dk();state.hist[d]=(state.hist[d]||0)+1;
-  const s=state.streak;if(s.last!==d){s.n=(s.last===dayOff(-1))?s.n+1:1;s.last=d}state.stats.bestStreak=Math.max(state.stats.bestStreak,s.n)}
+  const s=state.streak;if(s.last!==d){let shield=false;if(s.last===dayOff(-1))s.n++;else if(s.last===dayOff(-2)&&shieldFree()){s.n++;s.shield=weekKey();shield=true}else s.n=1;s.last=d;
+   if(shield)setTimeout(()=>toast(t('shieldT'),t('shieldB'),'c2'),1200);
+   if(MILES.includes(s.n)||(s.n>30&&s.n%30===0))setTimeout(()=>streakMilestone(s.n),1400);else if(s.n>=2)setTimeout(()=>hint('streak'),1600)}
+  state.stats.bestStreak=Math.max(state.stats.bestStreak,s.n)}
  const x=rect?rect.left+rect.width/2:innerWidth/2,y=rect?rect.top+rect.height/2:innerHeight/2;
  burst(x,y,opt.task?34:14);floatTxt(x+(opt.task?40:20),y,'+'+xp+' XP');
  if(mult>1)setTimeout(()=>floatTxt(x+40,y-26,'×'+mult+' '+t('combo'),tok('--warn')),180);
- if(em.xp>1||em.cr>1)setTimeout(()=>floatTxt(x-30,y-48,activeEvents().map(e=>t('events')[e.k][0]).join(' + '),tok('--warn')),320);
+ if(activeEvents().length)setTimeout(()=>floatTxt(x-30,y-48,activeEvents().map(e=>t('events')[e.k][0]).join(' + '),tok('--warn')),320);
  const after=lvl(state.xp).L;
  return{xp,cr,lvUp:after>before?after:0,mult}
 }
@@ -1332,14 +1461,14 @@ function complete(id,el){const tk=findT(id);if(!tk)return;
  if(tk.done){tk.done=false;sfx('undo');save();render();return}
  if(tk.paid){tk.done=true;tk.subs.forEach(s=>{s.done=true;s.paid=true});sfx('tap');save();render();return}
  const rect=el&&el.getBoundingClientRect();
- tk.done=true;tk.paid=true;tk.doneAt=now();tk.subs.forEach(s=>{s.done=true;s.paid=true});
- const res=award(tk.hack?20:(DX[tk.diff]||10),rect,{combo:true,task:true});tk.award=res.xp;tk.awardCr=res.cr;
+ tk.paid=true;tk.doneAt=now();tk.done=true;tk.subs.forEach(s=>{s.done=true;s.paid=true});
+ tk.done=false;const bp=bountyPct(tk);const res=award(Math.round(TXP(tk)*(1+bp/100)),rect,{combo:true,task:true});tk.done=true;if(bp&&rect)setTimeout(()=>floatTxt(rect.left+60,rect.top-44,'+'+bp+'% ▲',tok('--warn')),240);tk.award=res.xp;tk.awardCr=res.cr;
  if(tk.hack){const H=HX();H.lastCat[tk.hc]=now();H.patched=(H.patched||0)+1;if(rect)setTimeout(()=>floatTxt(rect.left+70,rect.top-20,t('patchedF'),tok('--astral')),260);if(Math.random()<.25)setTimeout(dropShard,1400)}
  if(state.target===id)state.target=null;
- sfx('done',{n:state.combo.n,heavy:tk.diff===3||state.combo.n%5===0,hack:!!tk.hack});buzz([18,30,40]);
+ sfx('done',{n:state.combo.n,heavy:tk.diff===3||TXP(tk)>=50||state.combo.n%5===0,hack:!!tk.hack});if(state.combo.n>=2)setTimeout(()=>hint('combo'),1700);buzz([18,30,40]);
  const todays=state.tasks.filter(x=>x.list==='today');if(tk.list==='today'&&todays.length>=3&&todays.every(x=>x.done)){state.stats.wipes++;setTimeout(()=>{toast(t('tWipe'),t('tWipeB'),'cw');burst(innerWidth/2,innerHeight/3,70)},700)}
  ui.just=id;ui.open=null;
- afterGain(res,[pick(V().done),'+'+res.xp+' XP · +'+res.cr+' CRED']);
+ afterGain(res,[pick(V().done),'+'+res.xp+' XP · +'+res.cr+' '+CU()]);
  save();render();setTimeout(()=>{ui.just=null},950);
  if(doneSince(90*6e4)>=4)setTimeout(()=>hackTick('hyper'),2600);
 }
@@ -1353,7 +1482,7 @@ function toggleSub(tid,sid,el){const tk=findT(tid),s=tk&&tk.subs.find(x=>x.id===
 function dropShard(){let r=Math.random()*100,i=0;for(;i<RAR.length;i++){if(r<RAR[i].w)break;r-=RAR[i].w}i=Math.min(i,3);
  const name=pick(SH_A)+' '+pick(SH_B)+' '+pick(SH_C);state.shards.unshift({id:uid(),name,r:i,at:now(),enc:true});
  sfx('loot');toast(t('tLoot',{r:t('rar')[i].toUpperCase()}),name+' · '+t('tLootEnc'),i>=2?'cw':'c2');
- if(i>=2)burst(innerWidth/2,innerHeight*.75,50,[tok('--warn'),tok('--accent2')]);save();renderHud()}
+ if(i>=2)burst(innerWidth/2,innerHeight*.75,50,[tok('--warn'),tok('--accent2')]);save();renderHud();setTimeout(()=>hint('drop'),2600)}
 function checkAch(){let d=0;ACH.forEach(a=>{if(!state.ach[a.k]&&a.t(state)){state.ach[a.k]=now();const [n,ds]=t('achs')[a.k];setTimeout(()=>{toast(t('tAch',{n}),ds,'cw');sfx('ach')},d*900);d++}});if(d)save()}
 function levelUp(L){sfx('level');buzz([40,60,80]);const app=$('#app');app.classList.remove('shake');void app.offsetWidth;app.classList.add('shake');
  burst(innerWidth/2,innerHeight/2,90);const lt=t('level')+' '+L;
@@ -1386,14 +1515,24 @@ const EVENTS=[
  {k:'weekend',on:d=>d.getDay()===0||d.getDay()===6,xp:1.5,cr:2,end:d=>{let x=nextMidnight(d);while(x.getDay()!==1)x=nextMidnight(x);return x}},
  {k:'payday',on:d=>d.getDate()===25,xp:1,cr:2,end:d=>nextMidnight(d)}
 ];
-const activeEvents=()=>{const d=new Date();return EVENTS.filter(e=>e.on(d))};
-function evMult(){let xp=1,cr=1;activeEvents().forEach(e=>{xp*=e.xp;cr*=e.cr});const b=buffNow();if(b)xp*=b.x;return{xp,cr}}
+const EVL={off:null,small:[1.25,1.5],normal:[1.5,2],big:[2,3]},PVL={off:null,small:[1,1.5],normal:[1,2],big:[1,3]};
+const payDayOf=d=>Math.min(+S().payDay||25,new Date(d.getFullYear(),d.getMonth()+1,0).getDate());
+const nf=x=>String(x).replace('.',S().lang==='en'?'.':',');
+const activeEvents=()=>{const d=new Date(),out=[];const w=EVL[S().evWk||'normal'],p=PVL[S().evPay||'normal'];
+ if(w&&(d.getDay()===0||d.getDay()===6))out.push({...EVENTS[0],xp:w[0],cr:w[1]});
+ if(p&&d.getDate()===payDayOf(d))out.push({...EVENTS[1],xp:p[0],cr:p[1]});return out};
+function evMult(){let xp=1,cr=1;activeEvents().forEach(e=>{xp*=e.xp;cr*=e.cr});const b=buffNow();if(b)xp*=b.x;xp*=1+streakBonus(streakNow())/100;return{xp,cr}}
 const buffNow=()=>state.buff&&now()<state.buff.until?state.buff:null;
 function evLeft(e){const ms=e.end(new Date())-now(),h=Math.floor(ms/36e5),m=Math.floor(ms%36e5/6e4),sec=Math.floor(ms%6e4/1e3);return(h?h+'h ':'')+z2(m)+'m '+z2(sec)+'s'}
-function evTags(e){return(e.xp>1?'XP ×'+e.xp+' ':'')+(e.cr>1?(PL()?t('credits'):'CRED')+' ×'+e.cr:'')}
+function evTags(e){return(e.xp>1?'XP ×'+nf(e.xp)+' ':'')+(e.cr>1?(PL()?t('credits'):'CRED')+' ×'+nf(e.cr):'')}
+function streakMilestone(n){const p=streakBonus(n),c=n*5;state.cred+=c;save();
+ const go=()=>{if($('#ovl').innerHTML||tourOn){setTimeout(go,1500);return}
+  sfx('streak');buzz([30,60,30,60,60]);burst(innerWidth/2,innerHeight/2,90,[tok('--warn'),tok('--accent'),tok('--accent2')]);
+  $('#ovl').innerHTML='<div class="ov" data-act="closeov"><div class="ovbox stkbox"><div class="stkflame">'+I.flame+'<b>'+n+'</b></div><div class="glitch" data-t="'+esc(t('stkM',{n}))+'" style="color:var(--warn);font-size:clamp(30px,9vw,56px)">'+esc(t('stkM',{n}))+'</div><p style="margin:0;max-width:420px;font-size:16px">'+esc(t('stkMB',{p}))+'</p><div class="lab" style="color:var(--warn);font-size:13px">'+esc(t('stkGift',{c,u:CU()}))+'</div><button class="btn pri" data-act="closeov">'+esc(t('cont'))+'</button></div></div>';
+  renderHud();setTimeout(dropShard,900)};go()}
 function eventIntro(){if(!state.tutDone&&!tourOn&&!document.getElementById('boot')&&!document.getElementById('gate')){setTimeout(()=>{if(!state.tutDone&&!tourOn&&!$('#ovl').innerHTML)startTour()},250);return}const evs=activeEvents().filter(e=>!(state.seenEv||{})[e.k+dk()]);if(!evs.length||$('#ovl').innerHTML)return;
  const e=evs[0];state.seenEv=state.seenEv||{};evs.forEach(x=>state.seenEv[x.k+dk()]=1);save();
- const [n,d]=t('events')[e.k];sfx('heat');buzz([30,50,30,50]);burst(innerWidth/2,innerHeight/2,80,[tok('--warn'),tok('--accent'),tok('--accent2')]);
+ const n=t('events')[e.k][0],d=t('events.'+e.k+'.1',{x:nf(e.xp),c:nf(e.cr)})+' '+t('evCfgN');sfx('heat');buzz([30,50,30,50]);burst(innerWidth/2,innerHeight/2,80,[tok('--warn'),tok('--accent'),tok('--accent2')]);
  $('#ovl').innerHTML='<div class="ov" data-act="closeov"><div class="ovbox"><div class="evbar" style="width:100%;max-width:420px;justify-content:center"><b>'+esc(t('evOnline'))+'</b></div><div class="glitch" data-t="'+esc(n)+'" style="color:var(--warn);font-size:clamp(34px,10vw,64px)">'+esc(n)+'</div><p style="margin:0;max-width:420px;font-size:16px">'+esc(d)+'</p><div class="lab" style="color:var(--warn);font-size:13px">'+esc(evTags(e))+' · '+esc(t('evEnds',{t:evLeft(e)}))+'</div><button class="btn pri" data-act="closeov">'+esc(t('evGo'))+' ▸</button></div></div>'}
 
 /* ---------- care hacks: KIN.daemon ----------
@@ -1415,7 +1554,8 @@ function HX(){if(!state.hx)state.hx={day:'',count:0,last:0,cur:null,lastHack:{},
 const doneSince=ms=>state.tasks.filter(x=>x.done&&x.doneAt&&now()-x.doneAt<ms).length;
 const liveHack=()=>state.tasks.find(x=>x.hack&&!x.done);
 function pickHack(ctx){const H=HX(),d=new Date(),h=d.getHours()+d.getMinutes()/60,n=now();
- const cands=HACKS.filter(x=>h>=x.w[0]&&h<x.w[1]&&n-(H.lastHack[x.id]||0)>x.cd*36e5);if(!cands.length)return null;
+ const CG={water:'body',hyg:'body',move:'body',eyes:'body',air:'body',eat:'food',mind:'mind',social:'social',sleep:'rest',home:'rest'},off=S().careOff||{};
+ const cands=HACKS.filter(x=>!off[CG[x.c]]&&h>=x.w[0]&&h<x.w[1]&&n-(H.lastHack[x.id]||0)>x.cd*36e5);if(!cands.length)return null;
  const wt=cands.map(x=>{let w=x.b;if(ctx==='hyper'||ctx==='focus')w*=HYPER_BOOST[x.c]||.6;if(ctx==='idle')w*=IDLE_BOOST[x.c]||.7;const since=(n-(H.lastCat[x.c]||0))/36e5;w*=1+Math.min(since,24)/8;return w});
  let r=Math.random()*wt.reduce((a,b)=>a+b,0);for(let i=0;i<cands.length;i++){r-=wt[i];if(r<=0)return cands[i]}return cands[cands.length-1]}
 function expireHacks(){const n=now(),before=state.tasks.length;state.tasks=state.tasks.filter(x=>!(x.hack&&!x.done&&n>x.exp));if(state.tasks.length!==before){if(state.target&&!findT(state.target))state.target=null;save();render()}}
@@ -1433,7 +1573,7 @@ function hackTick(force){const f=+S().hackFreq;const H=HX(),n=now();
  // slip it in among today's open tasks, not at the end
  const open=state.tasks.filter(y=>y.list==='today'&&!y.done).map(y=>y.created).sort((a,b)=>a-b);
  const created=open.length>1?(open[Math.floor(open.length/2)-1]+open[Math.floor(open.length/2)])/2-.5:n;
- state.tasks.push({id:uid(),title:t('hacks')[x.id],hack:x.id,hc:x.c,list:'today',diff:1,cat:'',done:false,created,subs:[],exp:n+3*36e5,ctx,fl:Math.floor(Math.random()*5),hn:doneSince(90*6e4),hex:Math.floor(Math.random()*0xffff).toString(16).padStart(4,'0')});
+ state.tasks.push({id:uid(),title:t('hacks')[x.id],hack:x.id,hc:x.c,list:'today',diff:1,cat:'',done:false,created,subs:[],exp:n+3*36e5,ctx,fl:Math.floor(Math.random()*5),hn:doneSince(90*6e4),hex:Math.floor(Math.random()*0xffff).toString(16).padStart(4,'0')});setTimeout(()=>hint('care'),1800);
  H.lastHack[x.id]=n;H.count++;H.last=n;save();render()}
 function hackFlavor(c){if(c.ctx==='hyper')return t('flavHyper',{n:Math.max(4,c.hn||4)});if(c.ctx==='focus')return t('flavFocus');if(c.ctx==='idle')return t('flavIdle');return t('flav')[c.fl||0]}
 const GL='░▒▓#$%&/\\<>01ｱｶｻﾀ';
@@ -1451,18 +1591,27 @@ function applyToken(tkn){const d=ui.draft;let m;
  if((m=tkn.match(/^@(\S+)/))&&LMAP[m[1].toLowerCase()]){d.list=LMAP[m[1].toLowerCase()];return'list'}
  return null}
 function knownTags(){const set=new Set();state.tasks.forEach(x=>{if(x.cat)set.add(x.cat)});if(ui.draft.cat)set.add(ui.draft.cat);return[...set].slice(0,8)}
-function composerInner(){const d=ui.draft,m=evMult(),base=DX[d.diff]+d.steps.length*5,xp=Math.round(DX[d.diff]*m.xp),cr=Math.round(DX[d.diff]*m.xp/2*m.cr),ev=m.xp>1||m.cr>1;
+function composerInner(){const d=ui.draft,m=evMult(),bx=d.xp>0?d.xp:DX[d.diff],xp=Math.round(bx*m.xp),cr=Math.round(bx*m.xp/2*m.cr),ev=activeEvents().length>0;
  const tok=(k,v,label,on)=>'<button type="button" class="tok '+(on?'on':'')+(ui.flash===k?' flash':'')+'" data-act="cpset" data-k="'+k+'" data-v="'+esc(v)+'">'+esc(label)+'</button>';
- const L=(n,html,ind)=>'<div class="ln'+(ind?' in':'')+'" style="--i:'+n+'"><i>'+n+'</i><div class="lc">'+html+'</div></div>';
+ const L=(n,html,ind)=>(PL()&&(n===1))?'':'<div class="ln'+(ind?' in':'')+'" style="--i:'+n+'"><i>'+n+'</i><div class="lc">'+html+'</div></div>';
+ if(PL())return'<div class="code pform" id="cpcode">'+
+ L(2,'<label class="k" for="cp-name">'+esc(t('kName'))+'</label><input id="cp-name" class="cin" autocomplete="off" enterkeyhint="go" value="'+esc(d.title)+'" placeholder="'+esc(t('cpName'))+'">',1)+
+ L(3,'<span class="k">'+esc(t('kWeight'))+'</span>'+[1,2,3].map(n=>tok('diff',n,t('diff')[n]+' +'+DX[n],d.diff===n&&!(d.xp>0))).join('')+'<label class="sr" for="cp-xp">'+esc(t('customXp'))+' XP</label><input id="cp-xp" class="cin sm xpc'+(d.xp>0?' on':'')+'" type="number" inputmode="numeric" min="1" max="999" autocomplete="off" placeholder="'+esc(t('customXp'))+' XP" value="'+(d.xp>0?d.xp:'')+'">',1)+
+ L(4,'<span class="k">'+esc(t('kBoard'))+'</span>'+LIST_KEYS.map(k=>tok('list',k,t('lists')[k][0],d.list===k)).join(''),1)+
+ L(5,'<span class="k">'+esc(t('kTag'))+'</span>'+tok('cat','',t('none'),!d.cat)+knownTags().map(c=>tok('cat',c,'#'+c,d.cat===c)).join('')+'<label class="sr" for="cp-tag">'+esc(t('tagNew'))+'</label><input id="cp-tag" class="cin sm" autocomplete="off" data-enter="cptag" placeholder="'+esc(t('tagNew'))+'">',1)+
+ L(6,'<span class="k">'+esc(t('kSteps'))+'</span>'+d.steps.map((x,i)=>'<button type="button" class="tok on" data-act="cpdelstep" data-v="'+i+'">'+esc(x)+'<span class="x">✕</span></button>').join('')+'<label class="sr" for="cp-step">'+esc(t('stepAdd'))+'</label><input id="cp-step" class="cin sm" autocomplete="off" data-enter="cpstep" placeholder="'+esc(t('stepAdd'))+'">',1)+
+ '<div class="ln in pfoot"><div class="lc"><span class="k">'+esc(t('rewardL'))+'</span><b>+'+xp+' XP · +'+cr+' '+CU()+'</b>'+(d.steps.length?' <span class="faint">+ '+d.steps.length*5+' XP</span>':'')+(ev?' <em>· '+esc(activeEvents().map(e=>t('events')[e.k][0]).join(' + '))+'</em>':'')+'</div></div>'+
+ '</div><div class="cpfoot" id="cpfoot"><button class="btn pri" data-act="deploy">'+esc(t('run'))+'</button><button class="btn sm" data-act="deploynext">'+esc(t('runNext'))+'</button><button type="button" class="linkbtn schelp" data-act="cpsc">'+esc(ui.cpSc?t('hideSc'):t('showSc'))+'</button></div>'+(ui.cpSc?'<div class="schint">'+esc(t('tour.scB'))+'</div>':'')+
+ (ui.termLog.length?'<div class="tout">'+ui.termLog.map(l=>'<div class="'+l.c+'">'+esc(l.m)+'</div>').join('')+'</div>':'');
  return'<div class="code" id="cpcode">'+
  L(1,'<span class="kw">run</span> <span class="fn">new_task</span><span class="pn">({</span>')+
  L(2,'<label class="k" for="cp-name">'+esc(t('kName'))+':</label><span class="q">"</span><input id="cp-name" class="cin" autocomplete="off" enterkeyhint="go" value="'+esc(d.title)+'" placeholder="'+esc(t('cpName'))+'"><span class="q">"</span>',1)+
- L(3,'<span class="k">'+esc(t('kWeight'))+':</span>'+[1,2,3].map(n=>tok('diff',n,t('diff')[n]+' +'+DX[n],d.diff===n)).join(''),1)+
+ L(3,'<span class="k">'+esc(t('kWeight'))+':</span>'+[1,2,3].map(n=>tok('diff',n,t('diff')[n]+' +'+DX[n],d.diff===n&&!(d.xp>0))).join('')+'<label class="sr" for="cp-xp">'+esc(t('customXp'))+' XP</label><input id="cp-xp" class="cin sm xpc'+(d.xp>0?' on':'')+'" type="number" inputmode="numeric" min="1" max="999" autocomplete="off" placeholder="'+esc(t('customXp'))+' XP" value="'+(d.xp>0?d.xp:'')+'">',1)+
  L(4,'<span class="k">'+esc(t('kBoard'))+':</span>'+LIST_KEYS.map(k=>tok('list',k,t('lists')[k][0],d.list===k)).join(''),1)+
  L(5,'<span class="k">'+esc(t('kTag'))+':</span>'+tok('cat','',t('none'),!d.cat)+knownTags().map(c=>tok('cat',c,'#'+c,d.cat===c)).join('')+'<label class="sr" for="cp-tag">'+esc(t('tagNew'))+'</label><input id="cp-tag" class="cin sm" autocomplete="off" data-enter="cptag" placeholder="'+esc(t('tagNew'))+'">',1)+
  L(6,'<span class="k">'+esc(t('kSteps'))+':</span>'+d.steps.map((x,i)=>'<button type="button" class="tok on" data-act="cpdelstep" data-v="'+i+'">'+esc(x)+'<span class="x">✕</span></button>').join('')+'<label class="sr" for="cp-step">'+esc(t('stepAdd'))+'</label><input id="cp-step" class="cin sm" autocomplete="off" data-enter="cpstep" placeholder="'+esc(t('stepAdd'))+'">',1)+
  L(7,'<span class="pn">})</span> <span class="cm">// '+esc(t('reward'))+': <b>+'+xp+' XP · +'+cr+' '+CU()+'</b>'+(d.steps.length?' + '+d.steps.length*5+' XP':'')+(ev?' <em>· '+esc(activeEvents().map(e=>t('events')[e.k][0]).join(' + '))+'</em>':'')+'</span>')+
- '</div><div class="cpfoot" id="cpfoot"><button class="btn pri" data-act="deploy">▸ '+esc(t('run'))+'</button><button class="btn sm" data-act="deploynext">'+esc(t('runNext'))+'</button><span class="hint">'+esc(t('cpHint'))+'</span></div>'+
+ '</div><div class="cpfoot" id="cpfoot"><button class="btn pri" data-act="deploy">'+(PL()?'':'▸ ')+esc(t('run'))+'</button><button class="btn sm" data-act="deploynext">'+esc(t('runNext'))+'</button><button type="button" class="linkbtn schelp" data-act="cpsc">'+esc(ui.cpSc?t('hideSc'):t('showSc'))+'</button></div>'+(ui.cpSc?'<div class="schint">'+esc(t('tour.scB'))+'</div>':'')+
  (ui.termLog.length?'<div class="tout">'+ui.termLog.map(l=>'<div class="'+l.c+'">'+esc(l.m)+'</div>').join('')+'</div>':'')}
 function vComposer(){return'<section class="panel composer" id="composer"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(t('composer'))+'<span class="jp">作成</span><span class="end">'+(V().tag?'<span class="faint tagl" style="letter-spacing:.1em">'+esc(V().tag)+'</span>':'')+'<span class="bc"></span></span></div><div id="cpbody">'+composerInner()+'</div></section>'}
 function paintComposer(focusId){const b=$('#cpbody');if(!b)return;b.innerHTML=composerInner();ui.flash=null;
@@ -1471,9 +1620,9 @@ function deploy(keep){const d=ui.draft;let v=(d.title||'').trim();
  if(v[0]==='/'){d.title='';$('#ovl').innerHTML='';term(v);return}
  const words=[];v.split(/\s+/).forEach(w=>{if(!w)return;if(!applyToken(w))words.push(w)});v=words.join(' ');
  if(!v){sfx('err');buzz(40);ui.termLog.push({m:'✕ '+t('cpEmpty'),c:'er'});ui.termLog=ui.termLog.slice(-3);paintComposer('cp-name');const c=$('#cpcode');if(c)c.classList.add('err');return}
- const tk={id:uid(),title:v,list:d.list,diff:d.diff,cat:d.cat,done:false,created:now(),subs:d.steps.map(x=>({id:uid(),t:x,done:false}))};state.tasks.push(tk);
- const m=evMult(),line='✓ '+t('compiled')+' · '+V().add+' · '+t('deployed',{b:t('lists')[d.list][0].toUpperCase()})+' · +'+Math.round(DX[d.diff]*m.xp)+' XP';
- ui.draft={title:'',diff:1,list:d.list,cat:'',steps:[]};ui.showBack=ui.showBack||d.list==='backlog';save();
+ const tk={id:uid(),title:v,list:d.list,diff:d.diff,cat:d.cat,done:false,created:now(),subs:d.steps.map(x=>({id:uid(),t:x,done:false}))};if(d.xp>0)tk.xp=Math.min(999,d.xp);state.tasks.push(tk);setTimeout(()=>hint(tk.list==='contract'?'project':'lists'),2200);
+ const m=evMult(),line='✓ '+t('compiled')+' · '+V().add+' · '+t('deployed',{b:t('lists')[d.list][0].toUpperCase()})+' · +'+Math.round(TXP(tk)*m.xp)+' XP';
+ ui.draft={title:'',diff:1,list:d.list,cat:'',steps:[],xp:0};ui.showBack=ui.showBack||d.list==='backlog';save();
  if(keep){ui.termLog.push({m:line,c:'ok'});ui.termLog=ui.termLog.slice(-3);sfx('add');setTimeout(()=>sfx('sub'),90);buzz([10,30,10]);ui.just=tk.id;render();paintComposer('cp-name');const c=$('#cpcode');if(c){c.classList.add('compiled');const r=c.getBoundingClientRect();burst(r.right-60,r.bottom-20,22,[tok('--ok'),tok('--accent2')])}setTimeout(()=>{ui.just=null},950);return}
  const foot=$('#cpfoot');if(foot)foot.innerHTML='<div class="cprog"><i id="cpbar"></i></div><span class="hint" style="color:var(--ok)">'+esc(t('compiling'))+'…</span>';
  const c=$('#cpcode');if(c)c.classList.add('compiled');
@@ -1495,7 +1644,7 @@ function closeCompiler(){const w=$('.term-win');sfx('tap');if(!w){$('#ovl').inne
 function cmdBar(){if(PL())return'<button class="cmdbar plainbar" data-act="opencp"><span class="cb-main"><span class="cb-plus">+</span><span class="cb-ph">'+esc(t('cpOpen'))+'</span></span><span class="cb-btn">'+esc(t('newBtn'))+'</span></button>';return'<button class="cmdbar" data-act="opencp"><span class="cb-main"><span class="cb-prompt">'+esc((S().handle||'operator').toLowerCase())+'@meridian:~$</span><span class="cb-code"><span class="kw">run</span> <span class="fn">new_task</span><span class="pn">(</span><span class="cb-ph">'+esc(t('cpOpen'))+'</span><span class="pn">)</span><span class="cur"></span></span></span><span class="cb-btn">+ '+esc(t('newBtn').toUpperCase())+'<span class="cb-k">N</span></span></button>'}
 
 /* ---------- roulette ---------- */
-function openTasks(){let c=state.tasks.filter(x=>!x.done&&(x.list==='today'||x.list==='contract'));if(!c.length)c=state.tasks.filter(x=>!x.done&&x.list==='routine');if(!c.length)c=state.tasks.filter(x=>!x.done);return c}
+function openTasks(){let c=state.tasks.filter(x=>!x.done&&!x.nob&&(x.list==='today'||x.list==='contract'));if(!c.length)c=state.tasks.filter(x=>!x.done&&x.list==='routine');if(!c.length)c=state.tasks.filter(x=>!x.done);return c}
 function roulette(){if(ui.spinning)return;const c=openTasks();if(!c.length){toast(t('tNoT'),t('tAddF'));sfx('err');return}
  if(ui.view!=='board'){ui.view='board';render()}
  ui.spinning=true;const el=$('#tname');const final=pick(c);let i=0,steps=c.length===1?6:16+Math.floor(Math.random()*6),delay=45;
@@ -1567,7 +1716,7 @@ function fuse(r){const pool=state.shards.filter(x=>!x.enc&&x.r===r).sort((a,b)=>
 
 /* ---------- incoming call (focus debrief) ---------- */
 let ring=null;
-function incomingCall(mins,r){buzz([400,200,400,200,400]);ring=samp('call',{vol:.7,loop:true});if(!ring){sfx('jack')}
+function incomingCall(mins,r){buzz([400,200,400,200,400]);ring=(SSET()==='soft'||S().quiet)?null:samp('call',{vol:.7,loop:true});if(!ring){sfx('jack')}
  const done=()=>{if(ring){ring.stop();ring=null}};
  ui.call={mins,r};
  $('#ovl').innerHTML='<div class="ov callov"><div class="ovbox"><div class="callring"><span class="kinav"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 6l38 22v44L50 94 12 72V28z" fill="none" stroke="var(--warn)" stroke-width="2"/><path d="M50 20l26 15v30L50 80 24 65V35z" fill="var(--warn)" opacity=".12"/><path d="M26 50q24-22 48 0q-24 22-48 0z" fill="none" stroke="var(--warn)" stroke-width="2.5"/><circle cx="50" cy="50" r="7" fill="var(--warn)"/></svg></span></div><div class="k">'+esc(t('callIn'))+'</div><div class="callname">KIN.daemon</div><div class="lab" style="letter-spacing:.3em">· · ·</div><div class="row" style="justify-content:center"><button class="btn hk2" data-act="callans">'+esc(t('answer'))+'</button><button class="btn" data-act="callrej">'+esc(t('decline'))+'</button></div></div></div>';
@@ -1582,7 +1731,7 @@ const lists=()=>LIST_KEYS.map(k=>({k,n:t('lists')[k][0],empty:t('lists')[k][1],j
 function renderHud(){const L=lvl(state.xp),s=S(),st=streakNow();
  const c=state.combo,cl=Math.max(0,15*60e3-(now()-c.last)),comboOn=c.n>=2&&cl>0,mult=Math.min(3,1+.5*(c.n-1));
  $('#hud').innerHTML='<div class="hrow"><div class="brand">'+I.logo+'<div><div class="bname g">RUNDECK</div><div class="bsub">'+(PL()?(s.handle&&s.handle!=='OPERATOR'?esc(s.handle):''):'Meridian Municipal Grid · '+esc(s.handle||'OPERATOR'))+'</div></div></div>'+
- '<div class="hstats"><div class="strip"><span class="seg lvs"><small>LV</small><b class="g">'+L.L+'</b></span><span class="seg crs" title="'+esc(t('credits'))+'">'+I.cred+'<b>'+state.cred+'</b></span><span class="seg sts '+(st?'':'cold')+'" title="'+esc(t('streakT'))+'">'+I.flame+'<b>'+st+'</b></span></div>'+'<div class="tools"><button class="tbtn helpb" data-act="tour" aria-label="'+esc(t('tourBtn'))+'" title="'+esc(t('tourBtn'))+'">?</button><button class="tbtn langb" data-act="langov" aria-label="'+esc(t('language'))+'">'+s.lang.toUpperCase()+'</button><button class="tbtn" data-act="mute" aria-label="'+esc(s.sound?t('mute'):t('unmute'))+'">'+(s.sound?I.son:I.soff)+'</button></div>'+'<div class="avwrap"><button class="avbtn" data-act="go" data-v="stats" aria-label="'+esc(t('profile'))+'">'+avatarHtml('s')+'<i id="syncdot" class="sync"></i></button>'+(SB_ON?'<div class="avmenu" role="menu"><div class="avm-h">'+esc(sbUser?(sbUser.email||S().handle):t('netLocalS'))+'</div>'+(sbUser?'<button role="menuitem" data-act="signout">'+I.pwr+esc(t('signOut'))+'</button>':'<button role="menuitem" data-act="signin">'+I.pwr+esc(t('signIn'))+'</button>')+'</div>':'')+'</div></div></div>'+
+ '<div class="hstats"><div class="strip"><span class="seg lvs"><small>LV</small><b class="g">'+L.L+'</b></span><span class="seg crs" title="'+esc(t('credits'))+'">'+I.cred+'<b>'+state.cred+'</b></span><span class="seg sts '+(st?'':'cold')+(streakBonus(st)?' hot':'')+'" title="'+esc(t('streakT')+(streakBonus(st)?' · '+t('streakTip',{p:streakBonus(st)}):''))+'">'+I.flame+'<b>'+st+'</b>'+(streakBonus(st)?'<small class="sbon">+'+streakBonus(st)+'%</small>':'')+'</span></div>'+'<div class="tools"><button class="tbtn helpb" data-act="tour" aria-label="'+esc(t('tourBtn'))+'" title="'+esc(t('tourBtn'))+'">?</button><button class="tbtn langb" data-act="langov" aria-label="'+esc(t('language'))+'">'+s.lang.toUpperCase()+'</button><button class="tbtn" data-act="mute" aria-label="'+esc(s.sound?t('mute'):t('unmute'))+'">'+(s.sound?I.son:I.soff)+'</button></div>'+'<div class="avwrap"><button class="avbtn" data-act="go" data-v="stats" aria-label="'+esc(t('profile'))+'">'+avatarHtml('s')+'<i id="syncdot" class="sync"></i></button>'+(SB_ON?'<div class="avmenu" role="menu"><div class="avm-h">'+esc(sbUser?(sbUser.email||S().handle):t('netLocalS'))+'</div>'+(sbUser?'<button role="menuitem" data-act="signout">'+I.pwr+esc(t('signOut'))+'</button>':'<button role="menuitem" data-act="signin">'+I.pwr+esc(t('signIn'))+'</button>')+'</div>':'')+'</div></div></div>'+
  '<div class="xpw"><div class="xpbar" role="progressbar" aria-valuemin="0" aria-valuemax="'+L.need+'" aria-valuenow="'+L.into+'"><div class="xpfill" style="width:'+(L.into/L.need*100).toFixed(1)+'%"></div></div><div class="xpl">'+L.into+'/'+L.need+' XP · '+esc(rank(L.L).toUpperCase())+'</div></div>'+
  '<div class="combo '+(comboOn?'on':'')+(comboOn&&ui.comboSeen!==c.n?' pop':'')+'" id="combo"><span>×'+mult+' '+esc(t('combo'))+'</span><div class="cbar"><i id="cbar" style="width:'+(cl/9000).toFixed(1)+'%"></i></div><span class="faint" id="cleft" style="font-family:var(--fu);font-size:11px">'+mmss(cl/1000)+'</span></div>'+
  (buffNow()?'<button class="evbar buffbar" data-act="go" data-v="loot"><b>◆ '+esc(t('overclock'))+'</b><span>XP ×'+buffNow().x+'</span><span class="r" id="buffleft">'+mmss((buffNow().until-now())/1000)+'</span></button>':'')+
@@ -1594,12 +1743,13 @@ function pips(d){return'<span class="pips" title="'+esc(t('diff')[d])+'">'+[1,2,
 function taskHtml(x){const n=x.subs.length,dn=x.subs.filter(s=>s.done).length,op=ui.open===x.id;
  return'<li class="task '+(x.hack?'hk ':'')+(x.done?'done ':'')+(ui.just===x.id?'just ':'')+(op?'open':'')+'">'+
  '<div class="trow"><button class="chk" data-act="done" data-id="'+x.id+'" aria-label="'+esc((x.done?t('undo'):t('complete'))+' '+x.title)+'"><span>'+I.chk+'</span></button>'+
- '<button class="tb" data-act="open" data-id="'+x.id+'" aria-expanded="'+op+'"><div class="tt"'+(x.hack?' data-t="'+esc(x.title)+'"':'')+'>'+esc(x.title)+'</div><div class="tm">'+pips(x.diff)+(x.cat?'<span class="chip">#'+esc(x.cat)+'</span>':'')+(n?'<span class="chip">'+esc(t('stepsChip',{a:dn,b:n}))+'</span>':'')+(state.target===x.id?'<span class="chip tg">'+esc(t('tgt'))+'</span>':'')+(x.sample?'<span class="chip">'+esc(t('sample'))+'</span>':'')+(x.hack?'<span class="hxid">0x'+esc(x.hex||'')+'</span>':'')+'</div></button>'+
- '<span class="xpv">+'+(x.hack?20:DX[x.diff])+'</span></div>'+
+ '<button class="tb" data-act="open" data-id="'+x.id+'" aria-expanded="'+op+'"><div class="tt"'+(x.hack?' data-t="'+esc(x.title)+'"':'')+'>'+esc(x.title)+'</div><div class="tm">'+pips(x.diff)+(x.cat?'<span class="chip">#'+esc(x.cat)+'</span>':'')+(n?'<span class="chip">'+esc(t('stepsChip',{a:dn,b:n}))+'</span>':'')+(bountyPct(x)?'<span class="chip bty">▲ '+esc(t(PL()?'btyChipP':'btyChip',{p:bountyPct(x)}))+'</span>':'')+(state.target===x.id?'<span class="chip tg">'+esc(t('tgt'))+'</span>':'')+(x.sample?'<span class="chip">'+esc(t('sample'))+'</span>':'')+(x.hack?'<span class="hxid">0x'+esc(x.hex||'')+'</span>':'')+'</div></button>'+
+ '<span class="xpv">+'+Math.round(TXP(x)*(1+bountyPct(x)/100))+'</span></div>'+
  (op?'<div class="ed">'+(x.hack?'<div class="hkrev">&gt; '+esc(t('injected'))+' · '+esc(hackFlavor(x))+'</div>':'')+
   '<div class="edl"><span class="lab">'+esc(t('steps'))+'</span><ul class="subs">'+x.subs.map(s=>'<li class="sub '+(s.done?'done':'')+'"><button class="sc" data-act="sub" data-id="'+x.id+'" data-s="'+s.id+'" aria-label="'+esc(t('toggleStep'))+'"><span></span></button><span class="st">'+esc(s.t)+'</span><button class="sx" data-act="delsub" data-id="'+x.id+'" data-s="'+s.id+'" aria-label="'+esc(t('removeStep'))+'">✕</button></li>').join('')+'</ul>'+
   '<input class="inp" id="sub-'+x.id+'" data-enter="addsub" data-id="'+x.id+'" placeholder="'+esc(t('stepPh'))+'" autocomplete="off"></div>'+
-  (x.hack?'':'<div class="edl"><span class="lab">'+esc(t('weight'))+'</span><div class="seg">'+[1,2,3].map(d=>'<button class="'+(x.diff===d?'on':'')+'" data-act="diff" data-id="'+x.id+'" data-v="'+d+'">'+esc(t('diff')[d])+' +'+DX[d]+'</button>').join('')+'</div></div>')+
+  (x.hack?'':'<div class="edl"><span class="lab">'+esc(t('weight'))+'</span><div class="xprow"><div class="seg">'+[1,2,3].map(d=>'<button class="'+(x.diff===d&&!x.xp?'on':'')+'" data-act="diff" data-id="'+x.id+'" data-v="'+d+'">'+esc(t('diff')[d])+' +'+DX[d]+'</button>').join('')+'</div><label class="xpin'+(x.xp?' on':'')+'"><span>XP</span><input type="number" inputmode="numeric" min="1" max="999" data-xp="'+x.id+'" value="'+(x.xp||'')+'" placeholder="'+esc(t('customXp'))+'" aria-label="'+esc(t('customXp'))+' XP"></label></div></div>'+
+  (x.list==='routine'?'':'<div class="edl"><div class="tog"><span>'+esc(t('nobL'))+'</span><button class="sw2 '+(x.nob?'on':'')+'" data-act="nob" data-id="'+x.id+'" role="switch" aria-checked="'+!!x.nob+'" aria-label="'+esc(t('nobL'))+'"></button></div></div>'))+
   '<div class="edl"><span class="lab">'+esc(t('boardL'))+'</span><div class="seg">'+lists().map(l=>'<button class="'+(x.list===l.k?'on':'')+'" data-act="move" data-id="'+x.id+'" data-v="'+l.k+'">'+esc(l.n)+'</button>').join('')+'</div></div>'+
   '<div class="row"><button class="btn sm cy" data-act="settarget" data-id="'+x.id+'">'+esc(state.target===x.id?t('clrT'):t('setT'))+'</button><button class="btn sm" data-act="jackthis" data-id="'+x.id+'">'+I.bolt+esc(t('jackIn'))+'</button>'+
   (ui.confirm===x.id?'<button class="btn sm dng" data-act="del" data-id="'+x.id+'">'+esc(t('delC'))+'</button>':'<button class="btn sm" data-act="askdel" data-id="'+x.id+'">'+esc(t('del'))+'</button>')+'</div>'+
@@ -1682,16 +1832,26 @@ function vCfg(){const s=S();
   togH('flicker',t('flicker'))+togH('motion',t('motion'))+
  '</div></section>'+
  '<section class="panel">'+ph(t('fb'))+'<div class="cfg">'+togH('sound',t('sound'))+
+  '<div class="f"><span class="lab">'+esc(t('sset'))+'</span><div class="seg">'+['soft','cyber'].map(k=>'<button class="'+(SSET()===k?'on':'')+'" data-act="set" data-k="sset" data-v="'+k+'">'+esc(t('ssetN')[k])+'</button>').join('')+'</div></div>'+togH('quiet',t('quiet'))+
   '<div class="f"><label class="lab" for="r-vol">'+esc(t('vol'))+'</label><input type="range" id="r-vol" min="0" max="1" step=".05" value="'+s.vol+'" data-range="vol"></div>'+
   togH('haptics',t('hapt'))+togH('boot',t('bootOn'))+
   '<div class="f"><span class="lab">'+esc(t('hackFreq'))+'</span><div class="seg">'+[0,1,2].map(n=>'<button class="'+(+s.hackFreq===n?'on':'')+'" data-act="set" data-k="hackFreq" data-v="'+n+'">'+esc(t('freq')[n])+'</button>').join('')+'</div><span class="faint" style="font-size:12.5px">'+esc(t('hackNote'))+'</span></div>'+
+  (+s.hackFreq?'<div class="f"><span class="lab">'+esc(t('careK'))+'</span><div class="seg multi">'+['body','food','mind','social','rest'].map(g=>'<button class="'+((s.careOff||{})[g]?'':'on')+'" data-act="care" data-v="'+g+'" aria-pressed="'+!(s.careOff||{})[g]+'">'+esc(t('careG')[g])+'</button>').join('')+'</div></div>':'')+
+ '</div></section>'+
+ '<section class="panel">'+ph(t('bonuses'),'報奨')+'<div class="cfg">'+
+  '<div class="f"><span class="lab">'+esc(t('evWkL'))+'</span><div class="seg">'+['off','small','normal','big'].map((k,i)=>'<button class="'+((s.evWk||'normal')===k?'on':'')+'" data-act="set" data-k="evWk" data-v="'+k+'">'+esc(t('evLv')[i])+(EVL[k]?' · ×'+nf(EVL[k][0])+' XP':'')+'</button>').join('')+'</div></div>'+
+  '<div class="f"><span class="lab">'+esc(t('evPayL'))+'</span><div class="seg">'+['off','small','normal','big'].map((k,i)=>'<button class="'+((s.evPay||'normal')===k?'on':'')+'" data-act="set" data-k="evPay" data-v="'+k+'">'+esc(t('evLv')[i])+(PVL[k]?' · ×'+nf(PVL[k][1])+' '+esc(CU()):'')+'</button>').join('')+'</div>'+
+   ((s.evPay||'normal')!=='off'?'<label class="selrow"><span>'+esc(t('payDayL'))+'</span><select class="inp" data-sel="payDay">'+Array.from({length:31},(_,i)=>'<option value="'+(i+1)+'"'+((+s.payDay||25)===i+1?' selected':'')+'>'+(i+1)+'</option>').join('')+'</select></label>':'')+'</div>'+
+  '<div class="f"><span class="lab">'+esc(t('stkL'))+'</span><span class="faint" style="font-size:12.5px">'+esc(t('stkN'))+'</span></div>'+
+  '<div class="f"><span class="lab">'+esc(t('btyL'))+'</span><span class="faint" style="font-size:12.5px">'+esc(t('btyN'))+'</span><span class="lab" style="margin-top:6px">'+esc(t('btyLists'))+'</span><div class="seg multi">'+['today','contract','backlog'].map(k=>'<button class="'+((s.bty||{})[k]?'on':'')+'" data-act="btyl" data-v="'+k+'" aria-pressed="'+!!(s.bty||{})[k]+'">'+esc(t('lists')[k][0])+'</button>').join('')+'</div>'+
+   '<label class="lab" for="btytags" style="margin-top:6px">'+esc(t('btyTagsL'))+'</label><input class="inp" id="btytags" data-change="btyTags" maxlength="120" value="'+esc(s.btyTags||'')+'" placeholder="'+esc(t('btyTagsPh'))+'"></div>'+
  '</div></section>'+
  '<section class="panel">'+ph(t('data'))+'<div class="cfg">'+
   '<p class="muted" style="margin:0;font-size:14px">'+esc(t('dataN'))+'</p>'+
   '<div class="row"><button class="btn sm" data-act="export">'+esc(t('copyB'))+'</button><button class="btn sm" data-act="showimport">'+esc(t('restore'))+'</button>'+(ui.confirm==='wipe'?'<button class="btn sm dng" data-act="wipe">'+esc(t('resetC'))+'</button>':'<button class="btn sm" data-act="askwipe">'+esc(t('reset'))+'</button>')+'</div>'+
   (ui.importing?'<label class="sr" for="imp">'+esc(t('pasteB'))+'</label><textarea class="inp" id="imp" placeholder="'+esc(t('pasteB'))+'"></textarea><button class="btn sm cy" data-act="import">'+esc(t('restoreB'))+'</button>':'')+
  '</div></section>'}
-function render(){renderHud();const v=ui.view;
+function render(){renderHud();const v=ui.view;if(v==='board'&&!(state.hints||{}).bounty&&state.tasks.some(x=>bountyPct(x)>0))setTimeout(()=>hint('bounty'),900);
  $('#view').innerHTML=v==='focus'?vFocus():v==='loot'?vLoot():v==='stats'?vStats():v==='cfg'?vCfg():vBoard();
  const nv=t('nav');
  $('#nav').innerHTML=[['board',I.board],['focus',I.bolt],['loot',I.cube],['stats',I.bars],['cfg',I.cfg]].map((n,i)=>'<button class="'+(v===n[0]?'on':'')+'" data-act="go" data-v="'+n[0]+'" aria-current="'+(v===n[0]?'page':'false')+'">'+n[1]+esc(nv[i])+(n[0]==='loot'&&state.shards.some(x=>x.enc)?'<i class="nbadge">'+state.shards.filter(x=>x.enc).length+'</i>':'')+'</button>').join('');
@@ -1705,26 +1865,28 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
  if(!['askdel','askabort','askdelrw','askwipe','askdelacc'].includes(a))ui.confirm=null;
  const tk=id&&findT(id);
  switch(a){
-  case'go':if(ui.view!==v){ui.view=v;try{localStorage.setItem(KEY+'.view',v)}catch(e){}sfx('nav',['board','focus','loot','stats','cfg'].indexOf(v));buzz(6);window.scrollTo({top:0})}render();break;
+  case'go':if(v==='loot')setTimeout(()=>hint('shop'),600);if(v==='focus')setTimeout(()=>hint('focus'),600);if(ui.view!==v){ui.view=v;try{localStorage.setItem(KEY+'.view',v)}catch(e){}sfx('nav',['board','focus','loot','stats','cfg'].indexOf(v));buzz(6);window.scrollTo({top:0})}render();break;
   case'done':complete(id,b);break;
-  case'open':ui.open=ui.open===id?null:id;sfx('tap');render();break;
+  case'open':ui.open=ui.open===id?null:id;sfx('tap');render();if(ui.open&&tk&&tk.list==='contract')setTimeout(()=>hint('project'),400);break;
+  case'cpsc':ui.cpSc=!ui.cpSc;sfx('tap');paintComposer();break;
   case'sub':toggleSub(id,b.dataset.s,b);break;
   case'delsub':tk.subs=tk.subs.filter(s=>s.id!==b.dataset.s);sfx('undo');save();render();break;
-  case'diff':tk.diff=+v;sfx('tap');save();render();break;
-  case'move':tk.list=v;sfx('tap');save();render();break;
+  case'diff':tk.diff=+v;delete tk.xp;sfx('tap');save();render();break;
+  case'nob':tk.nob=!tk.nob;sfx('tap');save();render();break;
+  case'move':if(tk.list!==v){tk.list=v;tk.since=now()}sfx('tap');save();render();if(v==='contract')setTimeout(()=>hint('project'),500);break;
   case'settarget':state.target=state.target===id?null:id;sfx('land');save();render();break;
   case'jackthis':ui.fTask=id;ui.view='focus';sfx('nav');render();break;
   case'askdel':ui.confirm=id;sfx('err');render();break;
   case'del':state.tasks=state.tasks.filter(x=>x.id!==id);if(state.target===id)state.target=null;ui.open=null;sfx('undo');save();render();break;
   case'purge':state.tasks=state.tasks.filter(x=>!x.sample||x.done);if(state.target&&!findT(state.target))state.target=null;sfx('undo');save();render();break;
   case'pick':roulette();break;
-  case'cpset':{const k=b.dataset.k;ui.draft[k]=k==='diff'?+v:v;ui.flash=k;sfx(k==='diff'?'sub':'tap');buzz(6);paintComposer();break}
+  case'cpset':{const k=b.dataset.k;ui.draft[k]=k==='diff'?+v:v;if(k==='diff')ui.draft.xp=0;ui.flash=k;sfx(k==='diff'?'sub':'tap');buzz(6);paintComposer();break}
   case'cpdelstep':ui.draft.steps.splice(+v,1);sfx('undo');paintComposer('cp-step');break;
   case'deploy':deploy(false);break;
   case'deploynext':deploy(true);break;
   case'opencp':openCompiler();break;
   case'closecp':closeCompiler();break;
-  case'tour':startTour();break;
+  case'tour':startTour(true);break;
   case'evinfo':state.seenEv={};eventIntro();break;
   case'hint':{const i=$('#term');if(i){i.value=(i.value.trim()+' '+v+' ').trimStart();i.focus();sfx('tap')}break}
   case'toggleback':ui.showBack=!ui.showBack;sfx('tap');render();break;
@@ -1743,6 +1905,8 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
   case'askdelrw':ui.confirm='r'+id;render();break;
   case'delrw':state.rewards=state.rewards.filter(x=>x.id!==id);save();render();break;
   case'set':S()[b.dataset.k]=v;applySet();if(b.dataset.k==='cSound')sfx('done',{n:1});else sfx('tap');save();render();break;
+  case'care':{S().careOff=S().careOff||{};S().careOff[v]=!S().careOff[v];sfx('tap');save();render();break}
+  case'btyl':{S().bty=S().bty||{};S().bty[v]=!S().bty[v];sfx('tap');save();render();break}
   case'flip':{const k=b.dataset.k;if(k==='motion')S().motion=S().motion==='reduced'?'full':'reduced';else S()[k]=!S()[k];applySet();sfx('tap');save();render();break}
   case'pack':Object.assign(S(),PACKS[+v].s);applySet();sfx('tap');save();render();break;
   case'avdel':S().avatar='';save();sfx('undo');render();break;
@@ -1789,7 +1953,11 @@ document.addEventListener('keydown',e=>{const el=e.target;
 document.addEventListener('input',e=>{
  if(e.target.id==='cp-name'){const el=e.target;ui.draft.title=el.value;const m=el.value.match(TOKRE);if(m){const kind=applyToken(m[2]);if(kind){ui.draft.title=el.value.slice(0,m.index+m[1].length);ui.flash=kind;sfx('sub');buzz(8);paintComposer('cp-name')}}return}
  const k=e.target.dataset&&e.target.dataset.range;if(k){S()[k]=parseFloat(e.target.value);applySet();save()}});
+document.addEventListener('input',e=>{if(e.target.id==='cp-xp'&&ui.draft){ui.draft.xp=Math.min(999,parseInt(e.target.value)||0)}});
 document.addEventListener('change',e=>{
+ if(e.target.dataset&&e.target.dataset.xp){const tk=findT(e.target.dataset.xp),n=parseInt(e.target.value);if(tk){if(n>0)tk.xp=Math.min(999,n);else delete tk.xp;save();render()}}
+ if(e.target.dataset&&e.target.dataset.change==='btyTags'){S().btyTags=e.target.value.slice(0,120);save();render()}
+ if(e.target.dataset&&e.target.dataset.sel){S()[e.target.dataset.sel]=+e.target.value;save();render()}
  if(e.target.dataset&&e.target.dataset.change==='handle'){S().handle=e.target.value.trim().toUpperCase().slice(0,24)||'OPERATOR';save();renderHud()}
  if(e.target.id==='avfile'&&e.target.files&&e.target.files[0])setAvatarFile(e.target.files[0])});
 document.addEventListener('pointerdown',()=>{audio()},{once:true});
@@ -1829,7 +1997,7 @@ sizeFx();rollover();applySet();render();paintNet();boot();initGrid();initSb();
 var tourOn=false,tourI=0,tourRoot=null,tourKey=null,tourMove=null;
 const TL=k=>t('tour.lbl.'+k);
 const LN=k=>(t('lists.'+k)||[k])[0];
-function tourVars(){const d=t('diff');return{today:LN('today'),routine:LN('routine'),contract:LN('contract'),backlog:LN('backlog'),cred:String(t('credits')).toLowerCase(),shards:t('shards'),loot:t('nav')[2],cfg:t('nav')[4],pick:t('pick'),jackIn:t('jackIn'),tgt:t('priority'),s1:d[1],s2:d[2],s3:d[3]}}
+function tourVars(){const d=t('diff');return{today:LN('today'),routine:LN('routine'),contract:LN('contract'),backlog:LN('backlog'),cred:String(t('credits')).toLowerCase(),shards:t('shards'),loot:t('nav')[2],cfg:t('nav')[4],pick:t('pick'),jackIn:t('jackIn'),tgt:t('priority'),s1:d[1],s2:d[2],s3:d[3],wx:nf((EVL[S().evWk||'normal']||EVL.normal)[0]),wc:nf((EVL[S().evWk||'normal']||EVL.normal)[1]),pd:payDayOf(new Date()),pc:nf((PVL[S().evPay||'normal']||PVL.normal)[1])}}
 const trunc=(s,n)=>{s=String(s);return s.length>n?s.slice(0,n-1)+'…':s};
 const fill=(s,v)=>String(s).replace(/\{(\w+)\}/g,(m,n)=>v[n]!=null?v[n]:m);
 
@@ -1846,9 +2014,15 @@ const callout=(x,y1,y2,label,anchor)=>'<line x1="'+x+'" y1="'+y1+'" x2="'+x+'" y
 function artLoop(){const n=[[40,'+'],[120,'✓'],[200,'XP'],[280,'★']],L=[TL('add'),TL('finish'),TL('earn'),TL('spend')];
  return svgW(defs+n.map((p,i)=>'<circle cx="'+p[0]+'" cy="58" r="24" class="bx'+(i===2?' hi':'')+'"/>'+tx(p[0],65,p[1],'big'+(i===2?' ac':''),'middle')+tx(p[0],100,L[i],'lb','middle')).join('')+
   arrow(66,58,92,58)+arrow(146,58,172,58)+arrow(226,58,252,58)+'<path d="M280 112 Q160 150 40 112" class="ln dash" marker-end="url(#ta)"/>')}
-function artAdd(){const nm=TL('example'),parts=[[nm,'fg',TL('name')],[' !2','wn',TL('size')],[' #'+TL('exTag'),'a2',TL('tag')],[' @b','ac',TL('list')]],cw=7.1;let x=20,h='';
- parts.forEach(p=>{const w=p[0].length*cw;h+='<text x="'+x+'" y="52" class="mono '+p[1]+'">'+esc(p[0])+'</text>';const s=x+(p[0][0]===' '?cw:0),e=x+w;h+='<path d="M'+s+' 66v5h'+(e-s)+'v-5" class="co"/>'+tx((s+e)/2,88,p[2],'lb','middle');x+=w});
- return svgW('<rect x="8" y="28" width="304" height="36" rx="6" class="bx"/>'+h+'<rect x="'+(x+3)+'" y="40" width="7" height="15" class="acf blink"/>'+tx(160,122,TL('legend'),'sm','middle'),140)}
+function artAdd(){let y=10,h='';const W=312,pw=s=>Math.round(s.length*5.9+16);
+ const pill=(x,yy,s,on,dash)=>'<rect x="'+x+'" y="'+yy+'" width="'+pw(s)+'" height="20" rx="10" class="pl'+(on?' on':'')+(dash?' dash':'')+'"/>'+tx(x+pw(s)/2,yy+14,s,on?'ac':'','middle',10.5);
+ const row=(label,items)=>{h+=tx(8,y+14,label,'lb');let x=62;items.forEach(it=>{const w=pw(it[0]);if(x+w>W){x=62;y+=26}h+=pill(x,y,it[0],it[1],it[2]);x+=w+6});y+=30};
+ h+=tx(8,y+15,TL('name'),'lb')+'<rect x="62" y="'+y+'" width="'+(W-62)+'" height="22" rx="5" class="bx hi"/>'+'<text x="70" y="'+(y+15)+'" class="mono fg" font-size="11">'+esc(TL('example'))+'</text><rect x="'+Math.min(W-6,72+TL('example').length*6.65)+'" y="'+(y+5)+'" width="2" height="12" class="acf blink"/>';y+=32;
+ const d=t('diff');row(TL('size'),[[d[1]+' +10',0],[d[2]+' +25',1],[d[3]+' +50',0],[TL('custom'),0,1]]);
+ row(TL('list'),LIST_KEYS.map((k,i)=>[LN(k),i===0]));
+ row(TL('tag'),[['#'+TL('exTag'),1],[TL('newTag'),0,1]]);
+ const bw=Math.round(TL('addBtn').length*6.6+28);h+='<rect x="'+(W-bw)+'" y="'+(y+2)+'" width="'+bw+'" height="24" rx="6" class="acf"/>'+tx(W-bw/2,y+18,TL('addBtn'),'ink','middle',12);y+=30;
+ return svgW(h,y)}
 function artBoards(){const ic={today:'<circle cx="0" cy="0" r="6" class="acs"/>'+[0,45,90,135,180,225,270,315].map(a=>'<line x1="0" y1="-9" x2="0" y2="-12" class="acs" transform="rotate('+a+')"/>').join(''),
   routine:'<path d="M-8 -2a8 8 0 0 1 14 -4M8 2a8 8 0 0 1 -14 4" class="acs"/><path d="M6 -10v5h-5M-6 10v-5h5" class="acs"/>',
   contract:'<rect x="-9" y="-10" width="18" height="20" rx="2" class="acs"/><path d="M-5 -4l2 2l3 -3M-5 3l2 2l3 -3" class="acs"/>',
@@ -1861,13 +2035,13 @@ function artCombo(){const pts=[[56,'×1'],[128,'×1.5'],[200,'×2'],[272,'×3']]
   pts.map((p,i)=>chkC(p[0],60,11,i<3,i<3?'ck on':'ck dash')+tx(p[0],32,p[1],i===3?'lb':'ac big2','middle')).join('')+defs+arrow(70,60,112,60)+arrow(142,60,184,60)+'<line x1="214" y1="60" x2="256" y2="60" class="ln dash"/>',118)}
 function artHud(){return svgW('<rect x="10" y="14" width="300" height="38" rx="6" class="bx"/><line x1="110" y1="14" x2="110" y2="52" class="ln"/><line x1="210" y1="14" x2="210" y2="52" class="ln"/>'+
   tx(40,38,'LV','sm')+tx(62,40,'3','ac big2')+'<circle cx="146" cy="33" r="7" class="wns"/>'+tx(160,39,'120','fg','',13)+'<path d="M246 40c-6 -4 -4 -12 2 -16c0 4 3 5 4 8c1 -2 1 -4 0 -6c5 3 6 10 2 14z" class="wns"/>'+tx(262,39,'4','fg','',13)+
-  tx(60,70,TL('level'),'lb','middle')+tx(160,70,String(t('credits')).toLowerCase(),'lb','middle')+tx(260,70,TL('streak'),'lb','middle')+
+  tx(60,70,TL('level'),'lb','middle')+tx(160,70,String(t('credits')).toLowerCase(),'lb','middle')+tx(260,70,TL('streak')+' · +15%','lb','middle')+
   '<rect x="10" y="88" width="300" height="9" rx="4.5" class="pip"/><rect x="10" y="88" width="186" height="9" rx="4.5" class="acf"/>'+tx(310,118,'124/200 XP','sm','end')+tx(10,118,TL('toNext'),'lb'),126)}
 function artFocus(){return svgW(defs+'<rect x="16" y="36" width="44" height="44" rx="8" class="bx"/>'+[[28,48],[48,48],[38,58],[28,68],[48,68]].map(p=>'<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3" class="acf"/>').join('')+
   arrow(66,58,96,58)+'<rect x="102" y="34" width="112" height="48" rx="8" class="bx hi"/>'+tx(112,52,trunc(t('priority'),18),'sm')+tx(112,70,trunc(TL('example'),15),'fg','',11)+arrow(220,58,236,58)+
   '<circle cx="276" cy="58" r="30" class="pipst"/><circle cx="276" cy="58" r="30" class="arc" stroke-dasharray="132 189" transform="rotate(-90 276 58)"/>'+tx(276,63,'25:00','fg','middle',13)+
   tx(38,104,t('pick'),'lb','middle')+tx(158,104,t('jackIn'),'lb','middle')+tx(276,104,TL('perMin'),'lb','middle'),116)}
-function artCare(){const w=TL('water');return svgW('<rect x="6" y="30" width="308" height="54" rx="8" class="bx care"/><rect x="6" y="30" width="3" height="54" class="asf"/>'+chkC(30,57,10,false,'ck as dash')+
+function artCare(){const w=trunc(t('hacks.daylight'),34);return svgW('<rect x="6" y="30" width="308" height="54" rx="8" class="bx care"/><rect x="6" y="30" width="3" height="54" class="asf"/>'+chkC(30,57,10,false,'ck as dash')+
   (PSKIN()?'':'<text x="51" y="58" class="mono acf" opacity=".5" font-size="12.5">'+esc(w)+'</text><text x="49" y="56" class="mono asf" opacity=".6" font-size="12.5">'+esc(w)+'</text>')+'<text x="50" y="57" class="fg" font-size="12.5">'+esc(w)+'</text>'+tx(50,74,'#body','sm')+tx(300,62,'+20','ac big2','end')+
   callout(160,84,112,TL('blue')),124)}
 function artLoot(){const grid=[3,7,1,9,2,6,4,8,5];return svgW(defs+'<g transform="translate(40,58)"><path d="M0 -22l20 10v24l-20 10l-20 -10v-24z" class="bx hi"/><path d="M-20 -12l20 10l20 -10M0 -2v24" class="ln"/></g>'+arrow(68,58,98,58)+
@@ -1891,48 +2065,73 @@ function stylePick(){const cur=PSKIN()?(S().skin==='paper'?'light':'dark'):'cybe
   [24,38].map((y,i)=>'<rect x="8" y="'+(y-1)+'" width="74" height="11" rx="'+(r/2)+'" fill="none" stroke="'+c[1]+'" stroke-opacity=".35"/>'+(c[4]?'<circle cx="15" cy="'+(y+4.5)+'" r="3" fill="none" stroke="'+c[1]+'"/>':'<rect x="12" y="'+(y+1.5)+'" width="6" height="6" transform="rotate(45 15 '+(y+4.5)+')" fill="none" stroke="'+c[1]+'"/>')+'<rect x="23" y="'+(y+3)+'" width="'+(i?34:44)+'" height="3" rx="1.5" fill="'+c[3]+'" opacity=".75"/>').join('')+'</svg>'+
   '<b>'+esc(ST[k][0])+'</b><small>'+esc(ST[k][1])+'</small></button>'}).join('')+'</div>'}
 
-const TOUR=[
- {k:'welcome',art:artLoop,extra:langPick},
- {k:'style',extra:stylePick},
- {k:'add',view:'board',sel:'.cmdbar',art:artAdd},
- {k:'boards',view:'board',sel:'[data-tut="l-today"]',art:artBoards},
- {k:'task',view:'board',sel:'[data-tut="l-today"] .task',art:artTask},
- {k:'combo',view:'board',sel:'[data-tut="l-today"] .task .chk',art:artCombo},
- {k:'hud',view:'board',sel:'#hud .hrow',art:artHud},
- {k:'focus',view:'board',sel:'[data-tut="target"]',art:artFocus},
- {k:'care',view:'board',sel:'.task.hk',art:artCare},
- {k:'loot',view:'loot',sel:'#nav [data-v="loot"]',art:artLoot},
- {k:'shop',view:'loot',sel:'[data-tut="shop"]',art:artShop},
- {k:'events',view:'board',sel:'.evbar',art:artEvents},
- {k:'done',view:'board',sel:'#nav',art:artNav}
-];
+function artProject(){const st=[[1,TL('example')],[0,'…'],[0,'…']];return svgW('<rect x="10" y="10" width="300" height="118" rx="8" class="bx hi"/>'+chkC(32,34,9,false)+tx(50,38,LN('contract'),'fg','',12.5)+tx(296,38,'+50','ac big2','end')+
+  [0,1,2].map(i=>'<g transform="translate(50,'+(58+i*22)+')">'+'<rect x="0" y="-9" width="12" height="12" rx="3" class="'+(i===0?'acf':'bx')+'"/>'+'<rect x="20" y="-5" width="'+[150,120,96][i]+'" height="5" rx="2.5" class="pip"/>'+tx(236,1,'+5 XP',i===0?'ac':'sm','end')+'</g>').join('')+tx(160,146,TL('stepEach'),'lb','middle'),152)}
+function artStreak(){let h='';for(let i=0;i<7;i++){const x=16+i*42,on=i<5,miss=i===2;h+='<rect x="'+x+'" y="20" width="34" height="34" rx="6" class="bx'+(on&&!miss?' hi':'')+'"/>'+(miss?'<path d="M'+(x+17)+' 28l8 4v6c0 5-4 8-8 9c-4-1-8-4-8-9v-6z" class="acs"/>':on?'<path d="M'+(x+12)+' 46c-5-4-3-11 2-14c0 3 2 4 3 7c1-2 1-4 0-6c5 3 6 9 2 13z" class="wns"/>':'')+tx(x+17,70,'+'+Math.min(50,(i)*5)+'%',on?'wn':'sm','middle',10)}
+ return svgW(h+'<line x1="16" y1="86" x2="304" y2="86" class="ln"/>'+tx(16,104,'+5% XP / '+TL('day'),'lb')+tx(304,104,TL('shield'),'lb','end')+'<path d="M'+(16+2*42+17)+' 58v20" class="co"/>',112)}
+function artBounty(){const pts=[[1,10],[3,30],[6,60],[10,100]];let h='<line x1="20" y1="96" x2="300" y2="96" class="ln"/>';
+ pts.forEach((p,i)=>{const x=40+i*80,hgt=8+p[1]*.62;h+='<rect x="'+(x-14)+'" y="'+(96-hgt)+'" width="28" height="'+hgt+'" rx="3" class="'+(i===3?'acf':'bx hi')+'"/>'+tx(x,90-hgt,'+'+p[1]+'%','ac','middle',11)+tx(x,112,p[0]+' '+TL('day'),'sm','middle')});
+ return svgW(h+chipS(20,20,'▲ '+t(PL()?'btyChipP':'btyChip',{p:30})),120)}
 
-function startTour(){if(tourOn)return;tourOn=true;tourI=0;ui.open=null;$('#ovl').innerHTML='';
- tourRoot=document.createElement('div');tourRoot.id='tour';tourRoot.className='tour';document.body.appendChild(tourRoot);
+const TS={
+ welcome:{art:artLoop,extra:langPick},
+ style:{extra:stylePick},
+ add:{view:'board',sel:'.cmdbar',art:artAdd,extra:scPick},
+ task:{view:'board',sel:'[data-tut="l-today"] .task',art:artTask},
+ boards:{view:'board',sel:'[data-tut="l-today"]',art:artBoards},
+ combo:{view:'board',sel:'#combo.on,[data-tut="l-today"] .task .chk',art:artCombo},
+ hud:{view:'board',sel:'#hud .hrow',art:artHud},
+ focus:{view:'board',sel:'[data-tut="target"]',art:artFocus},
+ care:{view:'board',sel:'.task.hk',art:artCare},
+ shop:{view:'loot',sel:'[data-tut="shop"]',art:artShop},
+ loot:{view:'loot',sel:'#nav [data-v="loot"]',art:artLoot},
+ events:{view:'board',sel:'.evbar',art:artEvents},
+ bounty:{view:'board',sel:'.chip.bty',art:artBounty},
+ done:{view:'board',sel:'#nav',art:artNav},
+ project:{sel:'[data-tut="l-contract"]',art:artProject},
+ streak:{sel:'#hud .sts',art:artStreak}
+};
+const FIRST=['welcome','style','add','task'],FULL=['welcome','style','add','task','boards','combo','hud','focus','care','shop','loot','events','bounty','done'];
+/* tips: shown once, the first time a feature appears */
+const HINTS={lists:'boards',project:'project',combo:'combo',streak:'streak',drop:'loot',shop:'shop',focus:'focus',care:'care',bounty:'bounty'};
+var tourList=FIRST,tourMode='tour',hintKey=null,scOpen=false;
+function scPick(){return'<div class="tsc"><button type="button" class="linkbtn" data-tour="sc">'+esc(t('tour.sc'))+' '+(scOpen?'▴':'▾')+'</button>'+(scOpen?'<p>'+esc(t('tour.scB'))+'</p>':'')+'</div>'}
+
+function tourOpen(){tourOn=true;ui.open=null;
+ tourRoot=document.createElement('div');tourRoot.id='tour';tourRoot.className='tour'+(tourMode==='hint'?' hint':'');document.body.appendChild(tourRoot);
  tourRoot.addEventListener('click',tourClick);
- tourKey=e=>{if(!tourOn)return;if(e.key==='Escape'){e.preventDefault();e.stopPropagation();endTour()}else if(e.key==='ArrowRight'){e.preventDefault();e.stopPropagation();tourGo(1)}else if(e.key==='ArrowLeft'){e.preventDefault();e.stopPropagation();tourGo(-1)}};
+ tourKey=e=>{if(!tourOn)return;if(e.key==='Escape'){e.preventDefault();e.stopPropagation();endTour()}else if(tourMode==='tour'&&e.key==='ArrowRight'){e.preventDefault();e.stopPropagation();tourGo(1)}else if(tourMode==='tour'&&e.key==='ArrowLeft'){e.preventDefault();e.stopPropagation();tourGo(-1)}};
  document.addEventListener('keydown',tourKey,true);
- tourMove=()=>tourPlace(false);addEventListener('resize',tourMove);addEventListener('scroll',tourMove,{passive:true});
- sfx('open');tourPaint()}
-function tourGo(d){const n=tourI+d;if(n<0)return;if(n>=TOUR.length){endTour();return}tourI=n;sfx('tap');tourPaint()}
+ tourMove=()=>tourPlace(false);addEventListener('resize',tourMove);addEventListener('scroll',tourMove,{passive:true})}
+function startTour(full){if(tourOn)return;$('#ovl').innerHTML='';tourMode='tour';tourList=full===true||state.tutDone?FULL:FIRST;tourI=0;scOpen=false;tourOpen();tourPaint()}
+function hint(k){const H=state.hints=state.hints||{};if(H[k]||state.hintsOff||!state.tutDone)return;
+ const id=HINTS[k];if(!id)return;
+ if(tourOn||$('#ovl').innerHTML||document.getElementById('boot')||ui.spinning){clearTimeout(hint['t'+k]);hint['t'+k]=setTimeout(()=>hint(k),2500);return}
+ const st=TS[id];if(st.view&&ui.view!==st.view)return;
+ H[k]=now();save();tourMode='hint';hintKey=k;tourList=[id];tourI=0;tourOpen();tourPaint()}
+function tourGo(d){const n=tourI+d;if(n<0)return;if(n>=tourList.length){endTour();return}tourI=n;sfx('tap');tourPaint()}
 function endTour(){if(!tourOn)return;tourOn=false;document.removeEventListener('keydown',tourKey,true);removeEventListener('resize',tourMove);removeEventListener('scroll',tourMove);
  if(tourRoot){tourRoot.classList.add('out');const r=tourRoot;setTimeout(()=>r.remove(),220)}tourRoot=null;
- state.tutDone=true;save();if(ui.view!=='board'){ui.view='board';render()}scrollTo({top:0});sfx('land');setTimeout(eventIntro,400)}
+ if(tourMode==='hint'){tourMode='tour';return}
+ state.tutDone=true;save();if(ui.view!=='board'){ui.view='board';render()}scrollTo({top:0});setTimeout(eventIntro,400)}
 function tourClick(e){const b=e.target.closest('[data-tour]');if(!b)return;const a=b.dataset.tour,v=b.dataset.v;
  if(a==='next')tourGo(1);else if(a==='back')tourGo(-1);else if(a==='skip')endTour();
+ else if(a==='notips'){state.hintsOff=true;save();endTour()}
+ else if(a==='sc'){scOpen=!scOpen;sfx('tap');tourPaint()}
  else if(a==='lang'){if(S().lang!==v){setLang(v);setTimeout(tourPaint,80)}}
  else if(a==='style'){const i=v==='cyber'?0:PACKS.findIndex(p=>p.s.skin===(v==='dark'?'plain':'paper'));Object.assign(S(),PACKS[i].s);applySet();save();render();sfx('tap');tourPaint()}}
-function tourPaint(){if(!tourOn||!tourRoot)return;const st=TOUR[tourI];
+function tourPaint(){if(!tourOn||!tourRoot)return;const id=tourList[tourI],st=TS[id];
  if(st.view&&ui.view!==st.view){ui.view=st.view;render()}
- const sx=t('tour.steps.'+st.k),v=tourVars(),last=tourI===TOUR.length-1;
+ const sx=t('tour.steps.'+id),v=tourVars(),hintM=tourMode==='hint',last=tourI===tourList.length-1,n=tourList.length;
+ const foot=hintM?'<div class="tour-nav"><button type="button" class="linkbtn" data-tour="notips">'+esc(t('tour.noTips'))+'</button><span class="sp"></span><button type="button" class="btn pri sm" data-tour="next">'+esc(t('tour.got'))+'</button></div>':
+  '<div class="tour-dots" aria-hidden="true">'+tourList.map((_,i)=>'<i class="'+(i===tourI?'on':i<tourI?'past':'')+'"></i>').join('')+'</div>'+
+  '<div class="tour-nav">'+(last?'':'<button type="button" class="linkbtn" data-tour="skip">'+esc(t('tour.skip'))+'</button>')+'<span class="sp"></span>'+(tourI?'<button type="button" class="btn sm" data-tour="back">'+esc(t('tour.back'))+'</button>':'')+'<button type="button" class="btn pri sm" data-tour="next">'+esc(last?t('tour.start'):t('tour.next'))+'</button></div>';
  tourRoot.innerHTML='<div class="tour-hole"></div><div class="tour-card" role="dialog" aria-modal="true" aria-labelledby="tour-h">'+
   (st.art?'<div class="tour-art">'+st.art()+'</div>':'')+
-  '<div class="tour-txt"><div class="tour-n">'+esc(fill(t('tour.stepOf'),{a:tourI+1,b:TOUR.length}))+'</div><h3 id="tour-h">'+esc(fill(sx[0],v))+'</h3><p>'+esc(fill(sx[1],v))+'</p></div>'+
-  (st.extra?st.extra():'')+
-  '<div class="tour-dots" aria-hidden="true">'+TOUR.map((_,i)=>'<i class="'+(i===tourI?'on':i<tourI?'past':'')+'"></i>').join('')+'</div>'+
-  '<div class="tour-nav">'+(last?'':'<button type="button" class="linkbtn" data-tour="skip">'+esc(t('tour.skip'))+'</button>')+'<span class="sp"></span>'+(tourI?'<button type="button" class="btn sm" data-tour="back">'+esc(t('tour.back'))+'</button>':'')+'<button type="button" class="btn pri sm" data-tour="next">'+esc(last?t('tour.start'):t('tour.next'))+'</button></div></div>';
+  '<div class="tour-txt"><div class="tour-n">'+esc(hintM?t('tour.tip'):fill(t('tour.stepOf'),{a:tourI+1,b:n}))+'</div><h3 id="tour-h">'+esc(fill(sx[0],v))+'</h3><p>'+esc(fill(sx[1],v))+'</p>'+(!hintM&&last&&tourList===FIRST?'<p class="tmore">'+esc(t('tour.more'))+'</p>':'')+'</div>'+
+  (st.extra&&!hintM?st.extra():'')+foot+'</div>';
  tourPlace(true);const nx=tourRoot.querySelector('[data-tour="next"]');if(nx)nx.focus({preventScroll:true})}
-function tourTarget(){const st=TOUR[tourI];if(!st.sel)return null;const el=document.querySelector(st.sel);if(!el)return null;const r=el.getBoundingClientRect();return r.width&&r.height?el:null}
+function tourTarget(){const st=TS[tourList[tourI]];if(!st||!st.sel)return null;const el=st.sel.split(',').map(q=>document.querySelector(q)).find(Boolean);if(!el)return null;const r=el.getBoundingClientRect();return r.width&&r.height?el:null}
 function tourPlace(scroll){if(!tourOn||!tourRoot)return;const card=tourRoot.querySelector('.tour-card'),hole=tourRoot.querySelector('.tour-hole');if(!card)return;
  const el=tourTarget(),vw=innerWidth,vh=innerHeight,cw=Math.min(440,vw-24);card.style.width=cw+'px';
  if(el&&scroll){const inFixed=el.closest('#hud,.nav');if(!inFixed){const hud=$('#hud').getBoundingClientRect(),r=el.getBoundingClientRect(),top=Math.max(hud.bottom,0)+14;if(r.top<top||r.bottom>vh-card.offsetHeight-20)scrollBy({top:r.top-top,behavior:'instant'})}}
