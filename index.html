@@ -4,6 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#070a13">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/favicon-64.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="RunDeck">
+<script>window.RUNDECK_PWA=true</script>
 <title>RunDeck</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -956,6 +964,10 @@ Object.assign(DICT.en.plain,{kName:'name',kWeight:'size',kBoard:'list',kTag:'tag
 Object.assign(DICT.pl.plain,{kName:'nazwa',kWeight:'rozmiar',kBoard:'lista',kTag:'tag',kSteps:'kroki'});
 Object.assign(DICT.sv.plain,{kName:'namn',kWeight:'storlek',kBoard:'lista',kTag:'tagg',kSteps:'steg'});
 
+Object.assign(DICT.en,{appL:'App',appN:'Install RunDeck as an app: its own icon on your home screen, full screen, and it works offline.',appBtn:'Install app',appDoneT:'INSTALLED',appDone:'RunDeck is installed. Open it from your home screen or app list.',appIos:'On iPhone or iPad: open this page in Safari, tap Share, then “Add to Home Screen”.',appOther:'Open your browser menu and choose “Install app” or “Add to Home screen”.'});
+Object.assign(DICT.pl,{appL:'Aplikacja',appN:'Zainstaluj RunDeck jako aplikację: własna ikona na ekranie głównym, pełny ekran i działa offline.',appBtn:'Zainstaluj aplikację',appDoneT:'ZAINSTALOWANO',appDone:'RunDeck jest zainstalowany. Otwieraj go z ekranu głównego lub listy aplikacji.',appIos:'Na iPhonie lub iPadzie: otwórz tę stronę w Safari, dotknij Udostępnij, a potem „Do ekranu początkowego”.',appOther:'Otwórz menu przeglądarki i wybierz „Zainstaluj aplikację” albo „Dodaj do ekranu głównego”.'});
+Object.assign(DICT.sv,{appL:'App',appN:'Installera RunDeck som en app: egen ikon på hemskärmen, helskärm, och den funkar offline.',appBtn:'Installera appen',appDoneT:'INSTALLERAD',appDone:'RunDeck är installerad. Öppna den från hemskärmen eller applistan.',appIos:'På iPhone eller iPad: öppna sidan i Safari, tryck på Dela och sedan ”Lägg till på hemskärmen”.',appOther:'Öppna webbläsarens meny och välj ”Installera app” eller ”Lägg till på startskärmen”.'});
+
 /* ---------- icons ---------- */
 const I={
  logo:'<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="20" cy="20" r="15" stroke-width="3" stroke-dasharray="74 20" transform="rotate(-58 20 20)"/><path d="M2 20h36" stroke-width="3"/><path d="M20 8l5.5 8.5h-11z" fill="currentColor" stroke="none"/><path d="M15 26h10" stroke-width="2"/></svg>',
@@ -1817,7 +1829,7 @@ function vCfg(){const s=S();
   '<div class="f"><label class="lab" for="handle">'+esc(t('handle'))+'</label><input class="inp" id="handle" maxlength="24" value="'+esc(s.handle)+'" data-change="handle"></div>'+
   '<div class="f"><span class="lab">'+esc(t('language'))+'</span><div class="seg">'+LANGS.map(l=>'<button class="'+(s.lang===l?'on':'')+'" data-act="lang" data-v="'+l+'">'+l.toUpperCase()+' · '+esc(DICT[l].lang)+'</button>').join('')+'</div></div>'+
  '</div></section>'+
- '<section class="panel">'+ph(t('help'),'案内')+'<div class="pb"><p class="muted" style="margin:0 0 10px;font-size:14px">'+esc(t('helpN'))+'</p><button class="btn pri" data-act="tour">'+esc(t('tourBtn'))+'</button></div></section>'+
+ appHtml()+'<section class="panel">'+ph(t('help'),'案内')+'<div class="pb"><p class="muted" style="margin:0 0 10px;font-size:14px">'+esc(t('helpN'))+'</p><button class="btn pri" data-act="tour">'+esc(t('tourBtn'))+'</button></div></section>'+
  '<section class="panel">'+ph(t('account'),'認証')+'<div class="cfg">'+(SB_ON?'<p class="muted" style="margin:0;font-size:14px">'+esc(t('accN'))+'</p>'+(sb?authHtml():'<div class="faint">…</div>')+'<p class="faint" style="margin:0;font-size:12.5px"><a href="privacy.html" target="_blank" rel="noopener" style="color:var(--accent2)">'+esc(t('privacyLink'))+'</a></p>':'<p class="muted" style="margin:0;font-size:14px">'+esc(cloud?t('gridOnly'):t('localOnly'))+'</p>')+'</div></section>'+
  '<section class="panel">'+ph(t('packs'),'外観')+'<div class="pb seg">'+PACKS.map((p,i)=>'<button data-act="pack" data-v="'+i+'">'+esc(p.n)+'</button>').join('')+'</div></section>'+
  '<section class="panel">'+ph(t('look'))+'<div class="cfg">'+
@@ -1887,6 +1899,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
   case'opencp':openCompiler();break;
   case'closecp':closeCompiler();break;
   case'tour':startTour(true);break;
+  case'install':if(installEv){installEv.prompt();installEv.userChoice.finally(()=>{installEv=null;render()})}break;
   case'evinfo':state.seenEv={};eventIntro();break;
   case'hint':{const i=$('#term');if(i){i.value=(i.value.trim()+' '+v+' ').trimStart();i.focus();sfx('tap')}break}
   case'toggleback':ui.showBack=!ui.showBack;sfx('tap');render();break;
@@ -1992,6 +2005,21 @@ function boot(){if(!S().boot||PL()){if(ui.gate)showGate();else setTimeout(eventI
 }
 
 sizeFx();rollover();applySet();render();paintNet();boot();initGrid();initSb();
+/* ---------- installable app (PWA) ---------- */
+var installEv=null;
+function isStandalone(){return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}
+function isIOS(){return/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)}
+if(window.RUNDECK_PWA&&'serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();installEv=e;if(ui.view==='cfg')render()});
+addEventListener('appinstalled',()=>{installEv=null;toast(t('appDoneT'),t('appDone'),'c2');if(ui.view==='cfg')render()});
+(()=>{try{const q=new URLSearchParams(location.search);const v=q.get('view');if(v&&['board','focus','loot','stats','cfg'].includes(v)){ui.view=v;render()}
+ if(q.get('new'))setTimeout(()=>{if(!document.getElementById('boot')&&!$('#ovl').innerHTML)openCompiler()},900);
+ if(q.has('view')||q.has('new')||q.has('source'))history.replaceState(null,'',location.pathname)}catch(e){}})();
+function appHtml(){if(!window.RUNDECK_PWA)return'';
+ const body=isStandalone()?'<p class="muted" style="margin:0;font-size:14px">✓ '+esc(t('appDone'))+'</p>':
+  installEv?'<button class="btn pri" data-act="install">'+esc(t('appBtn'))+'</button>':
+  '<p class="muted" style="margin:0;font-size:14px">'+esc(isIOS()?t('appIos'):t('appOther'))+'</p>';
+ return'<section class="panel">'+ph(t('appL'),'アプリ')+'<div class="cfg"><p class="faint" style="margin:0;font-size:13px">'+esc(t('appN'))+'</p>'+body+'</div></section>'}
 
 /* ---------- guided tour: spotlights the real UI, with a small diagram for every step ---------- */
 var tourOn=false,tourI=0,tourRoot=null,tourKey=null,tourMove=null;

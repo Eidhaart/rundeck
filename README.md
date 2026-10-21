@@ -10,6 +10,16 @@ New users get a short guided tour (13 steps) that spotlights the real interface,
 
 For people who don't want the cyberpunk lingo there are **Plain Dark** and **Plain Light** themes (Config → Style packs, or the second tour step). They use calm colours, a system font, no terminal effects, and everyday names: Tasks, Daily habits, Projects, Later, Points, Bonus boxes. The wording alone can also be switched with Voice → Plain.
 
+## Install as an app
+
+RunDeck is a Progressive Web App. On the live site:
+
+- **Android (Chrome/Edge):** Settings → App → **Install app**, or the browser menu → *Install app*.
+- **iPhone/iPad:** open in Safari → Share → *Add to Home Screen*.
+- **Desktop (Chrome/Edge):** the install icon in the address bar, or Settings → App.
+
+Installed, it opens full screen with its own icon, and `sw.js` keeps it working offline (page and config network-first, sounds/icons/library cached; Supabase and Turnstile requests are never cached). Long-press the icon for shortcuts to *New task* and *Focus*.
+
 ## Game rules at a glance
 
 - **Task XP:** Small 10, Medium 25, Big 50 by default, or any custom number per task. Steps pay +5 each.
