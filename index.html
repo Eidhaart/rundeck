@@ -649,6 +649,15 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 .code.pform .pfoot .lc{gap:8px;font-size:13px}
 .code.pform .pfoot .k{flex-basis:auto;margin:0}
 :is([data-skin="plain"],[data-skin="paper"]) .tw-bar :is(.tw-file,.bc){display:none}
+.items{display:flex;flex-direction:column}
+.item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-top:1px solid var(--line)}
+.item:first-child{border-top:0}
+.item .iic{width:30px;height:30px;display:grid;place-items:center;border:1px solid var(--line-hi);color:var(--accent2);flex:none}
+.item .iic svg{width:16px;height:16px}
+.item.r1 .iic{color:var(--astral)}.item.r2 .iic{color:var(--accent);border-color:var(--accent)}.item.r3 .iic{color:var(--warn);border-color:var(--warn)}
+.item .itl{flex:1;font-family:var(--fu);font-size:12.5px;letter-spacing:.04em}
+.cbbar{background:repeating-linear-gradient(-45deg,var(--accent2) 0 12px,color-mix(in srgb,var(--accent2) 78%,var(--bg)) 12px 24px)}
+:is([data-skin="plain"],[data-skin="paper"]) .item .iic{border-radius:8px}
 </style>
 </head>
 <body>
@@ -968,6 +977,19 @@ Object.assign(DICT.en,{appL:'App',appN:'Install RunDeck as an app: its own icon 
 Object.assign(DICT.pl,{appL:'Aplikacja',appN:'Zainstaluj RunDeck jako aplikację: własna ikona na ekranie głównym, pełny ekran i działa offline.',appBtn:'Zainstaluj aplikację',appDoneT:'ZAINSTALOWANO',appDone:'RunDeck jest zainstalowany. Otwieraj go z ekranu głównego lub listy aplikacji.',appIos:'Na iPhonie lub iPadzie: otwórz tę stronę w Safari, dotknij Udostępnij, a potem „Do ekranu początkowego”.',appOther:'Otwórz menu przeglądarki i wybierz „Zainstaluj aplikację” albo „Dodaj do ekranu głównego”.'});
 Object.assign(DICT.sv,{appL:'App',appN:'Installera RunDeck som en app: egen ikon på hemskärmen, helskärm, och den funkar offline.',appBtn:'Installera appen',appDoneT:'INSTALLERAD',appDone:'RunDeck är installerad. Öppna den från hemskärmen eller applistan.',appIos:'På iPhone eller iPad: öppna sidan i Safari, tryck på Dela och sedan ”Lägg till på hemskärmen”.',appOther:'Öppna webbläsarens meny och välj ”Installera app” eller ”Lägg till på startskärmen”.'});
 
+Object.assign(DICT.en,{items:'Items',itemsE:'Boosts you win from shards are kept here. Use one when you need a push.',use:'Use',itBuff:'OVERCLOCK · XP ×{x} · {m} min',itCb:'PAYDAY CHIP · CRED ×{x} · {m} min',itSh:'STREAK SHIELD · used automatically',tUsed:'ACTIVATED',rwCb:'PAYDAY CHIP · CRED ×{x} for {m} min',rwSh:'STREAK SHIELD',cboost:'CRED BOOST',savedL:'saved to Items'});
+Object.assign(DICT.pl,{items:'Przedmioty',itemsE:'Bonusy wygrane z odłamków trafiają tutaj. Użyj, gdy potrzebujesz kopa.',use:'Użyj',itBuff:'PODKRĘCENIE · XP ×{x} · {m} min',itCb:'CZIP WYPŁATY · KRED ×{x} · {m} min',itSh:'TARCZA SERII · działa automatycznie',tUsed:'AKTYWOWANO',rwCb:'CZIP WYPŁATY · KRED ×{x} przez {m} min',rwSh:'TARCZA SERII',cboost:'BONUS KRED',savedL:'zapisano w Przedmiotach'});
+Object.assign(DICT.sv,{items:'Föremål',itemsE:'Boostar du vinner ur skärvor sparas här. Använd en när du behöver en knuff.',use:'Använd',itBuff:'ÖVERKLOCKNING · XP ×{x} · {m} min',itCb:'LÖNECHIP · KRED ×{x} · {m} min',itSh:'SERIESKÖLD · används automatiskt',tUsed:'AKTIVERAD',rwCb:'LÖNECHIP · KRED ×{x} i {m} min',rwSh:'SERIESKÖLD',cboost:'KRED-BOOST',savedL:'sparad i Föremål'});
+Object.assign(DICT.en.plain,{itemsE:'Boosts you win from bonus boxes are kept here. Use one when you need a push.',itBuff:'XP boost · ×{x} · {m} min',itCb:'Points boost · ×{x} · {m} min',itSh:'Streak shield · used automatically',rwCb:'POINTS BOOST · ×{x} for {m} min',cboost:'POINTS BOOST'});
+Object.assign(DICT.pl.plain,{itemsE:'Bonusy wygrane z pudełek trafiają tutaj. Użyj, gdy potrzebujesz kopa.',itBuff:'Bonus XP · ×{x} · {m} min',itCb:'Bonus punktów · ×{x} · {m} min',itSh:'Tarcza serii · działa automatycznie',rwCb:'BONUS PUNKTÓW · ×{x} przez {m} min',cboost:'BONUS PUNKTÓW'});
+Object.assign(DICT.sv.plain,{itemsE:'Boostar du vinner ur lådor sparas här. Använd en när du behöver en knuff.',itBuff:'XP-boost · ×{x} · {m} min',itCb:'Poängboost · ×{x} · {m} min',itSh:'Seriesköld · används automatiskt',rwCb:'POÄNGBOOST · ×{x} i {m} min',cboost:'POÄNGBOOST'});
+DICT.en.tour.steps.items=['Saved for later','Boosts from {shards} are kept as items. Use one when you need a push, like before a big cleaning session. A streak shield works by itself if you miss a day.'];
+DICT.pl.tour.steps.items=['Na później','Bonusy z sekcji {shards} zostają jako przedmioty. Użyj ich, gdy potrzebujesz kopa, np. przed dużym sprzątaniem. Tarcza serii zadziała sama, jeśli opuścisz dzień.'];
+DICT.sv.tour.steps.items=['Sparat till senare','Boostar från {shards} sparas som föremål. Använd en när du behöver en knuff, till exempel innan en stor städning. En seriesköld fungerar av sig själv om du missar en dag.'];
+DICT.en.tour.steps.streak=['Streak bonus','You are on a streak: days in a row where you finished something. Every streak day adds +5% XP to everything, up to +50%. Miss one day a week and your shield keeps the streak alive.'];
+DICT.pl.tour.steps.streak=['Bonus za serię','Masz serię: kolejne dni, w które coś zrobiłeś. Każdy dzień serii dodaje +5% XP do wszystkiego, maksymalnie +50%. Jeden opuszczony dzień w tygodniu ratuje tarcza.'];
+DICT.sv.tour.steps.streak=['Seriebonus','Du har en serie: dagar i rad då du gjort klart något. Varje dag i serien ger +5% XP på allt, upp till +50%. Missar du en dag i veckan räddar skölden serien.'];
+
 /* ---------- icons ---------- */
 const I={
  logo:'<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="20" cy="20" r="15" stroke-width="3" stroke-dasharray="74 20" transform="rotate(-58 20 20)"/><path d="M2 20h36" stroke-width="3"/><path d="M20 8l5.5 8.5h-11z" fill="currentColor" stroke="none"/><path d="M15 26h10" stroke-width="2"/></svg>',
@@ -1273,7 +1295,7 @@ function rollover(){
  save();
 }
 const weekKey=(d=new Date())=>{const x=new Date(d);x.setHours(0,0,0,0);x.setDate(x.getDate()-((x.getDay()+6)%7));return dk(x)};
-const shieldFree=()=>(state.streak.shield||'')!==weekKey();
+const shieldFree=()=>(state.streak.shield||'')!==weekKey()||(state.items||[]).some(i=>i.t==='shield');
 const streakNow=()=>{const s=state.streak;return(s.last===dk()||s.last===dayOff(-1)||(s.last===dayOff(-2)&&shieldFree()))?s.n:0};
 const DAY=864e5,sod=x=>{const d=new Date(x);d.setHours(0,0,0,0);return d.getTime()};
 const btyTagSet=()=>new Set(String(S().btyTags||'').split(/[\s,#]+/).map(x=>x.trim().toLowerCase()).filter(Boolean));
@@ -1452,7 +1474,7 @@ function award(base,rect,opt){opt=opt||{};
  const em=evMult();const xp=Math.round(base*mult*em.xp),cr=Math.round(base*mult*em.xp/2*em.cr);
  state.xp+=xp;state.cred+=cr;
  if(opt.task){state.stats.total++;const d=dk();state.hist[d]=(state.hist[d]||0)+1;
-  const s=state.streak;if(s.last!==d){let shield=false;if(s.last===dayOff(-1))s.n++;else if(s.last===dayOff(-2)&&shieldFree()){s.n++;s.shield=weekKey();shield=true}else s.n=1;s.last=d;
+  const s=state.streak;if(s.last!==d){let shield=false;if(s.last===dayOff(-1))s.n++;else if(s.last===dayOff(-2)&&shieldFree()){s.n++;if((s.shield||'')!==weekKey())s.shield=weekKey();else{const i=(state.items||[]).findIndex(x=>x.t==='shield');if(i>=0)state.items.splice(i,1)}shield=true}else s.n=1;s.last=d;
    if(shield)setTimeout(()=>toast(t('shieldT'),t('shieldB'),'c2'),1200);
    if(MILES.includes(s.n)||(s.n>30&&s.n%30===0))setTimeout(()=>streakMilestone(s.n),1400);else if(s.n>=2)setTimeout(()=>hint('streak'),1600)}
   state.stats.bestStreak=Math.max(state.stats.bestStreak,s.n)}
@@ -1533,8 +1555,9 @@ const nf=x=>String(x).replace('.',S().lang==='en'?'.':',');
 const activeEvents=()=>{const d=new Date(),out=[];const w=EVL[S().evWk||'normal'],p=PVL[S().evPay||'normal'];
  if(w&&(d.getDay()===0||d.getDay()===6))out.push({...EVENTS[0],xp:w[0],cr:w[1]});
  if(p&&d.getDate()===payDayOf(d))out.push({...EVENTS[1],xp:p[0],cr:p[1]});return out};
-function evMult(){let xp=1,cr=1;activeEvents().forEach(e=>{xp*=e.xp;cr*=e.cr});const b=buffNow();if(b)xp*=b.x;xp*=1+streakBonus(streakNow())/100;return{xp,cr}}
+function evMult(){let xp=1,cr=1;activeEvents().forEach(e=>{xp*=e.xp;cr*=e.cr});const b=buffNow();if(b)xp*=b.x;const cb=cbuffNow();if(cb)cr*=cb.x;xp*=1+streakBonus(streakNow())/100;return{xp,cr}}
 const buffNow=()=>state.buff&&now()<state.buff.until?state.buff:null;
+const cbuffNow=()=>state.cbuff&&now()<state.cbuff.until?state.cbuff:null;
 function evLeft(e){const ms=e.end(new Date())-now(),h=Math.floor(ms/36e5),m=Math.floor(ms%36e5/6e4),sec=Math.floor(ms%6e4/1e3);return(h?h+'h ':'')+z2(m)+'m '+z2(sec)+'s'}
 function evTags(e){return(e.xp>1?'XP ×'+nf(e.xp)+' ':'')+(e.cr>1?(PL()?t('credits'):'CRED')+' ×'+nf(e.cr):'')}
 function streakMilestone(n){const p=streakBonus(n),c=n*5;state.cred+=c;save();
@@ -1703,15 +1726,15 @@ function decTap(i,el){const d=ui.dec;if(!d||d.state!=='run'||d.used.includes(i))
 function rollReward(sh){const r=sh.r,x=Math.random(),lore=state.lore||[],missing=[1,2,3,4,5,6,7,8,9,10].filter(n=>!lore.includes(n)),locked=SKINS.filter(k=>k.lock&&!(state.unlock||{})[k.k]);
  const cred=[[10,20],[30,50],[80,120],[200,260]][r],credRw={t:'cred',n:cred[0]+Math.floor(Math.random()*(cred[1]-cred[0]))};
  if(r===3){if(locked.length)return{t:'skin',k:locked[0].k,bonus:150};return{t:'buff',x:2,m:60,bonus:150}}
- if(r===2){if(x<.15&&locked.length)return{t:'skin',k:pick(locked).k};if(x<.45)return{t:'buff',x:1.5,m:60};if(x<.65&&missing.length)return{t:'lore',n:pick(missing)};return credRw}
- if(r===1){if(x<.25)return{t:'buff',x:1.5,m:30};if(x<.5&&missing.length)return{t:'lore',n:pick(missing)};return credRw}
+ if(r===2){if(x<.15&&locked.length)return{t:'skin',k:pick(locked).k};if(x<.38)return{t:'buff',x:1.5,m:60};if(x<.5)return{t:'cboost',x:2,m:60};if(x<.58)return{t:'shield'};if(x<.72&&missing.length)return{t:'lore',n:pick(missing)};return credRw}
+ if(r===1){if(x<.2)return{t:'buff',x:1.5,m:30};if(x<.32)return{t:'cboost',x:2,m:30};if(x<.55&&missing.length)return{t:'lore',n:pick(missing)};return credRw}
  if(x<.3&&missing.length)return{t:'lore',n:pick(missing)};return credRw}
-function rwLabel(rw){if(!rw)return'';if(rw.t==='cred')return t('rwCred',{n:rw.n});if(rw.t==='buff')return t('rwBuff',{x:rw.x,m:rw.m})+(rw.bonus?' · '+t('rwCred',{n:rw.bonus}):'');if(rw.t==='lore')return t('rwLore',{n:z2(rw.n)});if(rw.t==='skin')return t('rwSkin',{n:(SKINS.find(k=>k.k===rw.k)||{}).n})+(rw.bonus?' · '+t('rwCred',{n:rw.bonus}):'');return''}
+function rwLabel(rw){if(!rw)return'';if(rw.t==='cred')return t('rwCred',{n:rw.n});if(rw.t==='buff'||rw.t==='cboost'||rw.t==='shield')return(rw.t==='buff'?t('rwBuff',{x:nf(rw.x),m:rw.m}):rw.t==='cboost'?t('rwCb',{x:nf(rw.x),m:rw.m}):t('rwSh'))+(rw.bonus?' · '+t('rwCred',{n:rw.bonus}):'')+(rw.saved?' · '+t('savedL'):'');if(rw.t==='lore')return t('rwLore',{n:z2(rw.n)});if(rw.t==='skin')return t('rwSkin',{n:(SKINS.find(k=>k.k===rw.k)||{}).n})+(rw.bonus?' · '+t('rwCred',{n:rw.bonus}):'');return''}
 function decWin(){const d=ui.dec;clearInterval(decT);const sh=state.shards.find(x=>x.id===d.id);if(!sh)return;
  const rw=rollReward(sh);sh.enc=false;sh.rw=rw;
  if(rw.t==='cred')state.cred+=rw.n;
  if(rw.bonus)state.cred+=rw.bonus;
- if(rw.t==='buff'){const b=buffNow();state.buff={x:Math.max(rw.x,b?b.x:1),until:Math.max(now(),b?b.until:0)+rw.m*6e4}}
+ if(rw.t==='buff'||rw.t==='cboost'||rw.t==='shield'){state.items=state.items||[];state.items.push({id:uid(),t:rw.t,x:rw.x||0,m:rw.m||0,r:sh.r,at:now()});rw.saved=1;setTimeout(()=>hint('items'),900)}
  if(rw.t==='lore'){state.lore=state.lore||[];if(!state.lore.includes(rw.n))state.lore.push(rw.n)}
  if(rw.t==='skin'){state.unlock=state.unlock||{};state.unlock[rw.k]=true}
  d.state='win';d.rw=rw;save();paintDec();renderHud();
@@ -1746,7 +1769,8 @@ function renderHud(){const L=lvl(state.xp),s=S(),st=streakNow();
  '<div class="hstats"><div class="strip"><span class="seg lvs"><small>LV</small><b class="g">'+L.L+'</b></span><span class="seg crs" title="'+esc(t('credits'))+'">'+I.cred+'<b>'+state.cred+'</b></span><span class="seg sts '+(st?'':'cold')+(streakBonus(st)?' hot':'')+'" title="'+esc(t('streakT')+(streakBonus(st)?' · '+t('streakTip',{p:streakBonus(st)}):''))+'">'+I.flame+'<b>'+st+'</b>'+(streakBonus(st)?'<small class="sbon">+'+streakBonus(st)+'%</small>':'')+'</span></div>'+'<div class="tools"><button class="tbtn helpb" data-act="tour" aria-label="'+esc(t('tourBtn'))+'" title="'+esc(t('tourBtn'))+'">?</button><button class="tbtn langb" data-act="langov" aria-label="'+esc(t('language'))+'">'+s.lang.toUpperCase()+'</button><button class="tbtn" data-act="mute" aria-label="'+esc(s.sound?t('mute'):t('unmute'))+'">'+(s.sound?I.son:I.soff)+'</button></div>'+'<div class="avwrap"><button class="avbtn" data-act="go" data-v="stats" aria-label="'+esc(t('profile'))+'">'+avatarHtml('s')+'<i id="syncdot" class="sync"></i></button>'+(SB_ON?'<div class="avmenu" role="menu"><div class="avm-h">'+esc(sbUser?(sbUser.email||S().handle):t('netLocalS'))+'</div>'+(sbUser?'<button role="menuitem" data-act="signout">'+I.pwr+esc(t('signOut'))+'</button>':'<button role="menuitem" data-act="signin">'+I.pwr+esc(t('signIn'))+'</button>')+'</div>':'')+'</div></div></div>'+
  '<div class="xpw"><div class="xpbar" role="progressbar" aria-valuemin="0" aria-valuemax="'+L.need+'" aria-valuenow="'+L.into+'"><div class="xpfill" style="width:'+(L.into/L.need*100).toFixed(1)+'%"></div></div><div class="xpl">'+L.into+'/'+L.need+' XP · '+esc(rank(L.L).toUpperCase())+'</div></div>'+
  '<div class="combo '+(comboOn?'on':'')+(comboOn&&ui.comboSeen!==c.n?' pop':'')+'" id="combo"><span>×'+mult+' '+esc(t('combo'))+'</span><div class="cbar"><i id="cbar" style="width:'+(cl/9000).toFixed(1)+'%"></i></div><span class="faint" id="cleft" style="font-family:var(--fu);font-size:11px">'+mmss(cl/1000)+'</span></div>'+
- (buffNow()?'<button class="evbar buffbar" data-act="go" data-v="loot"><b>◆ '+esc(t('overclock'))+'</b><span>XP ×'+buffNow().x+'</span><span class="r" id="buffleft">'+mmss((buffNow().until-now())/1000)+'</span></button>':'')+
+ (buffNow()?'<button class="evbar buffbar" data-act="go" data-v="loot"><b>◆ '+esc(t('overclock'))+'</b><span>XP ×'+nf(buffNow().x)+'</span><span class="r" id="buffleft">'+mmss((buffNow().until-now())/1000)+'</span></button>':'')+
+ (cbuffNow()?'<button class="evbar buffbar cbbar" data-act="go" data-v="loot"><b>◆ '+esc(t('cboost'))+'</b><span>'+(PL()?esc(t('credits')):'CRED')+' ×'+nf(cbuffNow().x)+'</span><span class="r" id="cbleft">'+mmss((cbuffNow().until-now())/1000)+'</span></button>':'')+
  (activeEvents().length?activeEvents().map(e=>'<button class="evbar" data-act="evinfo"><b>◆ '+esc(t('events')[e.k][0])+'</b><span>'+esc(evTags(e))+'</span><span class="r" data-evleft="'+e.k+'">'+esc(evLeft(e))+'</span></button>').join(''):'')+
  '<button class="jackchip '+(state.focus&&ui.view!=='focus'?'on':'')+'" data-act="go" data-v="focus">● '+esc(t('jacked'))+' <b id="jchip">'+mmss(focusLeft())+'</b></button>';
  ui.comboSeen=(c.n>=2&&cl>0)?c.n:null;
@@ -1795,11 +1819,20 @@ function vFocus(){const f=state.focus;
   '<div class="edl"><span class="lab">'+esc(t('fTarget'))+'</span><div class="pickl">'+(c.length?c.map(x=>'<button class="'+(ui.fTask===x.id?'on':'')+'" data-act="ftask" data-id="'+x.id+'">'+esc(x.title)+'</button>').join(''):'<div class="empty">'+esc(t('fNone'))+'</div>')+'</div></div>'+
   '<div class="edl"><span class="lab">'+esc(t('fWin'))+'</span><div class="seg">'+[5,15,25,45].map(m=>'<button class="'+(ui.fDur===m?'on':'')+'" data-act="fdur" data-v="'+m+'">'+m+' '+esc(t('min'))+'</button>').join('')+'</div></div>'+
   '<button class="btn cy bigbtn" data-act="jack">'+esc(t('jackFor',{m:ui.fDur}))+'</button></div></section>'}
+function itemLabel(i){return i.t==='buff'?t('itBuff',{x:nf(i.x),m:i.m}):i.t==='cboost'?t('itCb',{x:nf(i.x),m:i.m}):t('itSh')}
+function itemsHtml(){const it=state.items||[];const ic={buff:I.bolt,cboost:I.cred,shield:I.flame};
+ return'<section class="panel" data-tut="items"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(t('items'))+'<span class="jp">装備</span><span class="ct">'+it.length+'</span><span class="end"><span class="bc"></span></span></div>'+
+ (it.length?'<div class="items">'+it.map(i=>'<div class="item r'+i.r+'"><span class="iic">'+ic[i.t]+'</span><span class="itl">'+esc(itemLabel(i))+'</span>'+(i.t==='shield'?'':'<button class="btn sm pri" data-act="useitem" data-id="'+i.id+'">'+esc(t('use'))+'</button>')+'</div>').join('')+'</div>':'<div class="empty">'+esc(t('itemsE'))+'</div>')+'</section>'}
+function useItem(id,el){const it=state.items||[],k=it.findIndex(x=>x.id===id);if(k<0)return;const i=it[k];if(i.t==='shield')return;
+ const key=i.t==='buff'?'buff':'cbuff',cur=state[key]&&now()<state[key].until?state[key]:null;
+ state[key]={x:Math.max(i.x,cur?cur.x:1),until:Math.max(now(),cur?cur.until:0)+i.m*6e4};it.splice(k,1);
+ save();sfx('jack');buzz([20,40,20]);const r=el&&el.getBoundingClientRect();if(r)burst(r.left+r.width/2,r.top+r.height/2,30,[tok('--warn'),tok('--accent2')]);
+ toast(t('tUsed'),itemLabel(i),'c2');render()}
 function vLoot(){const cnt=[0,0,0,0];state.shards.forEach(s=>cnt[s.r]++);const rar=t('rar'),loc=S().lang==='sv'?'sv-SE':S().lang==='pl'?'pl-PL':'en-GB';
  const enc=state.shards.filter(x=>x.enc),dec=state.shards.filter(x=>!x.enc),lore=(state.lore||[]).slice().sort((a,b)=>a-b);
  const fus=[0,1,2].filter(r=>dec.filter(x=>x.r===r).length>=3);
  const shardCard=s=>'<div class="shard r'+s.r+(s.enc?' enc':'')+'"><b>'+esc(s.name)+'</b><span class="rr">'+esc(rar[s.r])+(s.enc?' · '+esc(t('encL')):'')+'</span>'+(s.enc?'<button class="btn sm cy" data-act="decrypt" data-id="'+s.id+'">'+esc(t('decrypt'))+'</button>':(s.rw?'<span class="rwl">'+esc(rwLabel(s.rw))+'</span>':''))+'</div>';
- return'<section class="panel">'+ph(t('cred'),'残高')+'<div class="pb"><div class="cred">'+state.cred+' <span style="font-size:.4em;letter-spacing:.2em">'+CU()+'</span></div><p class="muted" style="margin:8px 0 0;font-size:14px">'+esc(t('credN'))+'</p></div></section>'+
+ return'<section class="panel">'+ph(t('cred'),'残高')+'<div class="pb"><div class="cred">'+state.cred+' <span style="font-size:.4em;letter-spacing:.2em">'+CU()+'</span></div><p class="muted" style="margin:8px 0 0;font-size:14px">'+esc(t('credN'))+'</p></div></section>'+itemsHtml()+
  '<section class="panel"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(t('shards'))+'<span class="jp">断片</span><span class="ct">'+enc.length+'</span><span class="end"><span class="bc"></span></span></div>'+
   (enc.length?'<div class="shards">'+enc.map(shardCard).join('')+'</div>':'<div class="empty">'+esc(t('decNone'))+'</div>')+
   (fus.length?'<div class="pb row" style="border-top:1px solid var(--line)"><span class="lab">'+esc(t('fuseL'))+'</span>'+fus.map(r=>'<button class="btn sm" data-act="fuse" data-v="'+r+'">'+esc(t('fuseB',{a:rar[r],b:rar[r+1]}))+'</button>').join('')+'</div>':'')+
@@ -1899,6 +1932,7 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
   case'opencp':openCompiler();break;
   case'closecp':closeCompiler();break;
   case'tour':startTour(true);break;
+  case'useitem':useItem(id,b);break;
   case'install':if(installEv){installEv.prompt();installEv.userChoice.finally(()=>{installEv=null;render()})}break;
   case'evinfo':state.seenEv={};eventIntro();break;
   case'hint':{const i=$('#term');if(i){i.value=(i.value.trim()+' '+v+' ').trimStart();i.focus();sfx('tap')}break}
@@ -1982,6 +2016,7 @@ setInterval(()=>{
   if(left<=0&&f.paused==null)endFocus(true)}
  glitchHackText();
  {const bl=$('#buffleft');if(bl){const b=buffNow();if(b)bl.textContent=mmss((b.until-now())/1000);else renderHud()}}
+ {const cl=$('#cbleft');if(cl){const b=cbuffNow();if(b)cl.textContent=mmss((b.until-now())/1000);else renderHud()}}
  document.querySelectorAll('[data-evleft]').forEach(el=>{const e=EVENTS.find(x=>x.k===el.dataset.evleft);if(e)el.textContent=evLeft(e)});
  const cb=$('#cbar');if(cb){const cl=Math.max(0,15*60e3-(now()-state.combo.last));cb.style.width=(cl/9000).toFixed(1)+'%';const ct=$('#cleft');if(ct)ct.textContent=mmss(cl/1000);if(cl<=0)$('#combo').classList.remove('on')}
 },500);
@@ -2101,6 +2136,8 @@ function artBounty(){const pts=[[1,10],[3,30],[6,60],[10,100]];let h='<line x1="
  pts.forEach((p,i)=>{const x=40+i*80,hgt=8+p[1]*.62;h+='<rect x="'+(x-14)+'" y="'+(96-hgt)+'" width="28" height="'+hgt+'" rx="3" class="'+(i===3?'acf':'bx hi')+'"/>'+tx(x,90-hgt,'+'+p[1]+'%','ac','middle',11)+tx(x,112,p[0]+' '+TL('day'),'sm','middle')});
  return svgW(h+chipS(20,20,'▲ '+t(PL()?'btyChipP':'btyChip',{p:30})),120)}
 
+function artItems(){const L=[[t('itBuff',{x:nf(1.5),m:60}),'acf'],[t('itCb',{x:2,m:30}),'wnf'],[t('itSh'),'a2f']];
+ return svgW(L.map((l,i)=>{const y=8+i*40;return'<rect x="8" y="'+y+'" width="304" height="32" rx="6" class="bx'+(i===0?' hi':'')+'"/><rect x="18" y="'+(y+10)+'" width="12" height="12" rx="3" class="'+l[1]+'"/>'+tx(40,y+20,trunc(l[0],34),'fg','',11)+(i<2?'<rect x="254" y="'+(y+6)+'" width="48" height="20" rx="5" class="acf"/>'+tx(278,y+20,t('use'),'ink','middle',11):'')}).join(''),132)}
 const TS={
  welcome:{art:artLoop,extra:langPick},
  style:{extra:stylePick},
@@ -2113,15 +2150,16 @@ const TS={
  care:{view:'board',sel:'.task.hk',art:artCare},
  shop:{view:'loot',sel:'[data-tut="shop"]',art:artShop},
  loot:{view:'loot',sel:'#nav [data-v="loot"]',art:artLoot},
+ items:{view:'loot',sel:'[data-tut="items"]',art:artItems},
  events:{view:'board',sel:'.evbar',art:artEvents},
  bounty:{view:'board',sel:'.chip.bty',art:artBounty},
  done:{view:'board',sel:'#nav',art:artNav},
  project:{sel:'[data-tut="l-contract"]',art:artProject},
  streak:{sel:'#hud .sts',art:artStreak}
 };
-const FIRST=['welcome','style','add','task'],FULL=['welcome','style','add','task','boards','combo','hud','focus','care','shop','loot','events','bounty','done'];
+const FIRST=['welcome','style','add','task'],FULL=['welcome','style','add','task','boards','combo','hud','focus','care','shop','loot','items','events','bounty','done'];
 /* tips: shown once, the first time a feature appears */
-const HINTS={lists:'boards',project:'project',combo:'combo',streak:'streak',drop:'loot',shop:'shop',focus:'focus',care:'care',bounty:'bounty'};
+const HINTS={lists:'boards',project:'project',combo:'combo',streak:'streak',drop:'loot',shop:'shop',focus:'focus',care:'care',bounty:'bounty',items:'items'};
 var tourList=FIRST,tourMode='tour',hintKey=null,scOpen=false;
 function scPick(){return'<div class="tsc"><button type="button" class="linkbtn" data-tour="sc">'+esc(t('tour.sc'))+' '+(scOpen?'▴':'▾')+'</button>'+(scOpen?'<p>'+esc(t('tour.scB'))+'</p>':'')+'</div>'}
 
