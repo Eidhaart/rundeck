@@ -98,3 +98,9 @@ Short UI effects are synthesized live with the Web Audio API. The clips in `sfx/
 | `error.mp3` | Invalid actions |
 
 Any missing file falls back to the synthesized version.
+
+## Future goals
+
+- **Widgets and step counter:** home-screen widgets (XP, streak, today's tasks) and real step counts from Health Connect / Apple Health. These need a native wrapper (e.g. Capacitor), since web apps can't add home-screen widgets or read health data.
+- **Store releases:** Google Play and App Store builds from the same code.
+
