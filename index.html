@@ -658,6 +658,13 @@ textarea.inp{min-height:90px;font-family:var(--fu);font-size:12px}
 .item .itl{flex:1;font-family:var(--fu);font-size:12.5px;letter-spacing:.04em}
 .cbbar{background:repeating-linear-gradient(-45deg,var(--accent2) 0 12px,color-mix(in srgb,var(--accent2) 78%,var(--bg)) 12px 24px)}
 :is([data-skin="plain"],[data-skin="paper"]) .item .iic{border-radius:8px}
+.task.failed .tt{text-decoration:line-through;color:var(--accent);opacity:.8}
+.task.failed .chk{opacity:.4;cursor:not-allowed}
+.chip.fl{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 55%,transparent)}
+.chip.fd{color:var(--accent);border-color:var(--accent)}
+.faillist{list-style:none;margin:0;padding:0;width:100%;max-width:420px;display:flex;flex-direction:column;gap:4px;font-family:var(--fu);font-size:13px}
+.faillist li{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:4px 0}
+.faillist b{color:var(--accent);white-space:nowrap}
 </style>
 </head>
 <body>
@@ -992,6 +999,16 @@ DICT.sv.tour.steps.streak=['Seriebonus','Du har en serie: dagar i rad då du gjo
 
 DICT.en.sbFail='Could not reach the sign-in service. Check your connection and try again.';DICT.pl.sbFail='Nie udało się połączyć z usługą logowania. Sprawdź połączenie i spróbuj ponownie.';DICT.sv.sbFail='Kunde inte nå inloggningstjänsten. Kontrollera anslutningen och försök igen.';
 
+Object.assign(DICT.en,{canFail:'Can fail',canFailN:'+25% XP if you finish it. Press Fail, or let the day end (Today and Daily lists), and you lose its XP and half as many {u}. You never drop a level.',failBtn:'Fail',unfailBtn:'Undo fail',chDue:'DUE TODAY',chFail:'CAN FAIL',chFailed:'FAILED −{x} XP',tFailed:'CONTRACT FAILED',tFailedB:'−{x} XP · −{c} {u}',tUnfail:'FAIL UNDONE',sumT:'CONTRACT BREACHED',sumB:'Time ran out on {n} task(s) yesterday.',sumTot:'−{x} XP · −{c} {u}',kFail:'stakes',failTok:'can fail'});
+Object.assign(DICT.pl,{canFail:'Może się nie udać',canFailN:'+25% XP, jeśli je ukończysz. Naciśnij „Porażka” albo pozwól, by dzień się skończył (listy Dzisiaj i Codzienne), a stracisz jego XP i połowę tego w {u}. Nigdy nie spadniesz poziom niżej.',failBtn:'Porażka',unfailBtn:'Cofnij porażkę',chDue:'NA DZIŚ',chFail:'RYZYKO',chFailed:'NIEUDANE −{x} XP',tFailed:'KONTRAKT ZAWALONY',tFailedB:'−{x} XP · −{c} {u}',tUnfail:'COFNIĘTO PORAŻKĘ',sumT:'KONTRAKT ZERWANY',sumB:'Wczoraj zabrakło czasu na zadania: {n}.',sumTot:'−{x} XP · −{c} {u}',kFail:'stawka',failTok:'ryzyko'});
+Object.assign(DICT.sv,{canFail:'Kan misslyckas',canFailN:'+25% XP om du gör klart den. Tryck på Misslyckad, eller låt dagen ta slut (listorna Idag och Dagliga), så förlorar du dess XP och hälften så många {u}. Du tappar aldrig en nivå.',failBtn:'Misslyckad',unfailBtn:'Ångra misslyckande',chDue:'IDAG',chFail:'KAN MISSLYCKAS',chFailed:'MISSLYCKAD −{x} XP',tFailed:'KONTRAKT MISSLYCKAT',tFailedB:'−{x} XP · −{c} {u}',tUnfail:'ÅNGRAT',sumT:'KONTRAKT BRUTET',sumB:'Tiden tog slut för {n} uppgift(er) igår.',sumTot:'−{x} XP · −{c} {u}',kFail:'insats',failTok:'kan misslyckas'});
+Object.assign(DICT.en.plain,{chDue:'Due today',chFail:'Can fail',chFailed:'Failed −{x} XP',tFailed:'TASK FAILED',sumT:'Missed yesterday',kFail:'can fail',failTok:'yes'});
+Object.assign(DICT.pl.plain,{chDue:'Na dziś',chFail:'Może się nie udać',chFailed:'Nieudane −{x} XP',tFailed:'ZADANIE NIEUDANE',sumT:'Wczoraj nie zdążyłeś',kFail:'może się nie udać',failTok:'tak'});
+Object.assign(DICT.sv.plain,{chDue:'Idag',chFail:'Kan misslyckas',chFailed:'Misslyckad −{x} XP',tFailed:'UPPGIFT MISSLYCKAD',sumT:'Missat igår',kFail:'kan misslyckas',failTok:'ja'});
+DICT.en.tour.steps.fail=['Tasks that can fail','A task set to “Can fail” pays +25% XP if you finish it. If the day ends first, or you press Fail, you lose its XP and half as many {cred}. You never drop a level from failing.'];
+DICT.pl.tour.steps.fail=['Zadania z ryzykiem','Zadanie z opcją „Może się nie udać” daje +25% XP, jeśli je ukończysz. Jeśli dzień skończy się wcześniej albo naciśniesz „Porażka”, stracisz jego XP i połowę tego w {cred}. Porażka nigdy nie obniża poziomu.'];
+DICT.sv.tour.steps.fail=['Uppgifter som kan misslyckas','En uppgift med ”Kan misslyckas” ger +25% XP om du gör klart den. Tar dagen slut först, eller trycker du på Misslyckad, förlorar du dess XP och hälften så många {cred}. Du tappar aldrig en nivå av att misslyckas.'];
+
 /* ---------- icons ---------- */
 const I={
  logo:'<svg viewBox="0 0 40 40" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="20" cy="20" r="15" stroke-width="3" stroke-dasharray="74 20" transform="rotate(-58 20 20)"/><path d="M2 20h36" stroke-width="3"/><path d="M20 8l5.5 8.5h-11z" fill="currentColor" stroke="none"/><path d="M15 26h10" stroke-width="2"/></svg>',
@@ -1125,13 +1142,13 @@ async function initSb(){
   sb=window.supabase.createClient(CFG.supabaseUrl,CFG.supabaseAnonKey);
   const {data}=await sb.auth.getSession();
   if(data&&data.session){sbUser=data.session.user;await pullSb()}
-  else if(!state.offline){ui.gate=true;if(!document.getElementById('boot'))showGate()}
+  else{failReady=true;failSweep();if(!state.offline){ui.gate=true;if(!document.getElementById('boot'))showGate()}}
   sb.auth.onAuthStateChange((ev,session)=>{const u=session&&session.user;
    if(ev==='PASSWORD_RECOVERY'){ui.pw={open:true,msg:'',err:false,busy:false,nonce:false,recovery:true};ui.view='cfg';setTimeout(()=>{closeGate();render();toast(t('pwRecover'),'','c2');const n=document.getElementById('pw-new');if(n)n.focus()},400)}
    if(u&&(!sbUser||sbUser.id!==u.id)){sbUser=u;closeGate();pullSb().then(()=>toast(t('tIn'),u.email||'','c2'))}
    else if(!u&&sbUser){sbUser=null;signedOut()}});
   render();
- }catch(e){setSync('err')}
+ }catch(e){setSync('err');failReady=true;failSweep()}
 }
 /* ---------- merge: three-way, so two devices (or two people) working offline never wipe each other ----------
    base = the deck as it was at the last successful sync. Changes made since then on each side are combined:
@@ -1178,7 +1195,7 @@ async function pullSb(){
    else if(rem.sid!==sbSeen){const loc=state,m=mergeDeck(sbBase,loc,rem);m.sid=rem.sid;const changed=!same(m,rem);adopt(m);keepBase(rem);sbSeen=rem.sid||null;if(changed)sbDirty=true}
    else if(!same(state,sbBase))sbDirty=true}
   else{sbSeen=undefined;sbDirty=true}
-  state.owner=sbUser.id;state.offline=false;persistLocal();setSync('cloud');pushSb();render();
+  state.owner=sbUser.id;state.offline=false;persistLocal();setSync('cloud');failReady=true;failSweep();pushSb();render();
  }catch(e){isNetErr(e)?netDown():setSync('err')}
 }
 async function pushSb(){if(!sbUser||sbBusy||!sbDirty)return;sbBusy=true;sbDirty=false;
@@ -1286,11 +1303,26 @@ function repaintGate(){if(document.getElementById('gate'))showGate();else render
 function closeGate(){const g=document.getElementById('gate');if(g)$('#ovl').innerHTML='';ui.gate=false;setTimeout(eventIntro,300)}
 
 /* ---------- day rollover ---------- */
+/* ---------- failing ----------
+ A task with "Can fail" pays +25% XP when done. It fails if you press Fail, or (Today and Daily lists) when its day ends.
+ Failing costs its XP and half as many credits, but never drops you below the start of your current level.
+ The end-of-day sweep waits for the first account sync, so two devices never charge the same miss twice. */
+var failReady=false;
+function penalize(x){const base=TXP(x),L=lvl(state.xp),floor=state.xp-L.into,dx=Math.max(0,Math.min(base,state.xp-floor)),dc=Math.max(0,Math.min(state.cred,Math.round(base/2)));
+ state.xp-=dx;state.cred-=dc;state.stats.fails=(state.stats.fails||0)+1;return{xp:dx,cr:dc}}
+function failSweep(){if(!failReady)return;const d=dk(),hit=[];
+ state.tasks.forEach(x=>{if(!x.fail||x.hack||x.done||x.failed||(x.list!=='today'&&x.list!=='routine')||!x.fday||x.fday>=d)return;
+  const p=penalize(x);hit.push({title:x.title,xp:p.xp,cr:p.cr});if(x.list==='routine')x.fday=d;else x.gone=true});
+ if(!hit.length)return;state.tasks=state.tasks.filter(x=>!x.gone);if(state.target&&!findT(state.target))state.target=null;save();render();failSummary(hit)}
+function failSummary(hit){const tx=hit.reduce((a,h)=>a+h.xp,0),tc=hit.reduce((a,h)=>a+h.cr,0);
+ const go=()=>{if($('#ovl').innerHTML||tourOn||document.getElementById('boot')||document.getElementById('gate')){setTimeout(go,1500);return}
+  sfx('fail');buzz([60,40,60]);
+  $('#ovl').innerHTML='<div class="ov" data-act="closeov"><div class="ovbox failbox"><div class="glitch" data-t="'+esc(t('sumT'))+'" style="color:var(--accent);font-size:clamp(28px,8vw,52px)">'+esc(t('sumT'))+'</div><p style="margin:0;max-width:420px;font-size:16px">'+esc(t('sumB',{n:hit.length}))+'</p><ul class="faillist">'+hit.slice(0,8).map(h=>'<li><span>'+esc(h.title)+'</span><b>−'+h.xp+' XP</b></li>').join('')+'</ul><div class="lab" style="color:var(--accent);font-size:13px">'+esc(t('sumTot',{x:tx,c:tc,u:CU()}))+'</div><button class="btn pri" data-act="closeov">'+esc(t('cont'))+'</button></div></div>'};go()}
 function rollover(){
  const d=dk();if(state.day===d)return;
  let arch=0;
- state.tasks=state.tasks.filter(x=>{if(x.hack&&!x.done)return false;if(x.done&&x.list!=='routine'){arch++;return false}return true});
- state.tasks.forEach(x=>{if(x.list==='routine'){x.done=false;x.paid=false;x.award=0;x.subs.forEach(s=>{s.done=false;s.paid=false})}});
+ state.tasks=state.tasks.filter(x=>{if(x.hack&&!x.done)return false;if((x.done||x.failed)&&x.list!=='routine'){arch++;return false}return true});
+ state.tasks.forEach(x=>{if(x.list==='routine'){if(x.fail&&!(x.fday&&x.fday<d&&!x.done&&!x.failed))x.fday=d;x.done=false;x.paid=false;x.award=0;delete x.failed;delete x.pen;x.subs.forEach(s=>{s.done=false;s.paid=false})}});
  state.archived+=arch;state.day=d;
  if(state.target&&!state.tasks.find(x=>x.id===state.target))state.target=null;
  const keys=Object.keys(state.hist).sort();while(keys.length>90)delete state.hist[keys.shift()];
@@ -1373,6 +1405,7 @@ const SFX={
  heat(){if(!samp('heat',{vol:.7}))SFX.level()},
  hack(){for(let i=0;i<6;i++)click(i*.03,.06,800+Math.random()*3000);tone(46,.18,.5,'sawtooth',.05,0,{lp:300})}
 };
+SFX.fail=function(){if(samp('error',{rate:.85,vol:.7}))return;SFX.err()};
 SFX.streak=function(){if(samp('levelup',{rate:1.12,vol:.8}))return;SFX.level()};
 /* Soft set: short clean sine blips, the default for the Plain styles. */
 const bl=(f,t0,d,v,f2)=>tone(f,t0,d,'sine',v,f2,{clean:1,a:.004});
@@ -1400,7 +1433,8 @@ const SOFT={
  enter(){bl(1046.5,0,.05,.025)},
  lang(){bl(880,0,.05,.025);bl(1108.7,.05,.06,.025)},
  heat(){[659.25,880,1046.5,1318.5].forEach((f,i)=>bl(f,i*.07,.22,.045))},
- hack(){bl(990,0,.06,.03);bl(740,.07,.1,.025)}
+ hack(){bl(990,0,.06,.03);bl(740,.07,.1,.025)},
+ fail(){bl(392,0,.12,.05);bl(311.1,.11,.22,.05)}
 };
 const SSET=()=>S().sset||(PSKIN()?'soft':'cyber');
 const QUIET_OK=new Set(['tap','done','sub','undo','err']);
@@ -1493,12 +1527,12 @@ function afterGain(res,line){
  if(Math.random()<.27)setTimeout(dropShard,650);
  setTimeout(checkAch,900);
 }
-function complete(id,el){const tk=findT(id);if(!tk)return;
+function complete(id,el){const tk=findT(id);if(!tk||tk.failed)return;
  if(tk.done){tk.done=false;sfx('undo');save();render();return}
  if(tk.paid){tk.done=true;tk.subs.forEach(s=>{s.done=true;s.paid=true});sfx('tap');save();render();return}
  const rect=el&&el.getBoundingClientRect();
  tk.paid=true;tk.doneAt=now();tk.done=true;tk.subs.forEach(s=>{s.done=true;s.paid=true});
- tk.done=false;const bp=bountyPct(tk);const res=award(Math.round(TXP(tk)*(1+bp/100)),rect,{combo:true,task:true});tk.done=true;if(bp&&rect)setTimeout(()=>floatTxt(rect.left+60,rect.top-44,'+'+bp+'% ▲',tok('--warn')),240);tk.award=res.xp;tk.awardCr=res.cr;
+ tk.done=false;const bp=bountyPct(tk);const res=award(Math.round(TXP(tk)*(1+bp/100)*(tk.fail?1.25:1)),rect,{combo:true,task:true});tk.done=true;if(bp&&rect)setTimeout(()=>floatTxt(rect.left+60,rect.top-44,'+'+bp+'% ▲',tok('--warn')),240);tk.award=res.xp;tk.awardCr=res.cr;
  if(tk.hack){const H=HX();H.lastCat[tk.hc]=now();H.patched=(H.patched||0)+1;if(rect)setTimeout(()=>floatTxt(rect.left+70,rect.top-20,t('patchedF'),tok('--astral')),260);if(Math.random()<.25)setTimeout(dropShard,1400)}
  if(state.target===id)state.target=null;
  sfx('done',{n:state.combo.n,heavy:tk.diff===3||TXP(tk)>=50||state.combo.n%5===0,hack:!!tk.hack});if(state.combo.n>=2)setTimeout(()=>hint('combo'),1700);buzz([18,30,40]);
@@ -1628,13 +1662,14 @@ function applyToken(tkn){const d=ui.draft;let m;
  if((m=tkn.match(/^@(\S+)/))&&LMAP[m[1].toLowerCase()]){d.list=LMAP[m[1].toLowerCase()];return'list'}
  return null}
 function knownTags(){const set=new Set();state.tasks.forEach(x=>{if(x.cat)set.add(x.cat)});if(ui.draft.cat)set.add(ui.draft.cat);return[...set].slice(0,8)}
-function composerInner(){const d=ui.draft,m=evMult(),bx=d.xp>0?d.xp:DX[d.diff],xp=Math.round(bx*m.xp),cr=Math.round(bx*m.xp/2*m.cr),ev=activeEvents().length>0;
+function composerInner(){const d=ui.draft,m=evMult(),bx=(d.xp>0?d.xp:DX[d.diff])*(d.fail?1.25:1),xp=Math.round(bx*m.xp),cr=Math.round(bx*m.xp/2*m.cr),ev=activeEvents().length>0;
  const tok=(k,v,label,on)=>'<button type="button" class="tok '+(on?'on':'')+(ui.flash===k?' flash':'')+'" data-act="cpset" data-k="'+k+'" data-v="'+esc(v)+'">'+esc(label)+'</button>';
  const L=(n,html,ind)=>(PL()&&(n===1))?'':'<div class="ln'+(ind?' in':'')+'" style="--i:'+n+'"><i>'+n+'</i><div class="lc">'+html+'</div></div>';
  if(PL())return'<div class="code pform" id="cpcode">'+
  L(2,'<label class="k" for="cp-name">'+esc(t('kName'))+'</label><input id="cp-name" class="cin" autocomplete="off" enterkeyhint="go" value="'+esc(d.title)+'" placeholder="'+esc(t('cpName'))+'">',1)+
  L(3,'<span class="k">'+esc(t('kWeight'))+'</span>'+[1,2,3].map(n=>tok('diff',n,t('diff')[n]+' +'+DX[n],d.diff===n&&!(d.xp>0))).join('')+'<label class="sr" for="cp-xp">'+esc(t('customXp'))+' XP</label><input id="cp-xp" class="cin sm xpc'+(d.xp>0?' on':'')+'" type="number" inputmode="numeric" min="1" max="999" autocomplete="off" placeholder="'+esc(t('customXp'))+' XP" value="'+(d.xp>0?d.xp:'')+'">',1)+
  L(4,'<span class="k">'+esc(t('kBoard'))+'</span>'+LIST_KEYS.map(k=>tok('list',k,t('lists')[k][0],d.list===k)).join(''),1)+
+ L(5,'<span class="k">'+esc(t('kFail'))+'</span>'+tok('fail','',t('none'),!d.fail)+tok('fail','1',t('failTok'),!!d.fail),1)+
  L(5,'<span class="k">'+esc(t('kTag'))+'</span>'+tok('cat','',t('none'),!d.cat)+knownTags().map(c=>tok('cat',c,'#'+c,d.cat===c)).join('')+'<label class="sr" for="cp-tag">'+esc(t('tagNew'))+'</label><input id="cp-tag" class="cin sm" autocomplete="off" data-enter="cptag" placeholder="'+esc(t('tagNew'))+'">',1)+
  L(6,'<span class="k">'+esc(t('kSteps'))+'</span>'+d.steps.map((x,i)=>'<button type="button" class="tok on" data-act="cpdelstep" data-v="'+i+'">'+esc(x)+'<span class="x">✕</span></button>').join('')+'<label class="sr" for="cp-step">'+esc(t('stepAdd'))+'</label><input id="cp-step" class="cin sm" autocomplete="off" data-enter="cpstep" placeholder="'+esc(t('stepAdd'))+'">',1)+
  '<div class="ln in pfoot"><div class="lc"><span class="k">'+esc(t('rewardL'))+'</span><b>+'+xp+' XP · +'+cr+' '+CU()+'</b>'+(d.steps.length?' <span class="faint">+ '+d.steps.length*5+' XP</span>':'')+(ev?' <em>· '+esc(activeEvents().map(e=>t('events')[e.k][0]).join(' + '))+'</em>':'')+'</div></div>'+
@@ -1645,9 +1680,10 @@ function composerInner(){const d=ui.draft,m=evMult(),bx=d.xp>0?d.xp:DX[d.diff],x
  L(2,'<label class="k" for="cp-name">'+esc(t('kName'))+':</label><span class="q">"</span><input id="cp-name" class="cin" autocomplete="off" enterkeyhint="go" value="'+esc(d.title)+'" placeholder="'+esc(t('cpName'))+'"><span class="q">"</span>',1)+
  L(3,'<span class="k">'+esc(t('kWeight'))+':</span>'+[1,2,3].map(n=>tok('diff',n,t('diff')[n]+' +'+DX[n],d.diff===n&&!(d.xp>0))).join('')+'<label class="sr" for="cp-xp">'+esc(t('customXp'))+' XP</label><input id="cp-xp" class="cin sm xpc'+(d.xp>0?' on':'')+'" type="number" inputmode="numeric" min="1" max="999" autocomplete="off" placeholder="'+esc(t('customXp'))+' XP" value="'+(d.xp>0?d.xp:'')+'">',1)+
  L(4,'<span class="k">'+esc(t('kBoard'))+':</span>'+LIST_KEYS.map(k=>tok('list',k,t('lists')[k][0],d.list===k)).join(''),1)+
- L(5,'<span class="k">'+esc(t('kTag'))+':</span>'+tok('cat','',t('none'),!d.cat)+knownTags().map(c=>tok('cat',c,'#'+c,d.cat===c)).join('')+'<label class="sr" for="cp-tag">'+esc(t('tagNew'))+'</label><input id="cp-tag" class="cin sm" autocomplete="off" data-enter="cptag" placeholder="'+esc(t('tagNew'))+'">',1)+
- L(6,'<span class="k">'+esc(t('kSteps'))+':</span>'+d.steps.map((x,i)=>'<button type="button" class="tok on" data-act="cpdelstep" data-v="'+i+'">'+esc(x)+'<span class="x">✕</span></button>').join('')+'<label class="sr" for="cp-step">'+esc(t('stepAdd'))+'</label><input id="cp-step" class="cin sm" autocomplete="off" data-enter="cpstep" placeholder="'+esc(t('stepAdd'))+'">',1)+
- L(7,'<span class="pn">})</span> <span class="cm">// '+esc(t('reward'))+': <b>+'+xp+' XP · +'+cr+' '+CU()+'</b>'+(d.steps.length?' + '+d.steps.length*5+' XP':'')+(ev?' <em>· '+esc(activeEvents().map(e=>t('events')[e.k][0]).join(' + '))+'</em>':'')+'</span>')+
+ L(5,'<span class="k">'+esc(t('kFail'))+':</span>'+tok('fail','',t('none'),!d.fail)+tok('fail','1',t('failTok'),!!d.fail),1)+
+ L(6,'<span class="k">'+esc(t('kTag'))+':</span>'+tok('cat','',t('none'),!d.cat)+knownTags().map(c=>tok('cat',c,'#'+c,d.cat===c)).join('')+'<label class="sr" for="cp-tag">'+esc(t('tagNew'))+'</label><input id="cp-tag" class="cin sm" autocomplete="off" data-enter="cptag" placeholder="'+esc(t('tagNew'))+'">',1)+
+ L(7,'<span class="k">'+esc(t('kSteps'))+':</span>'+d.steps.map((x,i)=>'<button type="button" class="tok on" data-act="cpdelstep" data-v="'+i+'">'+esc(x)+'<span class="x">✕</span></button>').join('')+'<label class="sr" for="cp-step">'+esc(t('stepAdd'))+'</label><input id="cp-step" class="cin sm" autocomplete="off" data-enter="cpstep" placeholder="'+esc(t('stepAdd'))+'">',1)+
+ L(8,'<span class="pn">})</span> <span class="cm">// '+esc(t('reward'))+': <b>+'+xp+' XP · +'+cr+' '+CU()+'</b>'+(d.steps.length?' + '+d.steps.length*5+' XP':'')+(ev?' <em>· '+esc(activeEvents().map(e=>t('events')[e.k][0]).join(' + '))+'</em>':'')+'</span>')+
  '</div><div class="cpfoot" id="cpfoot"><button class="btn pri" data-act="deploy">'+(PL()?'':'▸ ')+esc(t('run'))+'</button><button class="btn sm" data-act="deploynext">'+esc(t('runNext'))+'</button><button type="button" class="linkbtn schelp" data-act="cpsc">'+esc(ui.cpSc?t('hideSc'):t('showSc'))+'</button></div>'+(ui.cpSc?'<div class="schint">'+esc(t('tour.scB'))+'</div>':'')+
  (ui.termLog.length?'<div class="tout">'+ui.termLog.map(l=>'<div class="'+l.c+'">'+esc(l.m)+'</div>').join('')+'</div>':'')}
 function vComposer(){return'<section class="panel composer" id="composer"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(t('composer'))+'<span class="jp">作成</span><span class="end">'+(V().tag?'<span class="faint tagl" style="letter-spacing:.1em">'+esc(V().tag)+'</span>':'')+'<span class="bc"></span></span></div><div id="cpbody">'+composerInner()+'</div></section>'}
@@ -1657,9 +1693,9 @@ function deploy(keep){const d=ui.draft;let v=(d.title||'').trim();
  if(v[0]==='/'){d.title='';$('#ovl').innerHTML='';term(v);return}
  const words=[];v.split(/\s+/).forEach(w=>{if(!w)return;if(!applyToken(w))words.push(w)});v=words.join(' ');
  if(!v){sfx('err');buzz(40);ui.termLog.push({m:'✕ '+t('cpEmpty'),c:'er'});ui.termLog=ui.termLog.slice(-3);paintComposer('cp-name');const c=$('#cpcode');if(c)c.classList.add('err');return}
- const tk={id:uid(),title:v,list:d.list,diff:d.diff,cat:d.cat,done:false,created:now(),subs:d.steps.map(x=>({id:uid(),t:x,done:false}))};if(d.xp>0)tk.xp=Math.min(999,d.xp);state.tasks.push(tk);setTimeout(()=>hint(tk.list==='contract'?'project':'lists'),2200);
+ const tk={id:uid(),title:v,list:d.list,diff:d.diff,cat:d.cat,done:false,created:now(),subs:d.steps.map(x=>({id:uid(),t:x,done:false}))};if(d.xp>0)tk.xp=Math.min(999,d.xp);if(d.fail){tk.fail=true;tk.fday=dk()}state.tasks.push(tk);setTimeout(()=>hint(tk.list==='contract'?'project':'lists'),2200);
  const m=evMult(),line='✓ '+t('compiled')+' · '+V().add+' · '+t('deployed',{b:t('lists')[d.list][0].toUpperCase()})+' · +'+Math.round(TXP(tk)*m.xp)+' XP';
- ui.draft={title:'',diff:1,list:d.list,cat:'',steps:[],xp:0};ui.showBack=ui.showBack||d.list==='backlog';save();
+ ui.draft={title:'',diff:1,list:d.list,cat:'',steps:[],xp:0,fail:''};ui.showBack=ui.showBack||d.list==='backlog';save();
  if(keep){ui.termLog.push({m:line,c:'ok'});ui.termLog=ui.termLog.slice(-3);sfx('add');setTimeout(()=>sfx('sub'),90);buzz([10,30,10]);ui.just=tk.id;render();paintComposer('cp-name');const c=$('#cpcode');if(c){c.classList.add('compiled');const r=c.getBoundingClientRect();burst(r.right-60,r.bottom-20,22,[tok('--ok'),tok('--accent2')])}setTimeout(()=>{ui.just=null},950);return}
  const foot=$('#cpfoot');if(foot)foot.innerHTML='<div class="cprog"><i id="cpbar"></i></div><span class="hint" style="color:var(--ok)">'+esc(t('compiling'))+'…</span>';
  const c=$('#cpcode');if(c)c.classList.add('compiled');
@@ -1779,18 +1815,19 @@ function renderHud(){const L=lvl(state.xp),s=S(),st=streakNow();
  setSync(syncMode)}
 function pips(d){return'<span class="pips" title="'+esc(t('diff')[d])+'">'+[1,2,3].map(i=>'<i class="'+(i<=d?'on':'')+'"></i>').join('')+'</span>'}
 function taskHtml(x){const n=x.subs.length,dn=x.subs.filter(s=>s.done).length,op=ui.open===x.id;
- return'<li class="task '+(x.hack?'hk ':'')+(x.done?'done ':'')+(ui.just===x.id?'just ':'')+(op?'open':'')+'">'+
- '<div class="trow"><button class="chk" data-act="done" data-id="'+x.id+'" aria-label="'+esc((x.done?t('undo'):t('complete'))+' '+x.title)+'"><span>'+I.chk+'</span></button>'+
- '<button class="tb" data-act="open" data-id="'+x.id+'" aria-expanded="'+op+'"><div class="tt"'+(x.hack?' data-t="'+esc(x.title)+'"':'')+'>'+esc(x.title)+'</div><div class="tm">'+pips(x.diff)+(x.cat?'<span class="chip">#'+esc(x.cat)+'</span>':'')+(n?'<span class="chip">'+esc(t('stepsChip',{a:dn,b:n}))+'</span>':'')+(bountyPct(x)?'<span class="chip bty">▲ '+esc(t(PL()?'btyChipP':'btyChip',{p:bountyPct(x)}))+'</span>':'')+(state.target===x.id?'<span class="chip tg">'+esc(t('tgt'))+'</span>':'')+(x.sample?'<span class="chip">'+esc(t('sample'))+'</span>':'')+(x.hack?'<span class="hxid">0x'+esc(x.hex||'')+'</span>':'')+'</div></button>'+
- '<span class="xpv">+'+Math.round(TXP(x)*(1+bountyPct(x)/100))+'</span></div>'+
+ return'<li class="task '+(x.hack?'hk ':'')+(x.done?'done ':'')+(x.failed?'failed ':'')+(ui.just===x.id?'just ':'')+(op?'open':'')+'">'+
+ '<div class="trow"><button class="chk"'+(x.failed?' disabled':'')+' data-act="done" data-id="'+x.id+'" aria-label="'+esc((x.done?t('undo'):t('complete'))+' '+x.title)+'"><span>'+I.chk+'</span></button>'+
+ '<button class="tb" data-act="open" data-id="'+x.id+'" aria-expanded="'+op+'"><div class="tt"'+(x.hack?' data-t="'+esc(x.title)+'"':'')+'>'+esc(x.title)+'</div><div class="tm">'+pips(x.diff)+(x.cat?'<span class="chip">#'+esc(x.cat)+'</span>':'')+(n?'<span class="chip">'+esc(t('stepsChip',{a:dn,b:n}))+'</span>':'')+(x.failed?'<span class="chip fd">✕ '+esc(t('chFailed',{x:(x.pen||{}).xp||0}))+'</span>':(x.fail&&!x.done?'<span class="chip fl">⚠ '+esc(t(x.list==='today'||x.list==='routine'?'chDue':'chFail'))+'</span>':''))+(bountyPct(x)?'<span class="chip bty">▲ '+esc(t(PL()?'btyChipP':'btyChip',{p:bountyPct(x)}))+'</span>':'')+(state.target===x.id?'<span class="chip tg">'+esc(t('tgt'))+'</span>':'')+(x.sample?'<span class="chip">'+esc(t('sample'))+'</span>':'')+(x.hack?'<span class="hxid">0x'+esc(x.hex||'')+'</span>':'')+'</div></button>'+
+ '<span class="xpv">+'+Math.round(TXP(x)*(1+bountyPct(x)/100)*(x.fail?1.25:1))+'</span></div>'+
  (op?'<div class="ed">'+(x.hack?'<div class="hkrev">&gt; '+esc(t('injected'))+' · '+esc(hackFlavor(x))+'</div>':'')+
   '<div class="edl"><span class="lab">'+esc(t('steps'))+'</span><ul class="subs">'+x.subs.map(s=>'<li class="sub '+(s.done?'done':'')+'"><button class="sc" data-act="sub" data-id="'+x.id+'" data-s="'+s.id+'" aria-label="'+esc(t('toggleStep'))+'"><span></span></button><span class="st">'+esc(s.t)+'</span><button class="sx" data-act="delsub" data-id="'+x.id+'" data-s="'+s.id+'" aria-label="'+esc(t('removeStep'))+'">✕</button></li>').join('')+'</ul>'+
   '<input class="inp" id="sub-'+x.id+'" data-enter="addsub" data-id="'+x.id+'" placeholder="'+esc(t('stepPh'))+'" autocomplete="off"></div>'+
   (x.hack?'':'<div class="edl"><span class="lab">'+esc(t('weight'))+'</span><div class="xprow"><div class="seg">'+[1,2,3].map(d=>'<button class="'+(x.diff===d&&!x.xp?'on':'')+'" data-act="diff" data-id="'+x.id+'" data-v="'+d+'">'+esc(t('diff')[d])+' +'+DX[d]+'</button>').join('')+'</div><label class="xpin'+(x.xp?' on':'')+'"><span>XP</span><input type="number" inputmode="numeric" min="1" max="999" data-xp="'+x.id+'" value="'+(x.xp||'')+'" placeholder="'+esc(t('customXp'))+'" aria-label="'+esc(t('customXp'))+' XP"></label></div></div>'+
+  (x.hack?'':'<div class="edl"><div class="tog"><span>'+esc(t('canFail'))+'</span><button class="sw2 '+(x.fail?'on':'')+'" data-act="failtog" data-id="'+x.id+'" role="switch" aria-checked="'+!!x.fail+'" aria-label="'+esc(t('canFail'))+'"></button></div><span class="faint" style="font-size:12px">'+esc(t('canFailN',{u:CU()}))+'</span></div>')+
   (x.list==='routine'?'':'<div class="edl"><div class="tog"><span>'+esc(t('nobL'))+'</span><button class="sw2 '+(x.nob?'on':'')+'" data-act="nob" data-id="'+x.id+'" role="switch" aria-checked="'+!!x.nob+'" aria-label="'+esc(t('nobL'))+'"></button></div></div>'))+
   '<div class="edl"><span class="lab">'+esc(t('boardL'))+'</span><div class="seg">'+lists().map(l=>'<button class="'+(x.list===l.k?'on':'')+'" data-act="move" data-id="'+x.id+'" data-v="'+l.k+'">'+esc(l.n)+'</button>').join('')+'</div></div>'+
   '<div class="row"><button class="btn sm cy" data-act="settarget" data-id="'+x.id+'">'+esc(state.target===x.id?t('clrT'):t('setT'))+'</button><button class="btn sm" data-act="jackthis" data-id="'+x.id+'">'+I.bolt+esc(t('jackIn'))+'</button>'+
-  (ui.confirm===x.id?'<button class="btn sm dng" data-act="del" data-id="'+x.id+'">'+esc(t('delC'))+'</button>':'<button class="btn sm" data-act="askdel" data-id="'+x.id+'">'+esc(t('del'))+'</button>')+'</div>'+
+  (x.failed?'<button class="btn sm" data-act="unfail" data-id="'+x.id+'">'+esc(t('unfailBtn'))+'</button>':(x.fail&&!x.done?'<button class="btn sm dng" data-act="failtask" data-id="'+x.id+'">✕ '+esc(t('failBtn'))+'</button>':''))+(ui.confirm===x.id?'<button class="btn sm dng" data-act="del" data-id="'+x.id+'">'+esc(t('delC'))+'</button>':'<button class="btn sm" data-act="askdel" data-id="'+x.id+'">'+esc(t('del'))+'</button>')+'</div>'+
  '</div>':'')+'</li>'}
 const ph=(title,jp,end)=>'<div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(title)+(jp?'<span class="jp">'+jp+'</span>':'')+'<span class="end">'+(end||'')+'<span class="bc"></span></span></div>';
 function vBoard(){const tg=findT(state.target),todays=state.tasks.filter(x=>x.list==='today'),td=todays.filter(x=>x.done).length;
@@ -1920,7 +1957,11 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
   case'delsub':tk.subs=tk.subs.filter(s=>s.id!==b.dataset.s);sfx('undo');save();render();break;
   case'diff':tk.diff=+v;delete tk.xp;sfx('tap');save();render();break;
   case'nob':tk.nob=!tk.nob;sfx('tap');save();render();break;
-  case'move':if(tk.list!==v){tk.list=v;tk.since=now()}sfx('tap');save();render();if(v==='contract')setTimeout(()=>hint('project'),500);break;
+  case'failtog':tk.fail=!tk.fail;if(tk.fail){tk.fday=dk();setTimeout(()=>hint('fail'),500)}sfx('tap');save();render();break;
+  case'failtask':{if(!tk||tk.done||tk.failed)break;const p=penalize(tk);tk.failed=true;tk.pen=p;tk.failedAt=now();if(state.target===id)state.target=null;
+   const r=b.getBoundingClientRect();floatTxt(r.left+20,r.top-10,'−'+p.xp+' XP',tok('--accent'));sfx('fail');buzz([60,40,60]);toast(t('tFailed'),t('tFailedB',{x:p.xp,c:p.cr,u:CU()}));save();render();break}
+  case'unfail':if(tk&&tk.failed){const p=tk.pen||{xp:0,cr:0};state.xp+=p.xp;state.cred+=p.cr;state.stats.fails=Math.max(0,(state.stats.fails||1)-1);delete tk.failed;delete tk.pen;delete tk.failedAt;sfx('undo');toast(t('tUnfail'),'');save();render()}break;
+  case'move':if(tk.list!==v){tk.list=v;tk.since=now();if(tk.fail)tk.fday=dk()}sfx('tap');save();render();if(v==='contract')setTimeout(()=>hint('project'),500);break;
   case'settarget':state.target=state.target===id?null:id;sfx('land');save();render();break;
   case'jackthis':ui.fTask=id;ui.view='focus';sfx('nav');render();break;
   case'askdel':ui.confirm=id;sfx('err');render();break;
@@ -2024,7 +2065,7 @@ setInterval(()=>{
 },500);
 setInterval(()=>{if(state.day!==dk()){rollover();render()}hackTick()},60e3);
 setTimeout(()=>hackTick(),45e3);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden&&state.day!==dk()){rollover();render()}});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&state.day!==dk()){rollover();failSweep();render()}});
 
 /* ---------- boot ---------- */
 function bootLines(){const op=S().handle||'OPERATOR';return[['MERIDIAN MUNICIPAL GRID // NODE 07',''],[t('bHand')+' ',' OK'],[t('bOp')+': '+op+' ',' '+t('bVer')],[t('bLoad')+' ',' '+state.tasks.filter(x=>!x.done).length],[t('bCred')+' ',' '+state.cred+' CRED'],[t('bStreak')+' ',' '+streakNow()+' '+t('bDays')],[V().tag.toUpperCase(),'rd']]}
@@ -2041,7 +2082,7 @@ function boot(){if(!S().boot||PL()){if(ui.gate)showGate();else setTimeout(eventI
  o.querySelector('#bskip').addEventListener('click',e=>{S().boot=false;save();e.target.textContent=t('bSkipped');e.target.disabled=true});
 }
 
-sizeFx();rollover();applySet();render();paintNet();boot();initGrid();initSb();
+sizeFx();rollover();applySet();render();paintNet();boot();initGrid();initSb();if(!SB_ON){failReady=true;failSweep()}
 /* ---------- installable app (PWA) ---------- */
 var installEv=null;
 function isStandalone(){return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}
@@ -2140,6 +2181,8 @@ function artBounty(){const pts=[[1,10],[3,30],[6,60],[10,100]];let h='<line x1="
 
 function artItems(){const L=[[t('itBuff',{x:nf(1.5),m:60}),'acf'],[t('itCb',{x:2,m:30}),'wnf'],[t('itSh'),'a2f']];
  return svgW(L.map((l,i)=>{const y=8+i*40;return'<rect x="8" y="'+y+'" width="304" height="32" rx="6" class="bx'+(i===0?' hi':'')+'"/><rect x="18" y="'+(y+10)+'" width="12" height="12" rx="3" class="'+l[1]+'"/>'+tx(40,y+20,trunc(l[0],34),'fg','',11)+(i<2?'<rect x="254" y="'+(y+6)+'" width="48" height="20" rx="5" class="acf"/>'+tx(278,y+20,t('use'),'ink','middle',11):'')}).join(''),132)}
+function artFail(){return svgW('<rect x="8" y="8" width="304" height="44" rx="8" class="bx hi"/>'+chkC(30,30,9,false)+tx(48,27,TL('example'),'fg','',12)+chipS(48,45,'⚠ '+t('chDue'))+tx(300,34,'+31','ac big2','end')+
+  '<path d="M90 56v18h-50v10M230 56v18h50v10" class="co"/><rect x="8" y="86" width="140" height="34" rx="6" class="bx"/>'+tx(78,108,'✓ +31 XP (+25%)','ac','middle',11)+'<rect x="172" y="86" width="140" height="34" rx="6" class="bx"/>'+tx(242,108,'✕ −25 XP','wn','middle',11),128)}
 const TS={
  welcome:{art:artLoop,extra:langPick},
  style:{extra:stylePick},
@@ -2156,12 +2199,13 @@ const TS={
  events:{view:'board',sel:'.evbar',art:artEvents},
  bounty:{view:'board',sel:'.chip.bty',art:artBounty},
  done:{view:'board',sel:'#nav',art:artNav},
+ fail:{art:artFail},
  project:{sel:'[data-tut="l-contract"]',art:artProject},
  streak:{sel:'#hud .sts',art:artStreak}
 };
-const FIRST=['welcome','style','add','task'],FULL=['welcome','style','add','task','boards','combo','hud','focus','care','shop','loot','items','events','bounty','done'];
+const FIRST=['welcome','style','add','task'],FULL=['welcome','style','add','task','boards','combo','hud','focus','care','shop','loot','items','events','bounty','fail','done'];
 /* tips: shown once, the first time a feature appears */
-const HINTS={lists:'boards',project:'project',combo:'combo',streak:'streak',drop:'loot',shop:'shop',focus:'focus',care:'care',bounty:'bounty',items:'items'};
+const HINTS={lists:'boards',project:'project',combo:'combo',streak:'streak',drop:'loot',shop:'shop',focus:'focus',care:'care',bounty:'bounty',items:'items',fail:'fail'};
 var tourList=FIRST,tourMode='tour',hintKey=null,scOpen=false;
 function scPick(){return'<div class="tsc"><button type="button" class="linkbtn" data-tour="sc">'+esc(t('tour.sc'))+' '+(scOpen?'▴':'▾')+'</button>'+(scOpen?'<p>'+esc(t('tour.scB'))+'</p>':'')+'</div>'}
 

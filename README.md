@@ -26,6 +26,7 @@ Installed, it opens full screen with its own icon, and `sw.js` keeps it working 
 - **Combo:** tasks finished within 15 minutes of each other build ×1.5, ×2, up to ×3.
 - **Streak:** +5% XP per consecutive day, up to +50%. One missed day per week is covered by a shield. Milestones at 3, 7, 14 and 30 days give a bonus and a drop.
 - **Bounties:** open tasks in chosen lists grow +10% XP per day waiting, up to +100%. Lists, tags and single tasks can be excluded (a task excluded here is also skipped by Pick for me).
+- **Can fail:** a per-task switch (also in the task editor). Such tasks pay +25% XP. Pressing Fail, or the day ending for Today/Daily tasks, costs the task's XP and half as many credits, never dropping you below your current level. Fail can be undone the same day. Missed tasks are listed on a summary screen; the end-of-day check runs after the first account sync so two devices never charge twice.
 - **Items:** boosts won from shards (XP boost, credits boost, spare streak shield) are saved in Loot → Items and activated whenever you choose. Using a boost while the same kind is running adds its time. Shields are used automatically.
 - **Bonus days:** weekend and payday multipliers are adjustable (off, small, normal, big) and the payday date can be set.
 - **Self-care:** 0–2 small tasks a day, filtered by the kinds you keep on (body, food, mind, people, rest).
