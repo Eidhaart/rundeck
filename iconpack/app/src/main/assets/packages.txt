@@ -1,0 +1,143 @@
+se.inera.mvk|a1177|1177
+com.lionsden.fivecharacter|a5e_character|5e Character
+com.lionsden.fiveitems|a5e_items|5e Items
+com.lionsden.fiveothers|a5e_others|5e Others
+com.lionsden.fivespells2024|a5e_spells|5e Spells
+com.lionsden.rpggenerator|rpg_generator|RPG Generator
+com.ninegag.android.app|a9gag|9GAG
+se.aftonbladet.Aftonbladet|aftonbladet|Aftonbladet
+se.sll.alltidoppet|alltid_oppet|Alltid öppet
+com.amazon.mShop.android.shopping|amazon_shopping|Amazon Shopping
+com.google.android.projection.gearhead|android_auto|Android Auto
+se.arlandaexpress.app|arlanda_express|Arlanda Express
+com.audible.application|audible|Audible
+com.audioteka|audioteka|Audioteka
+com.azure.authenticator|authenticator|Authenticator
+com.bankid.bus|bankid|BankID
+com.brave.browser|brave|Brave
+org.mozilla.firefox|firefox|Firefox
+ch.publisheria.bring|bring|Bring
+com.google.android.calculator|calculator|Calculator
+com.google.android.calendar|calendar|Calendar
+com.nothing.camera|camera|Camera
+com.instagram.android|instagram|Instagram
+se.capio.app|capio|Capio
+com.openai.chatgpt|chatgpt|ChatGPT
+com.anthropic.claude|claude|Claude
+com.google.android.apps.bard|gemini|Gemini
+com.microsoft.copilot|copilot|Copilot
+ai.x.grok|grok|Grok
+com.clansoflondon.game|clans_of_london|Clans of London
+com.poncle.vampiresurvivors|vampire_survivors|Vampire Survivors
+com.edgefield.game|edgefield|Edgefield
+com.valvesoftware.android.steam.community|steam|Steam
+com.sabotagestudio.seaofstars|sea_of_stars|Sea of Stars
+com.gamesworkshop.killteam|kill_team|Kill Team
+com.gamesworkshop.warhammer40k|wh_40k|WH 40K
+com.gamesworkshop.ageofsigmar|wh_aos|WH AoS
+com.newrecruit.app|new_recruit|New Recruit
+com.google.android.apps.classroom|classroom|Classroom
+com.google.android.deskclock|clock|Clock
+com.nothing.compass|compass|Compass
+com.google.android.contacts|contacts|Contacts
+com.vorwerk.cookidoo|cookidoo|Cookidoo
+com.cdprojektred.cyberpunk|cyberpunk|Cyberpunk
+com.google.android.apps.messaging|messages|Messages
+com.facebook.orca|messenger|Messenger
+com.whatsapp|whatsapp|WhatsApp
+org.thoughtcrime.securesms|signal|Signal
+com.discord|discord|Discord
+com.instagram.barcelona|threads|Threads
+com.twitter.android|x|X
+com.reddit.frontpage|reddit|Reddit
+com.disney.disneyplus|disney|Disney+
+com.netflix.mediaclient|netflix|Netflix
+com.amazon.avod.thirdpartyclient|prime_video|Prime Video
+se.svt.svtplay.android|svt_play|SVT Play
+com.google.android.youtube|youtube|YouTube
+com.google.android.videos|google_tv|Google TV
+com.google.android.apps.docs.editors.docs|docs|Docs
+com.microsoft.office.word|word|Word
+com.microsoft.office.excel|excel|Excel
+com.microsoft.office.powerpoint|powerpoint|PowerPoint
+com.nothing.dothub|dot_hub|Dot Hub
+com.google.android.apps.docs|drive|Drive
+com.microsoft.skydrive|onedrive|OneDrive
+com.google.android.apps.subscriptions.red|google_one|Google One
+com.nothing.ntessentialspace|essential_space|Essential Space
+com.google.android.apps.kids.familylink|family_link|Family Link
+com.google.android.documentsui|files|Files
+com.google.android.apps.nbu.files|files_by_google|Files by Google
+com.google.android.apps.adm|find_hub|Find Hub
+com.google.android.apps.fitness|fit|Fit
+com.google.android.apps.healthdata|health|Health
+org.iggymedia.periodtracker|flo|Flo
+se.friskissvettis.app|mitt_friskis|Mitt Friskis
+se.forsakringskassan.mobilapp|forsakringskassan|Försäkringskassan
+se.forskoleappen|forskoleappen|Förskoleappen
+se.tyra.app|tyra|Tyra
+se.schoolsoft.elev|schoolsoft_elev|SchoolSoft Elev
+se.csn.minasidor|mina_sidor|Mina sidor
+no.mobitroll.kahoot.android|kahoot|Kahoot!
+com.tspquiz|tsp_quiz|TSP Quiz
+com.nothing.gallery|gallery|Gallery
+com.google.android.apps.photos|photos|Photos
+com.github.android|github|GitHub
+md.obsidian|obsidian|Obsidian
+com.google.android.keep|keep_notes|Keep notes
+com.google.android.googlequicksearchbox|google|Google
+com.android.vending|google_play_store|Google Play Store
+com.ovelin.guitartuna|guitartuna|GuitarTuna
+com.google.android.apps.chromecast.app|home|Home
+se.ica.handla|ica|ICA
+se.icabanken.mobil|ica_banken|ICA Banken
+com.revolut.revolut|revolut|Revolut
+com.myklarnamobile|klarna|Klarna
+se.svea.pay|svea_pay|Svea Pay
+com.qliro.app|qliro|Qliro
+se.resurs.app|resurs|Resurs
+se.bankgirot.swish|swish|Swish
+com.kivra.Kivra|kivra|Kivra
+se.mecenat.app|mecenat|Mecenat
+se.postnord.private|postnord|PostNord
+se.dhl.mittdhl|mitt_dhl|Mitt DHL
+com.tiptapp|tiptapp|Tiptapp
+se.tradera.android|tradera|Tradera
+fr.vinted|vinted|Vinted
+com.mcdonalds.mobileapp|mcdonald_s|McDonald's
+com.ryanair.cheapflights|ryanair|Ryanair
+se.sj.android|sj|SJ
+se.sl.app|sl|SL
+se.samtrans.app|samtrans_resor|Samtrans Resor
+se.parkster.parkster|parkster|Parkster
+se.tele2.mitttele2|mitt_tele2|Mitt Tele2
+com.ubnt.unifi.network|unifi|UniFi
+com.linkedin.android|linkedin|LinkedIn
+com.google.android.apps.maps|maps|Maps
+com.pinterest|pinterest|Pinterest
+com.patreon.android|patreon|Patreon
+com.snapchat.android|snapchat|Snapchat
+com.spotify.music|spotify|Spotify
+com.google.android.apps.youtube.music|youtube_music|YouTube Music
+com.zhiliaoapp.musically|tiktok|TikTok
+se.sr.android|sveriges_radio|Sveriges Radio
+com.nothing.soundrecorder|recorder|Recorder
+com.sound.connect|sound_connect|Sound Connect
+com.nothing.smartcenter|nothing_x|Nothing X
+com.microsoft.appmanager|link_to_windows|Link to Windows
+com.papercut.projectbanksia|mobility_print|Mobility Print
+org.kustom.widget|kustom_widget|Kustom Widget
+com.nothing.weather|weather|Weather
+com.google.android.apps.tachyon|meet|Meet
+com.android.settings|settings|Settings
+com.android.stk|sim_toolkit|SIM Toolkit
+org.spreadthesign|spread_the_sign|Spread the Sign
+se.su.teckensprakslexikon|teckensprakslexikon|Teckenspråkslexikon
+com.google.android.dialer|phone|Phone
+ch.protonmail.android|proton_mail|Proton Mail
+com.nordpass.android.app.password.manager|nordpass|NordPass
+com.google.android.apps.walletnfcrel|google_wallet|Google Wallet
+com.sms.exporter|sms_exporter|SMS exporter
+com.google.android.apps.safetyhub|personal_safety|Personal Safety
+com.tabs.app|tabs|Tabs
+com.nothing.wallpaper|nothing_wallpaper|Nothing Wallpaper

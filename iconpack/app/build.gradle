@@ -1,0 +1,15 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'se.eidhaart.rundeck.icons'
+    compileSdk 34
+    defaultConfig {
+        applicationId 'se.eidhaart.rundeck.icons'
+        minSdk 26
+        targetSdk 34
+        versionCode Integer.parseInt(System.getenv('GITHUB_RUN_NUMBER') ?: '1')
+        versionName "1.0." + (System.getenv('GITHUB_RUN_NUMBER') ?: '0')
+    }
+    buildTypes { release { minifyEnabled false; shrinkResources false; signingConfig signingConfigs.debug } }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    aaptOptions { noCompress 'xml' }
+}
