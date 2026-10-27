@@ -1141,11 +1141,11 @@ async function initSb(){
  try{await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js');
   sb=window.supabase.createClient(CFG.supabaseUrl,CFG.supabaseAnonKey);
   const {data}=await sb.auth.getSession();
-  if(data&&data.session){sbUser=data.session.user;await pullSb()}
+  if(data&&data.session){sbUser=data.session.user;await pullSb();widgetRefreshStatus()}
   else{failReady=true;failSweep();if(!state.offline){ui.gate=true;if(!document.getElementById('boot'))showGate()}}
   sb.auth.onAuthStateChange((ev,session)=>{const u=session&&session.user;
    if(ev==='PASSWORD_RECOVERY'){ui.pw={open:true,msg:'',err:false,busy:false,nonce:false,recovery:true};ui.view='cfg';setTimeout(()=>{closeGate();render();toast(t('pwRecover'),'','c2');const n=document.getElementById('pw-new');if(n)n.focus()},400)}
-   if(u&&(!sbUser||sbUser.id!==u.id)){sbUser=u;closeGate();pullSb().then(()=>toast(t('tIn'),u.email||'','c2'))}
+   if(u&&(!sbUser||sbUser.id!==u.id)){sbUser=u;closeGate();pullSb().then(()=>{widgetRefreshStatus();toast(t('tIn'),u.email||'','c2')})}
    else if(!u&&sbUser){sbUser=null;signedOut()}});
   render();
  }catch(e){setSync('err');failReady=true;failSweep()}
@@ -1210,7 +1210,7 @@ async function pushSb(){if(!sbUser||sbBusy||!sbDirty)return;sbBusy=true;sbDirty=
   await sb.from('profiles').upsert({id:sbUser.id,handle:S().handle,lang:S().lang,level:lvl(state.xp).L,xp:state.xp,updated_at:new Date().toISOString()});
   netUp();setSync('cloud')}catch(e){sbDirty=true;isNetErr(e)?netDown():setSync('err')}
  sbBusy=false;if(sbDirty&&netOk)pushSb()}
-function signedOut(){const keep={...S(),handle:'OPERATOR',avatar:''};try{localStorage.removeItem(KEY);localStorage.removeItem(BKEY)}catch(e){}sbBase=null;sbSeen=undefined;state=seed(keep.lang);state.set=keep;state.tasks=[];persistLocal();setSync('local');render();paintNet();ui.pw={open:false,msg:'',err:false,busy:false,nonce:false,recovery:false};ui.auth={msg:'',err:false,busy:false};ui.authMode='in';ui.gate=true;showGate()}
+function signedOut(){widgetHasKey=false;widgetKeyUrl='';widgetKeyStatus='loading';widgetKeyError='';const keep={...S(),handle:'OPERATOR',avatar:''};try{localStorage.removeItem(KEY);localStorage.removeItem(BKEY)}catch(e){}sbBase=null;sbSeen=undefined;state=seed(keep.lang);state.set=keep;state.tasks=[];persistLocal();setSync('local');render();paintNet();ui.pw={open:false,msg:'',err:false,busy:false,nonce:false,recovery:false};ui.auth={msg:'',err:false,busy:false};ui.authMode='in';ui.gate=true;showGate()}
 
 /* ---------- offline warning ---------- */
 function paintNet(){let el=document.getElementById('netwarn');const v=document.getElementById('view');if(!v)return;
@@ -1895,13 +1895,83 @@ function vStats(){const L=lvl(state.xp),days=[];for(let i=13;i>=0;i--){const d=d
  '<section class="panel"><div class="ph"><span class="gl">'+S().glyph+'</span>'+esc(t('ach'))+'<span class="jp">実績</span><span class="ct">'+got+'/'+ACH.length+'</span></div><div class="ach">'+ACH.map(a=>'<div class="badge '+(state.ach[a.k]?'on':'')+'"><b>'+esc(an[a.k][0])+'</b><span>'+esc(an[a.k][1])+'</span></div>').join('')+'</div></section>'}
 function segH(k,opts){return'<div class="seg">'+opts.map(o=>'<button class="'+(S()[k]===o.k?'on':'')+'" data-act="set" data-k="'+k+'" data-v="'+esc(o.k)+'">'+(o.sw?'<span class="sw">'+o.sw.map(c=>'<i style="background:'+c+'"></i>').join('')+'</span>':'')+esc(o.n)+'</button>').join('')+'</div>'}
 function togH(k,label){const on=k==='motion'?S().motion==='reduced':!!S()[k];return'<div class="tog"><span>'+esc(label)+'</span><button class="sw2 '+(on?'on':'')+'" data-act="flip" data-k="'+k+'" role="switch" aria-checked="'+on+'" aria-label="'+esc(label)+'"></button></div>'}
+
+/* ---------- Read-only KWGT access key (the plaintext is never saved) ---------- */
+let widgetHasKey=false,widgetKeyUrl='',widgetKeyStatus='loading',widgetKeyBusy=false,widgetKeyError='';
+const WIDGET_TX={
+ en:{head:'WIDGET ACCESS',note:'Connect a read-only Android home-screen widget to this account.',generate:'Generate widget URL',replace:'Replace widget URL',revoke:'Revoke access',copy:'Copy private URL',active:'An access key is active. The private URL is not stored here; generate a new one if you lost it.',newKey:'This URL is shown only until you leave or reload the page. Copy it into KWGT now.',warning:'Keep this URL private. Anyone with it can see your widget task summary. Generating a new key invalidates the old one.',noKey:'No widget access key yet.',loading:'Checking widget access…',migration:'Widget database setup is missing. Run supabase/widget_uplink.sql in Supabase first.',failed:'Widget request failed: ',done:'Widget URL ready',revoked:'Widget access revoked',copied:'Private widget URL copied',confirm:'Revoke the existing KWGT widget URL? Your widget will stop updating.'},
+ pl:{head:'DOSTĘP WIDŻETU',note:'Połącz widżet Android z tym kontem w trybie tylko do odczytu.',generate:'Wygeneruj adres widżetu',replace:'Zastąp adres widżetu',revoke:'Cofnij dostęp',copy:'Kopiuj prywatny adres',active:'Klucz jest aktywny. Adres nie jest przechowywany; wygeneruj nowy, jeśli go zgubisz.',newKey:'Adres widoczny tylko do odświeżenia strony. Skopiuj go teraz do KWGT.',warning:'Zachowaj adres w tajemnicy. Każdy, kto go zna, może odczytać podsumowanie. Nowy klucz unieważnia stary.',noKey:'Brak klucza widżetu.',loading:'Sprawdzanie dostępu…',migration:'Brak konfiguracji bazy. Uruchom supabase/widget_uplink.sql w Supabase.',failed:'Błąd widżetu: ',done:'Adres widżetu gotowy',revoked:'Dostęp cofnięty',copied:'Skopiowano adres',confirm:'Cofnąć dostęp? Widżet przestanie się odświeżać.'},
+ sv:{head:'WIDGETÅTKOMST',note:'Anslut en skrivskyddad Android-widget till ditt konto.',generate:'Skapa widgetadress',replace:'Ersätt widgetadress',revoke:'Återkalla åtkomst',copy:'Kopiera privat adress',active:'En nyckel är aktiv. Adressen sparas inte här; skapa en ny om du tappat bort den.',newKey:'Adressen visas bara tills sidan laddas om eller stängs. Kopiera den till KWGT nu.',warning:'Håll adressen privat. Den som har den kan läsa din uppgiftssammanfattning. En ny nyckel gör den gamla ogiltig.',noKey:'Ingen widgetnyckel finns.',loading:'Kontrollerar åtkomst…',migration:'Databasen saknar widgetstödet. Kör supabase/widget_uplink.sql i Supabase.',failed:'Widgetfel: ',done:'Widgetadressen är klar',revoked:'Åtkomst återkallad',copied:'Privat adress kopierad',confirm:'Återkalla åtkomst? Widgeten slutar uppdateras.'}
+};
+const widgetLang=()=>WIDGET_TX[S().lang]||WIDGET_TX.en;
+function widgetAccessHtml(){
+ if(!SB_ON||!sbUser)return'';
+ const w=widgetLang(),ready=widgetKeyStatus==='ready',canUse=ready&&!widgetKeyBusy;
+ let detail=widgetKeyStatus==='loading'?esc(w.loading):widgetKeyStatus==='migration'?esc(w.migration):widgetHasKey?esc(widgetKeyUrl?w.newKey:w.active):esc(w.noKey);
+ return'<section class="panel">'+ph(w.head,'接続')+'<div class="cfg">'+
+  '<p class="muted" style="margin:0;font-size:13px">'+esc(w.note)+'</p>'+
+  '<p class="faint" style="margin:0;font-size:12px">'+detail+'</p>'+
+  (widgetKeyError?'<p style="margin:0;color:var(--accent);font-size:12px">'+esc(w.failed+widgetKeyError)+'</p>':'')+
+  (widgetKeyUrl?'<div class="f"><label class="lab" for="widget-url">KWGT URL</label><input id="widget-url" class="inp" readonly spellcheck="false" autocomplete="off" value="'+esc(widgetKeyUrl)+'"></div><button class="btn sm cy" data-act="widgetcopy">'+esc(w.copy)+'</button>':'')+
+  '<div class="row"><button class="btn sm pri" data-act="widgetgen" '+(!canUse?'disabled':'')+'>'+esc(widgetHasKey?w.replace:w.generate)+'</button>'+
+  (widgetHasKey?'<button class="btn sm dng" data-act="widgetrevoke" '+(!canUse?'disabled':'')+'>'+esc(w.revoke)+'</button>':'')+'</div>'+
+  '<p class="faint" style="margin:0;font-size:11.5px">'+esc(w.warning)+'</p>'+
+ '</div></section>'
+}
+async function widgetRefreshStatus(){
+ if(!sb||!sbUser)return;
+ widgetKeyStatus='loading';widgetKeyError='';
+ const userId=sbUser.id;
+ try{
+  const r=await sb.rpc('widget_has_key');
+  if(!sbUser||sbUser.id!==userId)return;
+  if(r.error){widgetKeyStatus='migration';widgetKeyError='';}
+  else{widgetHasKey=r.data===true;widgetKeyStatus='ready';}
+ }catch(e){widgetKeyStatus='migration'}
+ if(ui.view==='cfg')render();
+}
+async function widgetRotate(){
+ if(!sb||!sbUser||widgetKeyBusy||widgetKeyStatus!=='ready')return;
+ widgetKeyBusy=true;widgetKeyError='';render();
+ const w=widgetLang();
+ try{
+  const raw=new Uint8Array(32);crypto.getRandomValues(raw);
+  const token=Array.from(raw,b=>b.toString(16).padStart(2,'0')).join('');
+  const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(token));
+  const hash=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');
+  const r=await sb.rpc('widget_rotate_key',{p_hash:hash});
+  if(r.error)throw r.error;
+  widgetHasKey=true;
+  widgetKeyUrl=location.origin+'/api/widget?token='+token;
+  toast(w.done,'','c2');
+ }catch(e){widgetKeyError=e.message||String(e)}
+ widgetKeyBusy=false;render();
+}
+async function widgetRevoke(){
+ if(!sb||!sbUser||widgetKeyBusy||!widgetHasKey||!confirm(widgetLang().confirm))return;
+ widgetKeyBusy=true;widgetKeyError='';render();
+ const w=widgetLang();
+ try{
+  const r=await sb.rpc('widget_revoke_key');
+  if(r.error)throw r.error;
+  widgetHasKey=false;widgetKeyUrl='';
+  toast(w.revoked,'','c2');
+ }catch(e){widgetKeyError=e.message||String(e)}
+ widgetKeyBusy=false;render();
+}
+async function widgetCopy(){
+ if(!widgetKeyUrl)return;
+ try{await navigator.clipboard.writeText(widgetKeyUrl);toast(widgetLang().copied,'','c2')}
+ catch(e){const input=document.getElementById('widget-url');if(input){input.focus();input.select()}toast(widgetLang().failed,'Select the URL and copy it manually.')}
+}
+
 function vCfg(){const s=S();
  return'<section class="panel">'+ph(t('profile'),'身元')+'<div class="cfg">'+
   '<div class="prof">'+avatarHtml('l')+'<div class="pt" style="display:flex;flex-direction:column;gap:8px"><div class="row"><label class="btn sm pri" for="avfile" style="cursor:pointer">'+I.cam+esc(t('upload'))+'</label><input type="file" id="avfile" accept="image/*" class="sr">'+(s.avatar?'<button class="btn sm" data-act="avdel">'+esc(t('removeAv'))+'</button>':'')+'</div>'+segH('avStyle',[{k:'duo',n:t('avDuo')},{k:'raw',n:t('avRaw')}])+'<span class="faint" style="font-size:12.5px">'+esc(t('avNote'))+'</span></div></div>'+
   '<div class="f"><label class="lab" for="handle">'+esc(t('handle'))+'</label><input class="inp" id="handle" maxlength="24" value="'+esc(s.handle)+'" data-change="handle"></div>'+
   '<div class="f"><span class="lab">'+esc(t('language'))+'</span><div class="seg">'+LANGS.map(l=>'<button class="'+(s.lang===l?'on':'')+'" data-act="lang" data-v="'+l+'">'+l.toUpperCase()+' · '+esc(DICT[l].lang)+'</button>').join('')+'</div></div>'+
  '</div></section>'+
- appHtml()+'<section class="panel">'+ph(t('help'),'案内')+'<div class="pb"><p class="muted" style="margin:0 0 10px;font-size:14px">'+esc(t('helpN'))+'</p><button class="btn pri" data-act="tour">'+esc(t('tourBtn'))+'</button></div></section>'+
+ appHtml()+widgetAccessHtml()+'<section class="panel">'+ph(t('help'),'案内')+'<div class="pb"><p class="muted" style="margin:0 0 10px;font-size:14px">'+esc(t('helpN'))+'</p><button class="btn pri" data-act="tour">'+esc(t('tourBtn'))+'</button></div></section>'+
  '<section class="panel">'+ph(t('account'),'認証')+'<div class="cfg">'+(SB_ON?'<p class="muted" style="margin:0;font-size:14px">'+esc(t('accN'))+'</p>'+(sb?authHtml():'<div class="faint">…</div>')+'<p class="faint" style="margin:0;font-size:12.5px"><a href="privacy.html" target="_blank" rel="noopener" style="color:var(--accent2)">'+esc(t('privacyLink'))+'</a></p>':'<p class="muted" style="margin:0;font-size:14px">'+esc(cloud?t('gridOnly'):t('localOnly'))+'</p>')+'</div></section>'+
  '<section class="panel">'+ph(t('packs'),'外観')+'<div class="pb seg">'+PACKS.map((p,i)=>'<button data-act="pack" data-v="'+i+'">'+esc(p.n)+'</button>').join('')+'</div></section>'+
  '<section class="panel">'+ph(t('look'))+'<div class="cfg">'+
@@ -2014,6 +2084,9 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(
   case'pwopen':ui.pw.open=true;ui.pw.msg='';ui.pw.err=false;sfx('tap');render();{const n=document.getElementById('pw-new');if(n)n.focus()}break;
   case'pwclose':ui.pw={open:false,msg:'',err:false,busy:false,nonce:false,recovery:false};sfx('tap');render();break;
   case'peekpw':{const a=document.getElementById('pw-new'),c=document.getElementById('pw-conf');if(a){const show=a.type==='password';a.type=c.type=show?'text':'password';b.textContent=show?t('hidePw'):t('showPw');sfx('tap')}break}
+  case'widgetgen':widgetRotate();break;
+  case'widgetrevoke':widgetRevoke();break;
+  case'widgetcopy':widgetCopy();break;
   case'signout':sfx('tap');if(sb)sb.auth.signOut();break;
   case'signin':sfx('tap');if(SB_ON&&!sbUser){ui.gate=true;showGate()}break;
   case'askdelacc':ui.confirm='delacc';sfx('err');render();break;
