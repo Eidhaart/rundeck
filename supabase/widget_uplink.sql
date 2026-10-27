@@ -117,7 +117,7 @@ begin
     task_done := coalesce((task->>'done')::boolean, false);
     task_failed := coalesce((task->>'failed')::boolean, false);
     task_title := coalesce(nullif(pg_catalog.btrim(
-      pg_catalog.regexp_replace(task->>'title', '[[:space:]]+', ' ', 'g')), ''), 'UNTITLED');
+      pg_catalog.regexp_replace(coalesce(task->>'title', ''), '[[:space:]]+', ' ', 'g')), ''), 'UNTITLED');
 
     if target_id is not null and task->>'id' = target_id and
        not task_done and not task_failed then
@@ -128,7 +128,7 @@ begin
        (fresh or task_list = 'routine' or (not task_done and not task_failed)) then
       total_count := total_count + 1;
       -- A routine's completion resets when a new local day begins.
-      if fresh and task_done then
+      if fresh and (task_done or task_failed) then
         done_count := done_count + 1;
       elsif not fresh or (not task_done and not task_failed) then
         open_count := open_count + 1;
@@ -155,7 +155,7 @@ begin
        select 1 from pg_catalog.jsonb_array_elements(
          case when jsonb_typeof(deck->'items') = 'array'
               then deck->'items' else '[]'::jsonb end
-       ) i where i->>'t' = 'shield'
+       ) as item(value) where item.value->>'t' = 'shield'
      );
   if last_streak in (today::text, yesterday) or
      (last_streak = two_days_ago and shield_available) then
