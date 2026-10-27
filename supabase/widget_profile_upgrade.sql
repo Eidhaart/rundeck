@@ -52,8 +52,8 @@ begin
 
   settings := coalesce(d->'set', '{}'::jsonb);
   operator_handle := coalesce(nullif(pg_catalog.btrim(settings->>'handle'), ''), 'OPERATOR');
-  initials := pg_catalog.upper(pg_catalog.substring(
-    pg_catalog.regexp_replace(operator_handle, '[^[:alnum:]]', '', 'g') from 1 for 2
+  initials := pg_catalog.upper(pg_catalog.substr(
+    pg_catalog.regexp_replace(operator_handle, '[^[:alnum:]]', '', 'g'), 1, 2
   ));
   if initials = '' then initials := 'OP'; end if;
   has_portrait := pg_catalog.left(coalesce(settings->>'avatar', ''), 23) = 'data:image/jpeg;base64,';
