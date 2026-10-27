@@ -137,7 +137,7 @@ begin
     end if;
   end loop;
 
-  total_xp := pg_catalog.greatest(0, coalesce((deck->>'xp')::int, 0));
+  total_xp := greatest(0, coalesce((deck->>'xp')::int, 0));
   remaining_xp := total_xp;
   -- Same level thresholds as RunDeck's lvl(): 80 + 40 * current level.
   while remaining_xp >= (80 + 40 * level_no) and level_no < 10000 loop
@@ -148,7 +148,7 @@ begin
   streak_data := coalesce(deck->'streak', '{}'::jsonb);
   yesterday := (today - 1)::text;
   two_days_ago := (today - 2)::text;
-  monday := (today - (pg_catalog.extract(isodow from today)::int - 1))::text;
+  monday := (today - (extract(isodow from today)::int - 1))::text;
   last_streak := streak_data->>'last';
   shield_available := coalesce(streak_data->>'shield', '') <> monday
      or exists (
@@ -159,7 +159,7 @@ begin
      );
   if last_streak in (today::text, yesterday) or
      (last_streak = two_days_ago and shield_available) then
-    live_streak := pg_catalog.greatest(0, coalesce((streak_data->>'n')::int, 0));
+    live_streak := greatest(0, coalesce((streak_data->>'n')::int, 0));
   end if;
 
   pct := case when total_count = 0 then 0
