@@ -101,6 +101,7 @@ begin
     'handle', operator_handle,
     'initials', initials,
     'avatar_present', has_portrait,
+    'avatar_status', case when has_portrait then 'UPLOADED' else 'DEFAULT' end,
     'avatar_style', coalesce(settings->>'avStyle', 'duo'),
     'credits', credits,
     'creds', credits,
